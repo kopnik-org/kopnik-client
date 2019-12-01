@@ -55,10 +55,7 @@ GET users/get?ids=210700286,7777777
         "patronymic": "asdf",
         "nick": "Boroda",
         "birthday": "1900",
-        "location": {,
-            "latitude": "123.123",
-            "longitude": "123.2342"
-        },
+        "location": ["1234.3125","54.3245"], // latitude, longitude
         "witness_id": "1234",
         "foreman_id": null,
         "photo_50": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
