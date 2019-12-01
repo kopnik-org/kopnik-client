@@ -1,0 +1,11 @@
+{
+  "profile": {
+    "name": "Name",
+    "surname": "Surname",
+    "patronymic": "Patonymic",
+    "birth": "Birthday",
+    "passport": "Last for number of passport",
+    "location": "Home location",
+    "shortName": "Nickname"
+  }
+}

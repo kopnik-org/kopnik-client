@@ -9,6 +9,3 @@ import Kopnik from "./Kopnik"
 // import File from "./model/File"
 
 export {AbstractSync, Kopnik}
-
-let x= new Kopnik
-x=undefined
