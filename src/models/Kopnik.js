@@ -5,7 +5,7 @@ export default class Kopnik extends AbstractSync{
     surname = undefined
     firstname = undefined
     patronymic = undefined
-    birth = undefined
+    birthday = undefined
     passport= undefined
 
     latitude = undefined
