@@ -1,9 +1,17 @@
-import scalar from './decorators/scalar'
+import {sync, collection} from './decorators/sync'
+import AbstractSync from "./AbstractSync";
 
-class Kopnik {
-    @scalar name
+export default class Kopnik extends AbstractSync{
+    surname = undefined
+    firstname = undefined
+    patronymic = undefined
+    birth = undefined
+    passport= undefined
 
-    constructor() {
-        this.id = undefined
+    latitude = undefined
+    longtitude = undefined
+
+    get name(){
+        return `${this.firstName} ${this.surname} ${this.patronymic}`
     }
 }
