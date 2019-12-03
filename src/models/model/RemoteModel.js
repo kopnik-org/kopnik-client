@@ -231,14 +231,14 @@ class RemoteModel extends EventEmitter {
   async reload(source) {
     let isLoadedBefore = this._isLoaded;
 
-    let json = await Connection.getInstance().session.call("ru.kopa.model.get", [], {
+    let json = await Connection.getInstance().session.call("ru.kopa.model.getInstance", [], {
       model: this.constructor.name,
       id: this.id
     });
 
     /**
-     * есть вероятность что ушло два параллельных .get()
-     * или текущий .get() начинался внутри .create()
+     * есть вероятность что ушло два параллельных .getInstance()
+     * или текущий .getInstance() начинался внутри .create()
      * и к этому моменту модель уже загружена
      */
     if (!isLoadedBefore && this._isLoaded) {

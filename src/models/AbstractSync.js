@@ -6,7 +6,7 @@ import _ from "lodash"
 import loglevel from "loglevel"
 
 import config from "../../config"
-import * as models from "."
+
 
 /**
  * Общий принцип работы следующий
@@ -44,109 +44,111 @@ export default class AbstractSync {
          */
         this.created = undefined;
     }
-/*
 
-    static factory(from) {
-        let [type, id] = from.split(":")
+    /*
 
-        result = models[type].getReference(id)
+        static factory(from) {
+            let [type, id] = from.split(":")
 
-        return result
-    }
-*/
+            result = models[type].getReference(id)
+
+            return result
+        }
+    */
 
     /**
      * Плоское представление объекта для передачина на сервер
      */
-/*
-    static getPlain(value) {
-        let result = {};
-        for (let eachKey of Object.keys(value)) {
-            let eachProperty = value[eachKey];
 
-            if (Array.isArray(eachProperty)) {
-                result[eachKey] = [];
-                for (let eachPropertyEachReference of eachProperty) {
-                    if (!_.isObject(eachPropertyEachReference)) {
-                        throw new Error(`arrays of AbstractSync only supported, ${typeof eachPropertyEachReference} given`);
+    /*
+        static getPlain(value) {
+            let result = {};
+            for (let eachKey of Object.keys(value)) {
+                let eachProperty = value[eachKey];
+
+                if (Array.isArray(eachProperty)) {
+                    result[eachKey] = [];
+                    for (let eachPropertyEachReference of eachProperty) {
+                        if (!_.isObject(eachPropertyEachReference)) {
+                            throw new Error(`arrays of AbstractSync only supported, ${typeof eachPropertyEachReference} given`);
+                        }
+                        if (!(eachPropertyEachReference instanceof AbstractSync)) {
+                            throw new Error(`arrays of AbstractSync only supported, ${eachPropertyEachReference.constructor.name} given`);
+                        }
+                        result[eachKey].push(eachPropertyEachReference.id);
                     }
-                    if (!(eachPropertyEachReference instanceof AbstractSync)) {
-                        throw new Error(`arrays of AbstractSync only supported, ${eachPropertyEachReference.constructor.name} given`);
+                } else if (_.isObject(eachProperty) && !(eachProperty instanceof Date)) {
+                    if (!(eachProperty instanceof AbstractSync)) {
+                        throw new Error(`reference to AbstractSync only supported, ${eachProperty.constructor.name} given`);
                     }
-                    result[eachKey].push(eachPropertyEachReference.id);
+                    result[eachKey + "_id"] = eachProperty.id;
+                } else {
+                    result[eachKey] = eachProperty;
                 }
-            } else if (_.isObject(eachProperty) && !(eachProperty instanceof Date)) {
-                if (!(eachProperty instanceof AbstractSync)) {
-                    throw new Error(`reference to AbstractSync only supported, ${eachProperty.constructor.name} given`);
-                }
-                result[eachKey + "_id"] = eachProperty.id;
-            } else {
-                result[eachKey] = eachProperty;
             }
+
+            return result;
         }
 
-        return result;
-    }
-
-*/
+    */
 
     static clearCache() {
         this.cache.forEach(eachCache => eachCache.clear())
     }
 
-/*    async save() {
-        let plain = this.getPlain()
-        let result = await Connection.getInstance().session.call("api:model.save", [], {
-            type: this.constructor.name,
-            plain: plain
-        })
-        return result
-    }*/
-
-/*    static async create(value) {
-        if (!value.attachments) {
-            value.attachments = [];
-        }
-        /!**
-         * если сюда передался id, то ниже он перекроет собой настоящий id
-         *!/
-        delete value.id
-        delete value.created
-        // let plain= this.getPlain(value);
-        let plain = this.prototype.getPlain.call(value);
-        let {id, created} = await Connection.getInstance().session.call("api:model.create", [], {
-            type: this.name,
-            plain: plain
-        });
-        id = parseInt(id)
-        created = new Date(created)
-
-        let result = this.getReference(id)
-        Object.assign(result, value)
-        result.created = created
-        result.isLoaded = true
-
-        await result.subscribeToWAMPPublications();
-
-        return result;
-    }*/
-
-/*    async destroy(soft = false) {
-        if (!this.id) {
-            throw new Error("destroying unsaved model")
-        }
-        if (!soft) {
-            await Connection.getInstance().session.call("api:model.destroy", [], {
+    /*    async save() {
+            let plain = this.getPlain()
+            let result = await Connection.getInstance().session.call("api:model.save", [], {
                 type: this.constructor.name,
-                id: this.id
+                plain: plain
             })
-        } else {
-            this.constructor.cache.get(this.constructor.name).delete(this.id)
-            this.id = undefined
+            return result
+        }*/
 
-            await this.unsubscribeFromWAMPPublications()
-        }
-    }*/
+    /*    static async create(value) {
+            if (!value.attachments) {
+                value.attachments = [];
+            }
+            /!**
+             * если сюда передался id, то ниже он перекроет собой настоящий id
+             *!/
+            delete value.id
+            delete value.created
+            // let plain= this.getPlain(value);
+            let plain = this.prototype.getPlain.call(value);
+            let {id, created} = await Connection.getInstance().session.call("api:model.create", [], {
+                type: this.name,
+                plain: plain
+            });
+            id = parseInt(id)
+            created = new Date(created)
+
+            let result = this.getReference(id)
+            Object.assign(result, value)
+            result.created = created
+            result.isLoaded = true
+
+            await result.subscribeToWAMPPublications();
+
+            return result;
+        }*/
+
+    /*    async destroy(soft = false) {
+            if (!this.id) {
+                throw new Error("destroying unsaved model")
+            }
+            if (!soft) {
+                await Connection.getInstance().session.call("api:model.destroy", [], {
+                    type: this.constructor.name,
+                    id: this.id
+                })
+            } else {
+                this.constructor.cache.getInstance(this.constructor.name).delete(this.id)
+                this.id = undefined
+
+                await this.unsubscribeFromWAMPPublications()
+            }
+        }*/
 
     static getReference(id) {
         if (!id) {
@@ -155,7 +157,7 @@ export default class AbstractSync {
         if (_.isString(id)) {
             id = parseInt(id)
         }
-        if (!models[this.name]) {
+        if (!this.cache.has(this.name)) {
             throw new Error("Неправильный тип объекта " + this.name)
         }
 
@@ -170,54 +172,52 @@ export default class AbstractSync {
         return this.cache.get(this.name).get(id)
     }
 
-  static async fetch(url, options){
-    let fullUrl= `${config.api.path}/${this.name.replace('Kopnik', 'User').toLowerCase()}/${url}`
-    let response
-    try{
-      response = await fetch(fullUrl, options)
+    static async fetch(url, options) {
+        let fullUrl = `${config.api.path}/${this.name.replace('Kopnik', 'User').toLowerCase()}/${url}`
+        let response
+        try {
+            response = await fetch(fullUrl, options)
+        } catch (err) {
+            throw new err.constructor(`api network error url: ${fullUrl}, base error ${err.message}`)
+        }
+        if (!response.ok) {
+            throw new Error(`api network error url: ${fullUrl}, status: ${response.status}`)
+        }
+        let result = await response.json()
+        return result
     }
-    catch(err){
-      throw new err.constructor(`api network error url: ${fullUrl}, base error ${err.message}`)
-    }
-    if (!response.ok){
-      throw new Error(`api network error url: ${fullUrl}, status: ${response.status}`)
-    }
-    let result= await response.json()
-    return result
-  }
 
     /**
-     * Создает на клиенте isLoaded модель однм из спсобов:
-     * 1. загружает из what например после массовой загрузки листа
-     * 2. из кэша
-     * 3. из севера
+     * Получить модель
      *
-     * @param what
+     * @param id
      * @return {Promise.<*>}
      */
-    static async get(what) {
+    static async loaded(id) {
         let result
 
-        if (_.isNumber(what) || _.isString(what)) {
-            result = this.getReference(what)
-            if (!result.isLoaded) {
-                await result.reload()
-            }
-            return result
-        }
-        else {
-            result = this.getReference(what.id)
-            if (!result.isLoaded) {
-                result.merge(what)
-                result.isLoaded=true
-            }
-            return result;
-        }
+        result = this.getReference(id)
+        await result.loaded()
+        return result
     }
 
-    static async list(){
-        let json= await this.fetch("list"),
-            result= Promise.all(json.users.map(eachModel=> this.get(eachModel) ))
+    /**
+     * Мержит плоский объект или модель в кэш моделей
+     *
+     * @param {Object | AbstractAsync} what
+     * @returns {*}
+     */
+    static merge(what) {
+        let result
+        result = this.getReference(what.id)
+        result.merge(what)
+
+        return result
+    }
+
+    static async list() {
+        let json = await this.fetch("list"),
+            result = Promise.all(json.users.map(eachModel => this.get(eachModel)))
 
         return result
     }
@@ -227,10 +227,10 @@ export default class AbstractSync {
      * @returns {Promise.<AbstractSync>}
      */
     async reload() {
-      let json= await this.constructor.fetch(this.id)
-      this.merge(json.user)
-        this.isLoaded=true
-      return this;
+        let json = await this.constructor.fetch(`get?urls=${this.id}`)
+        this.merge(json[0])
+        this.isLoaded = true
+        return this;
     }
 
     /**
@@ -239,28 +239,25 @@ export default class AbstractSync {
      * @returns {Promise.<RemoteEntity>}
      */
     async loaded() {
-      if (!this.isLoaded) {
-        await this.reload()
-      }
-      return this
+        if (!this.isLoaded) {
+            await this.reload()
+        }
+        return this
     }
 
     /**
 
      */
     merge(plain) {
-      for (let eachPropName of Object.keys(plain)) {
-        this[eachPropName] = plain[eachPropName]
-      }
+        for (let eachPropName of this.constructor.scalars) {
+            if (Object.keys(plain).indexOf(eachPropName)!=-1)
+            this[eachPropName] = plain[eachPropName]
+        }
     }
 
     toString() {
-      return `${this.constructor.name} {${this.id}:"${this.name}"}`;
+        return `${this.constructor.name} {${this.id}:"${this.name}"}`;
     }
 }
 
-Object.keys(models).forEach(eachModelName=>{
-  if (eachModelName != AbstractSync.name) {
-    AbstractSync.cache.set(eachModelName, new Map())
-  }
-})
+["Kopnik", "Kopa"].forEach(eachModelName => AbstractSync.cache.set(eachModelName, new Map()))

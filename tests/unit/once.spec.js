@@ -30,7 +30,7 @@ describe('once', () => {
     expect( result[0]).toBe(result[1])
   })
 
-  it('every once get same error',  async () => {
+  it('every once getInstance same error',  async () => {
     let onceAbs = once(async ()=>Promise.reject(new Error(123)))
     let result1 = onceAbs()
     let result2 = onceAbs()

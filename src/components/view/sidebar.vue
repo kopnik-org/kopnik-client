@@ -47,7 +47,7 @@
   import CookieAuth from "./cookie-auth";
 
   import Application from "../Application"
-  import logMixin from "./mixin/log"
+  import logMixin from "../mixin/log"
   import Notifier from "../Notifier"
   import Grumbler from "../Grumbler"
   import StateManager from "../StateManager"

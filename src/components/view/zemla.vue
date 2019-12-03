@@ -18,12 +18,12 @@
 
 <script>
   import Application from "../Application"
-  import logMixin from "./mixin/log"
+  import logMixin from "../mixin/log"
   import StateManager from "../StateManager"
   let models = require("../model")
 
   export default{
-    mixins: [require("./mixin/scroll")],
+    mixins: [require("../mixin/scroll")],
 //    mixins:[logMixin],
     name: "zemla",
     data() {

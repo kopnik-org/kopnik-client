@@ -1,48 +1,47 @@
 <template>
-    <LMap ref="map" :center="center" :zoom="zoom" style="z-index: 0">
-        <l-tile-layer
-                v-for="tileProvider in tileProviders"
-                :key="tileProvider.name"
-                :name="tileProvider.name"
-                :visible="tileProvider.visible"
-                :url="tileProvider.url"
-                :attribution="tileProvider.attribution"
-                :token="tileProvider.token"
-                layer-type="base"/>
-        <l-control-layers position="topright"></l-control-layers>
-        <l-control-scale position="bottomright" :imperial="false" :metric="true"></l-control-scale>
-        <l-control position="bottomright">
-            <button @click="onLocationClick">
-                I am a useless button!
-            </button>
-        </l-control>
-        <l-marker :lat-lng="center">
-            <l-icon
-                    :icon-size="[64, 64]"
-                    :icon-anchor="[32,32]"
-                    icon-url="logo  circle.png">
-            </l-icon>
-        </l-marker>
-        <l-marker :lat-lng="center" @click="onKopnikClick(kopnik)">
-            <l-tooltip>Борода</l-tooltip>
-            <!--
-    <l-popup>Hello!</l-popup>-->
-        </l-marker>
-    </LMap>
+    <v-app id="inspire">
+        <v-navigation-drawer v-model="drawer" app>
+            <v-list dense>
+                <v-list-item link>
+                    <v-list-item-action>
+                        <v-icon>mdi-home</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Home</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item link>
+                    <v-list-item-action>
+                        <v-icon>mdi-contact-mail</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Contact</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
+        </v-navigation-drawer>
+
+        <v-app-bar
+                app
+                color="indigo"
+        >
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
+            <v-toolbar-title>Application</v-toolbar-title>
+        </v-app-bar>
+
+        <v-content>
+            <v-container :is="$options.app.SECTION" :value= "$options.app.user" :locale.sync="$options.i18n.locale" class="fill-height pa-10" fluid>
+                <!--                class="align-stretch"-->
+            </v-container>
+        </v-content>
+    </v-app>
 </template>
+
 <script>
-    import {
-        LTooltip,
-        LPopup,
-        LIcon,
-        LControlScale,
-        LMap,
-        LTileLayer,
-        LMarker,
-        LControlAttribution,
-        LControlLayers,
-        LControl
-    } from 'vue2-leaflet';
+    import {LTooltip, LPopup, LIcon, LControlScale, LMap, LTileLayer, LMarker, LControlAttribution, LControlLayers, LControl} from 'vue2-leaflet';
+
+    import Map from "./Map"
+    import Profile from "./Profile"
 
     export default {
         components: {
@@ -55,19 +54,17 @@
             LControlScale,
             LIcon,
             LPopup,
-            LTooltip
+            LTooltip,
+            Map,
+            Profile
         },
         props: {
-            center: {
-                type: Array,
-                default: ()=>[55.753215, 37.622504]
-            },
-            zoom: {
-                type: Number,
-                default: 14
-            },
+            source: String,
         },
         data: () => ({
+            drawer: null,
+            center: [47.413220, -1.219482],
+            zoom: 14,
             tileProviders: [
                 {
                     name: "OpenStreetMap",
@@ -93,21 +90,26 @@
                     token: null
                 }
             ],
-            kopnik: {
+            kopnik:{
                 name: "Борода"
             }
         }),
+        computed:{
+
+        },
         methods: {
-            onLocationClick() {
-                alert("getInstance current location")
+            onLocationClick()
+            {
             },
-            onKopnikClick(kopnik) {
+            onKopnikClick(kopnik){
                 alert("Open face dialog ")
             }
+
         },
         mounted() {
             this.$nextTick(() => {
-                // this.map= this.$refs.map.mapObject.setView([51.505, -0.09], 13)
+                // this.map=
+                // this.$refs.map.mapObject.setView([51.505, -0.09], 13)
 
             })
         }

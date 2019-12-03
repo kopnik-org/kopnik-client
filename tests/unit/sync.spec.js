@@ -1,8 +1,9 @@
-import {sync, collection} from '../../src/models/decorators/sync'
+import {sync, collection, scalar} from '../../src/models/decorators/sync'
 
 @sync
 class Kopnik {
 
+  @scalar firstname
   @collection ten= undefined
 
   constructor(id){
@@ -40,19 +41,25 @@ describe('sync', () => {
       expect(kopnik.name).toEqual(name1)
     })
 
-    it.skip("twice loaded get same Promise", async () => {
+    it.skip("twice loaded getInstance same Promise", async () => {
       let kopnik = new Kopnik(1)
       expect(kopnik.loaded()).toBe(kopnik.loaded())
     })
   })
-
+  describe('scalar', () => {
+    it('@scalar add static field sclars', () => {
+      let kopnik= new Kopnik()
+      let descriptor= Object.getOwnPropertyDescriptor(kopnik,"firstname")
+      expect(Kopnik.scalars).toBeInstanceOf(Array)
+    })
+  })
   describe('remote collection', () => {
     it('collection create loadName method',  () => {
       let kopnik= new Kopnik(1)
 
       expect(kopnik).toHaveProperty("getTen")
     })
-    it('collection get data',  async () => {
+    it('collection getInstance data',  async () => {
       let kopnik= new Kopnik(1)
       let ten= await kopnik.getTen()
       expect(ten).toBeInstanceOf(Array)

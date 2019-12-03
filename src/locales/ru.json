@@ -1,11 +1,12 @@
 {
   "profile": {
-    "name": "Имя",
+    "language": "Язык",
+    "firstname": "Имя",
     "surname": "Фамиля",
     "patronymic": "Отчество",
-    "birth": "Год рождения",
+    "birthyear": "Год рождения",
     "passport": "Последние 4 цифры пасспорта",
     "location": "Место жительства",
-    "shortName": "Прзвище"
+    "nick": "Прзвище"
   }
 }

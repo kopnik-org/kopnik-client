@@ -11,8 +11,8 @@
 
 <script>
   import Application from '../Application'
-  import humanize from "./mixin/humanize"
-  import logMixin from "./mixin/log"
+  import humanize from "../mixin/humanize"
+  import logMixin from "../mixin/log"
   import StateManager from "../StateManager"
 
   export default  {

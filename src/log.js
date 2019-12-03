@@ -4,8 +4,9 @@
 
 import log from "loglevel"
 import prefix from "loglevel-plugin-prefix"
-import toString from "loglevel-plugin-test"
+import toString from "./loglevel-plugin-test"
 
+prefix.reg(log)
 prefix.apply(log, {template:"%t [%l] %n: "})
 if (process.env.NODE_ENV=="testing") {
   toString.apply(log, {})

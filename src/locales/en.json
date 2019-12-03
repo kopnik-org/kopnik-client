@@ -1,11 +1,12 @@
 {
   "profile": {
-    "birth": "Birthday",
+    "language": "Language",
+    "birthyear": "Birthyear",
     "location": "Home location",
-    "name": "Name",
+    "firstname": "Name",
     "passport": "Last for number of passport",
     "patronymic": "Patonymic",
-    "shortName": "Nickname",
+    "nick": "Nickname",
     "surname": "Surname"
   }
 }

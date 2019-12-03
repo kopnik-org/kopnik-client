@@ -1,17 +1,21 @@
-import {sync, collection} from './decorators/sync'
+import {sync, collection, scalar, object} from './decorators/sync'
 import AbstractSync from "./AbstractSync";
 
 export default class Kopnik extends AbstractSync{
-    surname = undefined
-    firstname = undefined
-    patronymic = undefined
-    birthday = undefined
-    passport= undefined
+    @scalar surname = undefined
+    @scalar firstname = undefined
+    @scalar patronymic = undefined
+    @scalar birthyear = undefined
+    @scalar passport= undefined
+    @scalar location= undefined
+    photo50= undefined
 
-    latitude = undefined
-    longtitude = undefined
+    @object foreman= undefined
+    @object witness=undefined
+
+    @collection ten
 
     get name(){
-        return `${this.firstName} ${this.surname} ${this.patronymic}`
+        return `${this.firstname} ${this.surname} ${this.patronymic}`
     }
 }

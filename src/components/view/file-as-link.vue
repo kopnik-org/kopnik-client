@@ -19,12 +19,12 @@
 <script>
   import Application from '../Application'
   import config from '../../config/main'
-  import logMixin from "./mixin/log"
+  import logMixin from "../mixin/log"
   import StateManager from "../StateManager"
 
   export default  {
     components: {},
-    mixins: [require("./mixin/humanize")],
+    mixins: [require("../mixin/humanize")],
     name: "file-as-link",
     props: ["id", "model", "target"],
     filters: {

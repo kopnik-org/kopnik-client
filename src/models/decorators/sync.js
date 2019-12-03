@@ -2,8 +2,8 @@ import once from './once'
 import config from "../../../config";
 
 export function sync(constructor) {
+    // throw new Error("deprecated")
     constructor.prototype.get = once(async function () {
-        console.log(`fetch path/to/api/${constructor.name}/id=`, this.id)
         let result = {
             // id: Math.ceil(Math.random()*100),
             name: "A".repeat(Math.ceil(Math.random() * 10))
@@ -27,14 +27,32 @@ export function sync(constructor) {
         return this
     })
 
-    return function (...args) {
+    let result= function (...args) {
         let instance = new constructor(...args)
         instance.isLoaded = false
         return instance
     }
-
+    result.scalars= constructor.scalars
 
     return result
+}
+
+export function scalar(target, name, descriptor) {
+    //положить все скалярные поля в статический массив
+    target.constructor.scalars= target.constructor.scalars || []
+    target.constructor.scalars.push(name)
+
+    //обозначить скарярность в дескрипторе свойства -  не работает
+    descriptor.scalar= true
+}
+
+export function object(target, name, descriptor) {
+    //положить все скалярные поля в статический массив
+    target.constructor.objects= target.constructor.objects || []
+    target.constructor.objects.push(name)
+
+    //обозначить скарярность в дескрипторе свойства -  не работает
+    descriptor.objects= true
 }
 
 export function collection(target, name, descriptor) {
