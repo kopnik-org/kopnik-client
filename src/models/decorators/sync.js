@@ -56,6 +56,9 @@ export function object(target, name, descriptor) {
 }
 
 export function collection(target, name, descriptor) {
+    target.constructor.collections= target.constructor.collections || []
+    target.constructor.collections.push(name)
+
     let capitalizedName = name[0].toUpperCase() + name.slice(1)
     Object.defineProperty(
         target,

@@ -5,8 +5,9 @@
     "location": "Home location",
     "firstname": "Name",
     "passport": "Last for number of passport",
-    "patronymic": "Patonymic",
-    "nick": "Nickname",
-    "surname": "Surname"
+    "patronymic": "Patronymic",
+    "nickname": "Nickname",
+    "surname": "Surname",
+    "sendRequest": "Send request"
   }
 }

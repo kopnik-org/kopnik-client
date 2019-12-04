@@ -30,8 +30,9 @@
         </v-app-bar>
 
         <v-content>
-            <v-container :is="$options.app.SECTION" :value= "$options.app.user" :locale.sync="$options.i18n.locale" class="fill-height pa-10" fluid>
-                <!--                class="align-stretch"-->
+            <v-container justify-content-center class="fill-height justify-center" fluid>
+<!--                :is="$options.app.SECTION"-->
+                <Profile style="flex-grow: 1"></Profile>
             </v-container>
         </v-content>
     </v-app>

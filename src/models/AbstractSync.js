@@ -6,7 +6,7 @@ import _ from "lodash"
 import loglevel from "loglevel"
 
 import config from "../../config"
-
+import * as models from "."
 
 /**
  * Общий принцип работы следующий
@@ -60,37 +60,23 @@ export default class AbstractSync {
      * Плоское представление объекта для передачина на сервер
      */
 
-    /*
-        static getPlain(value) {
-            let result = {};
-            for (let eachKey of Object.keys(value)) {
-                let eachProperty = value[eachKey];
-
-                if (Array.isArray(eachProperty)) {
-                    result[eachKey] = [];
-                    for (let eachPropertyEachReference of eachProperty) {
-                        if (!_.isObject(eachPropertyEachReference)) {
-                            throw new Error(`arrays of AbstractSync only supported, ${typeof eachPropertyEachReference} given`);
-                        }
-                        if (!(eachPropertyEachReference instanceof AbstractSync)) {
-                            throw new Error(`arrays of AbstractSync only supported, ${eachPropertyEachReference.constructor.name} given`);
-                        }
-                        result[eachKey].push(eachPropertyEachReference.id);
-                    }
-                } else if (_.isObject(eachProperty) && !(eachProperty instanceof Date)) {
-                    if (!(eachProperty instanceof AbstractSync)) {
-                        throw new Error(`reference to AbstractSync only supported, ${eachProperty.constructor.name} given`);
-                    }
-                    result[eachKey + "_id"] = eachProperty.id;
-                } else {
-                    result[eachKey] = eachProperty;
-                }
-            }
-
-            return result;
+    get plain() {
+        let result = {
+            id:this.id
         }
 
-    */
+        for (let eachScalarName of this.constructor.scalars.concat("id")) {
+            result[eachScalarName] = this[eachScalarName] === undefined ? null : this[eachScalarName]
+        }
+        for (let eachObjectName of this.constructor.objects) {
+            result[eachObjectName + "_id"] = (this[eachObjectName] instanceof AbstractSync) ? this[eachObjectName].id : null
+        }
+        for (let eachCollectionName of this.constructor.collections) {
+            result[eachCollectionName] = (this[eachCollectionName] instanceof Array) ? this[eachCollectionName].map(eachItem=>eachItem.plain): null
+        }
+        return result;
+    }
+
 
     static clearCache() {
         this.cache.forEach(eachCache => eachCache.clear())
@@ -172,19 +158,37 @@ export default class AbstractSync {
         return this.cache.get(this.name).get(id)
     }
 
-    static async fetch(url, options) {
-        let fullUrl = `${config.api.path}/${this.name.replace('Kopnik', 'User').toLowerCase()}/${url}`
+    static async fetch(url, options={}) {
+        options.headers= options.headers || {}
+        if (!options.headers.Accept){
+            options.headers.Accept= 'application/json'
+        }
+        if (options.method=="POST" && !options.headers['Content-Type']){
+            options.headers['Content-Type']= 'application/json'
+        }
+
+        let fullUrl = `${config.api.path}/${this.name.replace('Kopnik', 'User').toLowerCase()}s/${url}`
         let response
         try {
             response = await fetch(fullUrl, options)
         } catch (err) {
-            throw new err.constructor(`api network error url: ${fullUrl}, base error ${err.message}`)
+            throw new err.constructor(`kopnik.org API network error url: ${fullUrl}, base error ${err.message}`)
         }
         if (!response.ok) {
-            throw new Error(`api network error url: ${fullUrl}, status: ${response.status}`)
+            throw new Error(`kopnik.org API network error url: ${fullUrl}, status: ${response.status}`)
         }
-        let result = await response.json()
-        return result
+        let result
+        if (options.headers.Accept=="application/json") {
+            result = await response.json()
+            if (response.error) {
+                throw new Error(`kopnik.org API error message:${response.error.error_msg}, code: ${response.error.error_code}, url: ${fullUrl}, status: ${response.status}`)
+            }
+            return result.response
+        }
+        else{
+            result=await response.text()
+            return result
+        }
     }
 
     /**
@@ -227,7 +231,7 @@ export default class AbstractSync {
      * @returns {Promise.<AbstractSync>}
      */
     async reload() {
-        let json = await this.constructor.fetch(`get?urls=${this.id}`)
+        let json = await this.constructor.fetch(`get?ids=${this.id}`)
         this.merge(json[0])
         this.isLoaded = true
         return this;
@@ -249,9 +253,15 @@ export default class AbstractSync {
 
      */
     merge(plain) {
-        for (let eachPropName of this.constructor.scalars) {
-            if (Object.keys(plain).indexOf(eachPropName)!=-1)
-            this[eachPropName] = plain[eachPropName]
+        for (let eachScalarName of this.constructor.scalars.concat("id")) {
+            if (plain[eachScalarName] !== undefined) {
+                this[eachScalarName] = plain[eachScalarName]
+            }
+        }
+        for (let eachObjectName of this.constructor.objects) {
+            if (plain[eachObjectName + "_id"] !== undefined) {
+                this[eachObjectName] = plain[eachObjectName + "_id"] === null ? null : models.Kopnik.getReference(plain[eachObjectName + "_id"])
+            }
         }
     }
 

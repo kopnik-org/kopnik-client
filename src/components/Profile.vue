@@ -1,50 +1,99 @@
 <template>
-    <form>
-        <v-combobox ref="locale"
-                        :value="locale"
-                :items="locales"
-                :auto-select-first="true"
-                    :label="$t('profile.language')"
-                @change="$emit('update:locale', $event.value)"
-        ></v-combobox>
-        <v-text-field
-                v-model="value.surname"
-                :label="$t('profile.surname')"
-        ></v-text-field>
-        <v-text-field
-                v-model="value.firstname"
-                :label="$t('profile.firstname')"
-        ></v-text-field>
-        <v-text-field
-                v-model="value.patronymic"
-                :label="$t('profile.patronymic')"
-        ></v-text-field>
-        <v-text-field
-                v-model="value.nick"
-                :label="$t('profile.nick')"
-        ></v-text-field>
-        <v-text-field
-                v-model="value.birthyear"
-                :label="$t('profile.birthyear')"
-        ></v-text-field>
-        <v-text-field
-                v-model="value.passport"
-                :label="$t('profile.passport')"
-        ></v-text-field>
-        <LMap ref="map" :center.sync="center" :zoom="zoom" class="" style="z-index: 0; height: 50vh;" >
-            <l-tile-layer ref="map"
-                    v-for="tileProvider in tileProviders"
-                    :key="tileProvider.name"
-                    :name="tileProvider.name"
-                    :visible="tileProvider.visible"
-                    :url="tileProvider.url"
-                    :attribution="tileProvider.attribution"
-                    :token="tileProvider.token"
-                    layer-type="base"/>
-            <l-marker :lat-lng="center"></l-marker>
-        </LMap>
-        <v-btn color="primary" block class="v-column v-col mt-10 xm-auto flex-align-center">Отправить заявку</v-btn>
-    </form>
+    <v-flex xs12 md6 lg4 v-if="request">
+        <ValidationObserver ref="obs" v-slot="{ invalid, validated, passes, validate }">
+            <v-card elevation="12">
+                <v-card-text>
+                    <v-form levation-12>
+                        <v-combobox ref="locale"
+                                    :return-object="false"
+                                    :allow-overflow="false"
+                                    v-model="$root.$options.i18n.locale"
+                                    :items="locales"
+                                    :auto-select-first="true"
+                                    :label="$t('profile.language')"
+                                    @change="onLocaleChange"
+                        ></v-combobox>
+                        <ValidationProvider name="surname" rules="required" v-slot="{ errors, valid }">
+                            <v-text-field
+                                    v-model="request.surname"
+                                    :label="$t('profile.surname')"
+                                    :error-messages="errors"
+                                    :success="valid"
+                                    required
+                            ></v-text-field>
+                        </ValidationProvider>
+                        <ValidationProvider name="firstname" rules="required" v-slot="{ errors, valid }">
+                            <v-text-field
+                                    v-model="request.firstname"
+                                    :label="$t('profile.firstname')"
+                                    :error-messages="errors"
+                                    :success="valid"
+                                    required
+                            ></v-text-field>
+                        </ValidationProvider>
+                        <ValidationProvider name="patronymic" rules="required" v-slot="{ errors, valid }">
+                            <v-text-field
+                                    v-model="request.patronymic"
+                                    :label="$t('profile.patronymic')"
+                                    :error-messages="errors"
+                                    :success="valid"
+                                    required
+                            ></v-text-field>
+                        </ValidationProvider>
+                        <ValidationProvider name="nickname" rules="" v-slot="{ errors, valid }">
+                            <v-text-field
+                                    v-model="request.nickname"
+                                    :label="$t('profile.nickname')"
+                                    :error-messages="errors"
+                                    :success="valid"
+                                    required
+                            ></v-text-field>
+                        </ValidationProvider>
+                        <ValidationProvider name="birthyear" rules="required|numeric|length:4"
+                                            v-slot="{ errors, valid }">
+                            <v-text-field
+                                    v-model="request.birthyear"
+                                    :label="$t('profile.birthyear')"
+                                    :error-messages="errors"
+                                    :success="valid"
+                                    required
+                            ></v-text-field>
+                        </ValidationProvider>
+                        <ValidationProvider name="passport" rules="required|numeric|length:4"
+                                            v-slot="{ errors, valid }">
+                            <v-text-field
+
+                                    v-model="request.passport"
+                                    :counter="4"
+                                    :label="$t('profile.passport')"
+                                    :error-messages="errors"
+                                    :success="valid"
+                                    required
+                            ></v-text-field>
+                        </ValidationProvider>
+                        <LMap ref="map" :center.sync="request.location" :zoom="14" class=""
+                              style="z-index: 0; height: 50vh;">
+                            <l-tile-layer ref="map"
+                                          v-for="tileProvider in tileProviders"
+                                          :key="tileProvider.name"
+                                          :name="tileProvider.name"
+                                          :visible="tileProvider.visible"
+                                          :url="tileProvider.url"
+                                          :attribution="tileProvider.attribution"
+                                          :token="tileProvider.token"
+                                          layer-type="base"/>
+                            <l-marker :lat-lng="request.location"></l-marker>
+                        </LMap>
+                        <v-btn color="primary" block :disabled="false && ( invalid || !validated)"
+                               @click="onSendRequestClick"
+                               class="v-column v-col mt-12 xm-auto flex-align-center">
+                            {{$t('profile.sendRequest')}}
+                        </v-btn>
+                    </v-form>
+                </v-card-text>
+            </v-card>
+        </ValidationObserver>
+    </v-flex>
 </template>
 <script>
     import {
@@ -58,22 +107,34 @@
         LControlAttribution,
         LControlLayers,
         LControl
-    } from 'vue2-leaflet';
+    } from 'vue2-leaflet'
+
+    import {
+        ValidationObserver,
+        ValidationProvider,
+        localize
+    } from "vee-validate"
 
     import Kopnik from "../models/Kopnik"
     import log from "./mixin/log"
 
     export default {
-        name:"Profile",
-        mixins:[log],
+        $_veeValidate: {
+            validator: 'new',
+        },
+        name: "Profile",
+        mixins: [log],
         components: {
             LMap,
             LTileLayer,
-            LMarker
+            LMarker,
+            ValidationProvider,
+            ValidationObserver
         },
 
         data: () => {
             return {
+                request: null,
                 locales: [
                     {
                         text: "Русский",
@@ -112,23 +173,23 @@
                 ],
             }
         },
-        props: {
-            value: {
-                type: Kopnik,
-                // required: true
+        props: {},
+        computed: {},
+        watch: {},
+        methods: {
+            onSendRequestClick() {
+                this.$root.$options.app.user.sendWitnessRequest(this.$root.$options.app.user.plain)
             },
-            locale: {
-                type: String,
-                // required: true
-            },
-            zoom: {
-                type: Number,
-                default: 14
-            },
+            onLocaleChange(event) {
+
+                this.$vuetify.lang.current = event
+                localize(event)
+            }
         },
-        computed:{
-          // locales2: ()=> this.locales
+        async created() {
+            this.request = await this.$root.$options.app.user.loaded()
         },
-        methods: {}
+        async mounted() {
+        }
     }
 </script>
