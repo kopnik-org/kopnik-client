@@ -1,7 +1,7 @@
 # Аутентификация
 в каждом гет-запросе присутствуют ключи ?uid=xxx&hash=yyy. В каждом пост-запросе эти же ключи присутствуют в теле (перенести в HTTP-заголовок?).
 
-Правила поверки подленности описаны здесь https://vk.com/dev/Login
+Правила поверки подлинности описаны здесь https://vk.com/dev/Login
 ```
 app_id+user_id+secret_key, например md5(194253766748fTanppCrNSeuYPbA4ENCo)
 ```
@@ -71,6 +71,7 @@ status:2 можно не отправлять поле status
         "smallPhoto": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
         "status": 1, // const STATUS_NEW= 0;  STATUS_PENDING= 1; STATUS_CONFIRMED= 2; STATUS_DECLINE= 3;
         "witnessChatInviteLink": "vk.com/join........",
+        
 ,
         "witness_id": "1234",
         "foreman_id": null,
@@ -110,15 +111,26 @@ GET users/get_top_inside_square?x1=123.123,y1=123.123,x2=1243.24,y2=53.23,count=
 PUT users/putWitnessRequest
 ```json
 body:{
-  "firstName": "sadgfd",
-  "lastName": "jklsdfg89rfs",
-  "patronymic": "sdfafasd",
-  "birthyear": "1900",
-  "passport": "1984",
-  "nickname": "sdakljh23",
-  "location": [1238974.12, 9124.12390]
+   "firstName": "sadgfd",
+   "lastName": "jklsdfg89rfs",
+   "patronymic": "sdfafasd",
+   "birthyear": "1900",
+   "passport": "1984",
+   "nickname": "sdakljh23",
+   "location": [1238974.12, 9124.12390],
+    "photo": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
+    "smallPhoto": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
 
-  uid: 1244534,                //стандартная прибавка ко всем ПОСТ-запросам
-  hash: "fJKDGL98&*#%ife"
+   "uid": 1244534,                //стандартная прибавка ко всем ПОСТ-запросам
+   "hash": "fJKDGL98&*#%ife"
 }
 ``` 
+```json
+{
+  "response": {
+    "id": 4589349085,       //идентификатор пользователя внутри Копника
+    "witness_id": 03985202,  
+    ... и т.д. все содержимое одного элемента из ответа users/get(ids)
+  }
+}
+```
