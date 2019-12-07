@@ -30,9 +30,9 @@
         </v-app-bar>
 
         <v-content>
-            <v-container justify-content-center class="fill-height justify-center" fluid>
-<!--                :is="$options.app.SECTION"-->
-                <Profile style="flex-grow: 1"></Profile>
+            <v-container class="fill-height" fluid>
+                <Login v-if="!app.user" @login="login_login" class="d-flex justify-center align-center" style="position:absolute; left:0; top:0; z-index: 1000; right: 0; bottom: 0;"></Login>
+                <div :is="app.SECTION" style="flex-grow: 1"></div>
             </v-container>
         </v-content>
     </v-app>
@@ -41,11 +41,14 @@
 <script>
     import {LTooltip, LPopup, LIcon, LControlScale, LMap, LTileLayer, LMarker, LControlAttribution, LControlLayers, LControl} from 'vue2-leaflet';
 
+    import Application from "../Application";
     import Map from "./Map"
     import Profile from "./Profile"
+    import Login from "./Login";
 
     export default {
         components: {
+            Login,
             LMap,
             LTileLayer,
             LMarker,
@@ -62,41 +65,49 @@
         props: {
             source: String,
         },
-        data: () => ({
-            drawer: null,
-            center: [47.413220, -1.219482],
-            zoom: 14,
-            tileProviders: [
-                {
-                    name: "OpenStreetMap",
-                    visible: false,
-                    url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                    attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
-                    token: null
-                },
-                {
-                    name: "Dark",
-                    visible: true,
-                    url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-                    subdomains: "abcd",
-                    token: null
-                },
-                {
-                    name: "GIScience",
-                    visible: false,
-                    url: "https://maps.heigit.org/openmapsurfer/tiles/roads/webmercator/{z}/{x}/{y}.png",
-                    attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> | Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                    subdomains: "abcd",
-                    token: null
+        data: (() => {
+            let app = global.app = new Application
+            app.initUser()
+
+            return {
+                app,
+                drawer: null,
+                center: [47.413220, -1.219482],
+                zoom: 14,
+                tileProviders: [
+                    {
+                        name: "OpenStreetMap",
+                        visible: false,
+                        url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                        attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+                        token: null
+                    },
+                    {
+                        name: "Dark",
+                        visible: true,
+                        url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                        subdomains: "abcd",
+                        token: null
+                    },
+                    {
+                        name: "GIScience",
+                        visible: false,
+                        url: "https://maps.heigit.org/openmapsurfer/tiles/roads/webmercator/{z}/{x}/{y}.png",
+                        attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> | Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                        subdomains: "abcd",
+                        token: null
+                    }
+                ],
+                kopnik: {
+                    name: "Борода"
                 }
-            ],
-            kopnik:{
-                name: "Борода"
             }
         }),
         computed:{
-
+            user(){
+                return this.$options.app.user
+            }
         },
         methods: {
             onLocationClick()
@@ -104,8 +115,10 @@
             },
             onKopnikClick(kopnik){
                 alert("Open face dialog ")
-            }
+            },
+            login_login(){
 
+            }
         },
         mounted() {
             this.$nextTick(() => {

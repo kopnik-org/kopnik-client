@@ -22,17 +22,14 @@ import "./plugins/vee-validate"
 
 
 
-Vue.config.productionTip = false
+(async function() {
+    Vue.config.productionTip = false
 
-let app = new Application
-app.user = models.Kopnik.getReference(1)
-
-new Vue({
-    ...App,
-    el: "#app",
-    app,
-    vuetify,
-    i18n,
-    // render: h => h(App)
-})//.$mount('#app')
-
+    global.vue= new Vue({
+        ...App,
+        el: "#app",
+        vuetify,
+        i18n,
+        // render: h => h(App)
+    })//.$mount('#app')
+})()

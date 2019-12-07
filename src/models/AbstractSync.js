@@ -197,7 +197,7 @@ export default class AbstractSync {
      * @param id
      * @return {Promise.<*>}
      */
-    static async loaded(id) {
+    static async get(id) {
         let result
 
         result = this.getReference(id)

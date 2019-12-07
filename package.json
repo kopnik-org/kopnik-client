@@ -8,7 +8,8 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
-    "test:unit:watch": "vue-cli-service test:unit --watch"
+    "test:unit:watch": "vue-cli-service test:unit --watch",
+    "port": "sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 8080"
   },
   "dependencies": {
     "core-js": "^3.4.3",

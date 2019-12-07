@@ -1,9 +1,9 @@
 <template>
-    <v-flex xs12 md6 lg4 v-if="request">
+    <v-flex xs11 md6 xl4 mx-auto v-if="request">
         <ValidationObserver ref="obs" v-slot="{ invalid, validated, passes, validate }">
             <v-card elevation="12">
                 <v-card-text>
-                    <v-form levation-12>
+                    <v-form>
                         <v-combobox ref="locale"
                                     :return-object="false"
                                     :allow-overflow="false"
@@ -178,7 +178,7 @@
         watch: {},
         methods: {
             onSendRequestClick() {
-                this.$root.$options.app.user.sendWitnessRequest(this.$root.$options.app.user.plain)
+                this.$root.$options.app.user.sendWitnessRequest(this.request)
             },
             onLocaleChange(event) {
 
@@ -187,7 +187,14 @@
             }
         },
         async created() {
-            this.request = await this.$root.$options.app.user.loaded()
+            let user= this.$root.app.user
+            if (user.id) {
+                await user.loaded()
+            }
+            else{
+                user.location=[55.753215, 37.622504]
+            }
+            this.request = user.plain
         },
         async mounted() {
         }
