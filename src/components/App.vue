@@ -67,7 +67,7 @@
         },
         data: (() => {
             let app = global.app = new Application
-            app.initUser()
+            // app.initUser()
 
             return {
                 app,

@@ -30,6 +30,8 @@ export default class Application {
         this.SECTION = "Map"
 
         this.user = undefined
+
+        this.initUser()
     }
 
     getSharedState() {
@@ -53,7 +55,7 @@ export default class Application {
         let vkUser = localStorage.getItem("vkUser")
         if (vkUser) {
             vkUser = JSON.parse(vkUser)
-            let vkUserStatus //= await Kopnik.getVkUserStatus(vkUser.uid)
+            let user //= await Kopnik.getVkUserStatus(vkUser.uid)
             if (vkUserStatus) {
                 this.user= Kopnik.merge(vkUserStatus.user)
             } else {
