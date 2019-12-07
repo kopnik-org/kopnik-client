@@ -59,15 +59,18 @@ export default class Application {
     }
 
     /**
-     * Учстанавливает пользователем объект из VK.init::success()
+     * Учстанавливает пользователем объект из VK.Auth callback
+     *
      * @param vkUser
      * @returns
      */
     async setVkUser(vkUser) {
-        let user = await Kopnik.getByUid(vkUser.uid)
-        if (user) {
-            this.user = Kopnik.merge(user)
-        } else {
+        global.credentials= {
+            uid: vkUser.uid,
+            hash: vkUser.hash
+        }
+        this.user = await Kopnik.getByUid(vkUser.uid)
+        if (!this.user){
             this.user = new Kopnik
             this.user.merge({
                 firstName: vkUser.first_name,
@@ -75,9 +78,11 @@ export default class Application {
                 photo: vkUser.photo,
                 smallPhoto: vkUser.photo_rec,
             })
+
+            this.SECTION="Profile"
         }
-        this.user.uid= vkUser.uid
-        this.user.hash= vkUser.hash
+        // this.user.uid= vkUser.uid
+        // this.user.hash= vkUser.hash
 
         // localStorage.setItem("vkUser", JSON.stringify(vkUser))
     }

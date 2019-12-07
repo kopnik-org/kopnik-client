@@ -45,7 +45,7 @@
     import Map from "./Map"
     import Profile from "./Profile"
     import Login from "./Auth";
-    import Auth from "../../doc/view/auth";
+    import Auth from "./Auth";
 
     export default {
         components: {
@@ -101,9 +101,6 @@
                         token: null
                     }
                 ],
-                kopnik: {
-                    name: "Борода"
-                }
             }
         }),
         computed:{

@@ -1,12 +1,14 @@
 /**
  * Created by alexey2baranov on 5/13/16.
  */
+
 "use strict";
 import _ from "lodash"
 import loglevel from "loglevel"
 
 import config from "../../config"
 import * as models from "."
+import Application from "../Application";
 
 /**
  * Общий принцип работы следующий
@@ -168,6 +170,22 @@ export default class AbstractSync {
         }
 
         let fullUrl = `${config.api.path}/${this.name.replace('Kopnik', 'User').toLowerCase()}s/${url}`
+
+        //суперд дипенденси инджекшен
+        if (global.credentials) {
+            if ((options.method || "GET") == "GET") {
+                if (!fullUrl.includes("?")) {
+                    fullUrl = fullUrl + "?"
+                }
+                fullUrl += `&uid=${global.credentials.uid}&hash=${global.credentials.hash}`
+            }
+            else{
+                options.body= options.body || {}
+                options.body.uid= global.credentials.uid
+                options.body.hash= global.credentials.hash
+            }
+        }
+
         let response
         try {
             response = await fetch(fullUrl, options)
@@ -240,7 +258,7 @@ export default class AbstractSync {
     /**
      * Возвращает загруженный объект
      * если он еще не загружен, то загружает
-     * @returns {Promise.<RemoteEntity>}
+     * @returns {Promise.<AbstractSync>}
      */
     async loaded() {
         if (!this.isLoaded) {

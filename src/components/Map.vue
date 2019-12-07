@@ -1,5 +1,5 @@
 <template>
-    <LMap ref="map" :center="center" :zoom="zoom" style="z-index: 0">
+    <LMap ref="map" :center="center" :zoom="zoom" v-on:update:bounds="map_update_bounds" style="z-index: 0">
         <l-tile-layer
                 v-for="tileProvider in tileProviders"
                 :key="tileProvider.name"
@@ -42,7 +42,8 @@
         LControlAttribution,
         LControlLayers,
         LControl
-    } from 'vue2-leaflet';
+    } from 'vue2-leaflet'
+    import {Kopnik} from "../models"
 
     export default {
         components: {
@@ -103,6 +104,9 @@
             },
             onKopnikClick(kopnik) {
                 alert("Open face dialog ")
+            },
+            async map_update_bounds(event){
+                // await Kopnik.fetch("list")
             }
         },
         mounted() {

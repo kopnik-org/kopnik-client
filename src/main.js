@@ -27,7 +27,7 @@ import "./plugins/vee-validate"
 
     global.vue= new Vue({
         ...App,
-        el: "#app",
+        el: "#appContainer",
         vuetify,
         i18n,
         // render: h => h(App)
