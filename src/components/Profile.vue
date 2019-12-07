@@ -11,21 +11,21 @@
                                     :items="locales"
                                     :auto-select-first="true"
                                     :label="$t('profile.language')"
-                                    @change="onLocaleChange"
+                                    @change="locale_change"
                         ></v-combobox>
-                        <ValidationProvider name="surname" rules="required" v-slot="{ errors, valid }">
+                        <ValidationProvider name="lastName" rules="required" v-slot="{ errors, valid }">
                             <v-text-field
-                                    v-model="request.surname"
-                                    :label="$t('profile.surname')"
+                                    v-model="request.lastName"
+                                    :label="$t('profile.lastName')"
                                     :error-messages="errors"
                                     :success="valid"
                                     required
                             ></v-text-field>
                         </ValidationProvider>
-                        <ValidationProvider name="firstname" rules="required" v-slot="{ errors, valid }">
+                        <ValidationProvider name="firstName" rules="required" v-slot="{ errors, valid }">
                             <v-text-field
-                                    v-model="request.firstname"
-                                    :label="$t('profile.firstname')"
+                                    v-model="request.firstName"
+                                    :label="$t('profile.firstName')"
                                     :error-messages="errors"
                                     :success="valid"
                                     required
@@ -85,7 +85,7 @@
                             <l-marker :lat-lng="request.location"></l-marker>
                         </LMap>
                         <v-btn color="primary" block :disabled="false && ( invalid || !validated)"
-                               @click="onSendRequestClick"
+                               @click="sendRequest_click"
                                class="v-column v-col mt-12 xm-auto flex-align-center">
                             {{$t('profile.sendRequest')}}
                         </v-btn>
@@ -177,12 +177,13 @@
         computed: {},
         watch: {},
         methods: {
-            onSendRequestClick() {
-                this.$root.$options.app.user.sendWitnessRequest(this.request)
+            sendRequest_click() {
+                this.$root.app.user.sendWitnessRequest(this.request)
             },
-            onLocaleChange(event) {
-
+            locale_change(event) {
+                // вуетифи
                 this.$vuetify.lang.current = event
+                // валидация
                 localize(event)
             }
         },

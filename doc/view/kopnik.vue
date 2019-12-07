@@ -42,7 +42,7 @@
   import KopnikAsAvatar from "./kopnik-as-avatar";
   const models = require("../model")
   const log = require("loglevel").getLogger("kopnik.vue")
-  import logMixin from "../mixin/log"
+  import logMixin from "../../src/components/mixin/log"
 
   export default{
 //    mixins:[logMixin],

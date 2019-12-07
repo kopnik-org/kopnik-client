@@ -72,14 +72,14 @@
 
   import Application from "../Application"
   let log = require("loglevel").getLogger("kopa.vue")
-  import humanize from "../mixin/humanize"
-  import logMixin from "../mixin/log"
+  import humanize from "../../src/components/mixin/humanize"
+  import logMixin from "../../src/components/mixin/log"
 
   const models = require("../model")
   import StateManager from "../StateManager"
 
   export default{
-    mixins:[logMixin, humanize, require("../mixin/scroll")],
+    mixins:[logMixin, humanize, require("../../src/components/mixin/scroll")],
     name: "kopa",
     data() {
       return {

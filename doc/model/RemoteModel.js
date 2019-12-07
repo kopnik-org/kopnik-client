@@ -50,7 +50,7 @@ class RemoteModel extends EventEmitter {
 
   static factory(from){
     let [type, id]= from.split(":"),
-      models= require("../index"),
+      models= require("../../src/models"),
       result= models[type].getReference(id)
 
     return result

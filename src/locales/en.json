@@ -3,11 +3,11 @@
     "language": "Language",
     "birthyear": "Birthyear",
     "location": "Home location",
-    "firstname": "Name",
+    "firstName": "Name",
     "passport": "Last for number of passport",
     "patronymic": "Patronymic",
     "nickname": "Nickname",
-    "surname": "Surname",
+    "lastName": "lastName",
     "sendRequest": "Send request"
   }
 }

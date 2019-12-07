@@ -54,14 +54,7 @@ export default class Application {
     async initUser() {
         let vkUser = localStorage.getItem("vkUser")
         if (vkUser) {
-            vkUser = JSON.parse(vkUser)
-            let user //= await Kopnik.getVkUserStatus(vkUser.uid)
-            if (vkUserStatus) {
-                this.user= Kopnik.merge(vkUserStatus.user)
-            } else {
-                this.setVkUser(vkUser)
-                this.SECTION="Profile"
-            }
+            this.setVkUser(JSON.parse(vkUser))
         }
     }
 
@@ -70,16 +63,22 @@ export default class Application {
      * @param vkUser
      * @returns
      */
-    setVkUser(vkUser){
-        this.user= new Kopnik
-        this.user.merge({
-            hash: vkUser.hash,
-            uid: vkUser.uid,
-            firstname: vkUser.first_name,
-            surname: vkUser.last_name,
-            photo: vkUser.photo,
-            smallPhoto: vkUser.photo_rec,
-        })
-        localStorage.setItem("vkUser", JSON.stringify(vkUser))
+    async setVkUser(vkUser) {
+        let user = await Kopnik.getByUid(vkUser.uid)
+        if (user) {
+            this.user = Kopnik.merge(user)
+        } else {
+            this.user = new Kopnik
+            this.user.merge({
+                firstName: vkUser.first_name,
+                lastName: vkUser.last_name,
+                photo: vkUser.photo,
+                smallPhoto: vkUser.photo_rec,
+            })
+        }
+        this.user.uid= vkUser.uid
+        this.user.hash= vkUser.hash
+
+        // localStorage.setItem("vkUser", JSON.stringify(vkUser))
     }
 }

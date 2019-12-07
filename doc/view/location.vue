@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import logMixin from "../mixin/log"
+  import logMixin from "../../src/components/mixin/log"
   import models from '../model'
 
   export default{

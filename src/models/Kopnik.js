@@ -2,10 +2,11 @@ import {sync, collection, scalar, object} from './decorators/sync'
 import AbstractSync from "./AbstractSync";
 
 export default class Kopnik extends AbstractSync {
-    @scalar hash = undefined
+    hash = undefined
+    uid = undefined
 
-    @scalar surname = undefined
-    @scalar firstname = undefined
+    @scalar lastName = undefined
+    @scalar firstName = undefined
     @scalar patronymic = undefined
     @scalar nickname = undefined
 
@@ -14,6 +15,7 @@ export default class Kopnik extends AbstractSync {
     @scalar location = undefined
     @scalar photo = undefined
     @scalar smallPhoto = undefined
+    @scalar status = undefined
 
     @object foreman = undefined
     @object witness = undefined
@@ -21,14 +23,14 @@ export default class Kopnik extends AbstractSync {
     @collection ten
 
     get name() {
-        return `${this.firstname} ${this.surname} ${this.patronymic}`
+        return `${this.firstName} ${this.lastName} ${this.patronymic}`
     }
 
     /**
      * Получить идентификатор пользователя по идентификатору ВК
      * @returns {Promise.<Number>}
      */
-    static async getVkUserStatus(uid) {
+    async static getByUid(uid) {
         let result = await this.fetch(`vkUserStatus?uid=${uid}`)
         return result
     }
@@ -38,7 +40,7 @@ export default class Kopnik extends AbstractSync {
         return await this.constructor.fetch("witness_request", {
             method: 'POST',
             body: JSON.stringify(request),
-            headers:{
+            headers: {
                 Accept: "plain/text"
             }
         })

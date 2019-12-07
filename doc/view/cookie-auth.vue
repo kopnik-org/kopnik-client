@@ -14,9 +14,9 @@
   import $ from "jquery"
 
   import Application from "../Application"
-  import captcha from '../mixin/captcha'
+  import captcha from '../../src/components/mixin/captcha'
   import config from "../../config/main"
-  import logMixin from "../mixin/log"
+  import logMixin from "../../src/components/mixin/log"
   import Notifier from "../Notifier"
   import StateManager from "../StateManager"
 

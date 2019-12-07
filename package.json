@@ -71,6 +71,6 @@
     "last 1 Chrome versions"
   ],
   "eslintIgnore": [
-    "src/components/view"
+    "doc/view"
   ]
 }

@@ -33,7 +33,7 @@
   import config from "../../config/main"
   import Connection from "../Connection"
   import Grumbler from "../Grumbler"
-  import logMixin from "../mixin/log"
+  import logMixin from "../../src/components/mixin/log"
   import StateManager from "../StateManager"
   import models from "../model"
 
@@ -41,7 +41,7 @@
   let chunkSize = 25 * 1024 * 1024
 
   export default  {
-    mixins:[require("../mixin/humanize"), require("../mixin/log"), ],
+    mixins:[require("../../src/components/mixin/humanize"), require("../../src/components/mixin/log"), ],
     name: "files",
     components: {
       "file-as-link": require("./file-as-link.vue")

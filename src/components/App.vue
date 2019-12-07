@@ -31,7 +31,7 @@
 
         <v-content>
             <v-container class="fill-height" fluid>
-                <Login v-if="!app.user" @login="login_login" class="d-flex justify-center align-center" style="position:absolute; left:0; top:0; z-index: 1000; right: 0; bottom: 0;"></Login>
+                <Auth v-if="!app.user" @login="login_login" class="d-flex justify-center align-center" style="position:absolute; left:0; top:0; z-index: 1000; right: 0; bottom: 0;"></Auth>
                 <div :is="app.SECTION" style="flex-grow: 1"></div>
             </v-container>
         </v-content>
@@ -44,10 +44,12 @@
     import Application from "../Application";
     import Map from "./Map"
     import Profile from "./Profile"
-    import Login from "./Login";
+    import Login from "./Auth";
+    import Auth from "../../doc/view/auth";
 
     export default {
         components: {
+            Auth,
             Login,
             LMap,
             LTileLayer,

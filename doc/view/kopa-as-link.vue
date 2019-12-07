@@ -8,7 +8,7 @@
 
 <script>
   import Application from '../Application'
-  import logMixin from "../mixin/log"
+  import logMixin from "../../src/components/mixin/log"
   import StateManager from "../StateManager"
 
   export default  {
