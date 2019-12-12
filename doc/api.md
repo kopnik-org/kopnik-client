@@ -12,7 +12,7 @@
         "error_code": "not_authenticated",
         "error_msg": "Запрос не аутентифицирован",
         "request_params": [{
-            "key": "..."
+            "key": "...",
             "value": "121tgfsd"
             },
             ...
