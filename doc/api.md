@@ -9,7 +9,7 @@
 Вид ошибки, когда неаутентифицированный пользователь запрашивает метод
 ```json
     "error": {
-        "error_code": not_authenticated,
+        "error_code": "not_authenticated",
         "error_msg": "Запрос не аутентифицирован",
         "request_params": [{
             "key": "..."
