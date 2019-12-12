@@ -1,5 +1,5 @@
 const transport = axios.create({
-    baseURL: 'https://dev.kopnik.org/auth-test/',
+    baseURL: 'https://dev.kopnik.org/api/',
     withCredentials: true,
     credentials: 'include',
     headers: {
@@ -27,5 +27,5 @@ function anyMethod_click() {
         }
     })*/
 
-    transport.post('any-method',null)
+    transport.get('users/get')
 }
