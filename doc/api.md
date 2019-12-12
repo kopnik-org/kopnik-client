@@ -56,7 +56,7 @@ HTTP status code: 200 (как у всех успешных запросов)
             "key": "method",
             "value": "getInstancenstance"
             }
-        }]
+        ]
     }
 }
 ```
