@@ -116,7 +116,7 @@ HTTP status code: 200 (как у всех успешных запросов)
  }
 ```
 
-## GET users/get_top_inside_square
+## GET users/getTopInsideSquare
 Параметры: 
 
 ```x1=123.123,y1=123.123,x2=1243.24,y2=53.23``` координаты квадрата
