@@ -12,6 +12,7 @@
     "port": "sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 8080"
   },
   "dependencies": {
+    "bottlejs": "^1.7.2",
     "core-js": "^3.4.3",
     "leaflet": "^1.6.0",
     "lodash": "^4.17.15",

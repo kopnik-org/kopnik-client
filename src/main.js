@@ -33,3 +33,4 @@ import "./plugins/vee-validate"
         // render: h => h(App)
     })//.$mount('#app')
 })()
+

@@ -1,0 +1,63 @@
+import Bottle from "bottlejs";
+import Application from "../../src/Application";
+
+class $Main {
+    constructor(small) {
+        // console.log("constructor Main", small)
+        this.a = "aaaa"
+        this.small = small
+    }
+}
+
+class $Small {
+    constructor() {
+        // console.log("constructor Small")
+        this.b = "bbb"
+    }
+}
+
+let $function = function () {
+    // console.log("function")
+    return {a: 1, b: 2}
+}
+
+describe('DI', () => {
+    let bottle
+    beforeAll(() => {
+        bottle = new Bottle()
+        bottle.service('value', function () {
+            return {value: 'value'}
+        })
+        bottle.service($function.name, $function)
+
+        bottle.service($Main.name, $Main, $Small.name)
+        // bottle.service($Main.name + `.Nest`, {})
+        bottle.factory($Small.name, function (container) {
+            return new $Small()
+        })
+    })
+    it('value', async () => {
+        let a = bottle.container.value
+        let b = bottle.container.value
+        expect(a).toBe(b)
+        console.debug(a)
+    })
+    it('function', async () => {
+        let a = bottle.container[$function.name]
+        let b = bottle.container[$function.name]
+        expect(a).toBe(b)
+        console.debug(a)
+    })
+    it('Small', async () => {
+        let a = bottle.container[$Small.name]
+        let b = bottle.container[$Small.name]
+        expect(a).toBe(b)
+        console.debug(a)
+    })
+    it('Main', async () => {
+        let a = bottle.container[$Main.name]
+        let b = bottle.container[$Main.name]
+        expect(a).toBe(b)
+        console.debug(a)
+    })
+})

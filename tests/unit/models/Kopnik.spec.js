@@ -80,7 +80,7 @@ describe('kopnik', () => {
     })
 
     describe('kopnik send witness request', () => {
-        it.only('Kopnik.sendWitnessRequest success', async () => {
+        it('Kopnik.sendWitnessRequest success', async () => {
             let kopnik1 = Kopnik.getReference(1)
             await kopnik1.loaded()
 
