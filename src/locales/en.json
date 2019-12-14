@@ -9,5 +9,12 @@
     "nickname": "Nickname",
     "lastName": "lastName",
     "sendRequest": "Send request"
+  },
+  "witness": {
+    "witness": "Witness",
+    "reject": "Reject"
+  },
+  "login": {
+    "login": "Login with VK"
   }
 }

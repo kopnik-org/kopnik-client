@@ -2,6 +2,7 @@
  * Created by alexey2baranov on 5/13/16.
  */
 
+
 "use strict";
 import _ from "lodash"
 import loglevel from "loglevel"
@@ -9,6 +10,7 @@ import loglevel from "loglevel"
 import config from "../../config"
 import * as models from "."
 import Application from "../Application";
+import {KopnikApiError} from "../KopnikError";
 
 /**
  * Общий принцип работы следующий
@@ -64,7 +66,7 @@ export default class AbstractSync {
 
     get plain() {
         let result = {
-            id:this.id
+            id: this.id
         }
 
         for (let eachScalarName of this.constructor.scalars.concat("id")) {
@@ -74,7 +76,7 @@ export default class AbstractSync {
             result[eachObjectName + "_id"] = (this[eachObjectName] instanceof AbstractSync) ? this[eachObjectName].id : null
         }
         for (let eachCollectionName of this.constructor.collections) {
-            result[eachCollectionName] = (this[eachCollectionName] instanceof Array) ? this[eachCollectionName].map(eachItem=>eachItem.plain): null
+            result[eachCollectionName] = (this[eachCollectionName] instanceof Array) ? this[eachCollectionName].map(eachItem => eachItem.plain) : null
         }
         return result;
     }
@@ -160,31 +162,17 @@ export default class AbstractSync {
         return this.cache.get(this.name).get(id)
     }
 
-    static async fetch(url, options={}) {
-        options.headers= options.headers || {}
-        if (!options.headers.Accept){
-            options.headers.Accept= 'application/json'
+    static async fetch(url, options = {}) {
+        options.headers = options.headers || {}
+        options.credentials = 'include'
+        if (!options.headers.Accept) {
+            options.headers.Accept = 'application/json'
         }
-        if (options.method=="POST" && !options.headers['Content-Type']){
-            options.headers['Content-Type']= 'application/json'
+        if (options.method == "POST" && !options.headers['Content-Type']) {
+            options.headers['Content-Type'] = 'application/json'
         }
 
         let fullUrl = `${config.api.path}/${this.name.replace('Kopnik', 'User').toLowerCase()}s/${url}`
-
-        //суперд дипенденси инджекшен
-        if (global.credentials) {
-            if ((options.method || "GET") == "GET") {
-                if (!fullUrl.includes("?")) {
-                    fullUrl = fullUrl + "?"
-                }
-                fullUrl += `&uid=${global.credentials.uid}&hash=${global.credentials.hash}`
-            }
-            else{
-                options.body= options.body || {}
-                options.body.uid= global.credentials.uid
-                options.body.hash= global.credentials.hash
-            }
-        }
 
         let response
         try {
@@ -196,15 +184,15 @@ export default class AbstractSync {
             throw new Error(`kopnik.org API network error url: ${fullUrl}, status: ${response.status}`)
         }
         let result
-        if (options.headers.Accept=="application/json") {
+        if (options.headers.Accept == "application/json") {
             result = await response.json()
-            if (response.error) {
-                throw new Error(`kopnik.org API error message:${response.error.error_msg}, code: ${response.error.error_code}, url: ${fullUrl}, status: ${response.status}`)
+            if (result.error) {
+                let err = new KopnikApiError(result.error.error_msg, result.error.error_code, fullUrl, result.status)
+                throw err
             }
             return result.response
-        }
-        else{
-            result=await response.text()
+        } else {
+            result = await response.text()
             return result
         }
     }

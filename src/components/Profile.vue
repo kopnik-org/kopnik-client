@@ -85,7 +85,7 @@
                             <l-marker :lat-lng="request.location"></l-marker>
                         </LMap>
                         <v-btn color="primary" block :disabled="false && ( invalid || !validated)"
-                               @click="sendRequest_click"
+                               @click="putWitnessRequest_click"
                                class="v-column v-col mt-12 xm-auto flex-align-center">
                             {{$t('profile.sendRequest')}}
                         </v-btn>
@@ -145,7 +145,6 @@
                         value: "en"
                     }
                 ],
-                center: [55.753215, 37.622504],
                 tileProviders: [
                     {
                         name: "OpenStreetMap",
@@ -177,8 +176,8 @@
         computed: {},
         watch: {},
         methods: {
-            sendRequest_click() {
-                this.$root.app.user.sendWitnessRequest(this.request)
+            putWitnessRequest_click() {
+                this.$root.app.user.putWitnessRequest(this.request)
             },
             locale_change(event) {
                 // вуетифи
@@ -188,14 +187,17 @@
             }
         },
         async created() {
-            let user= this.$root.app.user
+            let user = this.$root.app.user
             if (user.id) {
                 await user.loaded()
+            } else {
+                user.location = [55.753215, 37.622504]
             }
-            else{
-                user.location=[55.753215, 37.622504]
-            }
+
             this.request = user.plain
+            if (!user.location || !user.location[0]) {
+                this.request.location = [55.753215, 37.622504]
+            }
         },
         async mounted() {
         }

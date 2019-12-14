@@ -1,4 +1,6 @@
 import {AbstractSync, Kopnik} from "./models";
+import {KopnikApiError} from "./KopnikError";
+import config from '../config'
 
 export default class Application {
     static getInstance() {
@@ -52,10 +54,25 @@ export default class Application {
      * @returns {Promise<void>}
      */
     async initUser() {
-        let vkUser = localStorage.getItem("vkUser")
-        if (vkUser) {
-            this.setVkUser(JSON.parse(vkUser))
+        try {
+            let userAsPlain = (await Kopnik.fetch('get?ids='))[0]
+            this.user=Kopnik.merge(userAsPlain)
+            if (this.user.status==0 || this.user.status==3){
+                this.SECTION='Profile'
+            }
+            else{
+                this.SECTION='Witness'
+            }
+        } catch (err) {
+            if ((err instanceof KopnikApiError)) {
+                // location.href= `https://oauth.vk.com/authorize?client_id=${config.messenger.clientId}&display=page&redirect_uri=${encodeURIComponent(config.messenger.redirectUrl)}&scope=status offline&response_type=code&v=5.103`
+                location.href= `https://dev.kopnik.org/connect/vkontakte`
+            }
+            else{
+                throw err
+            }
         }
+
     }
 
     /**
@@ -64,13 +81,13 @@ export default class Application {
      * @param vkUser
      * @returns
      */
-    async setVkUser(vkUser) {
-        global.credentials= {
+/*    async setVkUser(vkUser) {
+        global.credentials = {
             uid: vkUser.uid,
             hash: vkUser.hash
         }
         this.user = await Kopnik.getByUid(vkUser.uid)
-        if (!this.user){
+        if (!this.user) {
             this.user = new Kopnik
             this.user.merge({
                 firstName: vkUser.first_name,
@@ -79,11 +96,12 @@ export default class Application {
                 smallPhoto: vkUser.photo_rec,
             })
 
-            this.SECTION="Profile"
+            this.SECTION = "Profile"
         }
         // this.user.uid= vkUser.uid
         // this.user.hash= vkUser.hash
 
         // localStorage.setItem("vkUser", JSON.stringify(vkUser))
     }
+    */
 }

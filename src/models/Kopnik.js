@@ -37,10 +37,10 @@ export default class Kopnik extends AbstractSync {
     }
 
 
-    async sendWitnessRequest(request) {
-        return await this.constructor.fetch("witness_request", {
+    async putWitnessRequest(request) {
+        return await this.constructor.fetch("putWitnessRequest", {
             method: 'POST',
-            body: request //JSON.stringify(request)
+            body: JSON.stringify(request)
         })
     }
 }

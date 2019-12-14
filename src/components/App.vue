@@ -46,23 +46,14 @@
     import Profile from "./Profile"
     import Login from "./Auth";
     import Auth from "./Auth";
+    import Witness from "./Witness";
 
     export default {
         components: {
             Auth,
             Login,
-            LMap,
-            LTileLayer,
-            LMarker,
-            LControlAttribution,
-            LControlLayers,
-            LControl,
-            LControlScale,
-            LIcon,
-            LPopup,
-            LTooltip,
-            Map,
-            Profile
+            Profile,
+            Witness
         },
         props: {
             source: String,
