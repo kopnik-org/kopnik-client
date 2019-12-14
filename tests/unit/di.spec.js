@@ -24,10 +24,10 @@ let $function = function () {
 describe('DI', () => {
     let bottle
     beforeAll(() => {
+        Bottle.clear()
+        Bottle.config.strict= true
         bottle = new Bottle()
-        bottle.service('value', function () {
-            return {value: 'value'}
-        })
+        bottle.constant('value', {value: 'value'})
         bottle.service($function.name, $function)
 
         bottle.service($Main.name, $Main, $Small.name)

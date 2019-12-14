@@ -13,7 +13,7 @@ class Kopnik {
 }
 
 describe('sync', () => {
-  describe.skip('sync', () => {
+  describe('sync', () => {
     it('sync create reload method', () => {
       let kopnik = new Kopnik(1)
 
@@ -41,7 +41,7 @@ describe('sync', () => {
       expect(kopnik.name).toEqual(name1)
     })
 
-    it.skip("twice loaded getInstance same Promise", async () => {
+    it("twice loaded getInstance same Promise", async () => {
       let kopnik = new Kopnik(1)
       expect(kopnik.loaded()).toBe(kopnik.loaded())
     })
@@ -82,9 +82,9 @@ describe('sync', () => {
       expect(kopnik.ten).toEqual(await kopnik.loadedTen)
     })
 
-    it.skip('debug',  () => {
+/*    it('debug',  () => {
       let kopnik= new Kopnik(1)
       kopnik.someMethod()
-    })
+    })*/
   })
 })
