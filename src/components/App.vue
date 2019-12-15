@@ -1,21 +1,74 @@
 <template>
     <v-app id="inspire">
         <v-navigation-drawer v-model="drawer" app>
-            <v-list dense>
+            <kopnik v-if="$root.$data.app.user" v-model="$root.$data.app.user" :avatar-size="150" class="flex-grow-1" ></kopnik>
+            <v-list :dense="false" subheader>
                 <v-list-item link>
                     <v-list-item-action>
-                        <v-icon>mdi-home</v-icon>
+                        <v-icon>mdi-home-city</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title>Home</v-list-item-title>
+                        <v-list-item-title>Карта</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item link>
                     <v-list-item-action>
-                        <v-icon>mdi-contact-mail</v-icon>
+                        <v-icon>mdi-account-multiple</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title>Contact</v-list-item-title>
+                        <v-list-item-title>Моя десятка</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item link>
+                    <v-list-item-action>
+                        <v-icon>mdi-chat</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Чат десятки</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item link>
+                    <v-list-item-action>
+                        <v-icon>mdi-chat</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Чат старшины</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item link>
+                    <v-list-item-action>
+                        <v-icon>mdi-human-greeting</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Заявки на вступление</v-list-item-title>
+                    </v-list-item-content>
+                    <v-list-item-action>
+                        <v-icon>mdi-account-question</v-icon>
+                    </v-list-item-action>
+                </v-list-item>
+                <v-list-item link>
+                    <v-list-item-action>
+                        <v-icon>mdi-heart</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Благодарность</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item link>
+                    <v-list-item-action>
+                        <v-icon>mdi-help-circle</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Подсказка</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-divider></v-divider>
+                <v-list-item link>
+                    <v-list-item-action>
+                        <v-icon>mdi-location-exit</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Выход</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -26,20 +79,21 @@
                 color="indigo"
         >
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-            <v-toolbar-title>Application</v-toolbar-title>
+            <v-toolbar-title>kopnik.org</v-toolbar-title>
         </v-app-bar>
 
         <v-content>
             <v-container class="fill-height" fluid>
-                <Auth v-if="!app.user" @login="login_login" class="d-flex justify-center align-center" style="position:absolute; left:0; top:0; z-index: 1000; right: 0; bottom: 0;"></Auth>
-                <div :is="app.SECTION" style="flex-grow: 1"></div>
+                <Auth v-if="!app.user" @login="login_login" class="d-flex justify-center align-center"
+                      style="position:absolute; left:0; top:0; z-index: 1000; right: 0; bottom: 0;"></Auth>
+<!--                <div :is="app.SECTION" style="flex-grow: 1"></div>-->
+                <router-view></router-view>
             </v-container>
         </v-content>
     </v-app>
 </template>
 
 <script>
-    import {LTooltip, LPopup, LIcon, LControlScale, LMap, LTileLayer, LMarker, LControlAttribution, LControlLayers, LControl} from 'vue2-leaflet';
 
     import Application from "../Application";
     import Map from "./Map"
@@ -47,9 +101,11 @@
     import Login from "./Auth";
     import Auth from "./Auth";
     import Witness from "./Witness";
+    import Kopnik from "./Kopnik";
 
     export default {
         components: {
+            Kopnik,
             Auth,
             Login,
             Profile,
@@ -94,19 +150,18 @@
                 ],
             }
         }),
-        computed:{
-            user(){
+        computed: {
+            user() {
                 return this.$options.app.user
             }
         },
         methods: {
-            onLocationClick()
-            {
+            onLocationClick() {
             },
-            onKopnikClick(kopnik){
+            onKopnikClick(kopnik) {
                 alert("Open face dialog ")
             },
-            login_login(){
+            login_login() {
 
             }
         },

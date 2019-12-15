@@ -1,49 +1,24 @@
 <template>
-    <v-card :elevation="elevation">
-        <v-avatar :tile="avatarTile" :size="avatarSize">
-            <v-img src="https://slavyanskieoberegi.ru/wp-content/uploads/2017/05/3-%D0%B8%D1%8E%D0%BB%D1%8F-%E2%80%93-%D0%94%D0%B5%D0%BD%D1%8C-%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%B8-%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%BE%D0%B3%D0%BE-%D0%A1%D0%B2%D1%8F%D1%82%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%B0.png"></v-img>
-        </v-avatar>
-
-        <v-card-title>
-            {{value.name}}
-        </v-card-title>
-
-        <v-card-text>
-<!--            <v-text-field
-                    v-model="value.lastName"
-                    :label="$t('profile.lastName')"
-                    readonly
-            ></v-text-field>
-            <v-text-field
-                    v-model="value.firstName"
-                    :label="$t('profile.firstName')"
-                    readonly
-            ></v-text-field>
-            <v-text-field
-                    v-model="value.patronymic"
-                    :label="$t('profile.patronymic')"
-                    readonly
-            ></v-text-field>
-            <v-text-field
-                    v-model="value.nickname"
-                    :label="$t('profile.nickname')"
-                    readonly
-            ></v-text-field>-->
-            <v-text-field
-                    v-model="value.birthyear"
-                    :label="$t('profile.birthyear')"
-                    readonly
-            ></v-text-field>
-            <v-text-field
-                    v-model="value.passport"
-                    :label="$t('profile.passport')"
-                    readonly
-            ></v-text-field>
-        </v-card-text>
-        <v-card-actions>
-            <slot name="actions"></slot>
-        </v-card-actions>
-    </v-card>
+    <v-list>
+        <v-list-item>
+            <v-list-item-avatar :tile="avatarTile" :size="avatarSize" class="mx-auto">
+                <v-img src="https://slavyanskieoberegi.ru/wp-content/uploads/2017/05/3-%D0%B8%D1%8E%D0%BB%D1%8F-%E2%80%93-%D0%94%D0%B5%D0%BD%D1%8C-%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%B8-%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%BE%D0%B3%D0%BE-%D0%A1%D0%B2%D1%8F%D1%82%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%B0.png"></v-img>
+            </v-list-item-avatar>
+        </v-list-item>
+        <v-list-item>
+            <v-list-item-content>
+                <v-list-item-title class="title">
+                    {{value.name}}
+                </v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="birthYear">
+            <v-text-field v-model="value.birthyear" :label="$t('profile.birthyear')" readonly></v-text-field>
+        </v-list-item>
+        <v-list-item v-if="passport">
+            <v-text-field v-model="value.passport" :label="$t('profile.passport')" readonly></v-text-field>
+        </v-list-item>
+    </v-list>
 </template>
 <script>
     import Kopnik from "../models/Kopnik"
@@ -57,20 +32,28 @@
             return {}
         },
         props: {
-                        elevation: {
+            elevation: {
                 type: Number,
-                default: 12
+                default: 0
             },
             avatarSize: {
                 type: Number,
-                default: 64
+                default: 150
             },
             avatarTile: {
                 type: Boolean,
                 default: false
             },
-            value:{
+            value: {
                 type: Object
+            },
+            birthYear: {
+                type: Boolean,
+                default: false
+            },
+            passport: {
+                type: Boolean,
+                default: false
             }
         },
         computed: {},

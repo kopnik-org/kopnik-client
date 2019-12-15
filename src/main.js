@@ -5,6 +5,7 @@ import App from './components/App.vue'
 import Map from './components/Map'
 import vuetify from './plugins/vuetify';
 
+
 import {Icon} from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 // this part resolve an issue where the markers would not appear
@@ -19,7 +20,6 @@ import Application from "./Application";
 import i18n from './plugins/i18n'
 import log from "./log"
 import "./plugins/vee-validate"
-
 
 
 (async function() {
