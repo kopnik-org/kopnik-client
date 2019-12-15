@@ -1,10 +1,11 @@
-/**
+/**console.log(log)
+
  * Created by alexey2baranov on 09.09.17.
  */
 
-import log from "loglevel"
+import * as log from "loglevel"
 import prefix from "loglevel-plugin-prefix"
-import toString from "./loglevel-plugin-test"
+import toString from "../loglevel-plugin-test"
 
 prefix.reg(log)
 prefix.apply(log, {template:"%t [%l] %n: "})

@@ -84,8 +84,8 @@
 
         <v-content>
             <v-container class="fill-height" fluid>
-                <Auth v-if="!app.user" @login="login_login" class="d-flex justify-center align-center"
-                      style="position:absolute; left:0; top:0; z-index: 1000; right: 0; bottom: 0;"></Auth>
+<!--                <Auth v-if="!app.user" @login="login_login" class="d-flex justify-center align-center"
+                      style="position:absolute; left:0; top:0; z-index: 1000; right: 0; bottom: 0;"></Auth>-->
 <!--                <div :is="app.SECTION" style="flex-grow: 1"></div>-->
                 <router-view></router-view>
             </v-container>
@@ -96,26 +96,17 @@
 <script>
 
     import Application from "../Application";
-    import Map from "./Map"
-    import Profile from "./Profile"
-    import Login from "./Auth";
-    import Auth from "./Auth";
-    import Witness from "./Witness";
     import Kopnik from "./Kopnik";
 
     export default {
         components: {
             Kopnik,
-            Auth,
-            Login,
-            Profile,
-            Witness
         },
         props: {
             source: String,
         },
         data: (() => {
-            let app = global.app = new Application
+            let app = global.app
             // app.initUser()
 
             return {

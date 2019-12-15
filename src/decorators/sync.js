@@ -1,5 +1,5 @@
 import once from './once'
-import config from "../../../config";
+import config from "../../config";
 
 export function sync(constructor) {
     // throw new Error("deprecated")

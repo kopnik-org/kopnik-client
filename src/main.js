@@ -3,7 +3,8 @@ import * as models from "./models"
 import Vue from 'vue'
 import App from './components/App.vue'
 import Map from './components/Map'
-import vuetify from './plugins/vuetify';
+import vuetify from './plugins/vuetify'
+import router from './plugins/vue-router'
 
 
 import {Icon} from 'leaflet'
@@ -18,11 +19,19 @@ Icon.Default.mergeOptions({
 
 import Application from "./Application";
 import i18n from './plugins/i18n'
-import log from "./log"
+import "./plugins/log"
+import * as logger from 'loglevel'
+
 import "./plugins/vee-validate"
+import Profile from "./components/Profile";
+import Witness from "./components/Witness";
 
 
-(async function() {
+console.log('global app ')
+global.app = new Application
+
+
+
     Vue.config.productionTip = false
 
     global.vue= new Vue({
@@ -30,7 +39,8 @@ import "./plugins/vee-validate"
         el: "#appContainer",
         vuetify,
         i18n,
+        router,
         // render: h => h(App)
     })//.$mount('#app')
-})()
+
 

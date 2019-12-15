@@ -1,6 +1,8 @@
 import {AbstractSync, Kopnik} from "./models";
 import {KopnikApiError} from "./KopnikError";
 import config from '../config'
+import log from "./plugins/log";
+import once from "./decorators/once";
 
 export default class Application {
     static getInstance() {
@@ -13,6 +15,7 @@ export default class Application {
     user = null
 
     constructor() {
+        this.log= log.getLogger('application')
         /**
          * Кэш моделей
          * @type {Array}
@@ -53,6 +56,7 @@ export default class Application {
      *
      * @returns {Promise<void>}
      */
+    @once
     async initUser() {
         try {
             let userAsPlain = (await Kopnik.fetch('get?ids='))[0]
@@ -65,8 +69,10 @@ export default class Application {
             }
         } catch (err) {
             if ((err instanceof KopnikApiError)) {
+                this.user=null
+                log.info('user not authenticated')
                 // location.href= `https://oauth.vk.com/authorize?client_id=${config.messenger.clientId}&display=page&redirect_uri=${encodeURIComponent(config.messenger.redirectUrl)}&scope=status offline&response_type=code&v=5.103`
-                location.href= `https://dev.kopnik.org/connect/vkontakte`
+                // location.href= `https://dev.kopnik.org/connect/vkontakte`
             }
             else{
                 throw err
