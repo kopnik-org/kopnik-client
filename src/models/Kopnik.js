@@ -46,14 +46,14 @@ export default class Kopnik extends AbstractSync {
     }
 
     async confirm(witnessRequest){
-        let result= await this.constructor.fetch('witness?id='+witnessRequest.id)
+        let result= await this.constructor.fetch('confirm?id='+witnessRequest.id)
         if (result){
             witnessRequest.status = Kopnik.Status.CONFIRMED
         }
     }
 
     async decline(witnessRequest){
-        await this.constructor.fetch('reject?id='+witnessRequest.id)
+        await this.constructor.fetch('decline?id='+witnessRequest.id)
         if (result){
             witnessRequest.status = Kopnik.Status.DECLINED
         }
