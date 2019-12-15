@@ -141,7 +141,7 @@ export default class AbstractSync {
         }*/
 
     static getReference(id) {
-        if (!id) {
+        if (!id && id!==0) {
             throw new Error("Не указан идентификатор объекта id=" + JSON.stringify(id));
         }
         if (_.isString(id)) {

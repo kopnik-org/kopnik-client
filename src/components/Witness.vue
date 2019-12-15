@@ -1,42 +1,47 @@
 <template>
-    <div>
-        <kopnik-view v-for="eachWitness of value" v-model="eachWitness" v-key="eachWitness.id">
-            <template v-slot="actions">
-                <v-btn title="">{{$t('witness.witness')}}</v-btn>
-                <v-btn title="">{{$t('witness.reject')}}</v-btn>
+    <v-flex xs11 md6 xl4 mx-auto v-if="user">
+        <kopnik-view v-for="(eachWitnessRequest, index) in user.witnessRequests" :key="eachWitnessRequest.id"
+                     v-model="user.witnessRequests[index]"
+                     :avatar-size="200" class="mb-10">
+            <template v-slot:actions>
+                <v-btn @click="this_confirm(eachWitnessRequest)" class="flex-grow-1">{{$t('witness.witness')}}</v-btn>
+                <v-btn @click="this_decline(eachWitnessRequest)" class="flex-grow-1">{{$t('witness.reject')}}</v-btn>
             </template>
         </kopnik-view>
-    </div>
+    </v-flex>
 </template>
 <script>
     import KopnikView from "./Kopnik"
-    import Kopnik from "../models/Kopnik"
+    import {Kopnik} from "../models"
     import log from "./mixin/log"
 
     export default {
-        name: "Kopnik",
+        name: "Witness",
         mixins: [log],
         components: {
             KopnikView
         },
         data: () => {
-            return {}
+            return {
+                user:null
+            }
         },
         props: {
-            avatarSize: {
-                type: Number,
-                default: 64
-            },
-            avatarTile: {
-                type: Boolean,
-                default: false
-            }
         },
         computed: {},
         watch: {},
-        methods: {},
+        methods: {
+            this_confirm(witnessRequest){
+                this.user.confirm(witnessRequest)
+            },
+            this_decline(witnessRequest){
+                this.user.decline(witnessRequest)
+            }
+        },
         async created() {
-            await this.value.loaded()
+            this.user= this.$root.$data.app.user
+            this.user.witnessRequests=await Promise.all([1,2,3].map(each=>Kopnik.getReference(each).loaded()))
+            console.log(1243)
         },
         async mounted() {
         }

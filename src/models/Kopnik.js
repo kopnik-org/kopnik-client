@@ -20,6 +20,7 @@ export default class Kopnik extends AbstractSync {
     @object witness = undefined
 
     @collection ten
+    @collection witnessRequests
 
     get name() {
         return `${this.lastName} ${this.firstName} ${this.patronymic}`
@@ -43,4 +44,25 @@ export default class Kopnik extends AbstractSync {
             body: JSON.stringify(request)
         })
     }
+
+    async confirm(witnessRequest){
+        let result= await this.constructor.fetch('witness?id='+witnessRequest.id)
+        if (result){
+            witnessRequest.status = Kopnik.Status.CONFIRMED
+        }
+    }
+
+    async decline(witnessRequest){
+        await this.constructor.fetch('reject?id='+witnessRequest.id)
+        if (result){
+            witnessRequest.status = Kopnik.Status.DECLINED
+        }
+    }
+}
+
+Kopnik.Status={
+    NEW: 0,
+    PENDING: 1,
+    CONFIRMED: 2,
+    DECLINED: 3,
 }
