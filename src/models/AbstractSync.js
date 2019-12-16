@@ -11,6 +11,7 @@ import config from "../../config"
 import * as models from "."
 import Application from "../Application";
 import {KopnikApiError} from "../KopnikError";
+import once from "../decorators/once";
 
 /**
  * Общий принцип работы следующий
@@ -248,6 +249,7 @@ export default class AbstractSync {
      * если он еще не загружен, то загружает
      * @returns {Promise.<AbstractSync>}
      */
+    @once
     async loaded() {
         if (!this.isLoaded) {
             await this.reload()

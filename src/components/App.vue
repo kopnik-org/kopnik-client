@@ -1,9 +1,13 @@
 <template>
     <v-app id="inspire">
         <v-navigation-drawer v-model="drawer" app>
-            <kopnik v-if="$root.$data.app.user" v-model="$root.$data.app.user" :avatar-size="150" class="flex-grow-1" ></kopnik>
+            <router-link to="/profile" class="cursor-pointer" tag="div">
+                <kopnik v-if="$root.$data.app.user" v-model="$root.$data.app.user" to="/profile"
+                        :avatar-size="150" class="flex-grow-1">
+                </kopnik>
+            </router-link>
             <v-list :dense="false" subheader>
-                <v-list-item link>
+                <v-list-item link to="/">
                     <v-list-item-action>
                         <v-icon>mdi-home-city</v-icon>
                     </v-list-item-action>
@@ -35,7 +39,7 @@
                         <v-list-item-title>Чат старшины</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link>
+                <v-list-item link to="/witness">
                     <v-list-item-action>
                         <v-icon>mdi-human-greeting</v-icon>
                     </v-list-item-action>
@@ -46,7 +50,7 @@
                         <v-icon>mdi-account-question</v-icon>
                     </v-list-item-action>
                 </v-list-item>
-                <v-list-item link>
+                <v-list-item link to="/thanks">
                     <v-list-item-action>
                         <v-icon>mdi-heart</v-icon>
                     </v-list-item-action>
@@ -84,10 +88,12 @@
 
         <v-content>
             <v-container class="fill-height" fluid>
-<!--                <Auth v-if="!app.user" @login="login_login" class="d-flex justify-center align-center"
-                      style="position:absolute; left:0; top:0; z-index: 1000; right: 0; bottom: 0;"></Auth>-->
-<!--                <div :is="app.SECTION" style="flex-grow: 1"></div>-->
-                <router-view></router-view>
+                <!--                <Auth v-if="!app.user" @login="login_login" class="d-flex justify-center align-center"
+                                      style="position:absolute; left:0; top:0; z-index: 1000; right: 0; bottom: 0;"></Auth>-->
+                <!--                <div :is="app.SECTION" style="flex-grow: 1"></div>-->
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
             </v-container>
         </v-content>
     </v-app>
@@ -165,3 +171,9 @@
         }
     }
 </script>
+
+<style scoped>
+    .cursor-pointer{
+        cursor: pointer;
+    }
+</style>

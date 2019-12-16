@@ -40,8 +40,8 @@
             }
         },
         async created() {
-            this.user = this.$root.$data.app.user
-            this.user.witnessRequests = await Promise.all([1, 3].map(each => Kopnik.getReference(each).loaded()))
+            this.user = global.app.user
+            this.user.witnessRequests = await Promise.all([3].map(each => Kopnik.getReference(each).loaded()))
             console.log(1243)
         },
         async mounted() {

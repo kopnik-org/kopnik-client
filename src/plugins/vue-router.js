@@ -2,10 +2,12 @@ import Vue from "vue"
 import VueRouter from "vue-router";
 import Profile from "../components/Profile";
 import Witness from "../components/Witness";
+import Map from "../components/Map";
+import Thanks from "../components/Thanks";
 
 Vue.use(VueRouter)
 
-let application= global.application
+let application = global.application
 
 const routes = [
     // { path: '/', component: Map },
@@ -14,18 +16,39 @@ const routes = [
         component: Profile,
         beforeEnter: async (to, from, next) => {
             console.log('before /Profile')
-            if (global.app.user===undefined){
+            if (global.app.user === undefined) {
                 await app.initUser()
             }
-            if (global.app.user){
+            if (global.app.user) {
                 return next()
-            }
-            else{
-                next({path:'/'})
+            } else {
+                next({path: '/'})
             }
         }
     },
-    {path: '/Witness', component: Witness},
+    {
+        path: '/witness',
+        component: Witness,
+        beforeEnter: async (to, from, next) => {
+            console.log('before /witness')
+            if (global.app.user === undefined) {
+                await app.initUser()
+            }
+            if (global.app.user) {
+                return next()
+            } else {
+                next({path: '/'})
+            }
+        }
+    },
+    {
+        path: '/thanks',
+        component: Thanks,
+    },
+    {
+        path: '/',
+        component: Map,
+    },
 ]
 
 export default new VueRouter({

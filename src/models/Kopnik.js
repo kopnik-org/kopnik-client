@@ -1,5 +1,5 @@
 import {sync, collection, scalar, object} from '../decorators/sync'
-import AbstractSync from "./AbstractSync";
+import AbstractSync from "./AbstractSync";6
 
 export default class Kopnik extends AbstractSync {
     @scalar uid = undefined

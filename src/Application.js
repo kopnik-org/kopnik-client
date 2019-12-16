@@ -61,6 +61,7 @@ export default class Application {
         try {
             let userAsPlain = (await Kopnik.fetch('get?ids='))[0]
             this.user=Kopnik.merge(userAsPlain)
+            this.user.isLoaded= true
             if (this.user.status==0 || this.user.status==3){
                 this.SECTION='Profile'
             }
