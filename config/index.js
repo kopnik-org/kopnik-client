@@ -40,4 +40,4 @@ let privateConfig = {}//require("./private")
 let mergedConfig = require("lodash").merge({}, config, privateConfig)[process.env.NODE_ENV]
 
 
-export default mergedConfig;
+export default config;

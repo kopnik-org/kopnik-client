@@ -2,14 +2,14 @@
     <v-list>
 <!--        @click.native="$router.push(to)"-->
         <v-list-item>
-            <v-list-item-avatar :tile="avatarTile" :size="avatarSize" class="mx-auto">
-                <v-img src="https://slavyanskieoberegi.ru/wp-content/uploads/2017/05/3-%D0%B8%D1%8E%D0%BB%D1%8F-%E2%80%93-%D0%94%D0%B5%D0%BD%D1%8C-%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%B8-%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%BE%D0%B3%D0%BE-%D0%A1%D0%B2%D1%8F%D1%82%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%B0.png"></v-img>
+            <v-list-item-avatar :tile="avatarTile" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}">
+                <img :src="value.photo" style="object-fit: cover; "/>
             </v-list-item-avatar>
         </v-list-item>
         <v-list-item>
             <v-list-item-content>
                 <v-list-item-title class="title">
-                    {{value.name}}
+                    {{value.lastName }} {{value.firstName }} {{value.patronymic }}
                 </v-list-item-title>
             </v-list-item-content>
         </v-list-item>
@@ -33,10 +33,6 @@
             return {}
         },
         props: {
-            elevation: {
-                type: Number,
-                default: 0
-            },
             avatarSize: {
                 type: Number,
                 default: 150
@@ -45,8 +41,12 @@
                 type: Boolean,
                 default: false
             },
+            avatarMxAuto:{
+                type: Boolean,
+                default: false
+            },
             value: {
-                type: Object
+                type: Kopnik
             },
             birthYear: {
                 type: Boolean,
@@ -58,7 +58,12 @@
             },
             to:{
                 type: [String, Object]
-            }
+            },
+        },
+        filters:{
+          undefined(value){
+              return value===undefined?'':value
+          }
         },
         computed: {},
         watch: {},

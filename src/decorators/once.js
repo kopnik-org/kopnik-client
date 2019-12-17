@@ -1,29 +1,41 @@
 export default function once(target, name, descriptor) {
     const original = descriptor ? descriptor.value : target
     const result = function (...args) {
-        if (!original.promise) {
+        let promises= original.__promises= original.__promises||new Map
+        if (!promises.get(this)) {
+/*            if (this.constructor.name=='Kopnik') {
+                console.log('once', this.id, this.name)
+                console.time(this.id || this.name)
+            }*/
             let promise = original.apply(this, args)
 
             if (!(promise instanceof Promise)) {
                 return promise
             }
 
-            original.promise = promise
+            promises.set(this, promise)
 
-            original.promise
+            promises.get(this)
                 .then(() => {
-                    original.promise = undefined
+/*                    if (this.constructor.name=='Kopnik') {
+                        console.log('clear', this.id, this.name)
+                        console.timeEnd(this.id || this.name)
+                    }*/
+                    promises.set(this, undefined)
                 })
                 .catch(() => {
-                    original.promise = undefined
+                    promises.set(this, undefined)
                 })
+        } else {
+/*            if (this.constructor.name=='Kopnik') {
+                console.log('twice', this.id, this.name)
+            }*/
         }
-        return original.promise
+        return promises.get(this)
     }
-    if (descriptor){
-        descriptor.value=result
-    }
-    else{
+    if (descriptor) {
+        descriptor.value = result
+    } else {
         return result
     }
 }

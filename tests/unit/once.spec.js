@@ -17,7 +17,7 @@ async function abs(x) {
     return Array.isArray(x) ? x.map(eachItem => Math.abs(eachItem)) : Math.abs(x)
 }
 
-describe.only('once', () => {
+describe('once', () => {
     it('once call method with params', async () => {
         let onceAbs = once(abs)
         expect(await onceAbs(-1)).toBe(1)
@@ -65,7 +65,7 @@ describe.only('once', () => {
     })
 })
 
-describe.only('@once method()', () => {
+describe('@once method()', () => {
     it('once call method with params', async () => {
         expect(await test.abs(-1)).toBe(1)
     })

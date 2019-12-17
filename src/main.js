@@ -19,7 +19,7 @@ Icon.Default.mergeOptions({
 
 import Application from "./Application";
 import i18n from './plugins/i18n'
-import "./plugins/log"
+import "./plugins/loglevel"
 import * as logger from 'loglevel'
 
 import "./plugins/vee-validate"

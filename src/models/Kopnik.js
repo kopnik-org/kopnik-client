@@ -1,5 +1,7 @@
 import {sync, collection, scalar, object} from '../decorators/sync'
-import AbstractSync from "./AbstractSync";6
+import AbstractSync from "./AbstractSync";
+
+6
 
 export default class Kopnik extends AbstractSync {
     @scalar uid = undefined
@@ -23,44 +25,52 @@ export default class Kopnik extends AbstractSync {
     @collection witnessRequests
 
     get name() {
-        return `${this.lastName} ${this.firstName} ${this.patronymic}`
+        return [this.lastName, this.firstName, this.patronymic].filter(each=>each).join(' ')
     }
 
 
-      static async getByUid(uid) {
-         let json = await this.fetch(`getByUid?uid=${uid}`)
-          if (json) {
-              json.loaded = true
-              let result = this.merge(json)
-              return result
-          }
-          return null
+    static async getByUid(uid) {
+        let json = await this.api(`getByUid?uid=${uid}`)
+        if (json) {
+            json.loaded = true
+            let result = this.merge(json)
+            return result
+        }
+        return null
+    }
+
+    async reload(){
+        let result =  await super.reload()
+        if (result.photo='@todo'){
+            result.photo= '/avatar.png'
+        }
+        return result
     }
 
 
     async putWitnessRequest(request) {
-        return await this.constructor.fetch("putWitnessRequest", {
+        return await this.constructor.api("putWitnessRequest", {
             method: 'POST',
             body: JSON.stringify(request)
         })
     }
 
-    async confirm(witnessRequest){
-        let result= await this.constructor.fetch('confirm?id='+witnessRequest.id)
-        if (result){
+    async confirm(witnessRequest) {
+        let result = await this.constructor.api('confirm?id=' + witnessRequest.id)
+        if (result) {
             witnessRequest.status = Kopnik.Status.CONFIRMED
         }
     }
 
-    async decline(witnessRequest){
-        await this.constructor.fetch('decline?id='+witnessRequest.id)
-        if (result){
+    async decline(witnessRequest) {
+        await this.constructor.api('decline?id=' + witnessRequest.id)
+        if (result) {
             witnessRequest.status = Kopnik.Status.DECLINED
         }
     }
 }
 
-Kopnik.Status={
+Kopnik.Status = {
     NEW: 0,
     PENDING: 1,
     CONFIRMED: 2,

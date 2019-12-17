@@ -43,7 +43,7 @@ export function scalar(target, name, descriptor) {
     target.constructor.scalars.push(name)
 
     //обозначить скарярность в дескрипторе свойства -  не работает
-    descriptor.scalar= true
+    // descriptor.scalar= true
 }
 
 export function object(target, name, descriptor) {
@@ -65,7 +65,7 @@ export function collection(target, name, descriptor) {
         "get" + capitalizedName,
         {
             value: once(async function (...args) {
-                // console.log(`fetch path/to/api/${this.constructor.name}/get${capitalizedName}?id=`, this.id)
+                // console.log(`api path/to/api/${this.constructor.name}/get${capitalizedName}?id=`, this.id)
                 let result = []
                 for (let x = 0; x < Math.ceil(Math.random() * 10); x++) {
                     result.push({id: Math.ceil(Math.random() * 100)})

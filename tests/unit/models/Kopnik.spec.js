@@ -69,6 +69,7 @@ describe('kopnik', () => {
             expect(plain.ten[0].id).toBe(3)
         })
     })
+
     describe('kopnik loaded', () => {
         it('Kopnik.loaded', async () => {
             let kopnik1 = Kopnik.getReference(1)
@@ -79,12 +80,12 @@ describe('kopnik', () => {
         })
     })
 
-    describe('kopnik send witness request', () => {
-        it('Kopnik.sendWitnessRequest success', async () => {
+    describe('kopnik put witness request', () => {
+        it.skip('Kopnik.putWitnessRequest success', async () => {
             let kopnik1 = Kopnik.getReference(1)
             await kopnik1.loaded()
 
-          let result= await kopnik1.sendWitnessRequest(kopnik1.plain)
+          let result= await kopnik1.putWitnessRequest(kopnik1.plain)
             console.debug(result)
             // expect(kopnik1.name).toMatch(/\w+/)
         })

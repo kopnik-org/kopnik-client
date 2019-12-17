@@ -12,6 +12,7 @@ import * as models from "."
 import Application from "../Application";
 import {KopnikApiError} from "../KopnikError";
 import once from "../decorators/once";
+import bottle from "../plugins/bottle";
 
 /**
  * Общий принцип работы следующий
@@ -163,27 +164,9 @@ export default class AbstractSync {
         return this.cache.get(this.name).get(id)
     }
 
-    static async fetch(url, options = {}) {
-        options.headers = options.headers || {}
-        options.credentials = 'include'
-        if (!options.headers.Accept) {
-            options.headers.Accept = 'application/json'
-        }
-        if (options.method == "POST" && !options.headers['Content-Type']) {
-            options.headers['Content-Type'] = 'application/json'
-        }
+    static async api(url, options = {}) {
+        let api= bottle.container.API
 
-        let fullUrl = `${config.api.path}/${this.name.replace('Kopnik', 'User').toLowerCase()}s/${url}`
-
-        let response
-        try {
-            response = await fetch(fullUrl, options)
-        } catch (err) {
-            throw new err.constructor(`kopnik.org API network error url: ${fullUrl}, base error ${err.message}`)
-        }
-        if (!response.ok) {
-            throw new Error(`kopnik.org API network error url: ${fullUrl}, status: ${response.status}`)
-        }
         let result
         if (options.headers.Accept == "application/json") {
             result = await response.json()
@@ -227,7 +210,7 @@ export default class AbstractSync {
     }
 
     static async list() {
-        let json = await this.fetch("list"),
+        let json = await this.api("list"),
             result = Promise.all(json.users.map(eachModel => this.get(eachModel)))
 
         return result
@@ -238,7 +221,7 @@ export default class AbstractSync {
      * @returns {Promise.<AbstractSync>}
      */
     async reload() {
-        let json = await this.constructor.fetch(`get?ids=${this.id}`)
+        let json = await this.constructor.api(`get?ids=${this.id}`)
         this.merge(json[0])
         this.isLoaded = true
         return this;

@@ -89,7 +89,7 @@
         <v-content>
             <v-container class="fill-height" fluid>
                 <!--                <Auth v-if="!app.user" @login="login_login" class="d-flex justify-center align-center"
-                                      style="position:absolute; left:0; top:0; z-index: 1000; right: 0; bottom: 0;"></Auth>-->
+                                      style="position:absolute; left:0; top20:0; z-index: 1000; right: 0; bottom: 0;"></Auth>-->
                 <!--                <div :is="app.SECTION" style="flex-grow: 1"></div>-->
                 <keep-alive>
                     <router-view></router-view>
@@ -113,7 +113,7 @@
         },
         data: (() => {
             let app = global.app
-            // app.initUser()
+            // app.authenticate()
 
             return {
                 app,
@@ -156,7 +156,7 @@
             onLocationClick() {
             },
             onKopnikClick(kopnik) {
-                alert("Open face dialog ")
+                alert("Open face details ")
             },
             login_login() {
 

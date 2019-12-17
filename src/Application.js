@@ -1,7 +1,7 @@
 import {AbstractSync, Kopnik} from "./models";
 import {KopnikApiError} from "./KopnikError";
 import config from '../config'
-import log from "./plugins/log";
+import log from "./plugins/loglevel";
 import once from "./decorators/once";
 
 export default class Application {
@@ -36,7 +36,25 @@ export default class Application {
 
         this.user = undefined
 
-        this.initUser()
+        this.authenticate()
+            .then(()=>{
+                if (!this.user){
+                    this.SECTION='Map'
+                }
+                else if (this.user.status==Kopnik.Status.NEW || this.user.status==Kopnik.Status.DECLINED){
+                    this.SECTION='Profile'
+                }
+                else{
+                    this.SECTION='Witness'
+                }
+            })
+    }
+
+    async authenticated(){
+        if (this.user===undefined){
+            await this.authenticate()
+        }
+        return this.user
     }
 
     getSharedState() {
@@ -57,29 +75,23 @@ export default class Application {
      * @returns {Promise<void>}
      */
     @once
-    async initUser() {
+    async authenticate() {
         try {
-            let userAsPlain = (await Kopnik.fetch('get?ids='))[0]
+            let userAsPlain = (await Kopnik.api('get?ids='))[0]
             this.user=Kopnik.merge(userAsPlain)
             this.user.isLoaded= true
-            if (this.user.status==0 || this.user.status==3){
-                this.SECTION='Profile'
-            }
-            else{
-                this.SECTION='Witness'
-            }
+            this.user.photo='avatar.png'
         } catch (err) {
             if ((err instanceof KopnikApiError)) {
                 this.user=null
                 log.info('user not authenticated')
                 // location.href= `https://oauth.vk.com/authorize?client_id=${config.messenger.clientId}&display=page&redirect_uri=${encodeURIComponent(config.messenger.redirectUrl)}&scope=status offline&response_type=code&v=5.103`
-                // location.href= `https://dev.kopnik.org/connect/vkontakte`
+                location.replace(`https://dev.kopnik.org/connect/vkontakte`)
             }
             else{
                 throw err
             }
         }
-
     }
 
     /**

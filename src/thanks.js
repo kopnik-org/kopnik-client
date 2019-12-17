@@ -12,8 +12,8 @@ let thanks = [
         },
         deals: [
             {
-                project: 'v0.1 kopnik.org',
-                role: 'PHP-мастер',
+                project: 'kopnik.org v0.1',
+                role: 'Бэкенд',
                 description: null,
                 date: today,
             },
@@ -58,19 +58,43 @@ let thanks = [
             },
             {
                 project: 'Макет сайта kopnik.org',
-                role: 'Автор/Дизайнер',
+                role: 'Автор',
                 description: null,
                 date: new Date(2019, 11, 15),
                 link: 'www.kopnik.org',
             },
             {
-                project: 'v0.1 kopnik.org',
-                role: 'Vue.js-мастер',
+                project: 'kopnik.org v0.1',
+                role: 'Web-фронтенд/Тимлид',
                 description: null,
                 date: today,
             },
         ]
     },
+    // Игорь
+    {
+        who: {
+            id: null,
+            uid: null,
+            photo: null,
+            name: 'Игорь',
+        },
+        deals: [
+            {
+                project: 'Сервера kopnik.org и dev.kopnik.org',
+                role: 'Хозяин',
+                description: null,
+                date: new Date(2019, 6, 30),
+            },
+            {
+                project: 'kopnik.org v0.1',
+                role: 'Системное администрирование',
+                description: null,
+                date: today,
+            },
+        ]
+    },
+
     //Александр
     {
         who: {
@@ -95,7 +119,7 @@ let thanks = [
             },
         ]
     },
-    // Дмитрий журбин
+    // Дмитрий Журбин
     {
         who: {
             id: null,
@@ -150,7 +174,7 @@ let thanks = [
                 project: 'Новый временный сайт kopnik.org',
                 role: 'Веб-мастер',
                 description: null,
-                date: new Date(2019, 12, 8),
+                date: new Date(2019, 11, 8),
                 link: 'kopnik.org',
             },
         ]
@@ -159,6 +183,6 @@ let thanks = [
 thanks = thanks.map(eachThank => {
     eachThank.deals = eachThank.deals.filter(eachDeal => eachDeal.date < new Date).sort((dealA, dealB) => dealA.date > dealB.date ? -1 : 1)
     return eachThank
-}).filter(eachThank => eachThank.deals.length).sort((thankA, thankB)=>thankA.deals[0]>thankB.deals[0]?-1:1)
+}).filter(eachThank => eachThank.deals.length).sort((thankA, thankB)=>thankA.deals[0].date>thankB.deals[0].date?-1:1)
 
 export default thanks

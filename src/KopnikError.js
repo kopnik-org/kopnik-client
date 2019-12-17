@@ -5,7 +5,7 @@ class KopnikError extends Error {
     }
 }
 class KopnikApiError extends KopnikError {
-    constructor(message, code, url, status) {
+    constructor(message, code, url) {
         super(message, code)
         this.url = url
         this.status = status

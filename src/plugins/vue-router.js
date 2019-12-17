@@ -17,7 +17,7 @@ const routes = [
         beforeEnter: async (to, from, next) => {
             console.log('before /Profile')
             if (global.app.user === undefined) {
-                await app.initUser()
+                await app.authenticate()
             }
             if (global.app.user) {
                 return next()
@@ -32,7 +32,7 @@ const routes = [
         beforeEnter: async (to, from, next) => {
             console.log('before /witness')
             if (global.app.user === undefined) {
-                await app.initUser()
+                await app.authenticate()
             }
             if (global.app.user) {
                 return next()
@@ -44,6 +44,17 @@ const routes = [
     {
         path: '/thanks',
         component: Thanks,
+        beforeEnter: async (to, from, next) => {
+            console.log('before /thanks')
+            if (global.app.user === undefined) {
+                await app.authenticate()
+            }
+            if (global.app.user) {
+                return next()
+            } else {
+                next({path: '/'})
+            }
+        }
     },
     {
         path: '/',
