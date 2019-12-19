@@ -13,7 +13,7 @@
     </v-flex>
 </template>
 <script>
-    import KopnikView from "./Kopnik"
+    import KopnikView from "./KopnikVue"
     import {Kopnik} from "../models"
     import log from "./mixin/log"
 
@@ -42,7 +42,6 @@
         async created() {
             this.user = global.app.user
             this.user.witnessRequests = await Promise.all([3].map(each => Kopnik.getReference(each).loaded()))
-            console.log(1243)
         },
         async mounted() {
         }

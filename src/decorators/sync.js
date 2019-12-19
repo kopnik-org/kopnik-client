@@ -65,7 +65,7 @@ export function collection(target, name, descriptor) {
         "get" + capitalizedName,
         {
             value: once(async function (...args) {
-                // console.log(`api path/to/api/${this.constructor.name}/get${capitalizedName}?id=`, this.id)
+                // console.log(`fetchApi path/to/fetchApi/${this.constructor.name}/get${capitalizedName}?id=`, this.id)
                 let result = []
                 for (let x = 0; x < Math.ceil(Math.random() * 10); x++) {
                     result.push({id: Math.ceil(Math.random() * 100)})

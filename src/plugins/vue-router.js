@@ -1,9 +1,9 @@
 import Vue from "vue"
 import VueRouter from "vue-router";
-import Profile from "../components/Profile";
-import Witness from "../components/Witness";
-import Map from "../components/Map";
-import Thanks from "../components/Thanks";
+import Profile from "../components/ProfileVue";
+import Witness from "../components/WitnessVue";
+import Map from "../components/MainVue";
+import Thanks from "../components/ThanksVue";
 
 Vue.use(VueRouter)
 
@@ -15,7 +15,6 @@ const routes = [
         path: '/Profile',
         component: Profile,
         beforeEnter: async (to, from, next) => {
-            console.log('before /Profile')
             if (global.app.user === undefined) {
                 await app.authenticate()
             }
@@ -30,7 +29,6 @@ const routes = [
         path: '/witness',
         component: Witness,
         beforeEnter: async (to, from, next) => {
-            console.log('before /witness')
             if (global.app.user === undefined) {
                 await app.authenticate()
             }
@@ -45,7 +43,6 @@ const routes = [
         path: '/thanks',
         component: Thanks,
         beforeEnter: async (to, from, next) => {
-            console.log('before /thanks')
             if (global.app.user === undefined) {
                 await app.authenticate()
             }

@@ -8,13 +8,71 @@ import Application from "../Application"
 import config from '../../config'
 import {KopnikApiError} from "../KopnikError";
 import LoglevelPluginToString from "./loglevel-plugin-to-string"
-import prefix from "loglevel-plugin-prefix";
-
 
 Bottle.config.strict = true
 const bottle = new Bottle()
 
-bottle.factory('Config', function configFactory(){
+bottle.factory('defaultFetchApiOptions', function defaultFetchApiOptionsFactory(container) {
+    let result = {}
+    if (process.env.NODE_ENV == 'test') {
+        result.headers = {
+            Cookie: 'PHPSESSID=75dm4i3gah5gpqgjf5g6sjpq7k'
+        }
+    }
+    return result
+})
+bottle.factory('fetchApi', function fetchApiFactory(container) {
+    const config = container.config
+    const defaultFetchApiOptions = container.defaultFetchApiOptions
+    const logger = container.logger
+
+    return async function fetchApi(url, options = {}) {
+        const defaultOptions = {
+            credentials: 'include',
+
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': !options.method || options.method.toUpperCase() == 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
+            }
+        }
+        options = _.merge({}, defaultOptions, defaultFetchApiOptions, options)
+        if (options.body && options.headers['Content-Type'] === 'application/x-www-form-urlencoded;charset=UTF-8') {
+            options.body = jsonToFormData(options.body)
+        }
+        // logger.log(options)
+        // console.log(options)
+        let fullUrl = `${config.api.path}/${url}`
+
+        let response
+        try {
+            response = await fetch(fullUrl, options)
+            // Пропал 4G
+        } catch (err) {
+
+            throw new KopnikApiError(err.message, null, fullUrl)
+        }
+        // Не найдена страница или синтаксическая ошибка в веб-сервисе
+        if (!response.ok) {
+            throw new KopnikApiError(response.statusText, response.status, fullUrl)
+        }
+
+        let result
+        switch (response.headers.get('Content-Type')) {
+            case 'application/json':
+                result = await response.json()
+                // Не авторизован/Нет такого пользователя
+                if (result.error) {
+                    throw new KopnikApiError(result.error.error_msg, result.error.error_code, fullUrl)
+                }
+                break
+            default:
+                result = await response.text()
+        }
+
+        return result.response
+    }
+})
+bottle.factory('config', function configFactory() {
     if (!process.env.NODE_ENV) {
         throw new Error("NODE_ENV is not defined");
     }
@@ -24,66 +82,33 @@ bottle.factory('Config', function configFactory(){
 
     return result
 })
-bottle.service(Application.name, Application, 'Config')
-bottle.factory('API', function apiFactory(container){
-    const config = container.Config
-
-    return async function api(url, options={}) {
-        const defaultOptions = {
-            credentials: 'include',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': !options.method || options.method.toUpperCase() == 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
-            }
-        }
-        options = _.merge(defaultOptions, options)
-        if (options.body){
-            options.body= jsonToFormData(options.body)
-        }
-
-        let fullUrl = `${config.api.path}/${url}`
-
-        let response
-        try {
-            response = await fetch(fullUrl, options)
-        // Пропал 4G
-        } catch (err) {
-            throw new KopnikApiError(err.message, null, fullUrl)
-        }
-        // Не найдет веб-сервис или синтаксическая ошибка в веб-сервисе
-        if (!response.ok) {
-            throw new KopnikApiError(response.statusText, response.status, fullUrl)
-        }
-        // Не авторизован/Нет такого пользователя
-        if (response.error){
-            throw new KopnikApiError(response.error.error_msg, response.error.error_code, fullUrl)
-        }
-    }
-})
-bottle.factory('Log', function logFactory(){
-    LoglevelPluginPrefix.reg(loglevel)
-    LoglevelPluginPrefix.apply(loglevel, {template:"%t [%l] %n: "})
-    if (process.env.NODE_ENV=="testing") {
+bottle.service('Application', Application, 'config')
+bottle.factory('logger', function loggerFactory() {
+    //все плагины ломают стектрейс консоли. то есть невозможно увидеть из какого файла и какой строки был вызван лог!
+    // LoglevelPluginPrefix.reg(loglevel)
+    // LoglevelPluginPrefix.apply(loglevel, {template: "%t [%l] %n: "})
+    if (process.env.NODE_ENV == "test") {
         LoglevelPluginToString.apply(loglevel, {})
     }
 // Be sure to call setLevel method in order to apply plugin
     loglevel.setLevel(loglevel.levels.DEBUG)
 // loglevel.getLogger("StateManager").setLevel("info")
-
-    export default loglevel
-
-
+    return loglevel
 })
 
 /**
+ * @callback fetch
+ * @param {string} url
+ * @param {Object} options
+ */
+/**
  * @type {Object}
  *
- * @property {Object} container
- * @property {Application} container.Application
- * @property {Location} container.Location
- * @property {Promise} container.API
+ * @property {loglevel} logger
+ * @property {Application} Application
+ * @property {Location} Location
+ * @property {fetch} fetchApi
+ * @property {Object} defaultFetchApiOptions
  */
-const typedBottle= bottle
-export default typedBottle
-
-// bottle.container.
+const container = bottle.container
+export {bottle, container}

@@ -21,7 +21,7 @@
     import log from "./mixin/log"
     import thanks from "../thanks";
 
-    import KopnikView from './Kopnik'
+    import KopnikView from './KopnikVue'
 
     export default {
         name: "Thanks",

@@ -1,9 +1,10 @@
 /**
  * Created by alexey2baranov on 07.02.17.
  */
+import {container} from "../../plugins/bottle";
 
-module.exports = {
+export default {
   created(){
-    this.log= require("loglevel").getLogger(this.$options.name+".vue")
+    this.log= container.logger.getLogger(this.$options.name+".vue")
   }
 }

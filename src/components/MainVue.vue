@@ -64,7 +64,7 @@
         LControl
     } from 'vue2-leaflet'
     import {Kopnik} from "../models"
-    import KopnikVue from "./Kopnik";
+    import KopnikVue from "./KopnikVue";
 
     export default {
         components: {
@@ -130,7 +130,7 @@
                 this.details.show = true
             },
             async map_update_bounds(event) {
-                // await Kopnik.api("list")
+                // await Kopnik.fetchApi("list")
             }
         },
         created() {

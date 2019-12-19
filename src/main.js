@@ -1,11 +1,11 @@
 import * as models from "./models"
 
 import Vue from 'vue'
-import App from './components/App.vue'
-import Map from './components/Map'
+import App from './components/AppVue.vue'
 import vuetify from './plugins/vuetify'
 import router from './plugins/vue-router'
-
+import i18n from './plugins/i18n'
+import "./plugins/vee-validate"
 
 import {Icon} from 'leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -17,30 +17,21 @@ Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 })
 
+import {container} from "./plugins/bottle";
 import Application from "./Application";
-import i18n from './plugins/i18n'
-import "./plugins/loglevel"
-import * as logger from 'loglevel'
 
-import "./plugins/vee-validate"
-import Profile from "./components/Profile";
-import Witness from "./components/Witness";
-
-
-console.log('global app ')
 global.app = new Application
 
 
+Vue.config.productionTip = false
 
-    Vue.config.productionTip = false
-
-    global.vue= new Vue({
-        ...App,
-        el: "#appContainer",
-        vuetify,
-        i18n,
-        router,
-        // render: h => h(App)
-    })//.$mount('#app')
+global.vue = new Vue({
+    ...App,
+    el: "#appContainer",
+    vuetify,
+    i18n,
+    router,
+    // render: h => h(App)
+})//.$mount('#app')
 
 

@@ -8,7 +8,6 @@ class KopnikApiError extends KopnikError {
     constructor(message, code, url) {
         super(message, code)
         this.url = url
-        this.status = status
     }
 }
 

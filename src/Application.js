@@ -1,8 +1,8 @@
 import {AbstractSync, Kopnik} from "./models";
 import {KopnikApiError} from "./KopnikError";
-import config from '../config'
-import log from "./plugins/loglevel";
 import once from "./decorators/once";
+import {container} from "./plugins/bottle";
+
 
 export default class Application {
     static getInstance() {
@@ -15,7 +15,7 @@ export default class Application {
     user = null
 
     constructor() {
-        this.log= log.getLogger('application')
+        this.log= container.logger.getLogger('application')
         /**
          * Кэш моделей
          * @type {Array}
@@ -77,7 +77,7 @@ export default class Application {
     @once
     async authenticate() {
         try {
-            let userAsPlain = (await Kopnik.api('get?ids='))[0]
+            let userAsPlain = (await Kopnik.fetchApi('get?ids='))[0]
             this.user=Kopnik.merge(userAsPlain)
             this.user.isLoaded= true
             this.user.photo='avatar.png'

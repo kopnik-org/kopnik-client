@@ -13,7 +13,7 @@
                 </v-list-item-title>
             </v-list-item-content>
         </v-list-item>
-        <v-list-item v-if="birthYear">
+        <v-list-item v-if="birthyear">
             <v-text-field v-model="value.birthyear" :label="$t('profile.birthyear')" readonly></v-text-field>
         </v-list-item>
         <v-list-item v-if="passport">
@@ -37,7 +37,7 @@
                 type: Number,
                 default: 150
             },
-            avatarTile: {
+            avatarTile:  {
                 type: Boolean,
                 default: false
             },
@@ -48,7 +48,7 @@
             value: {
                 type: Kopnik
             },
-            birthYear: {
+            birthyear: {
                 type: Boolean,
                 default: false
             },

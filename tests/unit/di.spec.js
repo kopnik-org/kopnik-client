@@ -1,5 +1,4 @@
 import Bottle from "bottlejs";
-import Application from "../../src/Application";
 
 class $Main {
     constructor(small) {
@@ -40,24 +39,20 @@ describe('DI', () => {
         let a = bottle.container.value
         let b = bottle.container.value
         expect(a).toBe(b)
-        console.debug(a)
     })
     it('function', async () => {
         let a = bottle.container[$function.name]
         let b = bottle.container[$function.name]
         expect(a).toBe(b)
-        console.debug(a)
     })
     it('Small', async () => {
         let a = bottle.container[$Small.name]
         let b = bottle.container[$Small.name]
         expect(a).toBe(b)
-        console.debug(a)
     })
     it('Main', async () => {
         let a = bottle.container[$Main.name]
         let b = bottle.container[$Main.name]
         expect(a).toBe(b)
-        console.debug(a)
     })
 })

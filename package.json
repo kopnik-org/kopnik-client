@@ -38,6 +38,7 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "flush-promises": "^1.0.2",
     "isomorphic-fetch": "^2.2.1",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
@@ -77,5 +78,11 @@
   ],
   "eslintIgnore": [
     "doc/view"
-  ]
+  ],
+  "jest": {
+    "preset": "@vue/cli-plugin-unit-jest",
+    "transformIgnorePatterns": [
+      "/node_modules/(?!vee-validate/dist/rules)"
+    ]
+  }
 }

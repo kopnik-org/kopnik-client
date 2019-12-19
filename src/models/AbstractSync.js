@@ -5,14 +5,10 @@
 
 "use strict";
 import _ from "lodash"
-import loglevel from "loglevel"
 
-import config from "../../config"
 import * as models from "."
-import Application from "../Application";
-import {KopnikApiError} from "../KopnikError";
 import once from "../decorators/once";
-import bottle from "../plugins/bottle";
+import {container} from "../plugins/bottle";
 
 /**
  * Общий принцип работы следующий
@@ -36,7 +32,7 @@ export default class AbstractSync {
 
     constructor() {
 
-        this.log = loglevel.getLogger(this.constructor.name)
+        this.log = container.logger.getLogger(this.constructor.name)
 
         this.isLoaded = false;
         this.id = undefined;
@@ -90,7 +86,7 @@ export default class AbstractSync {
 
     /*    async save() {
             let plain = this.getPlain()
-            let result = await Connection.getInstance().session.call("api:model.save", [], {
+            let result = await Connection.getInstance().session.call("fetchApi:model.save", [], {
                 type: this.constructor.name,
                 plain: plain
             })
@@ -108,7 +104,7 @@ export default class AbstractSync {
             delete value.created
             // let plain= this.getPlain(value);
             let plain = this.prototype.getPlain.call(value);
-            let {id, created} = await Connection.getInstance().session.call("api:model.create", [], {
+            let {id, created} = await Connection.getInstance().session.call("fetchApi:model.create", [], {
                 type: this.name,
                 plain: plain
             });
@@ -130,7 +126,7 @@ export default class AbstractSync {
                 throw new Error("destroying unsaved model")
             }
             if (!soft) {
-                await Connection.getInstance().session.call("api:model.destroy", [], {
+                await Connection.getInstance().session.call("fetchApi:model.destroy", [], {
                     type: this.constructor.name,
                     id: this.id
                 })
@@ -142,6 +138,10 @@ export default class AbstractSync {
             }
         }*/
 
+    /**
+     * @param id
+     * @returns {this}
+     */
     static getReference(id) {
         if (!id && id!==0) {
             throw new Error("Не указан идентификатор объекта id=" + JSON.stringify(id));
@@ -164,21 +164,11 @@ export default class AbstractSync {
         return this.cache.get(this.name).get(id)
     }
 
-    static async api(url, options = {}) {
-        let api= bottle.container.API
-
-        let result
-        if (options.headers.Accept == "application/json") {
-            result = await response.json()
-            if (result.error) {
-                let err = new KopnikApiError(result.error.error_msg, result.error.error_code, fullUrl, result.status)
-                throw err
-            }
-            return result.response
-        } else {
-            result = await response.text()
-            return result
-        }
+    static async fetchApi(url, options = {}) {
+        let fetchApi= container.fetchApi
+        let fullUrl = `${this.name.replace('Kopnik','User').toLowerCase()}s/${url}`
+        let result = await fetchApi(fullUrl, options)
+        return result
     }
 
     /**
@@ -210,7 +200,7 @@ export default class AbstractSync {
     }
 
     static async list() {
-        let json = await this.api("list"),
+        let json = await this.fetchApi("list"),
             result = Promise.all(json.users.map(eachModel => this.get(eachModel)))
 
         return result
@@ -221,7 +211,7 @@ export default class AbstractSync {
      * @returns {Promise.<AbstractSync>}
      */
     async reload() {
-        let json = await this.constructor.api(`get?ids=${this.id}`)
+        let json = await this.constructor.fetchApi(`get?ids=${this.id}`)
         this.merge(json[0])
         this.isLoaded = true
         return this;

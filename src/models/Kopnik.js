@@ -30,13 +30,21 @@ export default class Kopnik extends AbstractSync {
 
 
     static async getByUid(uid) {
-        let json = await this.api(`getByUid?uid=${uid}`)
+        let json = await this.fetchApi(`getByUid?uid=${uid}`)
         if (json) {
             json.loaded = true
             let result = this.merge(json)
             return result
         }
         return null
+    }
+
+    /**
+     * @param id
+     * @returns {Kopnik}
+     */
+    static getReference(id){
+        return super.getReference(id)
     }
 
     async reload(){
@@ -49,21 +57,21 @@ export default class Kopnik extends AbstractSync {
 
 
     async putWitnessRequest(request) {
-        return await this.constructor.api("putWitnessRequest", {
+        return await this.constructor.fetchApi("putWitnessRequest", {
             method: 'POST',
             body: JSON.stringify(request)
         })
     }
 
     async confirm(witnessRequest) {
-        let result = await this.constructor.api('confirm?id=' + witnessRequest.id)
+        let result = await this.constructor.fetchApi('confirm?id=' + witnessRequest.id)
         if (result) {
             witnessRequest.status = Kopnik.Status.CONFIRMED
         }
     }
 
     async decline(witnessRequest) {
-        await this.constructor.api('decline?id=' + witnessRequest.id)
+        await this.constructor.fetchApi('decline?id=' + witnessRequest.id)
         if (result) {
             witnessRequest.status = Kopnik.Status.DECLINED
         }

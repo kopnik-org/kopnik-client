@@ -102,7 +102,7 @@
 <script>
 
     import Application from "../Application";
-    import Kopnik from "./Kopnik";
+    import Kopnik from "./KopnikVue";
 
     export default {
         components: {
