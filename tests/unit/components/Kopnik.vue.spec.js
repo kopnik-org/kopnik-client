@@ -8,24 +8,6 @@ import Counter from '../../../src/components/Counter'
 import {Kopnik} from "../../../src/models";
 import flushPromises from "flush-promises";
 
-
-describe('unit.components.Kopnik.vue', () => {
-    it.skip('renders firstName', async () => {
-        const kopnik2 = Kopnik.getReference(2)
-        const wrapper = mount(KopnikVue, {
-            propsData: {value: kopnik2}
-        })
-        // await kopnik2.loaded()
-        kopnik2.firstName = 'Алексей'
-        await Vue.nextTick()
-        await Vue.nextTick()
-        await Vue.nextTick()
-        // console.log(wrapper.vm.$props.value.plain)
-        expect(wrapper.text()).toMatch(/Алексей/)
-    })
-})
-
-
 describe('Counter', () => {
     describe('sub', () => {
         const count = {count: 0}
@@ -62,3 +44,31 @@ describe('Counter', () => {
         })
     })
 })
+
+describe('unit.components.Kopnik.vue', () => {
+    it.skip('renders firstName', async () => {
+        const kopnik2 = Kopnik.getReference(2)
+        const wrapper = mount(KopnikVue, {
+            propsData: {value: kopnik2}
+        })
+        // await kopnik2.loaded()
+        kopnik2.firstName = 'Алексей'
+        await Vue.nextTick()
+        await Vue.nextTick()
+        await Vue.nextTick()
+        // console.log(wrapper.vm.$props.value.plain)
+        expect(wrapper.text()).toMatch(/Алексей/)
+    })
+    it('renders', async () => {
+        const kopnik2 = await Kopnik.get(2)
+        const wrapper = mount(KopnikVue, {
+            propsData: {
+                value: kopnik2,
+                passport: true,
+                birthyear: true
+            }
+        })
+        expect(wrapper.html()).toMatchSnapshot()//(/Баранов Алексей/)
+    })
+})
+

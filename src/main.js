@@ -1,7 +1,4 @@
-import * as models from "./models"
-
 import Vue from 'vue'
-import App from './components/AppVue.vue'
 import vuetify from './plugins/vuetify'
 import router from './plugins/vue-router'
 import i18n from './plugins/i18n'
@@ -17,11 +14,10 @@ Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 })
 
-import {container} from "./plugins/bottle";
 import Application from "./Application";
+import App from './components/AppVue.vue'
 
 global.app = new Application
-
 
 Vue.config.productionTip = false
 

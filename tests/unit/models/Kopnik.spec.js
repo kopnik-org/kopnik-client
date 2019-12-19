@@ -1,4 +1,6 @@
 import {Kopnik} from "../../../src/models";
+import {bottle} from "../../../src/plugins/bottle";
+import {KopnikApiError} from "../../../src/KopnikError";
 
 describe('unit.models.Kopnik', () => {
     describe('merge', () => {
@@ -64,6 +66,40 @@ describe('unit.models.Kopnik', () => {
             expect(plain.ten).toBeInstanceOf(Array)
             expect(plain.ten.length).toBe(2)
             expect(plain.ten[0].id).toBe(3)
+        })
+    })
+
+    describe('loaded', () => {
+        it('throw error without cookie', async () => {
+            let kopnik1 = Kopnik.getReference(2)
+            try {
+                var temp= bottle.container.defaultFetchApiOptions.headers.cookie
+                bottle.container.defaultFetchApiOptions.headers.cookie= null
+                await kopnik1.loaded()
+            } catch (e) {
+                // console.log(e)
+                expect(e).toBeInstanceOf(KopnikApiError)
+                expect(e.message).toMatch(/no.+auth/i)
+            } finally {
+                bottle.container.defaultFetchApiOptions.headers.cookie= temp
+            }
+            expect(kopnik1.isLoaded).toBeFalsy()
+        })
+
+        it('success', async () => {
+            let kopnik1 = Kopnik.getReference(2)
+            await kopnik1.loaded()
+            expect(kopnik1.firstName).toMatch(/[а-я]/)
+            expect(kopnik1.lastName).toMatch(/[а-я]/)
+            expect(kopnik1.patronymic).toMatch(/[а-я]|\w/)
+            expect(kopnik1.photo).toMatch(/\w/)
+            expect(Number.isInteger(kopnik1.birthyear)).toBeTruthy()
+            // expect(Number.isInteger(kopnik1.passport)).toBeTruthy()
+            expect(kopnik1.location).toBeInstanceOf(Array)
+            expect(kopnik1.location[0]).toBeTruthy()
+
+            expect(kopnik1.isLoaded).toBeTruthy()
+            expect(kopnik1.name).toMatch(/[а-яА-ЯЁё]+/)
         })
     })
 })

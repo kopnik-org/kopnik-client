@@ -10,6 +10,10 @@ let config = {
         },
         api: {
             path: "https://dev.kopnik.org/api"
+        },
+        di:{
+            fetch: true,
+            cookie: false
         }
     },
     "test": {
@@ -19,6 +23,10 @@ let config = {
         },
         api: {
             path: "https://dev.kopnik.org/api"
+        },
+        di:{
+            fetch: false,
+            cookie: 2
         }
     },
     "production": {
@@ -28,6 +36,10 @@ let config = {
         },
         api: {
             path: "https://dev.kopnik.org/api"
+        },
+        di:{
+            fetch: true,
+            cookie: false
         }
     }
 }

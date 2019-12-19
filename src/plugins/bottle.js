@@ -6,78 +6,58 @@ import LoglevelPluginPrefix from "loglevel-plugin-prefix"
 
 import Application from "../Application"
 import config from '../../config'
-import {KopnikApiError} from "../KopnikError";
 import LoglevelPluginToString from "./loglevel-plugin-to-string"
+import fetchApi from "../bottle/fetchApi";
+import fetchApiMock from "../bottle/fetchApi.mock";
 
 Bottle.config.strict = true
 const bottle = new Bottle()
 
+/**
+ * Настраивает контейнер
+ * В первый раз все инъекции
+ * Последуюющийе разы - только переданные в аргументе
+ *
+ * @param {Object} options параметры по умолчанию соответствуют наиболее приемлемым для окружения значениям окружению
+ * @param {Number=} options.cookie
+ * @param {Boolean=} options.fetch
+ */
+Bottle.prototype.setup = function (options) {
+    Object.assign(this.container.config.di, options)
+    // this.constant('options', options)
+}
+
 bottle.factory('defaultFetchApiOptions', function defaultFetchApiOptionsFactory(container) {
-    let result = {}
-    if (process.env.NODE_ENV == 'test') {
+    const cookies = {
+        1: 'PHPSESSID=user-1',
+        2: 'PHPSESSID=4bd597n2u47c3d9sq5356f9shk',
+        3: 'PHPSESSID=user-3',
+        4: 'PHPSESSID=user-4',
+        5: 'PHPSESSID=user-5',
+        6: 'PHPSESSID=user-6',
+        7: 'PHPSESSID=user-7',
+        8: 'PHPSESSID=user-8',
+        9: 'PHPSESSID=user-9',
+        10: 'PHPSESSID=user-10',
+    }
+    const result = {}
+    if (container.config.di.cookie) {
         result.headers = {
-            Cookie: 'PHPSESSID=75dm4i3gah5gpqgjf5g6sjpq7k'
+            cookie: cookies[container.config.di.cookie]
         }
     }
+    // console.log(result)
     return result
 })
 bottle.factory('fetchApi', function fetchApiFactory(container) {
-    const config = container.config
-    const defaultFetchApiOptions = container.defaultFetchApiOptions
-    const logger = container.logger
-
-    return async function fetchApi(url, options = {}) {
-        const defaultOptions = {
-            credentials: 'include',
-
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': !options.method || options.method.toUpperCase() == 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
-            }
-        }
-        options = _.merge({}, defaultOptions, defaultFetchApiOptions, options)
-        if (options.body && options.headers['Content-Type'] === 'application/x-www-form-urlencoded;charset=UTF-8') {
-            options.body = jsonToFormData(options.body)
-        }
-        // logger.log(options)
-        // console.log(options)
-        let fullUrl = `${config.api.path}/${url}`
-
-        let response
-        try {
-            response = await fetch(fullUrl, options)
-            // Пропал 4G
-        } catch (err) {
-
-            throw new KopnikApiError(err.message, null, fullUrl)
-        }
-        // Не найдена страница или синтаксическая ошибка в веб-сервисе
-        if (!response.ok) {
-            throw new KopnikApiError(response.statusText, response.status, fullUrl)
-        }
-
-        let result
-        switch (response.headers.get('Content-Type')) {
-            case 'application/json':
-                result = await response.json()
-                // Не авторизован/Нет такого пользователя
-                if (result.error) {
-                    throw new KopnikApiError(result.error.error_msg, result.error.error_code, fullUrl)
-                }
-                break
-            default:
-                result = await response.text()
-        }
-
-        return result.response
-    }
+    return container.config.di.fetch ? fetchApi : fetchApiMock
 })
 bottle.factory('config', function configFactory() {
     if (!process.env.NODE_ENV) {
         throw new Error("NODE_ENV is not defined");
     }
 
-    let local = {}//require("./index.local.js")
+    let local = {}//require("./local.js")
     let result = _.merge({}, config, local)[process.env.NODE_ENV]
 
     return result
@@ -96,6 +76,17 @@ bottle.factory('logger', function loggerFactory() {
     return loglevel
 })
 
+switch (process.env.NODE_ENV) {
+    case 'production':
+        bottle.setup({fetch: true})
+        break
+    case 'development':
+        bottle.setup({fetch: true})
+        break
+    case 'test':
+        bottle.setup({cookie: 2})
+        break
+}
 /**
  * @callback fetch
  * @param {string} url
@@ -109,6 +100,7 @@ bottle.factory('logger', function loggerFactory() {
  * @property {Location} Location
  * @property {fetch} fetchApi
  * @property {Object} defaultFetchApiOptions
+ * @property {Object} config
  */
 const container = bottle.container
 export {bottle, container}

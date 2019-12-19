@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unit.fetchApiMock users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1231,
+    "firstName": "Алексей",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Баранов",
+    "location": Array [
+      55.755826,
+      37.6173,
+    ],
+    "passport": 1231,
+    "patronymic": "qwer",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`unit.fetchApiMock users/get?ids=1,2,3 1`] = `
+Array [
+  Object {
+    "birthyear": 1234,
+    "firstName": "Арт",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Арт",
+    "location": Array [
+      55.030494139179,
+      82.918603420258,
+    ],
+    "passport": null,
+    "patronymic": "Арт",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": 2,
+  },
+  Object {
+    "birthyear": 1231,
+    "firstName": "Алексей",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Баранов",
+    "location": Array [
+      55.755826,
+      37.6173,
+    ],
+    "passport": 1231,
+    "patronymic": "qwer",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1982,
+    "firstName": "Александр",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Титов",
+    "location": Array [
+      55.158396343962,
+      49.176560640553,
+    ],
+    "passport": null,
+    "patronymic": "Николаевич",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": 2,
+  },
+]
+`;
+
+exports[`unit.fetchApiMock users/get?ids=2 1`] = `
+Array [
+  Object {
+    "birthyear": 1231,
+    "firstName": "Алексей",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Баранов",
+    "location": Array [
+      55.755826,
+      37.6173,
+    ],
+    "passport": 1231,
+    "patronymic": "qwer",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
