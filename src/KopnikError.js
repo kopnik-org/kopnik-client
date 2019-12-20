@@ -9,8 +9,9 @@ class KopnikApiError extends KopnikError {
         super(message, code)
         this.url = url
     }
+    toString(){
+        return `${this.message} (${this.code}) ${this.url}`
+    }
 }
-
-
 
 export {KopnikError, KopnikApiError}

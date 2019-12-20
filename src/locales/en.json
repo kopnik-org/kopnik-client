@@ -11,8 +11,8 @@
     "sendRequest": "Send request"
   },
   "witness": {
-    "witness": "Witness",
-    "reject": "Reject"
+    "confirm": "Confirm",
+    "decline": "Decline"
   },
   "login": {
     "login": "Login with VK"

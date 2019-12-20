@@ -4,9 +4,9 @@
                 elevation="12" class="mb-10">
             <kopnik-view v-model="user.witnessRequests[index]" birth-year passport></kopnik-view>
             <v-card-actions>
-                <v-btn @click="this_confirm(eachWitnessRequest)" class="flex-grow-1">{{$t('witness.witness')}}
+                <v-btn @click="this_confirm(eachWitnessRequest)" class="flex-grow-1">{{$t('witness.confirm')}}
                 </v-btn>
-                <v-btn @click="this_decline(eachWitnessRequest)" class="flex-grow-1">{{$t('witness.reject')}}
+                <v-btn @click="this_decline(eachWitnessRequest)" class="flex-grow-1">{{$t('witness.decline')}}
                 </v-btn>
             </v-card-actions>
         </v-card>
@@ -16,6 +16,7 @@
     import KopnikView from "./KopnikVue"
     import {Kopnik} from "../models"
     import log from "./mixin/log"
+    import {container} from "../plugins/bottle";
 
     export default {
         name: "Witness",
@@ -40,7 +41,8 @@
             }
         },
         async created() {
-            this.user = global.app.user
+            await container.application.resolveUser()
+            this.user = container.application.user
             this.user.witnessRequests = await Promise.all([3].map(each => Kopnik.getReference(each).loaded()))
         },
         async mounted() {

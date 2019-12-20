@@ -5,17 +5,8 @@ import {container} from "./plugins/bottle";
 
 
 export default class Application {
-    static getInstance() {
-        if (!this.instance) {
-            this.instance = new this()
-        }
-        return this.instance
-    }
-
-    user = null
-
-    constructor() {
-        this.log= container.logger.getLogger('application')
+    constructor(logger) {
+        this.logger= logger.getLogger('application')
         /**
          * Кэш моделей
          * @type {Array}
@@ -34,7 +25,13 @@ export default class Application {
          */
         this.SECTION = "Map"
 
+        /**
+         * 0 потому что на undefined не срабатывает watcher,
+         * а null занят под "пользователь не аутентифицирован"
+        */
         this.user = undefined
+
+        this.top20=[]
 
         this.authenticate()
             .then(()=>{
@@ -45,12 +42,21 @@ export default class Application {
                     this.SECTION='Profile'
                 }
                 else{
-                    this.SECTION='Witness'
+                    this.SECTION='Map'
                 }
             })
     }
 
-    async authenticated(){
+
+    async loadTop20(){
+        this.top20 = await Promise.all([1, 2, 3, 4].map(each => Kopnik.get(each)))
+    }
+
+    /**
+     * Определиться с пользователем. Или он некий копник, или он null, то есть незарегистрирован на сервере
+     * @returns {Promise<Kopnik>}
+     */
+    async resolveUser(){
         if (this.user===undefined){
             await this.authenticate()
         }
@@ -81,12 +87,11 @@ export default class Application {
             this.user=Kopnik.merge(userAsPlain)
             this.user.isLoaded= true
             this.user.photo='avatar.png'
+            this.logger.info('user authenticated', this.user)
         } catch (err) {
-            if ((err instanceof KopnikApiError)) {
+            if ((err instanceof KopnikApiError) && err.message.match(/no.+aut/i)) {
                 this.user=null
-                log.info('user not authenticated')
-                // location.href= `https://oauth.vk.com/authorize?client_id=${config.messenger.clientId}&display=page&redirect_uri=${encodeURIComponent(config.messenger.redirectUrl)}&scope=status offline&response_type=code&v=5.103`
-                location.replace(`https://dev.kopnik.org/connect/vkontakte`)
+                this.logger.info('user not authenticated')
             }
             else{
                 throw err

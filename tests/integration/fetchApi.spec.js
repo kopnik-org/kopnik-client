@@ -9,8 +9,16 @@ describe('integration.fetchApi', () => {
             let result = await fetchApi('users/get?ids=')
             expect(result).toMatchSnapshot()
         });
+        it('users/get?ids=1', async () => {
+            let result = await fetchApi('users/get?ids=1')
+            expect(result).toMatchSnapshot()
+        });
         it('users/get?ids=2', async () => {
             let result = await fetchApi('users/get?ids=2')
+            expect(result).toMatchSnapshot()
+        });
+        it('users/get?ids=3', async () => {
+            let result = await fetchApi('users/get?ids=3')
             expect(result).toMatchSnapshot()
         });
         it('users/get?ids=1,2,3', async () => {

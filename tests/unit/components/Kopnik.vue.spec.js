@@ -1,12 +1,13 @@
 import 'isomorphic-fetch'
-import '../../vue-setup'
+import {vueI18n} from '../../vue-setup'
+import VueI18n from 'vue-i18n'
 import {mount} from '@vue/test-utils'
-import Vue from 'vue'
 
 import KopnikVue from '../../../src/components/KopnikVue'
 import Counter from '../../../src/components/Counter'
 import {Kopnik} from "../../../src/models";
 import flushPromises from "flush-promises";
+import '../../vue-setup'
 
 describe('Counter', () => {
     describe('sub', () => {
@@ -38,7 +39,6 @@ describe('Counter', () => {
             /*        wrapper.setProps({
                         count:{count:1}
                     })*/
-            await Vue.nextTick()
             await flushPromises()
             expect(wrapper.text()).toContain('0')
         })
@@ -53,22 +53,21 @@ describe('unit.components.Kopnik.vue', () => {
         })
         // await kopnik2.loaded()
         kopnik2.firstName = 'Алексей'
-        await Vue.nextTick()
-        await Vue.nextTick()
-        await Vue.nextTick()
+        await flushPromises()
         // console.log(wrapper.vm.$props.value.plain)
         expect(wrapper.text()).toMatch(/Алексей/)
     })
     it('renders', async () => {
         const kopnik2 = await Kopnik.get(2)
         const wrapper = mount(KopnikVue, {
+            vueI18n,
             propsData: {
                 value: kopnik2,
-                passport: true,
-                birthyear: true
+                passport: false,
+                birthyear: false
             }
         })
-        expect(wrapper.html()).toMatchSnapshot()//(/Баранов Алексей/)
+        expect(wrapper.vm.$el).toMatchSnapshot()//(/Баранов Алексей/)
     })
 })
 

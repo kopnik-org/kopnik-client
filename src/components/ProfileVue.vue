@@ -117,6 +117,7 @@
 
     import Kopnik from "../models/Kopnik"
     import log from "./mixin/log"
+    import {container} from "../plugins/bottle";
 
     export default {
         $_veeValidate: {
@@ -187,7 +188,7 @@
             }
         },
         async created() {
-            let user = this.$root.app.user
+            let user = container.application.user
             if (user.id) {
                 await user.loaded()
             } else {

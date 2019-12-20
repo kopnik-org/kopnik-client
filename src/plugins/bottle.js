@@ -2,11 +2,9 @@ import Bottle from "bottlejs"
 import _ from "lodash"
 import 'json-form-data'
 import * as loglevel from "loglevel";
-import LoglevelPluginPrefix from "loglevel-plugin-prefix"
 
 import Application from "../Application"
 import config from '../../config'
-import LoglevelPluginToString from "./loglevel-plugin-to-string"
 import fetchApi from "../bottle/fetchApi";
 import fetchApiMock from "../bottle/fetchApi.mock";
 
@@ -30,7 +28,7 @@ Bottle.prototype.setup = function (options) {
 bottle.factory('defaultFetchApiOptions', function defaultFetchApiOptionsFactory(container) {
     const cookies = {
         1: 'PHPSESSID=user-1',
-        2: 'PHPSESSID=4bd597n2u47c3d9sq5356f9shk',
+        2: 'PHPSESSID=fochlrd3vi3nqmflts434ikjh9',
         3: 'PHPSESSID=user-3',
         4: 'PHPSESSID=user-4',
         5: 'PHPSESSID=user-5',
@@ -62,7 +60,7 @@ bottle.factory('config', function configFactory() {
 
     return result
 })
-bottle.service('Application', Application, 'config')
+bottle.service('application', Application, 'logger')
 bottle.factory('logger', function loggerFactory() {
     //все плагины ломают стектрейс консоли. то есть невозможно увидеть из какого файла и какой строки был вызван лог!
     // LoglevelPluginPrefix.reg(loglevel)
@@ -76,17 +74,6 @@ bottle.factory('logger', function loggerFactory() {
     return loglevel
 })
 
-switch (process.env.NODE_ENV) {
-    case 'production':
-        bottle.setup({fetch: true})
-        break
-    case 'development':
-        bottle.setup({fetch: true})
-        break
-    case 'test':
-        bottle.setup({cookie: 2})
-        break
-}
 /**
  * @callback fetch
  * @param {string} url
@@ -96,10 +83,12 @@ switch (process.env.NODE_ENV) {
  * @type {Object}
  *
  * @property {loglevel} logger
- * @property {Application} Application
+ * @property {Application} application
  * @property {Location} Location
  * @property {fetch} fetchApi
  * @property {Object} defaultFetchApiOptions
+ * @property {Object} defaultFetchApiOptions.headers
+ * @property {Object} defaultFetchApiOptions.headers.cookie
  * @property {Object} config
  */
 const container = bottle.container

@@ -4,10 +4,9 @@ import Profile from "../components/ProfileVue";
 import Witness from "../components/WitnessVue";
 import Map from "../components/MainVue";
 import Thanks from "../components/ThanksVue";
+import {container} from "./bottle";
 
 Vue.use(VueRouter)
-
-let application = global.application
 
 const routes = [
     // { path: '/', component: Map },
@@ -15,10 +14,10 @@ const routes = [
         path: '/Profile',
         component: Profile,
         beforeEnter: async (to, from, next) => {
-            if (global.app.user === undefined) {
-                await app.authenticate()
+            if (container.application.user === undefined) {
+                await container.application.authenticate()
             }
-            if (global.app.user) {
+            if (container.application.user) {
                 return next()
             } else {
                 next({path: '/'})
@@ -29,10 +28,10 @@ const routes = [
         path: '/witness',
         component: Witness,
         beforeEnter: async (to, from, next) => {
-            if (global.app.user === undefined) {
-                await app.authenticate()
+            if (container.application.user === undefined) {
+                await container.application.authenticate()
             }
-            if (global.app.user) {
+            if (container.application.user) {
                 return next()
             } else {
                 next({path: '/'})
@@ -43,10 +42,10 @@ const routes = [
         path: '/thanks',
         component: Thanks,
         beforeEnter: async (to, from, next) => {
-            if (global.app.user === undefined) {
-                await app.authenticate()
+            if (container.application.user === undefined) {
+                await container.application.authenticate()
             }
-            if (global.app.user) {
+            if (container.application.user) {
                 return next()
             } else {
                 next({path: '/'})

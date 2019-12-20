@@ -14,15 +14,14 @@ Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 })
 
-import Application from "./Application";
-import App from './components/AppVue.vue'
+import AppVue from './components/AppVue.vue'
+import {container} from "./plugins/bottle";
 
-global.app = new Application
-
+global.application = container.application
 Vue.config.productionTip = false
 
 global.vue = new Vue({
-    ...App,
+    ...AppVue,
     el: "#appContainer",
     vuetify,
     i18n,

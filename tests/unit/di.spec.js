@@ -50,7 +50,7 @@ describe('DI', () => {
         let b = bottle.container[$Small.name]
         expect(a).toBe(b)
     })
-    it('Main', async () => {
+    it('$Main', async () => {
         let a = bottle.container[$Main.name]
         let b = bottle.container[$Main.name]
         expect(a).toBe(b)
