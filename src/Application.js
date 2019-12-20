@@ -1,7 +1,6 @@
 import {AbstractSync, Kopnik} from "./models";
 import {KopnikApiError} from "./KopnikError";
 import once from "./decorators/once";
-import {container} from "./plugins/bottle";
 
 
 export default class Application {

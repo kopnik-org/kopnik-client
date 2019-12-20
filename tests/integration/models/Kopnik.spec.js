@@ -6,7 +6,7 @@ import {Kopnik} from "../../../src/models";
 import {bottle} from "../../../src/plugins/bottle";
 
 bottle.setup({fetch:false})
-describe('unit.models.kopnik', () => {
+describe('integration/models/kopnik', () => {
     describe('putWitnessRequest', () => {
         it.skip('Kopnik.putWitnessRequest success', async () => {
             let kopnik1 = Kopnik.getReference(1)

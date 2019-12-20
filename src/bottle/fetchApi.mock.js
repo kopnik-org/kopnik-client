@@ -7,7 +7,7 @@ import {KopnikApiError} from "../KopnikError";
 export default async function fetchApiMock(url, options = {}) {
     const snapshotPath= resolve(__dirname, '../../tests/integration/__snapshots__/fetchApi.spec.js.snap')
     const snapshotData = utils.getSnapshotData(snapshotPath, false)
-    let key = `integration.fetchApi ${url} 1`
+    let key = `integration/fetchApi ${url} 1`
     // console.log(snapshotPath, key, snapshotData)
 
     if (!container.defaultFetchApiOptions.headers.cookie){
