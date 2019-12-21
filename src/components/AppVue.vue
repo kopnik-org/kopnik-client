@@ -28,8 +28,11 @@
     import LoginVue from './LoginVue'
     import {container} from "../plugins/bottle";
     import DrawerVue from "./DrawerVue";
+    import log from './mixin/log'
+    import {localize} from 'vee-validate'
 
     export default {
+        mixins: [log],
         components: {
             DrawerVue,
             KopnikVue,
@@ -46,11 +49,15 @@
                 drawer: false,
             }
         },
-        watch: {
+        watch: {},
+        computed: {
+            locale(){
+                return this.application.user?this.application.user.locale:'ru'
+            }
+        },
+        methods: {
 
         },
-        computed: {},
-        methods: {},
         mounted() {
             this.$nextTick(() => {
                 // this.map=

@@ -1,6 +1,6 @@
 import {container} from '../plugins/bottle'
 import _ from 'lodash'
-
+import jsonToFormData from 'json-form-data'
 import {KopnikApiError} from "../KopnikError";
 
 
@@ -13,7 +13,7 @@ export default async function fetchApi(url, options = {}) {
             'Content-Type': !options.method || options.method.toUpperCase() == 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
         }
     }
-    options = _.merge({}, defaultOptions, container.defaultFetchApiOptions, options)
+    options = _.merge({}, defaultOptions, {headers: {cookie:container.cookieService.cookie}}, options)
     if (options.body && options.headers['Content-Type'] === 'application/x-www-form-urlencoded;charset=UTF-8') {
         options.body = jsonToFormData(options.body)
     }

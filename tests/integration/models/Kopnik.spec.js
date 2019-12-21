@@ -5,7 +5,6 @@ require('isomorphic-fetch');
 import {Kopnik} from "../../../src/models";
 import {bottle} from "../../../src/plugins/bottle";
 
-bottle.setup({fetch:false})
 describe('integration/models/kopnik', () => {
     describe('putWitnessRequest', () => {
         it.skip('Kopnik.putWitnessRequest success', async () => {

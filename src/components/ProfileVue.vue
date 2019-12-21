@@ -7,10 +7,10 @@
                         <v-combobox ref="locale"
                                     :return-object="false"
                                     :allow-overflow="false"
-                                    v-model="$root.$options.i18n.locale"
+                                    v-model="application.user.locale"
                                     :items="locales"
                                     :auto-select-first="true"
-                                    :label="$t('profile.language')"
+                                    label="Язык / Language"
                                     @change="locale_change"
                         ></v-combobox>
                         <ValidationProvider name="lastName" rules="required" v-slot="{ errors, valid }">
@@ -71,19 +71,11 @@
                                     required
                             ></v-text-field>
                         </ValidationProvider>
-                        <LMap ref="map" :center.sync="request.location" :zoom="14" class=""
-                              style="z-index: 0; height: 50vh;">
-                            <l-tile-layer ref="map"
-                                          v-for="tileProvider in tileProviders"
-                                          :key="tileProvider.name"
-                                          :name="tileProvider.name"
-                                          :visible="tileProvider.visible"
-                                          :url="tileProvider.url"
-                                          :attribution="tileProvider.attribution"
-                                          :token="tileProvider.token"
-                                          layer-type="base"/>
+                        <MapVue ref="map" :center.sync="request.location" :zoom="14"
+                                :zoom-control="false" :layers-control="false" geosearch="bar" :locate-control="false"
+                                class="" style="z-index: 0; height: 50vh;">
                             <l-marker :lat-lng="request.location"></l-marker>
-                        </LMap>
+                        </MapVue>
                         <v-btn color="primary" block :disabled="false && ( invalid || !validated)"
                                @click="putWitnessRequest_click"
                                class="v-column v-col mt-12 xm-auto flex-align-center">
@@ -118,6 +110,7 @@
     import Kopnik from "../models/Kopnik"
     import log from "./mixin/log"
     import {container} from "../plugins/bottle";
+    import MapVue from "./MapVue";
 
     export default {
         $_veeValidate: {
@@ -126,6 +119,7 @@
         name: "Profile",
         mixins: [log],
         components: {
+            MapVue,
             LMap,
             LTileLayer,
             LMarker,
@@ -133,8 +127,9 @@
             ValidationObserver
         },
 
-        data: () => {
+        data() {
             return {
+                application: container.application,
                 request: null,
                 locales: [
                     {
@@ -177,18 +172,21 @@
         computed: {},
         watch: {},
         methods: {
-            putWitnessRequest_click() {
-                this.$root.app.user.putWitnessRequest(this.request)
+            async putWitnessRequest_click() {
+                await this.application.user.putWitnessRequest(this.request)
             },
-            locale_change(event) {
-                // вуетифи
+            async locale_change(event) {
+                // vue-i18n
+                this.$root.$options.i18n.locale = event
+                // vuetify
                 this.$vuetify.lang.current = event
-                // валидация
+                // vee-validate
                 localize(event)
+                await this.application.user.patchLocale()
             }
         },
         async created() {
-            let user = container.application.user
+            let user = this.application.user
             if (user.id) {
                 await user.loaded()
             } else {

@@ -80,11 +80,12 @@ HTTP status code: 200 (как у всех успешных запросов)
         "nickname": "Boroda",
         "birthyear": "1900",
         "location": ["1234.3125","54.3245"], // latitude, longitude
-        "photo": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
-        "smallPhoto": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
+        "photo": "https://sun1-19.u...EGxg5NXns.jpg?ava=1", // 300x300
+        "smallPhoto": "https://sun1-19.u...EGxg5NXns.jpg?ava=1", // 100x100
         "status": 1, // const STATUS_NEW= 0;  STATUS_PENDING= 1; STATUS_CONFIRMED= 2; STATUS_DECLINE= 3;
         "witnessChatInviteLink": "vk.com/join........",
         "passport": 4726, // только для своего копника!!! 
+        "locale": "ru", // только для своего копника!!!
 
         "witness_id": "1234",
         "foreman_id": null,
@@ -129,9 +130,8 @@ div
 Оставить заявку на регистрацию.
 Если заявка от этого пользователя ВК уже есть, заменить ее этой.
 
-Тело:
-```json
-body:{
+Параметры:
+```code
    "firstName": "sadgfd",
    "lastName": "jklsdfg89rfs",
    "patronymic": "sdfafasd",
@@ -141,8 +141,7 @@ body:{
    "location": [1238974.12, 9124.12390],
     // "photo": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
     // "smallPhoto": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
-}
-``` 
+```
 Ответ:
 ```json
 {
@@ -161,11 +160,13 @@ body:{
 Ответ аналогичен методу ```users/get(ids)``` 
 с добавлением поля ```address``` последние 4 цифры поспорта
 
-## GET users/confirm(id)
+## POST users/patchWitnessRequest
 
 Подтвердить заявку на регистрацию.
 
-Параметры: ```id=21``` идентификатор заявки
+Параметры:
+```id=21``` идентификатор заявки
+```status=2``` новое состояние заявки
 
 ```json
 {
@@ -173,11 +174,12 @@ body:{
 }
 ```
 
-## GET users/decline(id)
+## POST users/patchLocale
 
-Отклонить заявку на регистрацию.
+Поменять локаль пользователя.
 
-Параметры: ```id=21``` идентификатор заявки
+Параметры: ```locale=ru``` новая локаль
+
 
 ```json
 {

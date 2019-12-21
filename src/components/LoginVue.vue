@@ -2,7 +2,7 @@
     <v-layout login column align-center="true" justify-center="true"
               class="" style="position: fixed; left:0; right: 0; top: 0; bottom: 0; z-index: 100">
         <v-avatar size="150">
-            <v-img  src="logo  circle.png"></v-img>
+            <v-img  src="logo circle.png"></v-img>
         </v-avatar>
         <v-btn @click="login_click" class="mt-10">Войти через ВКонтакте</v-btn>
 <!--        <div id="vk_auth" ></div>-->

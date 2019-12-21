@@ -2,11 +2,11 @@
     <v-flex xs11 md6 xl4 mx-auto v-if="user">
         <v-card v-for="(eachWitnessRequest, index) in user.witnessRequests" :key="eachWitnessRequest.id"
                 elevation="12" class="mb-10">
-            <kopnik-view v-model="user.witnessRequests[index]" birth-year passport></kopnik-view>
+            <kopnik-view v-model="user.witnessRequests[index]" birth-year passport location></kopnik-view>
             <v-card-actions>
-                <v-btn @click="this_confirm(eachWitnessRequest)" class="flex-grow-1">{{$t('witness.confirm')}}
+                <v-btn @click="patchWitnessRequest_click(eachWitnessRequest, Kopnik.Status.CONFIRMED)" class="flex-grow-1">{{$t('witness.confirm')}}
                 </v-btn>
-                <v-btn @click="this_decline(eachWitnessRequest)" class="flex-grow-1">{{$t('witness.decline')}}
+                <v-btn @click="patchWitnessRequest_click(eachWitnessRequest, Kopnik.Status.DECLINED)" class="flex-grow-1">{{$t('witness.decline')}}
                 </v-btn>
             </v-card-actions>
         </v-card>
@@ -33,12 +33,9 @@
         computed: {},
         watch: {},
         methods: {
-            this_confirm(witnessRequest) {
-                this.user.confirm(witnessRequest)
+            async patchWitnessRequest_click(witnessRequest, status) {
+                await this.user.patchWitnessRequest(witnessRequest, status)
             },
-            this_decline(witnessRequest) {
-                this.user.decline(witnessRequest)
-            }
         },
         async created() {
             await container.application.resolveUser()

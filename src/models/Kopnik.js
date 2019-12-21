@@ -2,7 +2,6 @@ import {sync, collection, scalar, object} from '../decorators/sync'
 import AbstractSync from "./AbstractSync";
 
 
-
 export default class Kopnik extends AbstractSync {
     @scalar uid = undefined
 
@@ -17,6 +16,7 @@ export default class Kopnik extends AbstractSync {
     @scalar photo = undefined
     @scalar smallPhoto = undefined
     @scalar status = undefined
+    @scalar locale = undefined
 
     @object foreman = undefined
     @object witness = undefined
@@ -25,7 +25,7 @@ export default class Kopnik extends AbstractSync {
     @collection witnessRequests
 
     get name() {
-        return [this.lastName, this.firstName, this.patronymic].filter(each=>each).join(' ')
+        return [this.lastName, this.firstName, this.patronymic].filter(each => each).join(' ')
     }
 
 
@@ -43,14 +43,14 @@ export default class Kopnik extends AbstractSync {
      * @param id
      * @returns {Kopnik}
      */
-    static getReference(id){
+    static getReference(id) {
         return super.getReference(id)
     }
 
-    async reload(){
-        let result =  await super.reload()
-        if (result.photo='@todo'){
-            result.photo= '/avatar.png'
+    async reload() {
+        let result = await super.reload()
+        if (result.photo = '@todo') {
+            result.photo = '/avatar.png'
         }
         return result
     }
@@ -63,18 +63,23 @@ export default class Kopnik extends AbstractSync {
         })
     }
 
-    async confirm(witnessRequest) {
-        let result = await this.constructor.fetchApi('confirm?id=' + witnessRequest.id)
+    async patchWitnessRequest(witnessRequest, status) {
+        let result = await this.constructor.fetchApi('patchWitnessRequest', {
+            id: witnessRequest.id,
+            status
+        })
         if (result) {
-            witnessRequest.status = Kopnik.Status.CONFIRMED
+            witnessRequest.status = status
         }
     }
 
-    async decline(witnessRequest) {
-        await this.constructor.fetchApi('decline?id=' + witnessRequest.id)
-        if (result) {
-            witnessRequest.status = Kopnik.Status.DECLINED
-        }
+    async patchLocale() {
+        await this.constructor.fetchApi('patchLocale', {
+            method: 'POST',
+            body: {
+                locale: this.locale
+            }
+        })
     }
 }
 

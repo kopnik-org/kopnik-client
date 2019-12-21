@@ -11,7 +11,7 @@
                     <v-icon>mdi-home-city</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>Карта</v-list-item-title>
+                    <v-list-item-title>{{ $t('drawer.map') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
             <v-list-item link>
@@ -19,7 +19,7 @@
                     <v-icon>mdi-account-multiple</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>Моя десятка</v-list-item-title>
+                    <v-list-item-title>{{ $t('drawer.myTen') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
             <v-list-item link>
@@ -27,7 +27,7 @@
                     <v-icon>mdi-chat</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>Чат десятки</v-list-item-title>
+                    <v-list-item-title>{{ $t('drawer.tenChat') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
             <v-list-item link>
@@ -35,7 +35,7 @@
                     <v-icon>mdi-chat</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>Чат старшины</v-list-item-title>
+                    <v-list-item-title>{{ $t('drawer.foremanChat') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
             <v-list-item link to="/witness">
@@ -43,7 +43,7 @@
                     <v-icon>mdi-human-greeting</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>Заявки на вступление</v-list-item-title>
+                    <v-list-item-title>{{ $t('drawer.witnessRequests') }}</v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-action>
                     <v-icon>mdi-account-question</v-icon>
@@ -54,7 +54,7 @@
                     <v-icon>mdi-heart</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>Благодарность</v-list-item-title>
+                    <v-list-item-title>{{ $t('drawer.thanks') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
             <v-list-item link>
@@ -62,7 +62,7 @@
                     <v-icon>mdi-help-circle</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>Подсказка</v-list-item-title>
+                    <v-list-item-title>{{ $t('drawer.help') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
@@ -71,7 +71,7 @@
                     <v-icon>mdi-location-exit</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>Выход</v-list-item-title>
+                    <v-list-item-title>{{ $t('drawer.logout') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
         </v-list>

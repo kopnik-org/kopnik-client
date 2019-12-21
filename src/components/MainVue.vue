@@ -12,34 +12,21 @@
                         В участники копы
                     </v-btn>
                     <div></div>
-                    <v-btn text1 block class="mt-2" @click="details.show = true">
+                    <v-btn text1 block class="mt-2" @click="details.show = true" >
                         Выбрать старшиной
                     </v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <LMap ref="map" :center="center" :zoom="zoom" v-on:update:bounds="map_update_bounds" style="z-index: 0">
-            <l-tile-layer
-                    v-for="tileProvider in tileProviders"
-                    :key="tileProvider.name"
-                    :name="tileProvider.name"
-                    :visible="tileProvider.visible"
-                    :url="tileProvider.url"
-                    :attribution="tileProvider.attribution"
-                    :token="tileProvider.token"
-                    layer-type="base"/>
-            <l-control-layers position="topright"></l-control-layers>
-            <l-control-scale position="bottomright" :imperial="false" :metric="true"></l-control-scale>
-            <l-control position="bottomright">
-                <button @click="onLocationClick">
-                    I am a useless button!
-                </button>
-            </l-control>
+        <MapVue ref="map" :center.sync="center" :zoom.sync="zoom" :layers-control="true" :zoom-control="true"
+                storage-key="MainVue.map"
+                @update:bounds="map_updateBounds"
+                style="z-index: 0">
 <!--            <l-marker :lat-lng="center">
                 <l-icon
                         :icon-size="[64, 64]"
                         :icon-anchor="[32,32]"
-                        icon-url="logo  circle.png">
+                        icon-url="logo circle.png">
                 </l-icon>
             </l-marker>-->
             <l-marker v-for="(eachTop) of application.top20" :key="eachTop.id"
@@ -47,7 +34,7 @@
                 <l-tooltip>{{eachTop.name}}</l-tooltip>
                 <!--                <l-popup>l-popup!</l-popup>-->
             </l-marker>
-        </LMap>
+        </MapVue>
     </div>
 </template>
 <script>
@@ -65,6 +52,7 @@
     } from 'vue2-leaflet'
     import {Kopnik} from "../models"
     import KopnikVue from "./KopnikVue";
+    import MapVue from "./MapVue";
     import {container} from "../plugins/bottle";
 
     export default {
@@ -79,47 +67,17 @@
             LControlScale,
             LIcon,
             LPopup,
-            LTooltip
+            LTooltip,
+            MapVue
         },
         props: {
-            center: {
-                type: Array,
-                default: () => [55.753215, 37.622504]
-            },
-            zoom: {
-                type: Number,
-                default: 14
-            },
         },
         data(){
             return {
+                zoom: 2,
+                center: [55.753215, 37.622504],
                 application: container.application,
                 details: {show: false, value: null},
-                tileProviders: [
-                    {
-                        name: "OpenStreetMap",
-                        visible: false,
-                        url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                        attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
-                        token: null
-                    },
-                    {
-                        name: "Dark",
-                        visible: true,
-                        url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-                        subdomains: "abcd",
-                        token: null
-                    },
-                    {
-                        name: "GIScience",
-                        visible: false,
-                        url: "https://maps.heigit.org/openmapsurfer/tiles/roads/webmercator/{z}/{x}/{y}.png",
-                        attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> | Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                        subdomains: "abcd",
-                        token: null
-                    }
-                ],
             }
         },
         watch: {
@@ -137,7 +95,7 @@
                 this.details.value = kopnik
                 this.details.show = true
             },
-            async map_update_bounds(event) {
+            async map_updateBounds(event) {
                 // await Kopnik.fetchApi("list")
             }
         },

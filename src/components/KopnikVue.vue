@@ -19,16 +19,28 @@
         <v-list-item v-if="passport">
             <v-text-field v-model="value.passport" :label="$t('profile.passport')" readonly></v-text-field>
         </v-list-item>
+        <v-list-item v-if="location">
+            <MapVue ref="map" :center="value.location" :zoom="14"
+                    :zoom-control="false" :layers-control="false" :locate-control="false"
+                    class="" style="z-index: 0; height: 50vh;">
+                <l-marker :lat-lng="value.location"></l-marker>
+            </MapVue>
+        </v-list-item>
     </v-list>
 </template>
 <script>
+    import {LMarker} from 'vue2-leaflet'
     import Kopnik from "../models/Kopnik"
+    import MapVue from "./MapVue";
     import log from "./mixin/log"
 
     export default {
         name: "Kopnik",
         mixins: [log],
-        components: {},
+        components: {
+            MapVue,
+            LMarker
+        },
         data: () => {
             return {}
         },
@@ -58,6 +70,9 @@
             },
             to:{
                 type: [String, Object]
+            },
+            location:{
+                type: Boolean
             },
         },
         filters:{

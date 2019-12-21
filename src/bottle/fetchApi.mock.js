@@ -10,7 +10,7 @@ export default async function fetchApiMock(url, options = {}) {
     let key = `integration/fetchApi ${url} 1`
     // console.log(snapshotPath, key, snapshotData)
 
-    if (!container.defaultFetchApiOptions.headers.cookie){
+    if (!container.cookieService.cookie){
         throw new KopnikApiError('Not Authorized', 401, container.config.api.path+url)
     }
 

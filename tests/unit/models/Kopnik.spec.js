@@ -1,5 +1,5 @@
 import {Kopnik} from "../../../src/models";
-import {bottle} from "../../../src/plugins/bottle";
+import {bottle, container} from "../../../src/plugins/bottle";
 import {KopnikApiError} from "../../../src/KopnikError";
 
 describe('unit.models.Kopnik', () => {
@@ -71,35 +71,24 @@ describe('unit.models.Kopnik', () => {
 
     describe('loaded', () => {
         it('throw error without cookie', async () => {
-            let kopnik1 = Kopnik.getReference(2)
+            let kopnik2 = Kopnik.getReference(2)
             try {
-                var temp= bottle.container.defaultFetchApiOptions.headers.cookie
-                bottle.container.defaultFetchApiOptions.headers.cookie= null
-                await kopnik1.loaded()
+                container.cookieService.push()
+                await kopnik2.loaded()
             } catch (e) {
                 // console.log(e)
                 expect(e).toBeInstanceOf(KopnikApiError)
                 expect(e.message).toMatch(/no.+auth/i)
             } finally {
-                bottle.container.defaultFetchApiOptions.headers.cookie= temp
+                container.cookieService.pop()
             }
-            expect(kopnik1.isLoaded).toBeFalsy()
+            expect(kopnik2).toMatchSnapshot()
         })
 
         it('success', async () => {
-            let kopnik1 = Kopnik.getReference(2)
-            await kopnik1.loaded()
-            expect(kopnik1.firstName).toMatch(/[а-я]/)
-            expect(kopnik1.lastName).toMatch(/[а-я]/)
-            expect(kopnik1.patronymic).toMatch(/[а-я]|\w/)
-            expect(kopnik1.photo).toMatch(/\w/)
-            expect(Number.isInteger(kopnik1.birthyear)).toBeTruthy()
-            // expect(Number.isInteger(kopnik1.passport)).toBeTruthy()
-            expect(kopnik1.location).toBeInstanceOf(Array)
-            expect(kopnik1.location[0]).toBeTruthy()
-
-            expect(kopnik1.isLoaded).toBeTruthy()
-            expect(kopnik1.name).toMatch(/[а-яА-ЯЁё]+/)
+            let kopnik2 = Kopnik.getReference(2)
+            await kopnik2.loaded()
+            expect(kopnik2).toMatchSnapshot()
         })
     })
 })

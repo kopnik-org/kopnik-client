@@ -7,75 +7,42 @@ import Application from "../Application"
 import config from '../../config'
 import fetchApi from "../bottle/fetchApi";
 import fetchApiMock from "../bottle/fetchApi.mock";
+import CookieService from "../bottle/CookieService";
 
 Bottle.config.strict = true
 const bottle = new Bottle()
 
-/**
- * Настраивает контейнер
- * Для тестов необходим сброс и перенастройка чтобы соблюсти изолированность тестов
- *
- * @param {Object} options параметры по умолчанию соответствуют наиболее приемлемым для окружения значениям окружению
- * @param {Number=} options.cookie
- * @param {Boolean=} options.fetch
- */
-Bottle.prototype.setup = function (options) {
-    bottle.factory('defaultFetchApiOptions', function defaultFetchApiOptionsFactory(container) {
-        const cookies = {
-            1: 'PHPSESSID=user-1',
-            2: 'PHPSESSID=eqlae6a1grpvcirpemfvebf806',
-            3: 'PHPSESSID=user-3',
-            4: 'PHPSESSID=user-4',
-            5: 'PHPSESSID=user-5',
-            6: 'PHPSESSID=user-6',
-            7: 'PHPSESSID=user-7',
-            8: 'PHPSESSID=user-8',
-            9: 'PHPSESSID=user-9',
-            10: 'PHPSESSID=user-10',
-        }
-        const result = {}
-        if (container.config.di.cookie) {
-            result.headers = {
-                cookie: cookies[container.config.di.cookie]
-            }
-        }
-        // console.log(result)
-        return result
-    })
-    bottle.factory('fetchApi', function fetchApiFactory(container) {
-        return container.config.di.fetch ? fetchApi : fetchApiMock
-    })
-    bottle.factory('config', function configFactory() {
-        if (!process.env.NODE_ENV) {
-            throw new Error("NODE_ENV is not defined");
-        }
-
-        let local = {}//require("./local.js")
-        let result = _.merge({}, config, local)[process.env.NODE_ENV]
-
-        return result
-    })
-    if (!Application){
-        throw new Error("Application is undefined in bottle")
+bottle.service('cookieService', CookieService, 'config')
+bottle.factory('fetchApi', function fetchApiFactory(container) {
+    return container.config.di.fetch ? fetchApi : fetchApiMock
+})
+bottle.factory('config', function configFactory() {
+    if (!process.env.NODE_ENV) {
+        throw new Error("NODE_ENV is not defined");
     }
-    bottle.service('application', Application, 'logger')
-    bottle.factory('logger', function loggerFactory() {
-        //все плагины ломают стектрейс консоли. то есть невозможно увидеть из какого файла и какой строки был вызван лог!
-        // LoglevelPluginPrefix.reg(loglevel)
-        // LoglevelPluginPrefix.apply(loglevel, {template: "%t [%l] %n: "})
-        loglevel.setLevel(loglevel.levels.DEBUG)
-        if (process.env.NODE_ENV == "test") {
-            loglevel.setLevel(loglevel.levels.WARN)
-            // LoglevelPluginToString.apply(loglevel, {})
-        }
+
+    let local = {}//require("./local.js")
+    let result = _.merge({}, config, local)[process.env.NODE_ENV]
+
+    return result
+})
+if (!Application) {
+    throw new Error("Application is undefined in bottle")
+}
+bottle.service('application', Application, 'logger')
+bottle.factory('logger', function loggerFactory() {
+    //все плагины ломают стектрейс консоли. то есть невозможно увидеть из какого файла и какой строки был вызван лог!
+    // LoglevelPluginPrefix.reg(loglevel)
+    // LoglevelPluginPrefix.apply(loglevel, {template: "%t [%l] %n: "})
+    loglevel.setLevel(loglevel.levels.DEBUG)
+    if (process.env.NODE_ENV == "test") {
+        loglevel.setLevel(loglevel.levels.WARN)
+        // LoglevelPluginToString.apply(loglevel, {})
+    }
 // Be sure to call setLevel method in order to apply plugin
 // loglevel.getLogger("StateManager").setLevel("info")
-        return loglevel
-    })
-    Object.assign(this.container.config.di, options)
-}
-
-bottle.setup()
+    return loglevel
+})
 
 /**
  * @callback fetch
@@ -89,10 +56,15 @@ bottle.setup()
  * @property {Application} application
  * @property {Location} Location
  * @property {fetch} fetchApi
- * @property {Object} defaultFetchApiOptions
- * @property {Object} defaultFetchApiOptions.headers
- * @property {Object} defaultFetchApiOptions.headers.cookie
+ * @property {CookieService} cookieService
  * @property {Object} config
+ * @property {Object} config.api
+ * @property {String} config.api.path
+ * @property {Object} config.di
+ * @property {Boolean} config.di.fetch
+ * @property {Number} config.di.coockie
+ * @property {Number} config.messenger.clientId
+ * @property {String} config.messenger.redirectUrl
  */
 const container = bottle.container
 export {bottle, container}

@@ -1,11 +1,12 @@
 import {bottle, container} from "../../src/plugins/bottle";
 import {Kopnik} from "../../src/models";
-import {KopnikApiError} from "../../src/KopnikError";
 
 describe('unit/Application', () => {
     let application
     beforeEach(() => {
-        bottle.resetProviders(['application'])
+        // сбросить application потому что в конце каждого теста #user уже установлен
+        // сбросить cookieService потому что кука подставляется нулевая в одном тесте
+        bottle.resetProviders(['application', 'cookieService'])
         application = container.application
     })
     it('authenticate() with cookie', async () => {
@@ -13,14 +14,9 @@ describe('unit/Application', () => {
         expect(application.user).toBeInstanceOf(Kopnik)
     })
     it('authenticate() without cookie', async () => {
-        try {
-            var temp = container.defaultFetchApiOptions.headers.cookie
-            container.defaultFetchApiOptions.headers.cookie = undefined
+        container.cookieService.push()
             await application.authenticate()
             expect(application.user).toBe(null)
-        } finally {
-            container.defaultFetchApiOptions.headers.cookie = temp
-        }
     })
     it('resolveUser()', async () => {
         await application.resolveUser()
