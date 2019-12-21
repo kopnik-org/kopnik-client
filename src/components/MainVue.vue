@@ -2,7 +2,7 @@
     <div style="align-self: stretch; margin: -12px;" class="flex-grow-1">
         <v-dialog v-model="details.show" max-width="300">
             <v-card>
-                <kopnik-vue :value="details.value"></kopnik-vue>
+                <kopnik-vue :value="details.value" @click="kopnik_click"></kopnik-vue>
                 <v-card-actions class="flex-wrap">
                     <v-btn text1 block>
                         Чат
@@ -97,6 +97,9 @@
             },
             async map_updateBounds(event) {
                 // await Kopnik.fetchApi("list")
+            },
+            kopnik_click(){
+                this.details.show= false
             }
         },
         created() {

@@ -1,13 +1,10 @@
 <template>
     <v-app id="inspire">
-        <v-app-bar
-                app
-                color="indigo"
-        >
+        <v-app-bar v-if="application.user" app color="indigo">
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>kopnik.org</v-toolbar-title>
         </v-app-bar>
-        <DrawerVue v-model="drawer"></DrawerVue>
+        <DrawerVue v-model="drawer && application.user"></DrawerVue>
         <v-content>
             <LoginVue v-if="!application.user"></LoginVue>
             <v-container class="fill-height" fluid>
@@ -51,13 +48,11 @@
         },
         watch: {},
         computed: {
-            locale(){
-                return this.application.user?this.application.user.locale:'ru'
+            locale() {
+                return this.application.user ? this.application.user.locale : 'ru'
             }
         },
-        methods: {
-
-        },
+        methods: {},
         mounted() {
             this.$nextTick(() => {
                 // this.map=

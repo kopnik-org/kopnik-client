@@ -1,5 +1,5 @@
 <template>
-    <v-list>
+    <v-list @click.native="list_click">
 <!--        @click.native="$router.push(to)"-->
         <v-list-item>
             <v-list-item-avatar :tile="avatarTile" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}">
@@ -82,7 +82,11 @@
         },
         computed: {},
         watch: {},
-        methods: {},
+        methods: {
+            list_click(event){
+                this.$emit('click', event)
+            }
+        },
         async created() {
             await this.value.loaded()
         },
