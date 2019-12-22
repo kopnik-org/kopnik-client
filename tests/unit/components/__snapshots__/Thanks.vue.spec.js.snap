@@ -39,11 +39,13 @@ exports[`Thanks renders 1`] = `
             class="v-list-item__title title"
           >
             
-                    Арт Арт Арт
-                
+                Арт Арт Арт
+            
           </div>
         </div>
       </div>
+       
+      <!---->
        
       <!---->
        
@@ -124,11 +126,13 @@ exports[`Thanks renders 1`] = `
             class="v-list-item__title title"
           >
             
-                    Баранов Алексей qwer
-                
+                Баранов Алексей qwer
+            
           </div>
         </div>
       </div>
+       
+      <!---->
        
       <!---->
        
@@ -343,11 +347,13 @@ exports[`Thanks renders 1`] = `
             class="v-list-item__title title"
           >
             
-                     Игорь 
-                
+                 Игорь 
+            
           </div>
         </div>
       </div>
+       
+      <!---->
        
       <!---->
        
@@ -455,11 +461,13 @@ exports[`Thanks renders 1`] = `
             class="v-list-item__title title"
           >
             
-                     Евгений Нигматуллинн 
-                
+                 Евгений Нигматуллинн 
+            
           </div>
         </div>
       </div>
+       
+      <!---->
        
       <!---->
        
@@ -567,11 +575,13 @@ exports[`Thanks renders 1`] = `
             class="v-list-item__title title"
           >
             
-                     Дмитрий Журбин 
-                
+                 Дмитрий Журбин 
+            
           </div>
         </div>
       </div>
+       
+      <!---->
        
       <!---->
        
@@ -652,11 +662,13 @@ exports[`Thanks renders 1`] = `
             class="v-list-item__title title"
           >
             
-                    Титов Александр Николаевич
-                
+                Титов Александр Николаевич
+            
           </div>
         </div>
       </div>
+       
+      <!---->
        
       <!---->
        

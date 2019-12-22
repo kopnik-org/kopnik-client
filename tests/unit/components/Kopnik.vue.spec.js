@@ -1,5 +1,5 @@
 import 'isomorphic-fetch'
-import {vueI18n} from '../../vue-setup'
+// import {vueI18n} from '../../vue-setup'
 import VueI18n from 'vue-i18n'
 import {mount} from '@vue/test-utils'
 
@@ -7,7 +7,7 @@ import KopnikVue from '../../../src/components/KopnikVue'
 import Counter from '../../../src/components/Counter'
 import {Kopnik} from "../../../src/models";
 import flushPromises from "flush-promises";
-import '../../vue-setup'
+// import '../../vue-setup'
 
 describe('Counter', () => {
     describe('sub', () => {
@@ -60,14 +60,13 @@ describe('unit.components.Kopnik.vue', () => {
     it('renders', async () => {
         const kopnik2 = await Kopnik.get(2)
         const wrapper = mount(KopnikVue, {
-            vueI18n,
             propsData: {
                 value: kopnik2,
                 passport: false,
                 birthyear: false
             }
         })
-        expect(wrapper.vm.$el).toMatchSnapshot()//(/Баранов Алексей/)
+        expect(wrapper.vm.$el).toMatchSnapshot()
     })
 })
 

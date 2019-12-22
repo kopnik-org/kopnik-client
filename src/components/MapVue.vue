@@ -14,10 +14,10 @@
                 :attribution="tileProvider.attribution"
                 :token="tileProvider.token"
                 layer-type="base"/>
-        <v-geosearch v-if="geosearch" :options="geosearchOptions"></v-geosearch>
+        <!--        <v-geosearch v-if="geosearch" :options="geosearchOptions"></v-geosearch>-->
         <l-control-layers v-if="layersControl" position="topright"></l-control-layers>
         <l-control-scale position="bottomright" :imperial="false" :metric="true"></l-control-scale>
-        <v-locatecontrol v-if="locateControl" :options="locateOptions" ></v-locatecontrol>
+        <!--        <v-locatecontrol v-if="locateControl" :options="locateOptions"></v-locatecontrol>-->
         <!--        <l-control position="bottomright">-->
         <!--            <button @click="onLocationClick">-->
         <!--                Текущее местоположение-->
@@ -42,14 +42,15 @@
         LControl,
         LControlZoom
     } from 'vue2-leaflet'
-    import VGeosearch from 'vue2-leaflet-geosearch';
-    import VLocatecontrol from 'vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol'
+    // import VGeosearch from 'vue2-leaflet-geosearch';
+    // import VLocatecontrol from 'vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol'
     import {container} from "../plugins/bottle";
+    import {object} from "../decorators/sync";
 
     export default {
         name: 'MapVue',
         components: {
-            VGeosearch,
+            // VGeosearch,
             LMap,
             LTileLayer,
             LMarker,
@@ -61,7 +62,7 @@
             LPopup,
             LTooltip,
             LControlZoom,
-            VLocatecontrol,
+            // VLocatecontrol,
         },
         props: {
             center: {
@@ -100,7 +101,7 @@
                     drawCircle: false,
                     drawMarker: false,
                     keepCurrentZoomLevel: true,
-                    enableHighAccuracy: true,
+                    // enableHighAccuracy: true,
                     flyTo: true,
                     strings: {
                         title: "Определить мое местоположение"
@@ -137,15 +138,13 @@
                 },
             }
         },
-        watch:
-            {
-                'tileProvider1.visible':
+        watch: {
+            'tileProvider1.visible':
 
-                    function () {
-                        console.log("tile1 changed")
-                    }
-            }
-        ,
+                function () {
+                    console.log("tile1 changed")
+                }
+        },
         computed: {
             tileProviders() {
                 return [this.tileProvider1, this.tileProvider2, this.tileProvider3]
@@ -161,12 +160,14 @@
                 if (!this.storageKey) {
                     throw new Error("No storage key provided")
                 }
+                const correctedCenter = Object.assign({}, this.center)
+                correctedCenter.lng = Math.min(correctedCenter.lng, 180)
+                correctedCenter.lng = Math.max(correctedCenter.lng, -180)
                 localStorage.setItem(this.storageKey, JSON.stringify({
-                    center: this.center,
+                    center: correctedCenter,
                     zoom: this.zoom
                 }))
-            }
-            ,
+            },
             restore() {
                 if (!this.storageKey) {
                     throw new Error("No storage key provided")

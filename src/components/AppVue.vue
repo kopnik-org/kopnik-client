@@ -4,16 +4,16 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>kopnik.org</v-toolbar-title>
         </v-app-bar>
-        <DrawerVue v-model="drawer && application.user"></DrawerVue>
+        <DrawerVue v-if="application.user" v-model="drawer"></DrawerVue>
         <v-content>
             <LoginVue v-if="!application.user"></LoginVue>
             <v-container class="fill-height" fluid>
                 <!--                <Auth v-if="!app.user" @login="login_login" class="d-flex justify-center align-center"
                                       style="position:absolute; left:0; top20:0; z-index: 1000; right: 0; bottom: 0;"></Auth>-->
                 <!--                <div :is="app.SECTION" style="flex-grow: 1"></div>-->
-                <keep-alive>
+<!--                <keep-alive>-->
                     <router-view></router-view>
-                </keep-alive>
+<!--                </keep-alive>-->
             </v-container>
         </v-content>
     </v-app>

@@ -1,6 +1,5 @@
 <template>
     <v-list @click.native="list_click">
-<!--        @click.native="$router.push(to)"-->
         <v-list-item>
             <v-list-item-avatar :tile="avatarTile" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}">
                 <img :src="value.photo" style="object-fit: cover; "/>

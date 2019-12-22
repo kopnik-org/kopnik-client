@@ -6,15 +6,16 @@ import * as loglevel from "loglevel";
 import Application from "../Application"
 import config from '../../config'
 import fetchApi from "../bottle/fetchApi";
-import fetchApiMock from "../bottle/fetchApi.mock";
-import CookieService from "../bottle/CookieService";
+// import fetchApiMock from "../bottle/fetchApi.mock";
+import CookieService from "../bottle/CookieService"
 
 Bottle.config.strict = true
 const bottle = new Bottle()
 
 bottle.service('cookieService', CookieService, 'config')
 bottle.factory('fetchApi', function fetchApiFactory(container) {
-    return container.config.di.fetch ? fetchApi : fetchApiMock
+    return container.config.di.fetch ? fetchApi : global.fetchApiMock
+    // return fetchApi
 })
 bottle.factory('config', function configFactory() {
     if (!process.env.NODE_ENV) {

@@ -33,11 +33,13 @@ exports[`unit.components.Kopnik.vue renders 1`] = `
         class="v-list-item__title title"
       >
         
-                    Баранов Алексей qwer
-                
+                Баранов Алексей qwer
+            
       </div>
     </div>
   </div>
+   
+  <!---->
    
   <!---->
    

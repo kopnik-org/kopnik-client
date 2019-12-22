@@ -3,7 +3,7 @@ import {mount} from '@vue/test-utils'
 
 import {Kopnik} from "../../../src/models";
 import flushPromises from "flush-promises";
-import '../../vue-setup'
+// import '../../vue-setup'
 import ThanksVue from "../../../src/components/ThanksVue";
 
 describe('Thanks', () => {

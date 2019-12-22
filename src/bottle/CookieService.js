@@ -9,7 +9,7 @@ export default class CookieService {
     constructor(config) {
         this.cookies = {
             1: 'PHPSESSID=user-1',
-            2: 'PHPSESSID=fna4vjikik2ashgpdtems760tq',
+            2: 'PHPSESSID=54ej6frjd1d7b1kgclk4h5ooqd',
             3: 'PHPSESSID=user-3',
             4: 'PHPSESSID=user-4',
             5: 'PHPSESSID=user-5',

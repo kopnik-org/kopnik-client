@@ -47,6 +47,7 @@ export default class Application {
 
     async loadTop20() {
         this.top20 = await Promise.all([1, 2, 3, 4].map(each => Kopnik.get(each)))
+        // debugger
     }
 
     /**

@@ -72,7 +72,7 @@
                             ></v-text-field>
                         </ValidationProvider>
                         <MapVue ref="map" :center.sync="request.location" :zoom="14"
-                                :zoom-control="false" :layers-control="false" geosearch="bar" :locate-control="false"
+                                :zoom-control="false" :layers-control="false" geosearch="bar" :locate-control="true"
                                 class="" style="z-index: 0; height: 50vh;">
                             <l-marker :lat-lng="request.location"></l-marker>
                         </MapVue>

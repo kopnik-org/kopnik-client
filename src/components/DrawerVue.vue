@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer :value="value" @input="drawer_input" app>
+    <v-navigation-drawer temporary :value="value" @input="drawer_input" app>
         <router-link to="/profile" class="cursor-pointer" tag="div">
             <kopnik-vue v-if="application.user" :value="application.user" to="/profile"
                         :avatar-size="150" class="flex-grow-1">

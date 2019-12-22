@@ -18,7 +18,8 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <MapVue ref="map" :center.sync="center" :zoom.sync="zoom" :layers-control="true" :zoom-control="true"
+        <MapVue ref="map" :center.sync="center" :zoom.sync="zoom"
+                :layers-control="application.user==true" :zoom-control="application.user==true" :locate-control="application.user==true"
                 storage-key="MainVue.map"
                 @update:bounds="map_updateBounds"
                 style="z-index: 0">
