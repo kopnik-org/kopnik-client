@@ -90,7 +90,7 @@
   "jest": {
     "preset": "@vue/cli-plugin-unit-jest",
     "transformIgnorePatterns": [
-      "/node_modules/(?!vee-validate/dist/rules)"
+      "/node_modules/(?!vee-validate/dist/rules|vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol|vue2-leaflet-geosearch)"
     ],
     "testMatch": [
       "<rootDir>/(tests/**/*.spec.(js|jsx|ts|tsx))"

@@ -18,8 +18,12 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <!-- zoom-control передается дальшее в options LMap, а они не реактиные, поэтому сразу нужно ставить true-->
         <MapVue ref="map" :center.sync="center" :zoom.sync="zoom"
-                :layers-control="application.user==true" :zoom-control="application.user==true" :locate-control="application.user==true"
+                :layers-control="application.user"
+                :locate-control="application.user"
+                :scale-control="application.user"
+                :zoom-control="true"
                 storage-key="MainVue.map"
                 @update:bounds="map_updateBounds"
                 style="z-index: 0">
@@ -80,6 +84,11 @@
                 application: container.application,
                 details: {show: false, value: null},
             }
+        },
+        computed:{
+          mapZoomControl(){
+              return this.application.user instanceof Kopnik
+          }
         },
         watch: {
             'application.user': async function (current, old) {

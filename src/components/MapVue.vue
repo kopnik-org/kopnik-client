@@ -14,15 +14,15 @@
                 :attribution="tileProvider.attribution"
                 :token="tileProvider.token"
                 layer-type="base"/>
-        <!--        <v-geosearch v-if="geosearch" :options="geosearchOptions"></v-geosearch>-->
+        <v-geosearch v-if="geosearch" :options="geosearchOptions"></v-geosearch>
         <l-control-layers v-if="layersControl" position="topright"></l-control-layers>
-        <l-control-scale position="bottomright" :imperial="false" :metric="true"></l-control-scale>
-        <!--        <v-locatecontrol v-if="locateControl" :options="locateOptions"></v-locatecontrol>-->
-        <!--        <l-control position="bottomright">-->
-        <!--            <button @click="onLocationClick">-->
-        <!--                Текущее местоположение-->
-        <!--            </button>-->
-        <!--        </l-control>-->
+        <l-control-scale v-if="scaleControl" position="bottomright" :imperial="false" :metric="true"></l-control-scale>
+        <v-locatecontrol v-if="locateControl" :options="locateOptions"></v-locatecontrol>
+                <l-control position="bottomright">
+<!--                    <button @click="onLocationClick">-->
+<!--                        Текущее местоположение-->
+<!--                    </button>-->
+                </l-control>
         <slot></slot>
     </LMap>
 </template>
@@ -42,15 +42,14 @@
         LControl,
         LControlZoom
     } from 'vue2-leaflet'
-    // import VGeosearch from 'vue2-leaflet-geosearch';
-    // import VLocatecontrol from 'vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol'
+    import VGeosearch from 'vue2-leaflet-geosearch';
+    import VLocatecontrol from 'vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol'
     import {container} from "../plugins/bottle";
-    import {object} from "../decorators/sync";
 
     export default {
         name: 'MapVue',
         components: {
-            // VGeosearch,
+            VGeosearch,
             LMap,
             LTileLayer,
             LMarker,
@@ -62,7 +61,7 @@
             LPopup,
             LTooltip,
             LControlZoom,
-            // VLocatecontrol,
+            VLocatecontrol,
         },
         props: {
             center: {
@@ -81,16 +80,19 @@
                 type: String
             },
             zoomControl: {
-                type: Boolean,
-                default: true
+                // type: Boolean,
+                // default: true
             },
             layersControl: {
-                type: Boolean,
-                default: true
+                // type: [Boolean,Object],
+                // default: true
             },
             locateControl: {
-                type: Boolean,
-                default: true
+                // type: [Boolean,Object],
+                // default: true
+            },
+            scaleControl:{
+
             }
         },
         data() {
@@ -174,6 +176,7 @@
                 }
                 let storedData = localStorage.getItem(this.storageKey)
                 if (storedData) {
+                    console.log('should be center+loocation', storedData)
                     storedData = JSON.parse(storedData)
                     if (storedData.zoom) {
                         this.map_updateZoom(storedData.zoom)
