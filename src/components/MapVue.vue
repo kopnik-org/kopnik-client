@@ -1,7 +1,8 @@
 <template>
-
     <LMap ref="map" :center="center" :zoom="zoom" :options="{zoomControl: zoomControl}"
-          @leafletevent="leafLet_event" @update:bounds="map_updateBounds" @update:center="map_updateCenter"
+          @leafletevent="leafLet_event"
+          @update:bounds="map_updateBounds"
+          @update:center="map_updateCenter"
           @update:zoom="map_updateZoom"
           style="z-index: 0">
         <!--        <l-control-zoom position="left"  ></l-control-zoom>-->
@@ -15,14 +16,9 @@
                 :token="tileProvider.token"
                 layer-type="base"/>
         <v-geosearch v-if="geosearch" :options="geosearchOptions"></v-geosearch>
-        <l-control-layers v-if="layersControl" position="topright"></l-control-layers>
+        <l-control-layers v-if="layersControl" position="topleft"></l-control-layers>
         <l-control-scale v-if="scaleControl" position="bottomright" :imperial="false" :metric="true"></l-control-scale>
         <v-locatecontrol v-if="locateControl" :options="locateOptions"></v-locatecontrol>
-                <l-control position="bottomright">
-<!--                    <button @click="onLocationClick">-->
-<!--                        Текущее местоположение-->
-<!--                    </button>-->
-                </l-control>
         <slot></slot>
     </LMap>
 </template>
@@ -151,13 +147,14 @@
             tileProviders() {
                 return [this.tileProvider1, this.tileProvider2, this.tileProvider3]
             }
-        }
-        ,
+        },
         methods: {
+            map_dblclick(event){
+                alert(event)
+            },
             leafLet_event(event) {
                 alert(event)
-            }
-            ,
+            },
             store() {
                 if (!this.storageKey) {
                     throw new Error("No storage key provided")

@@ -13,6 +13,10 @@ export default class Kopnik extends AbstractSync {
     @scalar birthyear = undefined
     @scalar passport = undefined
     @scalar location = undefined
+    /**
+     *
+     * @type {String}
+     */
     @scalar photo = undefined
     @scalar smallPhoto = undefined
     @scalar status = undefined
@@ -26,6 +30,10 @@ export default class Kopnik extends AbstractSync {
 
     get name() {
         return [this.lastName, this.firstName, this.patronymic].filter(each => each).join(' ')
+    }
+
+    get rankName(){
+        return this.name + (this.rank > 1 ? ` (+${this.rank})` : '')
     }
 
 
@@ -49,8 +57,11 @@ export default class Kopnik extends AbstractSync {
 
     async reload() {
         let result = await super.reload()
-        if (result.photo = '@todo') {
+        if (result.photo == '@todo') {
             result.photo = '/avatar.png'
+        }
+        if (result.rank==undefined){
+            result.rank=1
         }
         return result
     }

@@ -1,5 +1,6 @@
 import once from './once'
 import config from "../../config";
+import * as models from "../models";
 
 export function sync(constructor) {
     // throw new Error("deprecated")
@@ -51,8 +52,50 @@ export function object(target, name, descriptor) {
     target.constructor.objects= target.constructor.objects || []
     target.constructor.objects.push(name)
 
-    //обозначить скарярность в дескрипторе свойства -  не работает
-    descriptor.objects= true
+    let capitalizedName = name[0].toUpperCase() + name.slice(1)
+    Object.defineProperty(
+        target,
+        "get" + capitalizedName,
+        {
+            value: once(async function (...args) {
+                if (this[name+'_id']===undefined){
+                    throw new Error("model is not loaded")
+                }
+                else if (this[name+'_id']===null){
+                    return null
+                }
+                else {
+                    return await models['Kopnik'].get(this[name + '_id'])
+                }
+            })
+        }
+    )
+
+    Object.defineProperty(
+        target,
+        "reload" + capitalizedName,
+        {
+            configurable: true,
+            value: once(async function (...args) {
+                this[name] = this["get" + capitalizedName](...args)
+                return this[name]
+            })
+        }
+    )
+
+    Object.defineProperty(
+        target,
+        "loaded" + capitalizedName,
+        {
+            configurable: true,
+            get: once(async function (...args) {
+                if (this[name] == undefined) {
+                    this[name] = await this["reload" + capitalizedName](...args)
+                }
+                return this[name]
+            })
+        }
+    )
 }
 
 export function collection(target, name, descriptor) {
@@ -81,7 +124,7 @@ export function collection(target, name, descriptor) {
         {
             configurable: true,
             value: once(async function (...args) {
-                this[name] = this["get" + capitalizedName]()
+                this[name] = this["get" + capitalizedName](...args)
                 return this[name]
             })
         }
@@ -92,9 +135,9 @@ export function collection(target, name, descriptor) {
         "loaded" + capitalizedName,
         {
             configurable: true,
-            get: once(async function () {
+            get: once(async function (...args) {
                 if (this[name] == undefined) {
-                    this[name] = await this["reload" + capitalizedName]()
+                    this[name] = await this["reload" + capitalizedName](...args)
                 }
                 return this[name]
             })

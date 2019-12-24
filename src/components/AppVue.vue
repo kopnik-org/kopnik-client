@@ -1,5 +1,7 @@
 <template>
-    <v-app id="inspire">
+    <v-app id="inspire"
+
+    >
         <v-app-bar v-if="application.user" app color="indigo">
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>kopnik.org</v-toolbar-title>
@@ -11,9 +13,9 @@
                 <!--                <Auth v-if="!app.user" @login="login_login" class="d-flex justify-center align-center"
                                       style="position:absolute; left:0; top20:0; z-index: 1000; right: 0; bottom: 0;"></Auth>-->
                 <!--                <div :is="app.SECTION" style="flex-grow: 1"></div>-->
-<!--                <keep-alive>-->
-                    <router-view></router-view>
-<!--                </keep-alive>-->
+                <!--                <keep-alive>-->
+                <router-view></router-view>
+                <!--                </keep-alive>-->
             </v-container>
         </v-content>
     </v-app>
@@ -52,7 +54,16 @@
                 return this.application.user ? this.application.user.locale : 'ru'
             }
         },
-        methods: {},
+        methods: {
+            this_escclick(event) {
+                if (this.application.squadAnalyzer.isAnalyzing()) {
+                    this.application.squadAnalyzer.reset()
+                    event.stopPropagation()
+                    event.preventDefault()
+                }
+            },
+
+        },
         mounted() {
             this.$nextTick(() => {
                 // this.map=

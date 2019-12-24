@@ -30,6 +30,7 @@
     "vue2-leaflet": "^2.2.1",
     "vue2-leaflet-geosearch": "^1.0.6",
     "vue2-leaflet-locatecontrol": "^1.0.1",
+    "vue2-leaflet-polylinedecorator": "^2.0.1",
     "vuetify": "^2.1.0"
   },
   "devDependencies": {
@@ -98,6 +99,8 @@
     "snapshotSerializers": [
       "<rootDir>/node_modules/jest-serializer-vue"
     ],
-    "setupFiles": ["<rootDir>/tests/test-setup.js"]
+    "setupFiles": [
+      "<rootDir>/tests/test-setup.js"
+    ]
   }
 }

@@ -1,6 +1,7 @@
 import {AbstractSync, Kopnik} from "./models";
 import {KopnikApiError} from "./KopnikError";
 import once from "./decorators/once";
+import SquadAnalyzer from "./SquadAnalyzer";
 
 
 export default class Application {
@@ -31,6 +32,7 @@ export default class Application {
         this.user = undefined
 
         this.top20 = []
+        this.squadAnalyzer = new SquadAnalyzer()
 
         this.authenticate()
             .then(() => {
@@ -44,10 +46,30 @@ export default class Application {
             })
     }
 
+    /**
+     * Исследует дружину
+     * @param {Kopnik} kopnik
+     * @returns {Promise<void>}
+     */
+    async analyzeSquad(kopnik) {
+        await this.squadAnalyzer.analyze(kopnik)
+    }
 
     async loadTop20() {
         this.top20 = await Promise.all([1, 2, 3, 4].map(each => Kopnik.get(each)))
-        // debugger
+        this.logger.warn('manual set foremans')
+        Kopnik.getReference(1).rank = 4
+        Kopnik.getReference(2).foreman = Kopnik.getReference(3)
+        Kopnik.getReference(2).rank = 1
+        Kopnik.getReference(3).foreman = Kopnik.getReference(1)
+        Kopnik.getReference(3).rank = 3
+        Kopnik.getReference(4).foreman = Kopnik.getReference(3)
+        Kopnik.getReference(4).rank = 1
+
+        Kopnik.getReference(1).ten = [Kopnik.getReference(3)]
+        Kopnik.getReference(2).ten = []
+        Kopnik.getReference(3).ten = [Kopnik.getReference(2), Kopnik.getReference(4)]
+        Kopnik.getReference(4).ten = []
     }
 
     /**
@@ -82,9 +104,7 @@ export default class Application {
     async authenticate() {
         try {
             let userAsPlain = (await Kopnik.fetchApi('get?ids='))[0]
-            this.user = Kopnik.merge(userAsPlain)
-            this.user.isLoaded = true
-            this.user.photo = 'avatar.png'
+            this.user = await Kopnik.get(userAsPlain.id)
             this.logger.info('user authenticated', this.user)
         } catch (err) {
             if ((err instanceof KopnikApiError) && err.message.match(/no.+aut/i)) {
