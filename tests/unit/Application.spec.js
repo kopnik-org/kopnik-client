@@ -13,7 +13,7 @@ describe('unit/Application', () => {
         await application.authenticate()
         expect(application.user).toBeInstanceOf(Kopnik)
     })
-    it.only('authenticate() without cookie', async () => {
+    it('authenticate() without cookie', async () => {
         container.cookieService.push()
         await application.authenticate()
         expect(application.user).toBe(null)

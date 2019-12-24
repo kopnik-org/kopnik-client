@@ -16,9 +16,21 @@ Icon.Default.mergeOptions({
 
 import AppVue from './components/AppVue.vue'
 import {container} from "./plugins/bottle";
+import {Kopnik} from "./models";
+
+Vue.config.productionTip = false
 
 global.application = container.application
-Vue.config.productionTip = false
+global.application.authenticate()
+/*    .then(() => {
+        if (!this.user) {
+            this.SECTION = 'Map'
+        } else if (this.user.status == Kopnik.Status.NEW || this.user.status == Kopnik.Status.DECLINED) {
+            this.SECTION = 'Profile'
+        } else {
+            this.SECTION = 'Map'
+        }
+    })*/
 
 global.vue = new Vue({
     ...AppVue,

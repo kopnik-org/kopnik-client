@@ -34,17 +34,7 @@ export default class Application {
         this.top20 = []
         this.squadAnalyzer = new SquadAnalyzer()
 
-        this.authenticate()
-            .then(() => {
-                if (!this.user) {
-                    this.SECTION = 'Map'
-                } else if (this.user.status == Kopnik.Status.NEW || this.user.status == Kopnik.Status.DECLINED) {
-                    this.SECTION = 'Profile'
-                } else {
-                    this.SECTION = 'Map'
-                }
-            })
-    }
+   }
 
     /**
      * Исследует дружину
