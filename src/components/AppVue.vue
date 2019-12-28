@@ -1,6 +1,5 @@
 <template>
     <v-app id="inspire"
-
     >
         <v-app-bar v-if="application.user" app color="indigo">
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
@@ -23,18 +22,15 @@
 
 <script>
 
-    import KopnikVue from "./KopnikVue";
     import LoginVue from './LoginVue'
     import {container} from "../plugins/bottle";
     import DrawerVue from "./DrawerVue";
-    import log from './mixin/log'
-    import {localize} from 'vee-validate'
+    import logger from './mixin/logger'
 
     export default {
-        mixins: [log],
+        mixins: [logger],
         components: {
             DrawerVue,
-            KopnikVue,
             LoginVue
         },
         props: {

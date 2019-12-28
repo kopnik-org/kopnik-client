@@ -1,4 +1,4 @@
-import {AbstractSync, Kopnik} from "./models";
+import {AbstractSync, Kopnik, Kopa} from "./models";
 import {KopnikApiError} from "./KopnikError";
 import once from "./decorators/once";
 import SquadAnalyzer from "./SquadAnalyzer";
@@ -33,7 +33,12 @@ export default class Application {
 
         this.top20 = []
         this.squadAnalyzer = new SquadAnalyzer()
-
+        this.kopa= new Kopa
+        /**
+         *
+         * @type {Kopnik}
+         */
+        this.selected= null
    }
 
     /**

@@ -82,8 +82,10 @@
 
     import KopnikVue from "./KopnikVue";
     import {container} from "../plugins/bottle";
+    import logger from "./mixin/logger";
 
     export default {
+        mixins:[logger],
         components: {
             KopnikVue,
         },

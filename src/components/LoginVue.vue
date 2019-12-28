@@ -31,13 +31,13 @@
 <script>
     import _ from 'lodash'
     import Kopnik from "../models/Kopnik"
-    import log from "./mixin/log"
     import {container} from "../plugins/bottle";
     import i18n from "../plugins/i18n";
+    import logger from "./mixin/logger";
 
     export default {
         name: "Login",
-        mixins: [log],
+        mixins: [logger],
         components: {},
 
         data() {

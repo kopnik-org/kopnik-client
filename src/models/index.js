@@ -5,7 +5,7 @@
 import AbstractSync from "./AbstractSync" //для того чтобы правильно работали рекурсивные ссылки модулей
 // import Registration from "./model/Registration"
 import Kopnik from "./Kopnik"
-// import Kopa from "./model/Kopa"
+import Kopa from "./Kopa"
 // import File from "./model/File"
 
-export {AbstractSync, Kopnik}
+export {AbstractSync, Kopnik, Kopa}

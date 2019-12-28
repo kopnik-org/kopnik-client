@@ -18,14 +18,14 @@
 </template>
 <script>
     import Kopnik from "../models/Kopnik"
-    import log from "./mixin/log"
     import thanks from "../thanks";
 
     import KopnikView from './KopnikVue'
+    import logger from "./mixin/logger";
 
     export default {
         name: "Thanks",
-        mixins: [log],
+        mixins: [logger],
         components: {
             KopnikView
         },

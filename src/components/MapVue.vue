@@ -41,8 +41,10 @@
     import VGeosearch from 'vue2-leaflet-geosearch';
     import VLocatecontrol from 'vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol'
     import {container} from "../plugins/bottle";
+    import logger from "./mixin/logger";
 
     export default {
+        mixins:[logger],
         name: 'MapVue',
         components: {
             VGeosearch,

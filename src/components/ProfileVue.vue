@@ -108,16 +108,16 @@
     } from "vee-validate"
 
     import Kopnik from "../models/Kopnik"
-    import log from "./mixin/log"
     import {container} from "../plugins/bottle";
     import MapVue from "./MapVue";
+    import logger from "./mixin/logger";
 
     export default {
+        mixins: [logger],
         $_veeValidate: {
             validator: 'new',
         },
         name: "Profile",
-        mixins: [log],
         components: {
             MapVue,
             LMap,

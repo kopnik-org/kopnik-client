@@ -15,12 +15,12 @@
 <script>
     import KopnikView from "./KopnikVue"
     import {Kopnik} from "../models"
-    import log from "./mixin/log"
     import {container} from "../plugins/bottle";
+    import logger from "./mixin/logger";
 
     export default {
         name: "Witness",
-        mixins: [log],
+        mixins: [logger],
         components: {
             KopnikView
         },

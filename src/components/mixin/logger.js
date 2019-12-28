@@ -3,8 +3,9 @@
  */
 import {container} from "../../plugins/bottle";
 
-export default {
+const logger={
   created(){
     this.logger= container.logger.getLogger(this.$options.name+".vue")
   }
 }
+export default logger
