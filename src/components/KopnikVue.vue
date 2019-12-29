@@ -1,12 +1,13 @@
 <template>
     <div v-if="value" class="d-flex flex-nowrap">
-        <v-avatar :tile="avatarTile" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}" @click="avatar_click($event)">
+        <v-avatar :tile="avatarTile" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}"
+                  @click="avatar_click" @dblclick="avatar_dblclick">
             <img :src="value.photo" style="object-fit: cover; "/>
         </v-avatar>
         <v-list>
             <v-list-item>
                 <v-list-item-content>
-                    <v-list-item-title class="title">
+                    <v-list-item-title class="title text-wrap">
                         {{value.name}}
                     </v-list-item-title>
                 </v-list-item-content>
@@ -85,11 +86,11 @@
         computed: {},
         watch: {},
         methods: {
-            this_click(event) {
-                this.$emit('click', event)
+            avatar_click() {
+                this.$emit('click', this.value)
             },
-            avatar_click(event) {
-                this.$emit('click', event)
+            avatar_dblclick() {
+                this.$emit('dblclick', this.value)
             },
         },
         async created() {

@@ -11,7 +11,7 @@
                 storage-key="MainVue.map"
                 @update:bounds="map_updateBounds"
                 style="z-index: 0"
-                @click.native="application.selected=null"
+                @click="application.selected=null"
         >
             <!--            <l-marker :lat-lng="center">
                             <l-icon
@@ -50,7 +50,7 @@
                 <l-icon
                         :icon-size="[eachMarker.size, eachMarker.size]"
                         :icon-anchor="[eachMarker.size/2,eachMarker.size/2]"
-                        class-name="map_kopnik-avatar"
+                        :class-name="eachMarker.className"
                         icon-url="avatar.png">
                 </l-icon>
                 <l-tooltip v-if="!isTouchDevice" :options="{}">{{eachMarker.value.rankName}}</l-tooltip>
@@ -74,31 +74,42 @@
                 </div>
             </l-control>
         </MapVue>
-        <div v-if="application.kopa.parts.length" class="d-flex justify-center align-end" style="position: fixed; left: 0; right: 0;"
-             :style="{bottom: kopaInviteBottom}">
-            <kopa-invite ref="kopaInvite" :value="application.kopa" class="flex" style="width: 100%; max-width: 500px;">
-                <v-btn fab small color="primary"
-                       title="Созвать всех на копу..."
-                       @click="inviteAll_click"
-                       class="ml-auto mt-2">
-                    <v-icon>mdi-run-fast</v-icon>
-                </v-btn>
-            </kopa-invite>
-        </div>
-        <v-bottom-sheet id="bottom-sheet" ref="bottomSheet" :value="application.selected" :attach="$refs.main"
+
+        <!--        копники на копу-->
+        <kopa-invite v-if="application.kopa.parts.length" :value="application.kopa"
+                     style="position: fixed; left: 50%; transform: translateX(-50%)" :style="{bottom: kopaInviteBottom}"
+                     @avatar_click="avatar_click($event)" @avatar_dblclick="avatar_dblclick($event)">
+            <v-btn fab small color="primary"
+                   title="Созвать всех на копу..."
+                   @click="inviteAll_click"
+                   class="ml-auto mr-1 mb-2" width="48" height="48">
+                <v-icon>mdi-handshake</v-icon>
+            </v-btn>
+        </kopa-invite>
+
+        <!--        копник внизу-->
+        <v-bottom-sheet :value="application.selected" :attach="$refs.main"
                         persistent hide-overlay no-click-animation :retain-focus="false" :inset="true"
                         @input="details_input"
         >
             <v-card>
-                <kopnik-vue :value="application.selected" :avatar-size="100" ></kopnik-vue>
+                <v-list-item v-if="application.selected">
+                    <v-list-item-avatar left :size="80" @dblclick="avatar_dblclick(application.selected)">
+                        <v-img :src="application.selected.photo"></v-img>
+                    </v-list-item-avatar>
+                    <v-list-item-content>
+                        <v-list-item-subtitle class="text-wrap">{{application.selected.name}}</v-list-item-subtitle>
+                    </v-list-item-content>
+                </v-list-item>
+
                 <v-card-actions class="flex-nowrap">
-                    <v-btn text class="flex">
+                    <v-btn text :disabled="application.user===application.selected" class="flex">
                         В беседу
                     </v-btn>
-                    <v-btn text class="flex" @click="toggle_click">
-                        {{application.kopa.isInvited(application.selected)?'Не звать':'На копу'}}
+                    <v-btn text :disabled="application.user===application.selected" class="flex" @click="toggle_click">
+                        {{application.kopa.isAdded(application.selected)?'Не звать':'На копу'}}
                     </v-btn>
-                    <v-btn text class="flex" @click="">
+                    <v-btn text :disabled="application.user===application.selected" class="flex">
                         В старшины
                     </v-btn>
                 </v-card-actions>
@@ -134,7 +145,7 @@
     const ARROW_WIDTH = 10,
         TOOLTIP_ARROW_WITH = 15,
         MARKER_SIZE = 48,
-        MIN_MARKER_SIZE = 24
+        MIN_MARKER_SIZE = 36
 
     export default {
         mixins: [touchDetector, logger],
@@ -162,12 +173,13 @@
                 center: [55.753215, 37.622504],
                 application: container.application,
                 details: {show: false, value: null},
+                info: null,
             }
         },
         computed: {
             kopaInviteBottom() {
                 if (this.application.selected) {
-                    return '150px'
+                    return '155px'
                 } else {
                     return 0
                 }
@@ -178,6 +190,7 @@
                         return {
                             value: eachTop,
                             size: Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE * Math.pow(eachTop.rank, 1 / 3) / Math.pow(2, 18 - this.zoom))),
+                            className: 'map_avatar' + (this.application.user === eachTop ? ' map_avatar-user' : '') + (this.application.selected === eachTop ? ' map_avatar-selected' : ''),
                         }
                     })
                 // console.log(result)
@@ -219,11 +232,7 @@
                             return eachArrow
                         })
                 return result
-            },
-            mapZoomControl() {
-                return this.application.user instanceof Kopnik
-            },
-
+            }
         },
         watch: {
             'application.user': async function (current, old) {
@@ -231,9 +240,38 @@
                     await this.application.loadTop20()
                 }
             },
+            /**
+             *
+             * @param {Kopnik} current
+             * @param {Kopnik} old
+             */
+            'application.selected': function (current, old) {
+
+            },
         },
         methods: {
-            inviteAll_click(){
+            /**
+             * @param {Kopnik} event
+             */
+            avatar_click(event) {
+                this.application.selected = event
+            },
+            /**
+             * @param {Kopnik} event
+             */
+            avatar_dblclick(event) {
+                this.provideKopnikVisibility(event)
+                return false
+            },
+            /**
+             * @param {Kopnik} kopnik
+             */
+            provideKopnikVisibility(kopnik) {
+                if (!this.lmap.getBounds().contains(kopnik.location)) {
+                    this.lmap.flyTo(kopnik.location)
+                }
+            },
+            inviteAll_click() {
                 this.application.kopa.inviteAll()
             },
             details_input(event) {
@@ -242,7 +280,8 @@
                 }
             },
             toggle_click() {
-                this.application.kopa.toggle(this.application.selected)
+                this.application.kopa.stupidAdd(this.application.selected)
+                // this.application.kopa.toggle(this.application.selected)
             },
             this_keydown_esc(event) {
                 if (this.application.squadAnalyzer.isAnalyzing()) {
@@ -267,16 +306,25 @@
         },
         async mounted() {
             this.$nextTick(() => {
-                // this.map= this.$refs.map.mapObject.setView([51.505, -0.09], 13)
+                this.lmap = this.$refs.map.$refs.map.mapObject
             })
             await this.application.resolveUser()
         }
     }
 </script>
 <style>
-    .map_kopnik-avatar {
+    .map_avatar {
         border-radius: 50%;
         border: solid 2px black;
         background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 9px 0px;
+    }
+
+    .map_avatar-user {
+        border-color: red;
+    }
+
+    .map_avatar-selected {
+        border-color: blue;
     }
 </style>

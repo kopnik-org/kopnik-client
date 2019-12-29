@@ -1,25 +1,22 @@
 <template>
-    <v-row class="flex-wrap ml-5 mr-5" no-gutters>
-        <template v-for="(eachPart, eachPartIndex) of value.parts">
-            <v-col :key="eachPartIndex"
-                   class="d-flex pl-1 pr-1 pb-2" style="flex: 0 0 20%; width: 20%;">
-                <v-avatar v-if="eachPart" :value="eachPart" style="flex-grow: 1; height: auto;"
-                          @click="avatar_click(eachPart)">
-                    <v-img :src="eachPart.photo"></v-img>
-                </v-avatar>
-                <v-avatar v-else class="part-empty" style="flex-grow: 1; height: auto;">
-                    <v-img src="logo circle.png"></v-img>
-                </v-avatar>
-                <!--                    <div style="width: 100%">a</div>-->
-            </v-col>
-            <!--                <v-responsive
-                                    v-if="eachPartIndex === 4"
-                                    key="5-responsive"
-                                    width="100%"
-                            ></v-responsive>-->
-        </template>
+    <div class="d-flex flex-wrap justify-start align-start kopaInvite"
+         :class="{'kopaInvite-long': $vuetify.breakpoint.smAndUp}">
+        <v-avatar v-for="eachPart of value.parts" :key="eachPart.id" :value="eachPart"
+                  :size="48" class="ml-1 mr-1 mb-2"
+                  :title="eachPart.rankName"
+                  @click="avatar_click(eachPart)" @dblclick="avatar_dblclick(eachPart)">
+            <v-img :src="eachPart.photo"></v-img>
+        </v-avatar>
+
+        <!--                    <div style="width: 100%">a</div>-->
+        <!--                <v-responsive
+                                v-if="eachPartIndex === 4"
+                                key="5-responsive"
+                                width="100%"
+                        ></v-responsive>-->
+
         <slot></slot>
-    </v-row>
+    </div>
 </template>
 <script>
     import _ from 'lodash'
@@ -46,9 +43,14 @@
         computed: {},
         watch: {},
         methods: {
-            avatar_click(part) {
-                this.application.selected = part
-            }
+            avatar_click(event) {
+                this.$emit('avatar_click', event)
+                return false
+            },
+            avatar_dblclick(event) {
+                this.$emit('avatar_dblclick', event)
+                return false
+            },
         },
         async created() {
 
@@ -58,10 +60,24 @@
         }
     }
 </script>
-<style>
-    .tagline {
-        border-radius: 4px;
-        line-height: 1;
-        background-color: white;
+<style lang="scss">
+    $avatar-size: 48px;
+    $margin: 4px;
+    $element-width: $margin+$avatar-size+$margin;
+
+    .kopaInvite {
+        width: $element-width*5;
+        transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)
     }
+
+    .kopaInvite-long {
+        width: $element-width*10;
+    }
+
+    .kopaInvite > .v-avatar{
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
+        transition-property: box-shadow, transform, opacity;
+    }
+
+
 </style>

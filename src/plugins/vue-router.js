@@ -5,60 +5,44 @@ import Witness from "../components/WitnessVue";
 import Map from "../components/MainVue";
 import Thanks from "../components/ThanksVue";
 import {container} from "./bottle";
+import {Kopnik} from '../models'
+import Application from "../Application";
 
 Vue.use(VueRouter)
+const application = container.application
 
 const routes = [
-    // { path: '/', component: Map },
     {
-        path: '/Profile',
-        component: Profile,
+        path: '/' + Application.section.Profile,
         beforeEnter: async (to, from, next) => {
-            if (container.application.user === undefined) {
-                await container.application.authenticate()
-            }
-            if (container.application.user) {
-                return next()
-            } else {
-                next({path: '/'})
-            }
+            await application.setSection(Application.section.Profile)
+            next()
         }
     },
     {
-        path: '/witness',
-        component: Witness,
+        path: '/' + Application.section.Witness,
         beforeEnter: async (to, from, next) => {
-            if (container.application.user === undefined) {
-                await container.application.authenticate()
-            }
-            if (container.application.user) {
-                return next()
-            } else {
-                next({path: '/'})
-            }
+            await application.setSection(Application.section.Witness)
+            next()
         }
     },
     {
-        path: '/thanks',
-        component: Thanks,
+        path: '/' + Application.section.Thanks,
         beforeEnter: async (to, from, next) => {
-            if (container.application.user === undefined) {
-                await container.application.authenticate()
-            }
-            if (container.application.user) {
-                return next()
-            } else {
-                next({path: '/'})
-            }
+            await application.setSection(Application.section.Thanks)
+            next()
         }
     },
     {
         path: '/',
-        component: Map,
+        beforeEnter: async (to, from, next) => {
+            await application.setSection(Application.section.Main)
+            next()
+        },
     },
 ]
-
-export default new VueRouter({
+const router = new VueRouter({
     mode: 'history',
     routes
 })
+export default router

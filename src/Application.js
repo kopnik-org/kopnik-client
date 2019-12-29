@@ -1,5 +1,5 @@
 import {AbstractSync, Kopnik, Kopa} from "./models";
-import {KopnikApiError} from "./KopnikError";
+import {KopnikApiError, KopnikError} from "./KopnikError";
 import once from "./decorators/once";
 import SquadAnalyzer from "./SquadAnalyzer";
 
@@ -23,7 +23,7 @@ export default class Application {
          *
          * @type {string} Map | Profile | Thanks
          */
-        this.SECTION = "Map"
+        this.SECTION = Application.section.Main
 
         /**
          * 0 потому что на undefined не срабатывает watcher,
@@ -33,13 +33,46 @@ export default class Application {
 
         this.top20 = []
         this.squadAnalyzer = new SquadAnalyzer()
-        this.kopa= new Kopa
+        this.kopa = new Kopa
         /**
          *
          * @type {Kopnik}
          */
-        this.selected= null
-   }
+        this.selected = null
+    }
+
+    /**
+     * Устанавливить секцию
+     * Если секция не может быть установлена, возвращает иную
+     *
+     * @param {String} section
+     * @returns {Promise<string>} Установленная секция
+     */
+    async setSection(section) {
+        let result
+        if (this.SECTION === section) {
+            result = section
+        } else {
+            switch (section) {
+                case Application.section.Profile:
+                case Application.section.Witness:
+                case Application.section.Thanks:
+                    if (await this.resolveUser()) {
+                        result = section
+                    } else {
+                        result = await this.setSection(Application.section.Main)
+                    }
+                    break
+                case Application.section.Main:
+                    result = section
+                    break
+                default:
+                    throw new KopnikError('Wrong route', 666)
+            }
+        }
+        this.logger.info('move', this.SECTION, '->', section)
+        return this.SECTION = result
+    }
 
     /**
      * Исследует дружину
@@ -51,20 +84,25 @@ export default class Application {
     }
 
     async loadTop20() {
-        this.top20 = await Promise.all([1, 2, 3, 4].map(each => Kopnik.get(each)))
-        this.logger.warn('manual set foremans')
-        Kopnik.getReference(1).rank = 4
-        Kopnik.getReference(2).foreman = Kopnik.getReference(3)
-        Kopnik.getReference(2).rank = 1
-        Kopnik.getReference(3).foreman = Kopnik.getReference(1)
-        Kopnik.getReference(3).rank = 3
-        Kopnik.getReference(4).foreman = Kopnik.getReference(3)
-        Kopnik.getReference(4).rank = 1
+        try {
+            this.top20 = await Promise.all([1, 2, 3, 4].map(each => Kopnik.get(each)))
+            this.logger.warn('manual set foremans')
+            Kopnik.getReference(1).rank = 4
+            Kopnik.getReference(2).foreman = Kopnik.getReference(3)
+            Kopnik.getReference(2).rank = 1
+            Kopnik.getReference(3).foreman = Kopnik.getReference(1)
+            Kopnik.getReference(3).rank = 3
+            Kopnik.getReference(4).foreman = Kopnik.getReference(3)
+            Kopnik.getReference(4).rank = 1
 
-        Kopnik.getReference(1).ten = [Kopnik.getReference(3)]
-        Kopnik.getReference(2).ten = []
-        Kopnik.getReference(3).ten = [Kopnik.getReference(2), Kopnik.getReference(4)]
-        Kopnik.getReference(4).ten = []
+            Kopnik.getReference(1).ten = [Kopnik.getReference(3)]
+            Kopnik.getReference(2).ten = []
+            Kopnik.getReference(3).ten = [Kopnik.getReference(2), Kopnik.getReference(4)]
+            Kopnik.getReference(4).ten = []
+        } catch (err) {
+            this.logger.warn(err.message)
+        }
+
     }
 
     /**
@@ -140,4 +178,11 @@ export default class Application {
             // localStorage.setItem("vkUser", JSON.stringify(vkUser))
         }
         */
+}
+
+Application.section = {
+    Main: 'Main',
+    Profile: 'Profile',
+    Witness: 'Witness',
+    Thanks: 'Thanks',
 }

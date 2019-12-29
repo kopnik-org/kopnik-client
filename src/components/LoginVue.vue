@@ -56,7 +56,7 @@
                     return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
                 }
 
-                const loginWindow = popupwindow('https://dev.kopnik.org/connect/vkontakte', 'Войти через ВКонтакте', 700, 350)
+                const loginWindow = popupwindow(container.config.messenger.loginUrl, 'Войти через ВКонтакте', 700, 350)
                 loginWindow.addEventListener('close', () => alert('closed'))
                 loginWindow.onclose = (e) => alert('closed')
 
@@ -73,7 +73,7 @@
                 }, 2 + 1024 + 65536 + 262144 + 4194304)
             },
             href_login_click() {
-                location.href = 'https://dev.kopnik.org/connect/vkontakte'
+                location.href = container.config.messenger.loginUrl
             },
         },
         async created() {

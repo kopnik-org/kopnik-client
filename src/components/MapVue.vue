@@ -1,6 +1,6 @@
 <template>
     <LMap ref="map" :center="center" :zoom="zoom" :options="{zoomControl: zoomControl}"
-          @leafletevent="leafLet_event"
+          @click="map_click($event)"
           @update:bounds="map_updateBounds"
           @update:center="map_updateCenter"
           @update:zoom="map_updateZoom"
@@ -154,8 +154,8 @@
             map_dblclick(event){
                 alert(event)
             },
-            leafLet_event(event) {
-                alert(event)
+            map_click(event) {
+                this.$emit('click', event)
             },
             store() {
                 if (!this.storageKey) {
@@ -175,7 +175,7 @@
                 }
                 let storedData = localStorage.getItem(this.storageKey)
                 if (storedData) {
-                    console.log('should be center+loocation', storedData)
+                    // console.log('should be center+zoom', storedData)
                     storedData = JSON.parse(storedData)
                     if (storedData.zoom) {
                         this.map_updateZoom(storedData.zoom)
@@ -197,14 +197,24 @@
             map_updateCenter(event) {
                 this.$emit('update:center', event)
                 if (this.storageKey && localStorage) {
-                    this.store()
+                    if (!this.center.lat || !this.center.lng){
+
+                    }
+                    else {
+                        this.store()
+                    }
                 }
             }
             ,
             map_updateZoom(event) {
                 this.$emit('update:zoom', event)
                 if (this.storageKey && localStorage) {
-                    this.store()
+                    if (!this.center.lat || !this.center.lng){
+
+                    }
+                    else {
+                        this.store()
+                    }
                 }
             }
         }
@@ -217,8 +227,11 @@
         ,
         async mounted() {
             this.$nextTick(() => {
-                // this.map = this.$refs.map.mapObject
+                this.map = this.$refs.map.mapObject
                 // this.map.on('geosearch/showlocation', console.log)
+                this.map.on('click', event=>{
+                    // this.$emit('click', event)
+                })
             })
         }
     }
