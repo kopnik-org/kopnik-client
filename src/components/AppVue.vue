@@ -13,7 +13,7 @@
                                       style="position:absolute; left:0; top20:0; z-index: 1000; right: 0; bottom: 0;"></Auth>-->
                 <!--                <div :is="app.SECTION" style="flex-grow: 1"></div>-->
                 <!--                <keep-alive>-->
-<!--                <router-view></router-view>-->
+                <!--                <router-view></router-view>-->
                 <component v-bind:is="application.SECTION+'Vue'"></component>
                 <!--                </keep-alive>-->
             </v-container>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+    import Vue from 'vue'
 
     import LoginVue from './LoginVue'
     import MainVue from './MainVue'
@@ -33,7 +34,7 @@
     import logger from './mixin/logger'
     import Application from "../Application";
     import {Kopnik} from '../models'
-
+    import flushPromises from "flush-promises";
 
     export default {
         mixins: [logger],
@@ -57,14 +58,20 @@
             }
         },
         watch: {
-            'application.SECTION': function(current, prev){
-                const path= this.application.SECTION===Application.section.Main?'/':'/'+this.application.SECTION
-                this.$router.push({path})
-            },
             'application.user': async function (current, old) {
                 if (current && (current.status === Kopnik.Status.NEW || current.status === Kopnik.Status.DECLINED)) {
-                    await this.application.setSection(Application.section.Profile)
+                    await application.lockSection(async () => {
+                        await this.application.setSection(Application.section.Profile)
+                    })
                 }
+            },
+            'application.SECTION': async function (current, prev) {
+                await application.lockSection(async () => {
+                    if (application.SECTION !== this.$route.name) {
+                        // вызывается асинхронно, чтобы предотвратить рекурсивный lockSection
+                        this.$router.push({name: this.application.SECTION})
+                    }
+                })
             },
         },
         computed: {

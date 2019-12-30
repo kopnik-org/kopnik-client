@@ -1,3 +1,4 @@
+import AsyncLock from 'async-lock'
 import {AbstractSync, Kopnik, Kopa} from "./models";
 import {KopnikApiError, KopnikError} from "./KopnikError";
 import once from "./decorators/once";
@@ -24,6 +25,7 @@ export default class Application {
          * @type {string} Map | Profile | Thanks
          */
         this.SECTION = Application.section.Main
+        this.sectionLocker = new AsyncLock
 
         /**
          * 0 потому что на undefined не срабатывает watcher,
@@ -42,6 +44,15 @@ export default class Application {
     }
 
     /**
+     * Эксклюзивный доступ к section
+     * @param {function} callback
+     * @returns {Promise<any>}
+     */
+    lockSection(callback) {
+        return this.sectionLocker.acquire('section', callback)
+    }
+
+    /**
      * Устанавливить секцию
      * Если секция не может быть установлена, возвращает иную
      *
@@ -51,24 +62,23 @@ export default class Application {
     async setSection(section) {
         let result
         if (this.SECTION === section) {
-            result = section
-        } else {
-            switch (section) {
-                case Application.section.Profile:
-                case Application.section.Witness:
-                case Application.section.Thanks:
-                    if (await this.resolveUser()) {
-                        result = section
-                    } else {
-                        result = await this.setSection(Application.section.Main)
-                    }
-                    break
-                case Application.section.Main:
+            return section
+        }
+        switch (section) {
+            case Application.section.Profile:
+            case Application.section.Witness:
+            case Application.section.Thanks:
+                if (await this.resolveUser()) {
                     result = section
-                    break
-                default:
-                    throw new KopnikError('Wrong route', 666)
-            }
+                } else {
+                    result = await this.setSection(Application.section.Main)
+                }
+                break
+            case Application.section.Main:
+                result = section
+                break
+            default:
+                throw new KopnikError('Wrong route', 666)
         }
         this.logger.info('move', this.SECTION, '->', section)
         return this.SECTION = result
