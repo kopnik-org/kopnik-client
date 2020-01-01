@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+    #todo: add part for nginx service
+    # see example below that was taken from kopnik-server
+#    nginx:
+#        build:
+#            context: ./.docker/development
+#            dockerfile: nginx.docker
+#        volumes:
+#            - ./:/app
+#        depends_on:
+#            - npm
+#        ports:
+#            - "${WEB_PORT}:80"
+    npm:
+        build:
+            context: .
+            dockerfile: Dockerfile
+#        environment:
+#            SOME_VARIABLE: 'value'

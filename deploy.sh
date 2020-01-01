@@ -1,0 +1,1 @@
+#todo: define content after getting environment detailes
