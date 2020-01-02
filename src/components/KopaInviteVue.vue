@@ -1,20 +1,15 @@
 <template>
     <div class="d-flex flex-wrap justify-start align-start kopaInvite"
          :class="{'kopaInvite-long': $vuetify.breakpoint.smAndUp}">
-        <v-avatar v-for="eachPart of value.parts" :key="eachPart.id" :value="eachPart"
-                  :size="48" class="ml-1 mr-1 mb-2"
-                  :title="eachPart.rankName"
-                  @click="avatar_click(eachPart)" @dblclick="avatar_dblclick(eachPart)">
-            <v-img :src="eachPart.photo"></v-img>
-        </v-avatar>
-
-        <!--                    <div style="width: 100%">a</div>-->
-        <!--                <v-responsive
-                                v-if="eachPartIndex === 4"
-                                key="5-responsive"
-                                width="100%"
-                        ></v-responsive>-->
-
+        <v-badge v-for="eachAvatar of avatars" :content="eachAvatar.value.rank" bottom color="red" :offset-x="24" :offset-y="28">
+            <v-avatar :value="eachAvatar.value" :key="eachAvatar.value.id"
+                      :size="48" class="ml-1 mr-1 mb-2" :class="eachAvatar.className"
+                      :title="eachAvatar.value.rankName"
+                      @click="avatar_click(eachAvatar.value)" @dblclick="avatar_dblclick(eachAvatar.value)"
+            >
+                <v-img :src="eachAvatar.value.photo"></v-img>
+            </v-avatar>
+        </v-badge>
         <slot></slot>
     </div>
 </template>
@@ -40,7 +35,19 @@
                 type: Kopa
             }
         },
-        computed: {},
+        computed: {
+            avatars() {
+                const result = this.value.parts
+                    .map(eachPart => {
+                        return {
+                            value: eachPart,
+                            className: 'map_avatar' + (this.application.user === eachPart ? ' map_avatar-user' : '') + (this.application.selected === eachPart ? ' map_avatar-selected' : ''),
+                        }
+                    })
+                // console.log(result)
+                return result
+            },
+        },
         watch: {},
         methods: {
             avatar_click(event) {
@@ -74,8 +81,7 @@
         width: $element-width*10;
     }
 
-    .kopaInvite > .v-avatar{
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
+    .kopaInvite > .v-avatar {
         transition-property: box-shadow, transform, opacity;
     }
 

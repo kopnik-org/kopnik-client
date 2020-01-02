@@ -94,9 +94,11 @@
         >
             <v-card>
                 <v-list-item v-if="application.selected">
-                    <v-list-item-avatar left :size="80" @dblclick="avatar_dblclick(application.selected)">
-                        <v-img :src="application.selected.photo"></v-img>
-                    </v-list-item-avatar>
+                    <v-badge :content="application.selected.rank" bottom color="red" :offset-x="50" :offset-y="30">
+                        <v-list-item-avatar left :size="80" @dblclick="avatar_dblclick(application.selected)">
+                            <v-img :src="application.selected.photo"></v-img>
+                        </v-list-item-avatar>
+                    </v-badge>
                     <v-list-item-content>
                         <v-list-item-subtitle class="text-wrap">{{application.selected.name}}</v-list-item-subtitle>
                     </v-list-item-content>

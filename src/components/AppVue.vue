@@ -9,11 +9,6 @@
         <v-content>
             <LoginVue v-if="!application.user"></LoginVue>
             <v-container class="fill-height" fluid>
-                <!--                <Auth v-if="!app.user" @login="login_login" class="d-flex justify-center align-center"
-                                      style="position:absolute; left:0; top20:0; z-index: 1000; right: 0; bottom: 0;"></Auth>-->
-                <!--                <div :is="app.SECTION" style="flex-grow: 1"></div>-->
-                <!--                <keep-alive>-->
-                <!--                <router-view></router-view>-->
                 <component v-bind:is="application.SECTION+'Vue'"></component>
                 <!--                </keep-alive>-->
             </v-container>
