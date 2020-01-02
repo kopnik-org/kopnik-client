@@ -3,6 +3,7 @@ import Vue from 'vue'
 import vueI18n from '../src/plugins/i18n'
 import '../src/plugins/vee-validate'
 import fetchApiMock from "../src/bottle/fetchApi.mock";
+import '../src/plugins/className'
 
 global.fetchApiMock = fetchApiMock
 

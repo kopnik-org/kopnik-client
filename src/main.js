@@ -15,8 +15,8 @@ Icon.Default.mergeOptions({
 })
 
 import AppVue from './components/AppVue.vue'
-import {container} from "./plugins/bottle";
-import {Kopnik} from "./models";
+import {container} from "./plugins/bottle"
+import './plugins/className'
 
 Vue.config.productionTip = false
 
@@ -40,5 +40,3 @@ global.vue = new Vue({
     router,
     // render: h => h(App)
 })//.$mount('#app')
-
-

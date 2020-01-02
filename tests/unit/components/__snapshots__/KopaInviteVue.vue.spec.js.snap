@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unit components KopaInviteVue.vue render 1`] = `
+<div
+  class="d-flex flex-wrap justify-start align-start kopaInvite kopaInvite-long"
+>
+  <div
+    class="v-avatar ml-1 mr-1 mb-2"
+    style="height: 48px; min-width: 48px; width: 48px;"
+    title="Баранов Алексей qwer"
+    value="Kopnik {2:\\"Баранов Алексей qwer\\"}"
+  >
+    <div
+      class="v-responsive v-image"
+    >
+      <div
+        class="v-image__image v-image__image--preload v-image__image--cover"
+        mode="in-out"
+        name="fade-transition"
+        style="background-position: center center;"
+      />
+      <div
+        class="v-responsive__content"
+      />
+    </div>
+  </div>
+   
+</div>
+`;

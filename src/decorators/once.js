@@ -17,19 +17,12 @@ export default function once(target, name, descriptor) {
 
             promises.get(this)
                 .then(() => {
-/*                    if (this.constructor.name=='Kopnik') {
-                        console.log('clear', this.id, this.name)
-                        console.timeEnd(this.id || this.name)
-                    }*/
                     promises.set(this, undefined)
                 })
                 .catch(() => {
                     promises.set(this, undefined)
                 })
         } else {
-/*            if (this.constructor.name=='Kopnik') {
-                console.log('twice', this.id, this.name)
-            }*/
         }
         return promises.get(this)
     }

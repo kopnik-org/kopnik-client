@@ -84,14 +84,7 @@ export default class AbstractSync {
         this.cache.forEach(eachCache => eachCache.clear())
     }
 
-    /*    async save() {
-            let plain = this.getPlain()
-            let result = await Connection.getInstance().session.call("fetchApi:model.save", [], {
-                type: this.constructor.name,
-                plain: plain
-            })
-            return result
-        }*/
+
 
     /*    static async create(value) {
             if (!value.attachments) {
@@ -149,24 +142,25 @@ export default class AbstractSync {
         if (_.isString(id)) {
             id = parseInt(id)
         }
-        if (!this.cache.has(this.name)) {
-            throw new Error("Неправильный тип объекта " + this.name)
+        if (!this.cache.has(className(this))) {
+            throw new Error("Неправильный тип объекта " + className(this))
         }
 
-        if (!this.cache.get(this.name).has(id)) {
+        if (!this.cache.get(className(this)).has(id)) {
             let reference = new this()
 
             reference.id = id
             reference.isLoaded = false
 
-            this.cache.get(this.name).set(id, reference)
+            this.cache.get(className(this)).set(id, reference)
         }
-        return this.cache.get(this.name).get(id)
+        return this.cache.get(className(this)).get(id)
     }
 
     static async fetchApi(url, options = {}) {
         let fetchApi= container.fetchApi
-        let fullUrl = `${this.name.replace('Kopnik','User').toLowerCase()}s/${url}`
+
+        let fullUrl = `${className(this).replace('Kopnik','User').toLowerCase()}s/${url}`
         let result = await fetchApi(fullUrl, options)
         return result
     }
@@ -247,8 +241,9 @@ export default class AbstractSync {
     }
 
     toString() {
-        return `${this.constructor.name} {${this.id}:"${this.name}"}`;
+        return `${className(this.constructor)} {${this.id}:"${this.name}"}`;
     }
 }
 
 ["Kopnik", "Kopa"].forEach(eachModelName => AbstractSync.cache.set(eachModelName, new Map()))
+
