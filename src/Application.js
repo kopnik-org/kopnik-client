@@ -41,6 +41,16 @@ export default class Application {
          * @type {Kopnik}
          */
         this.selected = null
+        /**
+         * Сообщения пользователю
+         * @type {String[]}
+         */
+        this.infos= []
+        /**
+         * Обишки приложения
+         * @type {Error[]}
+         */
+        this.errors= []
     }
 
     /**

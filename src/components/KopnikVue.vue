@@ -1,32 +1,132 @@
 <template>
-    <div v-if="value" class="d-flex flex-nowrap">
-        <v-avatar :tile="avatarTile" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}"
-                  @click="avatar_click" @dblclick="avatar_dblclick">
-            <img :src="value.photo" style="object-fit: cover; "/>
-        </v-avatar>
-        <v-list>
-            <v-list-item>
-                <v-list-item-content>
-                    <v-list-item-title class="title text-wrap">
-                        {{value.name}}
-                    </v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-            <v-list-item v-if="birthyear">
-                <v-text-field v-model="value.birthyear" :label="$t('profile.birthyear')" readonly></v-text-field>
-            </v-list-item>
-            <v-list-item v-if="passport">
-                <v-text-field v-model="value.passport" :label="$t('profile.passport')" readonly></v-text-field>
-            </v-list-item>
-            <v-list-item v-if="location">
-                <MapVue ref="map" :center="value.location" :zoom="14"
+    <v-list>
+        <v-list-item>
+            <v-badge :content="value.rank" bottom :offset-x="(avatarSize/64)*7+14" :offset-y="(avatarSize/64)*7+14"
+                 color="orange" >
+                <v-avatar :tile="avatarTile" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}"
+                          @click="avatar_click" @dblclick="avatar_dblclick">
+                    <img :src="value.photo" style="object-fit: cover; "/>
+                </v-avatar>
+            </v-badge>
+        </v-list-item>
+        <v-list-item v-if="!fio">
+            <v-list-item-content>
+                <v-list-item-title class="title">{{ value.name }}</v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="locale">
+            <v-list-item-content>
+                <v-combobox ref="locale"
+                            readonly
+                            :return-object="false"
+                            :allow-overflow="false"
+                            v-model="value.locale"
+                            :items="locales"
+                            :auto-select-first="true"
+                            label="Язык / Language"
+                            @change="$emit('locale_change', $event)"
+                >
+                </v-combobox>
+            </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item v-if="fio">
+            <v-list-item-content>
+                <ValidationProvider name="lastName" rules="required" v-slot="{ errors, valid }">
+
+                    <v-text-field
+                            v-model="value.lastName"
+                            :label="$t('profile.lastName')"
+                            :error-messages="errors"
+                            :success="valid"
+                            required
+                            readonly
+                    >
+
+                    </v-text-field>
+                </ValidationProvider>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="fio">
+            <v-list-item-content>
+                <ValidationProvider name="firstName" rules="required" v-slot="{ errors, valid }">
+                    <v-text-field
+                            v-model="value.firstName"
+                            :label="$t('profile.firstName')"
+                            :error-messages="errors"
+                            :success="valid"
+                            required
+                    ></v-text-field>
+                </ValidationProvider>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="fio">
+            <v-list-item-content>
+                <ValidationProvider name="patronymic" rules="required" v-slot="{ errors, valid }">
+                    <v-text-field
+                            v-model="value.patronymic"
+                            :label="$t('profile.patronymic')"
+                            :error-messages="errors"
+                            :success="valid"
+                            required
+                    ></v-text-field>
+                </ValidationProvider>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="fio">
+            <v-list-item-content>
+                <ValidationProvider name="nickname" rules="" v-slot="{ errors, valid }">
+                    <v-text-field
+                            v-model="value.nickname"
+                            :label="$t('profile.nickname')"
+                            :error-messages="errors"
+                            :success="valid"
+                    ></v-text-field>
+                </ValidationProvider>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="birthyear">
+            <v-list-item-content>
+                <ValidationProvider name="birthyear" rules="required|numeric|length:4"
+                                    v-slot="{ errors, valid }">
+                    <v-text-field
+                            v-model="value.birthyear"
+                            :label="$t('profile.birthyear')"
+                            :error-messages="errors"
+                            :success="valid"
+                            required
+                    ></v-text-field>
+                </ValidationProvider>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="passport">
+            <v-list-item-content>
+                <ValidationProvider name="passport" rules="required|numeric|length:4"
+                                    v-slot="{ errors, valid }">
+                    <v-text-field
+
+                            v-model="value.passport"
+                            :counter="4"
+                            :label="$t('profile.passport')"
+                            :error-messages="errors"
+                            :success="valid"
+                            required
+                    ></v-text-field>
+                </ValidationProvider>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="location">
+            <v-list-item-content>
+                <MapVue :center="value.location" :zoom="14"
                         :zoom-control="false" :layers-control="false" :locate-control="false"
+                        @update:center="$emit('map_updateCenter', $event)"
                         class="" style="z-index: 0; height: 50vh;">
                     <l-marker :lat-lng="value.location"></l-marker>
                 </MapVue>
-            </v-list-item>
-        </v-list>
-    </div>
+            </v-list-item-content>
+        </v-list-item>
+        <slot></slot>
+    </v-list>
 </template>
 <script>
     import {LMarker} from 'vue2-leaflet'
@@ -34,23 +134,40 @@
     import MapVue from "./MapVue";
     import logger from "./mixin/logger"
     import {container} from "../plugins/bottle";
+    import {
+        ValidationObserver,
+        ValidationProvider,
+        localize
+    } from "vee-validate"
 
     export default {
         name: "Kopnik",
         mixins: [logger],
         components: {
             MapVue,
-            LMarker
+            LMarker,
+            ValidationProvider,
+            ValidationObserver,
         },
         data: () => {
             return {
-                application: container.application
+                application: container.application,
+                locales: [
+                    {
+                        text: "Русский",
+                        value: "ru"
+                    },
+                    {
+                        text: "English",
+                        value: "en"
+                    }
+                ],
             }
         },
         props: {
             avatarSize: {
                 type: Number,
-                default: 150
+                default: 128
             },
             avatarTile: {
                 type: Boolean,
@@ -62,6 +179,14 @@
             },
             value: {
                 type: Kopnik
+            },
+            locale: {
+                type: Boolean,
+                default: false,
+            },
+            fio: {
+                type: Boolean,
+                default: false,
             },
             birthyear: {
                 type: Boolean,
@@ -75,8 +200,13 @@
                 type: [String, Object]
             },
             location: {
-                type: Boolean
+                type: Boolean,
+                default: false
             },
+            readonly: {
+                type: Boolean,
+                default: false
+            }
         },
         filters: {
             undefined(value) {

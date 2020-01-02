@@ -18,7 +18,7 @@ export default async function fetchApi(url, options = {}) {
         options.body = jsonToFormData(options.body)
     }
     // logger.log(options)
-    console.log(container.config.api.path)
+    // console.log(container.config.api.path)
     let fullUrl = `${container.config.api.path}/${url}`
 
     try {

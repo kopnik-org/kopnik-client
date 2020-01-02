@@ -44,7 +44,7 @@
     import logger from "./mixin/logger";
 
     export default {
-        mixins:[logger],
+        mixins: [logger],
         name: 'MapVue',
         components: {
             VGeosearch,
@@ -89,9 +89,7 @@
                 // type: [Boolean,Object],
                 // default: true
             },
-            scaleControl:{
-
-            }
+            scaleControl: {}
         },
         data() {
             return {
@@ -151,7 +149,7 @@
             }
         },
         methods: {
-            map_dblclick(event){
+            map_dblclick(event) {
                 alert(event)
             },
             map_click(event) {
@@ -184,52 +182,44 @@
                         this.map_updateCenter(storedData.center)
                     }
                 }
-            }
-            ,
+            },
             onLocationClick() {
                 alert("getInstance current location")
-            }
-            ,
+            },
             map_updateBounds(event) {
                 this.$emit('update:bounds', event)
-            }
-            ,
+            },
             map_updateCenter(event) {
                 this.$emit('update:center', event)
                 if (this.storageKey && localStorage) {
-                    if (!this.center.lat || !this.center.lng){
+                    if (!this.center.lat || !this.center.lng) {
 
-                    }
-                    else {
+                    } else {
                         this.store()
                     }
                 }
-            }
-            ,
+            },
             map_updateZoom(event) {
                 this.$emit('update:zoom', event)
                 if (this.storageKey && localStorage) {
-                    if (!this.center.lat || !this.center.lng){
+                    if (!this.center.lat || !this.center.lng) {
 
-                    }
-                    else {
+                    } else {
                         this.store()
                     }
                 }
             }
-        }
-        ,
+        },
         created() {
             if (this.storageKey && localStorage) {
                 this.restore()
             }
-        }
-        ,
+        },
         async mounted() {
             this.$nextTick(() => {
                 this.map = this.$refs.map.mapObject
                 // this.map.on('geosearch/showlocation', console.log)
-                this.map.on('click', event=>{
+                this.map.on('click', event => {
                     // this.$emit('click', event)
                 })
             })

@@ -1,6 +1,14 @@
 <template>
-    <v-app id="inspire"
-    >
+    <v-app id="inspire">
+        <v-snackbar v-if="application.errors.length" v-model="errorVisible" :timeout="0" multi-line top color="error">
+            {{application.errors[application.errors.length-1].message}}
+            <v-btn text  xcolor="error" @click="errorVisible = false">
+                Закрыть
+            </v-btn>
+        </v-snackbar>
+        <v-snackbar v-if="application.infos.length" v-model="infoVisible" bottom color="info">
+            {{ application.infos[application.infos.length-1] }}
+        </v-snackbar>
         <v-app-bar v-if="application.user" app color="indigo">
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>kopnik.org</v-toolbar-title>
@@ -50,6 +58,8 @@
                 center: [47.413220, -1.219482],
                 zoom: 14,
                 drawer: false,
+                errorVisible: false,
+                infoVisible: false,
             }
         },
         watch: {
@@ -57,6 +67,7 @@
                 if (current && (current.status === Kopnik.Status.NEW || current.status === Kopnik.Status.DECLINED)) {
                     await application.lockSection(async () => {
                         await this.application.setSection(Application.section.Profile)
+                        this.application.infos.push('Для начала пройдите регистрацию. После этого станут доступны все возможности системы.')
                     })
                 }
             },
@@ -67,6 +78,16 @@
                         this.$router.push({name: this.application.SECTION})
                     }
                 })
+            },
+            async 'application.infos.length'(current, old) {
+                this.infoVisible = false
+                await Vue.nextTick()
+                this.infoVisible = true
+            },
+            async 'application.errors.length'(current, old) {
+                this.errorVisible = false
+                await Vue.nextTick()
+                this.errorVisible = true
             },
         },
         computed: {

@@ -1,8 +1,9 @@
 <template>
     <div class="d-flex flex-wrap justify-start align-start kopaInvite"
          :class="{'kopaInvite-long': $vuetify.breakpoint.smAndUp}">
-        <v-badge v-for="eachAvatar of avatars" :content="eachAvatar.value.rank" bottom color="red" :offset-x="24" :offset-y="28">
-            <v-avatar :value="eachAvatar.value" :key="eachAvatar.value.id"
+        <v-badge v-for="eachAvatar of avatars" :key="eachAvatar.value.id" :content="eachAvatar.value.rank" bottom
+                 color="orange" :offset-x="24" :offset-y="28">
+            <v-avatar :value="eachAvatar.value"
                       :size="48" class="ml-1 mr-1 mb-2" :class="eachAvatar.className"
                       :title="eachAvatar.value.rankName"
                       @click="avatar_click(eachAvatar.value)" @dblclick="avatar_dblclick(eachAvatar.value)"
@@ -74,7 +75,12 @@
 
     .kopaInvite {
         width: $element-width*5;
-        transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)
+        transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        pointer-events: none;
+    }
+
+    .kopaInvite .v-avatar, .kopaInvite button {
+        pointer-events: all;
     }
 
     .kopaInvite-long {

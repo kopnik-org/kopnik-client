@@ -90,7 +90,7 @@
         >
             <v-card>
                 <v-list-item v-if="application.selected">
-                    <v-badge :content="application.selected.rank" bottom color="red" :offset-x="50" :offset-y="30">
+                    <v-badge :content="application.selected.rank" bottom color="orange" :offset-x="50" :offset-y="30">
                         <v-list-item-avatar left :size="80" @dblclick="avatar_dblclick(application.selected)">
                             <v-img :src="application.selected.photo"></v-img>
                         </v-list-item-avatar>
@@ -272,6 +272,7 @@
             },
             inviteAll_click() {
                 this.application.kopa.inviteAll()
+                this.application.infos.push('Приглашение на Копу отправлено')
             },
             details_input(event) {
                 if (!event) {
