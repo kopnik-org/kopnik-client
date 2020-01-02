@@ -13,13 +13,25 @@
                 style="z-index: 0"
                 @click="application.selected=null"
         >
-            <!--            <l-marker :lat-lng="center">
-                            <l-icon
-                                    :icon-size="[64, 64]"
-                                    :icon-anchor="[32,32]"
-                                    icon-url="logo circle.png">
-                            </l-icon>
-                        </l-marker>-->
+<!--            скрыть копные связи-->
+            <l-control position="topright">
+                <div v-if="application.squadAnalyzer.isAnalyzing()" class="d-flex flex-column align-center">
+                    <v-btn fab small
+                           title="Скрыть копные связи"
+                           @click="this_keydown_esc"
+                           style="order: -1000000000">
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                    <!--                    <v-avatar v-for="eachMember of application.squadAnalyzer.members" :key="'avatar'+eachMember.id"
+                                                  :size="48"
+                                                  :title="eachMember.rankName"
+                                                  :style="{order: -eachMember.rank}"
+                                        >
+                                            <v-img :src="eachMember.photo"></v-img>
+                                        </v-avatar>-->
+                </div>
+            </l-control>
+<!--            копные связи-->
             <template v-for="eachArrow of arrows">
                 <!--                стрелка на конце-->
                 <vue2-leaflet-polyline-decorator :key="'arrow'+eachArrow.from.id"
@@ -40,10 +52,10 @@
                     <l-tooltip :options="{sticky:true}">{{eachArrow.tooltip}}</l-tooltip>
                 </l-polyline>
             </template>
-
+<!--            копники-->
             <l-marker v-for="(eachMarker) of markers" :key="'marker'+eachMarker.value.id"
                       :lat-lng="eachMarker.value.location"
-                      :zIndexOffset="eachMarker.value.rank*1000"
+                      :zIndexOffset="eachMarker.zIndex"
                       @dblclick="marker_dblclick(eachMarker.value, $event)"
                       @click="marker_click(eachMarker.value, $event)"
             >
@@ -56,23 +68,7 @@
                 <l-tooltip v-if="!isTouchDevice" :options="{}">{{eachMarker.value.rankName}}</l-tooltip>
                 <!--                <l-popup>l-popup!</l-popup>-->
             </l-marker>
-            <l-control position="topright">
-                <div v-if="application.squadAnalyzer.isAnalyzing()" class="d-flex flex-column align-center">
-                    <v-btn fab small
-                           title="Скрыть копные связи"
-                           @click="this_keydown_esc"
-                           style="order: -1000000000">
-                        <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                    <!--                    <v-avatar v-for="eachMember of application.squadAnalyzer.members" :key="'avatar'+eachMember.id"
-                                                  :size="48"
-                                                  :title="eachMember.rankName"
-                                                  :style="{order: -eachMember.rank}"
-                                        >
-                                            <v-img :src="eachMember.photo"></v-img>
-                                        </v-avatar>-->
-                </div>
-            </l-control>
+
         </MapVue>
 
         <!--        копники на копу-->
@@ -193,6 +189,7 @@
                             value: eachTop,
                             size: Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE * Math.pow(eachTop.rank, 1 / 3) / Math.pow(2, 18 - this.zoom))),
                             className: 'map_avatar' + (this.application.user === eachTop ? ' map_avatar-user' : '') + (this.application.selected === eachTop ? ' map_avatar-selected' : ''),
+                            zIndex: this.application.selected==eachTop?Number.MAX_SAFE_INTEGER:eachTop.rank*1000,
                         }
                     })
                 // console.log(result)
