@@ -7,13 +7,14 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install
+RUN mkdir dist
+#RUN npm install && npm run build
 # If you are building your code for production
 # RUN npm ci --only=production
 # Bundle app source
 COPY . .
-EXPOSE 8080
 #todo: the entrypoint is wrong. should be fixed.
-ENTRYPOINT ["node", "server.js"]
+#ENTRYPOINT ["node", "server.js"]
 CMD []
 
 # reference https://nodejs.org/de/docs/guides/nodejs-docker-webapp/

@@ -12,9 +12,15 @@ services:
 #            - npm
 #        ports:
 #            - "${WEB_PORT}:80"
-    npm:
+    npm_build:
         build:
             context: .
             dockerfile: Dockerfile
+      #  command: "npm install\n
+      #          npm run build"
+        command: "npm run build"
+
+        volumes:
+            - ./html:/usr/src/app/dist
 #        environment:
 #            SOME_VARIABLE: 'value'
