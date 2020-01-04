@@ -3,6 +3,7 @@ import Vue from 'vue'
 import vueI18n from '../src/plugins/i18n'
 import '../src/plugins/vee-validate'
 import fetchApiMock from "../src/bottle/fetchApi.mock";
+import '../src/plugins/className'
 
 global.fetchApiMock = fetchApiMock
 
@@ -10,6 +11,7 @@ global.fetchApiMock = fetchApiMock
 import Vuetify from 'vuetify';
 import ru from 'vuetify/es5/locale/ru'
 import en from 'vuetify/es5/locale/en'
+import {container} from "../src/plugins/bottle";
 
 Vue.use(Vuetify)
 let vuetify = new Vuetify({
@@ -21,6 +23,8 @@ let vuetify = new Vuetify({
 
 Vue.config.productionTip = false
 
-// This condition actually should detect if it's an Node environment
+global.login= function login(id){
+    return container.fetchApi('test/login/'+id)
+}
 
 export {vueI18n, vuetify}

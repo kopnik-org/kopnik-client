@@ -2,10 +2,12 @@
     <v-navigation-drawer temporary :value="value" @input="drawer_input" app>
         <router-link to="/profile" class="cursor-pointer" tag="div">
             <kopnik-vue v-if="application.user" :value="application.user" to="/profile"
-                        :avatar-size="150" class="flex-grow-1">
+                        :avatar-size="64" class="flex-grow-1">
             </kopnik-vue>
         </router-link>
-        <v-list :dense="false" subheader>
+        <v-divider></v-divider>
+        <v-list>
+
             <v-list-item link to="/">
                 <v-list-item-action>
                     <v-icon>mdi-home-city</v-icon>

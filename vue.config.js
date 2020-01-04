@@ -1,3 +1,5 @@
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = {
     "transpileDependencies": [
         "vuetify"
@@ -11,9 +13,9 @@ module.exports = {
             fallbackLocale: 'ru',
             localeDir: 'locales',
             enableInSFC: true
-        }
+        },
     },
     devServer: {
         disableHostCheck: true
-    }
+    },
 }

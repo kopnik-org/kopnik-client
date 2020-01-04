@@ -1,25 +1,18 @@
 <template>
-    <v-row class="flex-wrap ml-5 mr-5" no-gutters>
-        <template v-for="(eachPart, eachPartIndex) of value.parts">
-            <v-col :key="eachPartIndex"
-                   class="d-flex pl-1 pr-1 pb-2" style="flex: 0 0 20%; width: 20%;">
-                <v-avatar v-if="eachPart" :value="eachPart" style="flex-grow: 1; height: auto;"
-                          @click="avatar_click(eachPart)">
-                    <v-img :src="eachPart.photo"></v-img>
-                </v-avatar>
-                <v-avatar v-else class="part-empty" style="flex-grow: 1; height: auto;">
-                    <v-img src="logo circle.png"></v-img>
-                </v-avatar>
-                <!--                    <div style="width: 100%">a</div>-->
-            </v-col>
-            <!--                <v-responsive
-                                    v-if="eachPartIndex === 4"
-                                    key="5-responsive"
-                                    width="100%"
-                            ></v-responsive>-->
-        </template>
+    <div class="d-flex flex-wrap justify-start align-start k-kopaInvite"
+         :class="{'kopaInvite-long': $vuetify.breakpoint.smAndUp}">
+        <v-badge v-for="eachAvatar of avatars" :key="eachAvatar.value.id" :content="eachAvatar.value.rank" bottom
+                 color="orange" :offset-x="24" :offset-y="28">
+            <v-avatar :value="eachAvatar.value"
+                      :size="48" class="ml-1 mr-1 mb-2" :class="eachAvatar.className"
+                      :title="eachAvatar.value.rankName"
+                      @click="avatar_click(eachAvatar.value)" @dblclick="avatar_dblclick(eachAvatar.value)"
+            >
+                <v-img :src="eachAvatar.value.photo"></v-img>
+            </v-avatar>
+        </v-badge>
         <slot></slot>
-    </v-row>
+    </div>
 </template>
 <script>
     import _ from 'lodash'
@@ -43,12 +36,29 @@
                 type: Kopa
             }
         },
-        computed: {},
+        computed: {
+            avatars() {
+                const result = this.value.parts
+                    .map(eachPart => {
+                        return {
+                            value: eachPart,
+                            className: 'map_avatar' + (this.application.user === eachPart ? ' map_avatar-user' : '') + (this.application.selected === eachPart ? ' map_avatar-selected' : ''),
+                        }
+                    })
+                // console.log(result)
+                return result
+            },
+        },
         watch: {},
         methods: {
-            avatar_click(part) {
-                this.application.selected = part
-            }
+            avatar_click(event) {
+                this.$emit('avatar_click', event)
+                return false
+            },
+            avatar_dblclick(event) {
+                this.$emit('avatar_dblclick', event)
+                return false
+            },
         },
         async created() {
 
@@ -58,10 +68,26 @@
         }
     }
 </script>
-<style>
-    .tagline {
-        border-radius: 4px;
-        line-height: 1;
-        background-color: white;
+<style lang="scss">
+    $avatar-size: 48px;
+    $margin: 4px;
+    $element-width: $margin+$avatar-size+$margin;
+
+    .k-kopaInvite {
+        width: $element-width*5;
+        pointer-events: none;
+        /*outline: solid 2px black;*/
+    }
+
+    .k-kopaInvite .v-avatar, .k-kopaInvite button {
+        pointer-events: all;
+    }
+
+    .k-kopaInvite-long {
+        width: $element-width*10;
+    }
+
+    .k-kopaInvite > .v-avatar {
+        transition-property: box-shadow, transform, opacity;
     }
 </style>

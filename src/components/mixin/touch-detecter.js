@@ -10,7 +10,7 @@ const touchDetector= {
             || (global.navigator.MaxTouchPoints > 0)
             || (global.navigator.msMaxTouchPoints > 0))
     if (this.isTouchDevice) {
-      console.log("isTouchDevice")
+      // console.log("isTouchDevice")
     }
   }
 }

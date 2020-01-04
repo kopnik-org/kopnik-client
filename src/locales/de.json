@@ -1,0 +1,30 @@
+{
+  "profile": {
+    "language": "Language",
+    "birthyear": "Birthyear",
+    "location": "Home location",
+    "firstName": "Name",
+    "passport": "Last for number of passport",
+    "patronymic": "Patronymic",
+    "nickname": "Nickname",
+    "lastName": "lastName",
+    "sendRequest": "Send request"
+  },
+  "witness": {
+    "confirm": "Confirm",
+    "decline": "Decline"
+  },
+  "login": {
+    "login": "Login with VK"
+  },
+  "drawer": {
+    "map": "Map",
+    "myTen": "My ten",
+    "tenChat": "Ten's chat",
+    "foremanChat": "Foreman's chat",
+    "witnessRequests": "Witness requests",
+    "thanks": "Thanks",
+    "help": "Help",
+    "logout": "Logout"
+  }
+}

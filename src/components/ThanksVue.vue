@@ -1,7 +1,7 @@
 <template>
-    <v-flex xs11 md6 xl4 mx-auto>
+    <v-container fluid class="fill-height">
         <v-card v-for="(eachThank, eachThankIndex) in value"  :key="eachThankIndex"
-                elevation="12" class="mb-10">
+                elevation="12" class="mb-3 mx-auto"  width="100%" max-width="350px">
             <kopnik-view :value="eachThank.who"></kopnik-view>
             <v-divider></v-divider>
             <v-list>
@@ -14,7 +14,7 @@
                 </v-list-item>
             </v-list>
         </v-card>
-    </v-flex>
+    </v-container>
 </template>
 <script>
     import Kopnik from "../models/Kopnik"

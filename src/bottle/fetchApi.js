@@ -6,20 +6,21 @@ import {KopnikApiError} from "../KopnikError";
 
 export default async function fetchApi(url, options = {}) {
     const defaultOptions = {
-        credentials: 'include',
+            credentials: 'include',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': !options.method || options.method.toUpperCase() == 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
+            }
+        },
+        cookieOptions = container.cookieService.cookie ? {headers: {Cookie: container.cookieService.cookie}} : {}
 
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': !options.method || options.method.toUpperCase() == 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
-        }
-    }
-    options = _.merge({}, defaultOptions, {headers: {cookie:container.cookieService.cookie}}, options)
+    options = _.merge({}, defaultOptions, cookieOptions, options)
     if (options.body && options.headers['Content-Type'] === 'application/x-www-form-urlencoded;charset=UTF-8') {
         options.body = jsonToFormData(options.body)
     }
-    // logger.log(options)
-    // console.log(options)
-    let fullUrl = `${container.config.api.path}/${url}`
+    // container.logger.warn(options)
+    // console.log(container.config.api.path)
+    let fullUrl = `${container.config.api.path}/${url}`.replace(/\w+\/\.\.\//, '')
 
     try {
         var response = await fetch(fullUrl, options)
@@ -32,9 +33,16 @@ export default async function fetchApi(url, options = {}) {
         throw new KopnikApiError(response.statusText, response.status, fullUrl)
     }
 
+    let cookie = response.headers.get('set-cookie')
+    if (cookie) {
+        cookie = cookie.match(/(\w+=(\w|\d)+)/)[0]
+        container.cookieService.cookie = cookie
+    }
+    // container.logger.warn(cookie, response.headers)
     let result
     switch (response.headers.get('Content-Type')) {
         case 'application/json':
+            // result = await response.text()
             result = await response.json()
             // Не авторизован/Нет такого пользователя
             if (result.error) {

@@ -5,26 +5,21 @@ import i18n from "./i18n"
 
 extend("required", {
     ...required,
-    message: "This field is required"
 });
 
 extend("max", {
     ...max,
-    message: "This field must be {length} characters or less"
 });
 
 extend("email", {
     ...email,
-    message: "This field must be a valid email"
 });
 
 extend("length", {
     ...length,
-    message: "This field must be {length} character"
 });
 extend("numeric", {
     ...numeric,
-    message: "This field must be numeric"
 });
 
 import { localize } from 'vee-validate';
@@ -37,6 +32,7 @@ localize({
     ru
 })
 
+// названия полей берутся из vue-i18n секция "profile"
 let names= {}
 for (let [eachLocale, eachLocaleMessages] of Object.entries(i18n.messages)){
     names[eachLocale]= {names: eachLocaleMessages.profile}
