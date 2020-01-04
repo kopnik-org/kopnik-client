@@ -68,7 +68,7 @@ export default class Kopnik extends AbstractSync {
     }
 
     inviteAll() {
-        alert("СОЗВАТЬ ВСЕХ НА КОПУ В РАЗРАБОТКЕ")
+        // alert("СОЗВАТЬ ВСЕХ НА КОПУ В РАЗРАБОТКЕ")
         this.parts.splice(0)
     }
 }

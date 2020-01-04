@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-wrap justify-start align-start kopaInvite"
+    <div class="d-flex flex-wrap justify-start align-start k-kopaInvite"
          :class="{'kopaInvite-long': $vuetify.breakpoint.smAndUp}">
         <v-badge v-for="eachAvatar of avatars" :key="eachAvatar.value.id" :content="eachAvatar.value.rank" bottom
                  color="orange" :offset-x="24" :offset-y="28">
@@ -73,23 +73,21 @@
     $margin: 4px;
     $element-width: $margin+$avatar-size+$margin;
 
-    .kopaInvite {
+    .k-kopaInvite {
         width: $element-width*5;
-        transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         pointer-events: none;
+        /*outline: solid 2px black;*/
     }
 
-    .kopaInvite .v-avatar, .kopaInvite button {
+    .k-kopaInvite .v-avatar, .k-kopaInvite button {
         pointer-events: all;
     }
 
-    .kopaInvite-long {
+    .k-kopaInvite-long {
         width: $element-width*10;
     }
 
-    .kopaInvite > .v-avatar {
+    .k-kopaInvite > .v-avatar {
         transition-property: box-shadow, transform, opacity;
     }
-
-
 </style>

@@ -1,6 +1,8 @@
 <template>
-    <v-flex xs11 md6 xl4 mx-auto v-if="request">
-        <ValidationObserver ref="obs" v-slot="{ invalid, validated, passes, validate }">
+    <v-container v-if="request"
+                 fluid class="fill-height">
+        <ValidationObserver ref="obs" v-slot="{ invalid, validated, passes, validate }"
+                            class="mx-auto " width="100%" max-width="350px">
             <v-card elevation="12">
                 <v-card-text>
                     <v-form>
@@ -17,7 +19,7 @@
                 </v-card-text>
             </v-card>
         </ValidationObserver>
-    </v-flex>
+    </v-container>
 </template>
 <script>
     import {
@@ -48,8 +50,8 @@
         computed: {},
         watch: {},
         methods: {
-            map_updateCenter(event){
-              this.request.location=event
+            map_updateCenter(event) {
+                this.request.location = event
             },
             async putWitnessRequest_click() {
                 await this.application.user.putWitnessRequest(this.request)

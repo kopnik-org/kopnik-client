@@ -1,7 +1,7 @@
 <template>
-    <div id="main" ref="main"
-         @keyup.esc="this_keydown_esc"
-         style="align-self: stretch; margin: -12px;" class="flex-grow-1">
+    <v-container k-main ref="main"
+                 fluid class="fill-height pa-0"
+                 @keyup.esc="this_keydown_esc">
         <!-- zoom-control передается дальшее в options LMap, а они не реактиные, поэтому сразу нужно ставить true-->
         <MapVue ref="map" :center.sync="center" :zoom.sync="zoom"
                 :layers-control="application.user"
@@ -13,7 +13,7 @@
                 style="z-index: 0"
                 @click="application.selected=null"
         >
-<!--            скрыть копные связи-->
+            <!--            скрыть копные связи-->
             <l-control position="topright">
                 <div v-if="application.squadAnalyzer.isAnalyzing()" class="d-flex flex-column align-center">
                     <v-btn fab small
@@ -31,7 +31,7 @@
                                         </v-avatar>-->
                 </div>
             </l-control>
-<!--            копные связи-->
+            <!--            копные связи-->
             <template v-for="eachArrow of arrows">
                 <!--                стрелка на конце-->
                 <vue2-leaflet-polyline-decorator :key="'arrow'+eachArrow.from.id"
@@ -52,7 +52,7 @@
                     <l-tooltip :options="{sticky:true}">{{eachArrow.tooltip}}</l-tooltip>
                 </l-polyline>
             </template>
-<!--            копники-->
+            <!--            копники-->
             <l-marker v-for="(eachMarker) of markers" :key="'marker'+eachMarker.value.id"
                       :lat-lng="eachMarker.value.location"
                       :zIndexOffset="eachMarker.zIndex"
@@ -72,17 +72,19 @@
         </MapVue>
 
         <!--        копники на копу-->
-        <kopa-invite v-if="application.kopa.parts.length" :value="application.kopa"
-                     style="position: fixed; left: 50%; transform: translateX(-50%)" :style="{bottom: kopaInviteBottom}"
-                     @avatar_click="avatar_click($event)" @avatar_dblclick="avatar_dblclick($event)">
-            <v-btn fab small color="primary"
-                   title="Созвать всех на копу..."
-                   @click="inviteAll_click"
-                   class="ml-auto mr-1 mb-2" width="48" height="48">
-                <v-icon>mdi-handshake</v-icon>
-            </v-btn>
-        </kopa-invite>
-
+        <transition name="kopa">
+            <kopa-invite v-if="application.kopa.parts.length" :value="application.kopa"
+                         style="position: fixed; left: 50%; transform: translateX(-50%)"
+                         :style="{bottom: kopaBottom}"
+                         @avatar_click="avatar_click($event)" @avatar_dblclick="avatar_dblclick($event)">
+                <v-btn fab small color="primary"
+                       title="Созвать всех на копу..."
+                       @click="inviteAll_click"
+                       class="ml-auto mr-1 mb-2" width="48" height="48">
+                    <v-icon>mdi-handshake</v-icon>
+                </v-btn>
+            </kopa-invite>
+        </transition>
         <!--        копник внизу-->
         <v-bottom-sheet :value="application.selected" :attach="$refs.main"
                         persistent hide-overlay no-click-animation :retain-focus="false" :inset="true"
@@ -113,7 +115,7 @@
                 </v-card-actions>
             </v-card>
         </v-bottom-sheet>
-    </div>
+    </v-container>
 </template>
 <script>
     import L from 'leaflet'
@@ -175,7 +177,7 @@
             }
         },
         computed: {
-            kopaInviteBottom() {
+            kopaBottom() {
                 if (this.application.selected) {
                     return '155px'
                 } else {
@@ -189,7 +191,7 @@
                             value: eachTop,
                             size: Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE * Math.pow(eachTop.rank, 1 / 3) / Math.pow(2, 18 - this.zoom))),
                             className: 'map_avatar' + (this.application.user === eachTop ? ' map_avatar-user' : '') + (this.application.selected === eachTop ? ' map_avatar-selected' : ''),
-                            zIndex: this.application.selected==eachTop?Number.MAX_SAFE_INTEGER:eachTop.rank*1000,
+                            zIndex: this.application.selected == eachTop ? Number.MAX_SAFE_INTEGER : eachTop.rank * 1000,
                         }
                     })
                 // console.log(result)
@@ -313,6 +315,14 @@
     }
 </script>
 <style>
+    .k-kopaInvite {
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .k-kopaInvite .kopa-leave-to {
+        opacity: 0;
+    }
+
     .map_avatar {
         border-radius: 50%;
         border: solid 2px black;

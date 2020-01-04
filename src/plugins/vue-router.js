@@ -14,64 +14,64 @@ Vue.use(VueRouter)
 const application = container.application
 
 /**
- * Маршрут меняется только как реакция на изменение application.section
+ * Маршрут меняется только как реакция на изменение application.Section
  * next(false) срабатывает уже после цепочки, чтобы не было маргания роутов, и ни на что уже не влияет
- * setSection(newSection) -> watch(application.section) -> next()
+ * setSection(newSection) -> watch(application.Section) -> next()
  *
  */
 const routes = [
     {
-        path: '/' + Application.section.Profile.toLowerCase(),
-        name: Application.section.Profile,
+        path: '/' + Application.Section.Profile.toLowerCase(),
+        name: Application.Section.Profile,
         beforeEnter: async (to, from, next) => {
             await application.lockSection(async () => {
-                await application.setSection(Application.section.Profile)
-                if (application.SECTION === Application.section.Profile) {
+                await application.setSection(Application.Section.Profile)
+                if (application.section === Application.Section.Profile) {
                     next()
                 } else {
-                    next({name: application.SECTION})
+                    next({name: application.section})
                 }
             })
         }
     },
     {
-        path: '/' + Application.section.Witness.toLowerCase(),
-        name: Application.section.Witness,
+        path: '/' + Application.Section.Witness.toLowerCase(),
+        name: Application.Section.Witness,
         beforeEnter: async (to, from, next) => {
             await application.lockSection(async () => {
-                await application.setSection(Application.section.Witness)
-                if (application.SECTION === Application.section.Witness) {
+                await application.setSection(Application.Section.Witness)
+                if (application.section === Application.Section.Witness) {
                     next()
                 } else {
-                    next({name: application.SECTION})
+                    next({name: application.section})
                 }
             })
         }
     },
     {
-        path: '/' + Application.section.Thanks.toLowerCase(),
-        name: Application.section.Thanks,
+        path: '/' + Application.Section.Thanks.toLowerCase(),
+        name: Application.Section.Thanks,
         beforeEnter: async (to, from, next) => {
             await application.lockSection(async () => {
-                await application.setSection(Application.section.Thanks)
-                if (application.SECTION === Application.section.Thanks) {
+                await application.setSection(Application.Section.Thanks)
+                if (application.section === Application.Section.Thanks) {
                     next()
                 } else {
-                    next({name: application.SECTION})
+                    next({name: application.section})
                 }
             })
         }
     },
     {
         path: '/',
-        name: Application.section.Main,
+        name: Application.Section.Main,
         beforeEnter: async (to, from, next) => {
             await application.lockSection(async () => {
-                await application.setSection(Application.section.Main)
-                if (application.SECTION === Application.section.Main) {
+                await application.setSection(Application.Section.Main)
+                if (application.section === Application.Section.Main) {
                     next()
                 } else {
-                    next({name: application.SECTION})
+                    next({name: application.section})
                 }
             })
         }

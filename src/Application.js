@@ -24,7 +24,7 @@ export default class Application {
          *
          * @type {string} Map | Profile | Thanks
          */
-        this.SECTION = Application.section.Main
+        this.section = Application.Section.Main
         this.sectionLocker = new AsyncLock
 
         /**
@@ -71,27 +71,32 @@ export default class Application {
      */
     async setSection(section) {
         let result
-        if (this.SECTION === section) {
+        if (this.section === section) {
             return section
         }
         switch (section) {
-            case Application.section.Profile:
-            case Application.section.Witness:
-            case Application.section.Thanks:
+            case Application.Section.Profile:
+            case Application.Section.Witness:
+            case Application.Section.Thanks:
                 if (await this.resolveUser()) {
-                    result = section
+                    if (section===Application.Section.Witness && this.user.status!== Kopnik.Status.CONFIRMED){
+                        result= await this.setSection(Application.Section.Main)
+                    }
+                    else {
+                        result = section
+                    }
                 } else {
-                    result = await this.setSection(Application.section.Main)
+                    result = await this.setSection(Application.Section.Main)
                 }
                 break
-            case Application.section.Main:
+            case Application.Section.Main:
                 result = section
                 break
             default:
                 throw new KopnikError('Wrong route', 666)
         }
-        this.logger.info('move', this.SECTION, '->', section)
-        return this.SECTION = result
+        // this.logger.info('move', this.section, '->', section)
+        return this.section = result
     }
 
     /**
@@ -104,7 +109,6 @@ export default class Application {
     }
 
     async loadTop20() {
-        try {
             this.top20 = await Promise.all([1, 2, 3, 4].map(each => Kopnik.get(each)))
             this.logger.warn('manual set foremans')
             Kopnik.getReference(1).rank = 4
@@ -119,10 +123,6 @@ export default class Application {
             Kopnik.getReference(2).ten = []
             Kopnik.getReference(3).ten = [Kopnik.getReference(2), Kopnik.getReference(4)]
             Kopnik.getReference(4).ten = []
-        } catch (err) {
-            this.logger.warn(err.message)
-        }
-
     }
 
     /**
@@ -138,13 +138,13 @@ export default class Application {
 
     getSharedState() {
         return {
-            SECTION: this.SECTION
+            SECTION: this.section
         }
     }
 
     setState(state) {
-        if (state.SECTION) {
-            this.SECTION = state.SECTION
+        if (state.section) {
+            this.section = state.section
         }
     }
 
@@ -190,7 +190,7 @@ export default class Application {
                     smallPhoto: vkUser.photo_rec,
                 })
 
-                this.SECTION = "Profile"
+                this.section = "Profile"
             }
             // this.user.uid= vkUser.uid
             // this.user.hash= vkUser.hash
@@ -200,7 +200,7 @@ export default class Application {
         */
 }
 
-Application.section = {
+Application.Section = {
     Main: 'Main',
     Profile: 'Profile',
     Witness: 'Witness',

@@ -24,11 +24,11 @@ global.application = container.application
 global.application.authenticate()
 /*    .then(() => {
         if (!this.user) {
-            this.SECTION = 'Map'
+            this.section = 'Map'
         } else if (this.user.status == Kopnik.Status.NEW || this.user.status == Kopnik.Status.DECLINED) {
-            this.SECTION = 'Profile'
+            this.section = 'Profile'
         } else {
-            this.SECTION = 'Map'
+            this.section = 'Map'
         }
     })*/
 

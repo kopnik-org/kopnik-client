@@ -1,5 +1,130 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`unit.fetchApiMock anonymous@test/login/1 1`] = `
+Object {
+  "message": "test login success",
+  "status": "success",
+  "user": Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "location": Array [
+      47.042697,
+      73.97209,
+    ],
+    "passport": 9991,
+    "patronymic": "Якушев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "vk_id": 3809,
+    "witness_id": null,
+  },
+}
+`;
+
+exports[`unit.fetchApiMock user1@users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "location": Array [
+      47.042697,
+      73.97209,
+    ],
+    "passport": 9991,
+    "patronymic": "Якушев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`unit.fetchApiMock user1@users/get?ids=1,2,3 1`] = `
+Array [
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "location": Array [
+      47.042697,
+      73.97209,
+    ],
+    "passport": 9991,
+    "patronymic": "Якушев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1993,
+    "firstName": "Максим",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Калашниковa",
+    "location": Array [
+      0,
+      0,
+    ],
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 0,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1966,
+    "firstName": "Валериан",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Некрасов",
+    "location": Array [
+      0,
+      0,
+    ],
+    "passport": null,
+    "patronymic": "Дементьев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 0,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`unit.fetchApiMock user1@users/get?ids=2 1`] = `
+Array [
+  Object {
+    "birthyear": 1993,
+    "firstName": "Максим",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Калашниковa",
+    "location": Array [
+      0,
+      0,
+    ],
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 0,
+    "witness_id": null,
+  },
+]
+`;
+
 exports[`unit.fetchApiMock users/get?ids= 1`] = `
 Array [
   Object {

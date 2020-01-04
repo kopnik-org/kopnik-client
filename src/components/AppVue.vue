@@ -2,11 +2,11 @@
     <v-app id="inspire">
         <v-snackbar v-if="application.errors.length" v-model="errorVisible" :timeout="0" multi-line top color="error">
             {{application.errors[application.errors.length-1].message}}
-            <v-btn text  xcolor="error" @click="errorVisible = false">
+            <v-btn text xcolor="error" @click="errorVisible = false">
                 Закрыть
             </v-btn>
         </v-snackbar>
-        <v-snackbar v-if="application.infos.length" v-model="infoVisible" bottom color="info">
+        <v-snackbar v-if="application.infos.length" v-model="infoVisible" bottom color="info" :timeout="500">
             {{ application.infos[application.infos.length-1] }}
         </v-snackbar>
         <v-app-bar v-if="application.user" app color="indigo">
@@ -16,10 +16,11 @@
         <DrawerVue v-if="application.user" v-model="drawer"></DrawerVue>
         <v-content>
             <LoginVue v-if="!application.user"></LoginVue>
-            <v-container class="fill-height" fluid>
-                <component v-bind:is="application.SECTION+'Vue'"></component>
-                <!--                </keep-alive>-->
-            </v-container>
+<!--            <keep-alive :exclude="[Main]">-->
+<!--                <transition :name="contentTransitionName">-->
+                    <component class="k-content" v-bind:is="application.section+'Vue'"></component>
+<!--                </transition>-->
+<!--            </keep-alive>-->
         </v-content>
     </v-app>
 </template>
@@ -66,16 +67,16 @@
             'application.user': async function (current, old) {
                 if (current && (current.status === Kopnik.Status.NEW || current.status === Kopnik.Status.DECLINED)) {
                     await application.lockSection(async () => {
-                        await this.application.setSection(Application.section.Profile)
+                        await this.application.setSection(Application.Section.Profile)
                         this.application.infos.push('Для начала пройдите регистрацию. После этого станут доступны все возможности системы.')
                     })
                 }
             },
             'application.SECTION': async function (current, prev) {
                 await application.lockSection(async () => {
-                    if (application.SECTION !== this.$route.name) {
+                    if (application.section !== this.$route.name) {
                         // вызывается асинхронно, чтобы предотвратить рекурсивный lockSection
-                        this.$router.push({name: this.application.SECTION})
+                        this.$router.push({name: this.application.section})
                     }
                 })
             },
@@ -93,7 +94,12 @@
         computed: {
             locale() {
                 return this.application.user ? this.application.user.locale : 'ru'
-            }
+            },
+            contentTransitionName() {
+                let result= this.application.SECTION === Application.Section.Main ? 'content2main' : 'content2other'
+                this.logger.log(result)
+                return result
+            },
         },
         methods: {
             this_escclick(event) {
@@ -114,3 +120,55 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .content2other-leave {
+        position: absolute;
+    }
+
+    .content2other-leave-to {
+    }
+
+    .content2other-leave-active {
+        transition: all 0.1s ease-out;
+        position: absolute;
+    }
+
+    .content2other-enter {
+        transform: translateY(100vh);
+    }
+
+    .content2other-enter-to {
+        transform: translateY(0);
+    }
+
+    .content2other-enter-active {
+        transition: all 0.1s ease-in;
+    }
+
+    .content2main-leave {
+        position: absolute;
+    }
+
+    .content2main-leave-to {
+        transform: translateY(100vh);
+    }
+
+    .content2main-leave-active {
+        transition: all 0.1s ease-out;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .content2main-enter {
+        /*transform: translateY(100vh);*/
+    }
+
+    .content2main-enter-to {
+        /*transform: translateY(0);*/
+    }
+
+    .content2main-enter-active {
+        transition: all 0.1s ease-in;
+    }
+</style>
