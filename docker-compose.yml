@@ -1,26 +1,18 @@
 version: '3.7'
 services:
-    #todo: add part for nginx service
-    # see example below that was taken from kopnik-server
-#    nginx:
-#        build:
-#            context: ./.docker/development
-#            dockerfile: nginx.docker
-#        volumes:
-#            - ./:/app
-#        depends_on:
-#            - npm
-#        ports:
-#            - "${WEB_PORT}:80"
+    nginx_build:
+        build:
+            context: .
+            dockerfile: nginx.docker
+        depends_on:
+            - npm_build
+        ports:
+            - "${WEBPORT_CLIENT}:80"
     npm_build:
         build:
             context: .
-            dockerfile: Dockerfile
-      #  command: "npm install\n
-      #          npm run build"
-        command: "npm run build"
+            dockerfile: npm.docker
+        command: "bash -c 'npm run build && cp -arv /usr/src/app/dist/* /usr/src/app/html'"
 
         volumes:
-            - ./html:/usr/src/app/dist
-#        environment:
-#            SOME_VARIABLE: 'value'
+            - ./html:/usr/src/app/html
