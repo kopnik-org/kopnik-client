@@ -24,6 +24,10 @@ describe('unit/Application', () => {
                 await application.setSection(Application.Section.Witness)
                 expect(application.section).toBe(Application.Section.Main)
             })
+            it.only('thanks', async () => {
+                await application.setSection(Application.Section.Thanks)
+                expect(application.section).toBe(Application.Section.Thanks)
+            })
         })
     })
 
@@ -51,6 +55,10 @@ describe('unit/Application', () => {
             it('witness', async () => {
                 await application.setSection(Application.Section.Witness)
                 expect(application.section).toBe(Application.Section.Main)
+            })
+            it('thanks', async () => {
+                await application.setSection(Application.Section.Thanks)
+                expect(application.section).toBe(Application.Section.Thanks)
             })
         })
     })

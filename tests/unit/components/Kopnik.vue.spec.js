@@ -1,10 +1,10 @@
 import 'isomorphic-fetch'
-// import {vueI18n} from '../../vue-setup'
+// import {i18n} from '../../vue-setup'
 import VueI18n from 'vue-i18n'
 import {mount} from '@vue/test-utils'
 
 import KopnikVue from '../../../src/components/KopnikVue'
-import Counter from '../../../src/components/Counter'
+import Counter from '../../../src/components/Demo'
 import {Kopnik} from "../../../src/models";
 import flushPromises from "flush-promises";
 // import '../../vue-setup'

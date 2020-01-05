@@ -1,4 +1,4 @@
-// import {vueI18n} from '../../vue-setup'
+// import {i18n} from '../../vue-setup'
 import VueI18n from 'vue-i18n'
 import {mount} from '@vue/test-utils'
 

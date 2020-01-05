@@ -12,7 +12,7 @@ export default async function fetchApi(url, options = {}) {
                 'Content-Type': !options.method || options.method.toUpperCase() == 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
             }
         },
-        cookieOptions = container.cookieService.cookie ? {headers: {Cookie: container.cookieService.cookie}} : {}
+        cookieOptions = (container.config.di.cookie && container.cookieService.cookie) ? {headers: {Cookie: container.cookieService.cookie}} : null
 
     options = _.merge({}, defaultOptions, cookieOptions, options)
     if (options.body && options.headers['Content-Type'] === 'application/x-www-form-urlencoded;charset=UTF-8') {
@@ -34,7 +34,7 @@ export default async function fetchApi(url, options = {}) {
     }
 
     let cookie = response.headers.get('set-cookie')
-    if (cookie) {
+    if (container.config.di.cookie && cookie) {
         cookie = cookie.match(/(\w+=(\w|\d)+)/)[0]
         container.cookieService.cookie = cookie
     }
