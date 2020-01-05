@@ -92,11 +92,8 @@
         >
             <v-card>
                 <v-list-item v-if="application.selected">
-                    <v-badge :content="application.selected.rank" bottom color="orange" :offset-x="50" :offset-y="30">
-                        <v-list-item-avatar left :size="80" @dblclick="avatar_dblclick(application.selected)">
-                            <v-img :src="application.selected.photo"></v-img>
-                        </v-list-item-avatar>
-                    </v-badge>
+                    <avatar-vue :value="application.selected" :size="80" class="ma-3 ml-0" @dblclick="avatar_dblclick(application.selected)">
+                    </avatar-vue>
                     <v-list-item-content>
                         <v-list-item-subtitle class="text-wrap">{{application.selected.name}}</v-list-item-subtitle>
                     </v-list-item-content>
@@ -140,6 +137,7 @@
     import touchDetector from "./mixin/touch-detecter";
     import logger from "./mixin/logger";
     import KopaInvite from "./KopaInviteVue";
+    import AvatarVue from "./AvatarVue";
 
     // На 18-ом увеличении
     const ARROW_WIDTH = 10,
@@ -150,6 +148,7 @@
     export default {
         mixins: [touchDetector, logger],
         components: {
+            AvatarVue,
             KopaInvite,
             Vue2LeafletPolylineDecorator,
             LPolyline,
@@ -185,7 +184,7 @@
                 }
             },
             markers() {
-                const result = application.top20
+                const result = this.application.top20
                     .map(eachTop => {
                         return {
                             value: eachTop,

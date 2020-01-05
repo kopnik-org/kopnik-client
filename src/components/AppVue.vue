@@ -15,7 +15,7 @@
         </v-app-bar>
         <DrawerVue v-if="application.user" v-model="drawer"></DrawerVue>
         <v-content>
-            <LoginVue v-if="!application.user"></LoginVue>
+            <LoginVue v-if="!application.user && application.section!=='Thanks'"></LoginVue>
 <!--            <keep-alive :exclude="[Main]">-->
 <!--                <transition :name="contentTransitionName">-->
                     <component class="k-content" v-bind:is="application.section+'Vue'"></component>
@@ -66,15 +66,15 @@
         watch: {
             'application.user': async function (current, old) {
                 if (current && (current.status === Kopnik.Status.NEW || current.status === Kopnik.Status.DECLINED)) {
-                    await application.lockSection(async () => {
+                    await this.application.lockSection(async () => {
                         await this.application.setSection(Application.Section.Profile)
                         this.application.infos.push('Для начала пройдите регистрацию. После этого станут доступны все возможности системы.')
                     })
                 }
             },
             'application.SECTION': async function (current, prev) {
-                await application.lockSection(async () => {
-                    if (application.section !== this.$route.name) {
+                await this.application.lockSection(async () => {
+                    if (this.application.section !== this.$route.name) {
                         // вызывается асинхронно, чтобы предотвратить рекурсивный lockSection
                         this.$router.push({name: this.application.section})
                     }

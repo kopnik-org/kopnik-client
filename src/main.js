@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import vuetify from './plugins/vuetify'
-import router from './plugins/vue-router'
+import routerFactory from './plugins/vue-router'
 import i18n from './plugins/i18n'
 import "./plugins/vee-validate"
 
@@ -37,6 +37,6 @@ global.vue = new Vue({
     el: "#appContainer",
     vuetify,
     i18n,
-    router,
+    router: routerFactory(),
     // render: h => h(App)
 })//.$mount('#app')

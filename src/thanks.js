@@ -7,8 +7,8 @@ let thanks = [
         who: {
             id: 1,
             uid: null,
-            photo: null,
-            name: null,
+            photo: 'https://sun1-93.userapi.com/tvpmiLDOH0x85TWF3KktOksi7C0lmarbnu6XTQ/V26eVKeaST8.jpg',
+            name: 'Ражков Артем',
         },
         deals: [
             {
@@ -24,8 +24,8 @@ let thanks = [
         who: {
             id: 2,
             uid: null,
-            photo: null,
-            name: null,
+            photo: 'https://i.imgur.com/lwWzCDl.jpg',
+            name: 'Баранов Алексей',
         },
         deals: [
             {
@@ -94,14 +94,13 @@ let thanks = [
             },
         ]
     },
-
     //Александр
     {
         who: {
             id: 3,
             uid: null,
-            photo: null,
-            name: null
+            photo: 'https://sun1-91.userapi.com/c857628/v857628007/644b7/1dFOLyFpK_8.jpg',
+            name: 'Титов Александр'
         },
         deals: [
             {
@@ -125,7 +124,7 @@ let thanks = [
             id: null,
             uid: null,
             photo: 'https://sun9-43.userapi.com/c849124/v849124535/9890d/jqIsFAEYLdA.jpg',
-            name: 'Дмитрий Журбин',
+            name: 'Журбин Дмитрий',
         },
         deals: [
             {
@@ -143,7 +142,7 @@ let thanks = [
             id: null,
             uid: null,
             photo: 'https://sun9-28.userapi.com/c854320/v854320192/18cc9c/gL4FCPeVspo.jpg',
-            name: 'Владимир Монухин',
+            name: 'Монухин Владимир',
         },
         deals: [
             {
@@ -160,26 +159,107 @@ let thanks = [
             id: null,
             uid: null,
             photo: 'https://sun1-21.userapi.com/iapk22EQe5H-gyZdPrmmWz7n77nzOwuNG3AqOw/j0EX7sM_ZCE.jpg',
-            name: 'Евгений Нигматуллинн',
+            name: 'Нигматуллинн Евгений',
         },
         deals: [
             {
-                project: 'Разделы "Нас поддерживают" и "Мы в соцсетях" на временном сайте kopnik.org',
+                project: 'Разделы "Нас поддерживают" и "Мы в соцсетях" на сайте-визитке kopnik.org',
                 role: 'Веб-мастер',
                 description: null,
                 date: new Date(2019, 11, 1),
                 link: 'kopnik.org',
             },
             {
-                project: 'Новый временный сайт kopnik.org',
+                project: 'Новый сайт-визитка kopnik.org',
                 role: 'Веб-мастер',
                 description: null,
                 date: new Date(2019, 11, 8),
                 link: 'kopnik.org',
             },
+            {
+                project: 'Сбор статистики посещаемости сайта-визитки kopnik.org',
+                role: 'Веб-мастер',
+                description: null,
+                date: new Date(2019, 11, 30),
+                link: 'kopnik.org',
+            },
+        ]
+    },
+    // Вячеслав
+    {
+        who: {
+            id: null,
+            uid: null,
+            photo: 'https://sun9-24.userapi.com/c854520/v854520731/fde0e/3l9R-8h67S8.jpg',
+            name: 'Богданов Вячеслав',
+        },
+        deals: [
+            {
+                project: 'Оформление  Группы ВК, FB и канла Youtube',
+                role: 'Дизайн',
+                description: null,
+                date: new Date(2019, 6, 20),
+                link: 'https://vk.com/kopnik_org',
+            },
+            {
+                project: 'Встреча со славянской общиной',
+                role: 'Организатор',
+                description: null,
+                date: new Date(2018, 11, 4),
+            },
+        ]
+    },
+    // Света
+    {
+        who: {
+            id: null,
+            uid: null,
+            photo: 'https://sun1-99.userapi.com/c836725/v836725430/26886/vfXEfOS9IXI.jpg',
+            name: 'Светлана Пенькова',
+        },
+        deals: [
+            {
+                project: 'Встреча с руководителем общественно-политической организации',
+                role: 'Организатор',
+                description: null,
+                date: new Date(2017, 9, 24),
+            },
+        ]
+    },
+    // Вася
+    {
+        who: {
+            id: null,
+            uid: null,
+            photo: 'https://sun9-45.userapi.com/c637517/v637517969/4f714/UESZM3Y2KKc.jpg',
+            name: 'Василий с севера Руси',
+        },
+        deals: [
+            {
+                project: 'Открытое Письмо Алексею Баранову - автору Копной соц. сети',
+                role: 'Автор',
+                description: null,
+                date: new Date(2018, 1, 20),
+                link: 'https://www.youtube.com/watch?v=9vBbCOWsujQ&list=PL8t968Ip0ARlFShkBMnbuc7ZcSj-dGAci',
+            },
+            {
+                project: '2й Вольный Земский Съезд МСУ. Алексей Баранов.',
+                role: 'Автор',
+                description: null,
+                date: new Date(2019, 2, 4),
+                link: 'https://www.youtube.com/watch?v=QZzj3sHjz6A&list=PL8t968Ip0ARlFShkBMnbuc7ZcSj-dGAci&index=2',
+            },
+            {
+                project: 'Миром сообща электронное Копное Право',
+                role: 'Автор',
+                description: null,
+                date: new Date(2019, 5, 17),
+                link: 'https://www.youtube.com/watch?v=TIwkKSxNHOs&list=PL8t968Ip0ARlFShkBMnbuc7ZcSj-dGAci&index=3',
+            },
         ]
     },
 ]
+
 thanks = thanks.map(eachThank => {
     eachThank.deals = eachThank.deals.filter(eachDeal => eachDeal.date < new Date).sort((dealA, dealB) => dealA.date > dealB.date ? -1 : 1)
     return eachThank

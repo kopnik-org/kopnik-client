@@ -63,7 +63,7 @@ bottle.factory('logger', function loggerFactory() {
  * @property {String} config.api.path
  * @property {Object} config.di
  * @property {Boolean} config.di.fetch
- * @property {Number} config.di.coockie
+ * @property {Number} config.di.cookie
  * @property {Number} config.messenger.clientId
  * @property {String} config.messenger.loginUrl
  * @property {String} config.messenger.redirectUrl

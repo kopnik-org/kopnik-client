@@ -1,13 +1,9 @@
 <template>
     <v-list>
         <v-list-item>
-            <v-badge :content="value.rank" bottom :offset-x="(avatarSize/64)*7+14" :offset-y="(avatarSize/64)*7+14"
-                 color="orange" >
-                <v-avatar :tile="avatarTile" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}"
+            <avatar-vue v-if="value" :value="value" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}"
                           @click="avatar_click" @dblclick="avatar_dblclick">
-                    <img :src="value.photo" style="object-fit: cover; "/>
-                </v-avatar>
-            </v-badge>
+            </avatar-vue>
         </v-list-item>
         <v-list-item v-if="!fio">
             <v-list-item-content>
@@ -132,6 +128,7 @@
     import {LMarker} from 'vue2-leaflet'
     import Kopnik from "../models/Kopnik"
     import MapVue from "./MapVue";
+    import AvatarVue from "./AvatarVue";
     import logger from "./mixin/logger"
     import {container} from "../plugins/bottle";
     import {
@@ -147,7 +144,7 @@
             MapVue,
             LMarker,
             ValidationProvider,
-            ValidationObserver,
+            AvatarVue,
         },
         data: () => {
             return {
@@ -225,6 +222,7 @@
         },
         async created() {
             await this.value.loaded()
+            console.log("done")
         },
         async mounted() {
         }

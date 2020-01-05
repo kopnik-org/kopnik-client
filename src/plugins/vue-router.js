@@ -25,60 +25,89 @@ const routes = [
         name: Application.Section.Profile,
         beforeEnter: async (to, from, next) => {
             await application.lockSection(async () => {
-                await application.setSection(Application.Section.Profile)
-                if (application.section === Application.Section.Profile) {
-                    next()
-                } else {
-                    next({name: application.section})
+                    await application.setSection(Application.Section.Profile)
+                    if (application.section === Application.Section.Profile) {
+                        next()
+                    } else if (application.section === from.name) {
+                        next(false)
+                    } else {
+                        next({name: application.section})
+                    }
                 }
-            })
+            )
         }
     },
     {
         path: '/' + Application.Section.Witness.toLowerCase(),
-        name: Application.Section.Witness,
-        beforeEnter: async (to, from, next) => {
-            await application.lockSection(async () => {
-                await application.setSection(Application.Section.Witness)
-                if (application.section === Application.Section.Witness) {
-                    next()
-                } else {
-                    next({name: application.section})
-                }
-            })
-        }
-    },
+        name:
+        Application.Section.Witness,
+        beforeEnter:
+            async (to, from, next) => {
+                await application.lockSection(async () => {
+                    await application.setSection(Application.Section.Witness)
+                    if (application.section === Application.Section.Witness ) {
+                        next()
+                    }  else if (application.section === from.name) {
+                        next(false)
+                    } else {
+                        next({name: application.section})
+                    }
+                })
+            }
+    }
+    ,
     {
         path: '/' + Application.Section.Thanks.toLowerCase(),
-        name: Application.Section.Thanks,
-        beforeEnter: async (to, from, next) => {
-            await application.lockSection(async () => {
-                await application.setSection(Application.Section.Thanks)
-                if (application.section === Application.Section.Thanks) {
-                    next()
-                } else {
-                    next({name: application.section})
-                }
-            })
-        }
-    },
+        name:
+        Application.Section.Thanks,
+        beforeEnter:
+            async (to, from, next) => {
+                await application.lockSection(async () => {
+                    await application.setSection(Application.Section.Thanks)
+                    if (application.section === Application.Section.Thanks) {
+                        next()
+                    }  else if (application.section === from.name) {
+                        next(false)
+                    } else {
+                        next({name: application.section})
+                    }
+                })
+            }
+    }
+    ,
     {
         path: '/',
-        name: Application.Section.Main,
-        beforeEnter: async (to, from, next) => {
-            await application.lockSection(async () => {
-                await application.setSection(Application.Section.Main)
-                if (application.section === Application.Section.Main) {
-                    next()
-                } else {
-                    next({name: application.section})
-                }
-            })
-        }
-    },
+        name:
+        Application.Section.Main,
+        beforeEnter:
+            async (to, from, next) => {
+                await application.lockSection(async () => {
+                    await application.setSection(Application.Section.Main)
+                    if (application.section === Application.Section.Main) {
+                        next()
+                    }  else if (application.section === from.name) {
+                        next(false)
+                    } else {
+                        next({name: application.section})
+                    }
+                })
+            }
+    }
+    ,
 ]
-const router = new VueRouter({
-    mode: 'history',
-    routes
-})
-export default router
+
+/**
+ * Фабрика для тестов важна,
+ * чтобы в каждом тесте был свой чистый роутер,
+ * не зависящий от предедущих тестов
+ *
+ * @returns {VueRouter}
+ */
+function routerFactory() {
+    return new VueRouter({
+        mode: 'history',
+        routes
+    })
+}
+
+export default routerFactory

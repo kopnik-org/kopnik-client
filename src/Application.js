@@ -77,7 +77,6 @@ export default class Application {
         switch (section) {
             case Application.Section.Profile:
             case Application.Section.Witness:
-            case Application.Section.Thanks:
                 if (await this.resolveUser()) {
                     if (section===Application.Section.Witness && this.user.status!== Kopnik.Status.CONFIRMED){
                         result= await this.setSection(Application.Section.Main)
@@ -90,6 +89,7 @@ export default class Application {
                 }
                 break
             case Application.Section.Main:
+            case Application.Section.Thanks:
                 result = section
                 break
             default:
