@@ -6,24 +6,8 @@
 
 Исключение: ```users/get``` без параметров
 
-Вид ошибки, когда неаутентифицированный пользователь запрашивает метод
-```json
-    "error": {
-        "error_code": "not_authenticated",
-        "error_msg": "Запрос не аутентифицирован",
-        "request_params": [{
-            "key": "...",
-            "value": "121tgfsd"
-            },
-            ...
-        ]
-    }
-}
-```
-
 ## Правила именования свойств
 camelCase - скалярные свойства и свойства-коллекции
-
 
 camelCase_id - объектные свойства
 
@@ -31,15 +15,17 @@ camelCase_id - объектные свойства
 Свойства, которые являются объектами, передаются иднтификатором объекта. Если поле null, то оно передается как null
 ```json
 {
-"witness_id":"8274",
-"foreman_id":null
+    "witness_id":"8274",
+    "foreman_id":null
 }
 ```
   
 ## Свойства - коллекции
 Свойства, которые являются коллекциями, передаются null
 ```json
-"ten": null
+{
+    "ten": null
+}
 ```  
 
 ## Ошибки
@@ -70,8 +56,6 @@ __Параметры__
  
 ```ids=210700286,7777777``` идентификаторы пользователей (необязательный). 
 
-Если ```status=2```, можно не включать поле ```status```
-
 __Ответ__
 ```json
 {
@@ -83,13 +67,13 @@ __Ответ__
         "patronymic": "asdf",
         "nickname": "Boroda",
         "birthyear": "1900",
-        "location": ["1234.3125","54.3245"], // latitude, longitude
-        "photo": "https://sun1-19.u...EGxg5NXns.jpg?ava=1", // 300x300
-        "smallPhoto": "https://sun1-19.u...EGxg5NXns.jpg?ava=1", // 100x100
-        "status": 1, // const STATUS_NEW= 0;  STATUS_PENDING= 1; STATUS_CONFIRMED= 2; STATUS_DECLINE= 3;
+        "location": {"lat:"14.3125, "lng": 54.3245}
+        "photo": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
+        "smallPhoto": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
+        "status": 1, 
         "witnessChatInviteLink": "vk.com/join........",
-        "passport": 4726, // только для своего копника!!! 
-        "locale": "ru", // только для своего копника!!!
+        "passport": 4726,
+        "locale": "ru",
 
         "witness_id": "1234",
         "foreman_id": null,
@@ -98,10 +82,13 @@ __Ответ__
     },
     {
         "id": "7777777",
-      ...
+        "...": ""
     }]
  }
  ```
+Поле ```status``` имеет следующие значения: ```STATUS_NEW= 0;  STATUS_PENDING= 1; STATUS_CONFIRMED= 2; STATUS_DECLINE= 3;```
+
+Часть полей передаются только для своего копника: ```passport```, ```locale```, ```witness_id```, ```witnessChatInviteLink```
 
 ## GET users/getByUid? (пока авторизация на сервере, этот метод не нужен)
 Получить пользователя по ВК uid. 
@@ -117,7 +104,7 @@ __Ответ__
     "response": {
       "id": 1034853,
       "firstName": "fasdfasdf",
-      ... и т.д. все содержимое одного элемента из ответа users/get(ids)
+      "...": "и т.д. все содержимое одного элемента из ответа users/get(ids)"
     }
  }
 ```
@@ -147,8 +134,6 @@ __Параметры__
    "passport": "1984",
    "nickname": "sdakljh23",
    "location": [1238974.12, 9124.12390],
-    // "photo": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
-    // "smallPhoto": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
 ```
 __Ошибки__
 
@@ -160,11 +145,9 @@ __Ошибки__
 __Ответ__
 ```json
 {
-  "response": {
-    // "id": 4589349085,       //идентификатор пользователя внутри Копника
-    "witness_id": 03985202,  
-    ... и т.д. все содержимое одного элемента из ответа users/get(ids)
-  }
+    "response": {
+        "witness_id": 03985202
+    }
 }
 ```
 
@@ -190,7 +173,7 @@ __Параметры__
 __Ответ__
 ```json
 {
-  "response": true
+    "response": true
 }
 ```
 
