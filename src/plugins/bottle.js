@@ -13,7 +13,7 @@ const bottle = new Bottle()
 
 bottle.service('cookieService', CookieService, 'config')
 bottle.factory('api', function apiFactory(container) {
-    return container.config.di.fetch ? api : global.fetchApiMock
+    return container.config.di.fetch ? api : global.mapi
 })
 bottle.factory('config', function configFactory() {
     if (!process.env.NODE_ENV) {

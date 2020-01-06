@@ -7,11 +7,11 @@ global.isomorphicFetch= isomorphicFetch
 import Vue from 'vue'
 import i18n from '../src/plugins/i18n'
 import '../src/plugins/vee-validate'
-import fetchApiMock from "../src/bottle/fetchApi.mock";
+import mapi from "../src/api/mapi";
 import '../src/plugins/className'
 import routerFactory from "../src/plugins/vue-router"
 
-global.fetchApiMock = fetchApiMock
+global.mapi = mapi
 
 // Vuetify внутри тестов импортируется по-иному чем в основной программе
 import Vuetify from 'vuetify';
