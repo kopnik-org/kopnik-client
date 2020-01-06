@@ -5,10 +5,10 @@ import JSON5 from 'json5'
 import {KopnikApiError} from "../KopnikError";
 
 export default async function fetchApiMock(url, options = {}) {
-    const snapshotPath = resolve(__dirname, '../../tests/system/__snapshots__/fetchApi.spec.js.snap'),
+    const snapshotPath = resolve(__dirname, '../../tests/system/__snapshots__/api.spec.js.snap'),
         snapshotData = utils.getSnapshotData(snapshotPath, false),
         user= container.cookieService.cookie||'anonymous',
-        key = `system fetchApi ${user}@${url} 1`
+        key = `system api ${user}@${url} 1`
     // console.log(snapshotPath, key, snapshotData)
 
     if (!container.cookieService.cookie && !url.match(/test.login.\d+/)) {

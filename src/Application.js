@@ -156,7 +156,7 @@ export default class Application {
     @once
     async authenticate() {
         try {
-            let userAsPlain = (await Kopnik.fetchApi('get?ids='))[0]
+            let userAsPlain = (await Kopnik.api('get?ids='))[0]
             this.user = await Kopnik.get(userAsPlain.id)
             this.logger.info('user authenticated', this.user)
         } catch (err) {

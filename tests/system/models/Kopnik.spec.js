@@ -5,7 +5,9 @@ import {bottle, container} from "../../../src/plugins/bottle";
 container.config.di.fetch=true
 
 describe('system models Kopnik', () => {
-
+    beforeEach(()=>{
+        bottle.resetProviders(['cookieService'])
+    })
     describe('anonymous', () => {
         describe('update', () => {
             it('anonymous@users/update', async () => {

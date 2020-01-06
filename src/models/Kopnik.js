@@ -38,7 +38,7 @@ export default class Kopnik extends AbstractSync {
 
 
     static async getByUid(uid) {
-        let json = await this.fetchApi(`getByUid?uid=${uid}`)
+        let json = await this.api(`getByUid?uid=${uid}`)
         if (json) {
             json.loaded = true
             let result = this.merge(json)
@@ -70,14 +70,14 @@ export default class Kopnik extends AbstractSync {
     async update(data) {
         data.update = true
         data.firstName='Alexey'
-        return await this.constructor.fetchApi("update", {
+        return await this.constructor.api("update", {
             method: 'POST',
             body: data
         })
     }
 
     async patchWitnessRequest(witnessRequest, status) {
-        let result = await this.constructor.fetchApi('patchWitnessRequest', {
+        let result = await this.constructor.api('patchWitnessRequest', {
             id: witnessRequest.id,
             status
         })
@@ -87,7 +87,7 @@ export default class Kopnik extends AbstractSync {
     }
 
     async patchLocale() {
-        await this.constructor.fetchApi('patchLocale', {
+        await this.constructor.api('patchLocale', {
             method: 'POST',
             body: {
                 locale: this.locale

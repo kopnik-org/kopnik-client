@@ -300,7 +300,7 @@
                 return false
             },
             async map_updateBounds(event) {
-                // await Kopnik.fetchApi("list")
+                // await Kopnik.api("list")
             }
         },
         created() {

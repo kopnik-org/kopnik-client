@@ -157,11 +157,11 @@ export default class AbstractSync {
         return this.cache.get(className(this)).get(id)
     }
 
-    static async fetchApi(url, options = {}) {
-        let fetchApi= container.fetchApi
+    static async api(url, options = {}) {
+        let api= container.api
 
         let fullUrl = `${className(this).replace('Kopnik','User').toLowerCase()}s/${url}`
-        let result = await fetchApi(fullUrl, options)
+        let result = await api(fullUrl, options)
         return result
     }
 
@@ -194,7 +194,7 @@ export default class AbstractSync {
     }
 
     static async list() {
-        let json = await this.fetchApi("list"),
+        let json = await this.api("list"),
             result = Promise.all(json.users.map(eachModel => this.get(eachModel)))
 
         return result
@@ -205,7 +205,7 @@ export default class AbstractSync {
      * @returns {Promise.<AbstractSync>}
      */
     async reload() {
-        let json = await this.constructor.fetchApi(`get?ids=${this.id}`)
+        let json = await this.constructor.api(`get?ids=${this.id}`)
         this.merge(json[0])
         this.isLoaded = true
         return this;

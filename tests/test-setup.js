@@ -30,7 +30,7 @@ let vuetify = new Vuetify({
 Vue.config.productionTip = false
 
 global.login= function login(id){
-    return container.fetchApi('test/login/'+id)
+    return container.api('test/login/'+id)
 }
 
 

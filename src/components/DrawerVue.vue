@@ -107,7 +107,7 @@
                 this.$emit('input', event)
             },
             async logout_click(){
-                await container.fetchApi('logout')
+                await container.api('logout')
                 this.application.user= null
             }
 

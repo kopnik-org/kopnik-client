@@ -5,21 +5,19 @@ import * as loglevel from "loglevel";
 
 import Application from "../Application"
 import config from '../../config'
-import fetchApi from "../bottle/fetchApi";
-// import fetchApiMock from "../bottle/fetchApi.mock";
+import api from "../api";
 import CookieService from "../bottle/CookieService"
 
 Bottle.config.strict = true
 const bottle = new Bottle()
 
 bottle.service('cookieService', CookieService, 'config')
-bottle.factory('fetchApi', function fetchApiFactory(container) {
-    return container.config.di.fetch ? fetchApi : global.fetchApiMock
-    // return fetchApi
+bottle.factory('api', function apiFactory(container) {
+    return container.config.di.fetch ? api : global.fetchApiMock
 })
 bottle.factory('config', function configFactory() {
     if (!process.env.NODE_ENV) {
-        throw new Error("NODE_ENV is not defined");
+        throw new Error("NODE_ENV is not defined")
     }
 
     let local = {}//require("./local.js")
@@ -56,7 +54,7 @@ bottle.factory('logger', function loggerFactory() {
  * @property {loglevel} logger
  * @property {Application} application
  * @property {Location} Location
- * @property {fetch} fetchApi
+ * @property {fetch} api
  * @property {CookieService} cookieService
  * @property {Object} config
  * @property {Object} config.api
