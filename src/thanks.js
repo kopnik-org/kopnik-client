@@ -258,6 +258,37 @@ let thanks = [
             },
         ]
     },
+    // Володя
+    {
+        who: {
+            id: null,
+            uid: null,
+            photo: 'https://sun9-19.userapi.com/c851436/v851436387/d1c1e/aDWCWjILtJU.jpg',
+            name: 'Интулов Владимир',
+        },
+        deals: [
+            {
+                project: 'Создание группы в ВК, администрирование',
+                role: 'Администратор',
+                description: null,
+                date: new Date(2017, 4, 17),
+                link: 'https://vk.com/kopnik_org',
+            },
+            {
+                project: 'Создание группы в Facebook, администрирование',
+                role: 'Администратор',
+                description: null,
+                date: new Date(2017, 6, 17),
+            },
+            {
+                project: 'Видеомонтаж роликов для Youtube канала',
+                role: 'Видеомонтажер',
+                description: null,
+                date: new Date(2019, 4, 23),
+                link: 'https://www.youtube.com/channel/UCJRtg8s94PTFXEfZ6sEnlGw',
+            },
+        ]
+    },
 ]
 
 thanks = thanks.map(eachThank => {
