@@ -1,8 +1,3 @@
-import {KopnikApiError} from "../../src/KopnikError";
-
-require('isomorphic-fetch');
-import prettyFormat from 'pretty-format'
-
 import fetchApi from "../../src/bottle/fetchApi";
 import {bottle, container} from "../../src/plugins/bottle";
 
@@ -14,8 +9,9 @@ describe('system fetchApi', () => {
     beforeEach(()=>{
         bottle.resetProviders(['cookieService'])
     })
-    it('anonymous@test/login/1', async () => {
+    it.only('anonymous@test/login/1', async () => {
         let result = await login(1)
+        expect(container.cookieService.cookie).toContain('PHPSESSID')
         expect(result).toMatchSnapshot()
     })
     it('user1@users/get?ids=', async () => {

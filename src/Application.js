@@ -3,7 +3,7 @@ import {AbstractSync, Kopnik, Kopa} from "./models";
 import {KopnikApiError, KopnikError} from "./KopnikError";
 import once from "./decorators/once";
 import SquadAnalyzer from "./SquadAnalyzer";
-
+import fetchIntercept from 'fetch-intercept'
 
 export default class Application {
     constructor(logger) {
@@ -45,12 +45,13 @@ export default class Application {
          * Сообщения пользователю
          * @type {String[]}
          */
-        this.infos= []
+        this.infos = []
         /**
          * Обишки приложения
          * @type {Error[]}
          */
-        this.errors= []
+        this.errors = []
+
     }
 
     /**
@@ -78,10 +79,9 @@ export default class Application {
             case Application.Section.Profile:
             case Application.Section.Witness:
                 if (await this.resolveUser()) {
-                    if (section===Application.Section.Witness && this.user.status!== Kopnik.Status.CONFIRMED){
-                        result= await this.setSection(Application.Section.Main)
-                    }
-                    else {
+                    if (section === Application.Section.Witness && this.user.status !== Kopnik.Status.CONFIRMED) {
+                        result = await this.setSection(Application.Section.Main)
+                    } else {
                         result = section
                     }
                 } else {
@@ -109,20 +109,20 @@ export default class Application {
     }
 
     async loadTop20() {
-            this.top20 = await Promise.all([1, 2, 3, 4].map(each => Kopnik.get(each)))
-            this.logger.warn('manual set foremans')
-            Kopnik.getReference(1).rank = 4
-            Kopnik.getReference(2).foreman = Kopnik.getReference(3)
-            Kopnik.getReference(2).rank = 1
-            Kopnik.getReference(3).foreman = Kopnik.getReference(1)
-            Kopnik.getReference(3).rank = 3
-            Kopnik.getReference(4).foreman = Kopnik.getReference(3)
-            Kopnik.getReference(4).rank = 1
+        this.top20 = await Promise.all([1, 2, 3, 4].map(each => Kopnik.get(each)))
+        this.logger.warn('manual set foremans')
+        Kopnik.getReference(1).rank = 4
+        Kopnik.getReference(2).foreman = Kopnik.getReference(3)
+        Kopnik.getReference(2).rank = 1
+        Kopnik.getReference(3).foreman = Kopnik.getReference(1)
+        Kopnik.getReference(3).rank = 3
+        Kopnik.getReference(4).foreman = Kopnik.getReference(3)
+        Kopnik.getReference(4).rank = 1
 
-            Kopnik.getReference(1).ten = [Kopnik.getReference(3)]
-            Kopnik.getReference(2).ten = []
-            Kopnik.getReference(3).ten = [Kopnik.getReference(2), Kopnik.getReference(4)]
-            Kopnik.getReference(4).ten = []
+        Kopnik.getReference(1).ten = [Kopnik.getReference(3)]
+        Kopnik.getReference(2).ten = []
+        Kopnik.getReference(3).ten = [Kopnik.getReference(2), Kopnik.getReference(4)]
+        Kopnik.getReference(4).ten = []
     }
 
     /**

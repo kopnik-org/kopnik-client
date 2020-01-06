@@ -1,9 +1,14 @@
+/**
+ * isomorphic-fetch должен импортнуться до intercept-fetch,
+ * иначе тот подсунет свой базный полифил. Баг в том, что куки не приходят от сервера
+ */
+import isomorphicFetch from 'isomorphic-fetch'
+global.isomorphicFetch= isomorphicFetch
 import Vue from 'vue'
 import i18n from '../src/plugins/i18n'
 import '../src/plugins/vee-validate'
 import fetchApiMock from "../src/bottle/fetchApi.mock";
 import '../src/plugins/className'
-import isomorphicFetch from 'isomorphic-fetch'
 import routerFactory from "../src/plugins/vue-router"
 
 global.fetchApiMock = fetchApiMock
@@ -28,6 +33,6 @@ global.login= function login(id){
     return container.fetchApi('test/login/'+id)
 }
 
-global.isomorphicFetch= isomorphicFetch
+
 
 export {i18n, vuetify, routerFactory}
