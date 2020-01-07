@@ -27,7 +27,7 @@ let config = {
             redirectUrl: 'http://192.168.43.9:8082/login/check-vk'
         },
         api: {
-            path: "http://192.168.43.9:8082/api"
+            path: "http://localhost:8082/api"
         },
         di:{
             fetch: false,

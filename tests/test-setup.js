@@ -7,7 +7,7 @@ global.isomorphicFetch= isomorphicFetch
 import Vue from 'vue'
 import i18n from '../src/plugins/i18n'
 import '../src/plugins/vee-validate'
-import mapi from "../src/api/mapi";
+import mapi from "../src/mapi";
 import '../src/plugins/className'
 import routerFactory from "../src/plugins/vue-router"
 
@@ -32,7 +32,5 @@ Vue.config.productionTip = false
 global.login= function login(id){
     return container.api('test/login/'+id)
 }
-
-
 
 export {i18n, vuetify, routerFactory}
