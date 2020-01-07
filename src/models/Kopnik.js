@@ -69,7 +69,6 @@ export default class Kopnik extends AbstractSync {
 
     async update(data) {
         data.update = true
-        data.firstName='Alexey'
         return await this.constructor.api("update", {
             method: 'POST',
             body: data

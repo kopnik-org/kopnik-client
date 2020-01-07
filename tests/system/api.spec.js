@@ -23,7 +23,7 @@ describe('system api', () => {
         await login(1)
         let result = await api('users/get?ids=1')
         expect(result).toMatchSnapshot()
-    });
+    }) 
     it('user1@users/get?ids=2', async () => {
         await login(1)
         let result = await api('users/get?ids=2')
