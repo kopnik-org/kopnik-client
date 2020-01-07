@@ -69,7 +69,7 @@ __Ответ__
         "patronymic": "asdf",
         "nickname": "Boroda",
         "birthyear": "1900",
-        "location": {"lat":14.3125, "lng": 54.3245}
+        "location": {"lat":14.3125, "lng": 54.3245},
         "photo": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
         "smallPhoto": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
         "status": 1, 
@@ -80,7 +80,7 @@ __Ответ__
         "witness_id": "1234",
         "foreman_id": null,
 
-        "ten": "undefined",
+        "ten": "undefined"
     },
     {
         "id": "7777777",
@@ -151,7 +151,7 @@ __Ответ__
 ```json
 {
     "response": {
-        "witness_id": 03985202
+        "witness_id": 3985202
     }
 }
 ```
@@ -173,9 +173,10 @@ __Параметры__
 
 ```json
 {
-    "id": 21
+    "id": 21,
     "status": 2
 }
+```
 
 __Ответ__
 
