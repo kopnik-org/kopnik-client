@@ -132,9 +132,7 @@
     import logger from "./mixin/logger"
     import {container} from "../plugins/bottle";
     import {
-        ValidationObserver,
         ValidationProvider,
-        localize
     } from "vee-validate"
 
     export default {
@@ -222,7 +220,6 @@
         },
         async created() {
             await this.value.loaded()
-            console.log("done")
         },
         async mounted() {
         }

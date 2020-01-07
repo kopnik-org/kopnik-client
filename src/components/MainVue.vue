@@ -74,7 +74,7 @@
         <!--        копники на копу-->
         <transition name="kopa">
             <kopa-invite v-if="application.kopa.parts.length" :value="application.kopa"
-                         style="position: fixed; left: 50%; transform: translateX(-50%)"
+                         style="position: fixed; left: 50%; transform: translateX(-50%); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"
                          :style="{bottom: kopaBottom}"
                          @avatar_click="avatar_click($event)" @avatar_dblclick="avatar_dblclick($event)">
                 <v-btn fab small color="primary"
@@ -92,7 +92,8 @@
         >
             <v-card>
                 <v-list-item v-if="application.selected">
-                    <avatar-vue :value="application.selected" :size="80" class="ma-3 ml-0" @dblclick="avatar_dblclick(application.selected)">
+                    <avatar-vue :value="application.selected" :size="80" class="ma-3 ml-0"
+                                @dblclick="avatar_dblclick(application.selected)">
                     </avatar-vue>
                     <v-list-item-content>
                         <v-list-item-subtitle class="text-wrap">{{application.selected.name}}</v-list-item-subtitle>
@@ -119,18 +120,11 @@
     import {
         LPolyline,
         LTooltip,
-        LPopup,
         LIcon,
-        LControlScale,
-        LMap,
-        LTileLayer,
         LMarker,
-        LControlAttribution,
-        LControlLayers,
         LControl
     } from 'vue2-leaflet'
     import {Kopnik} from "../models"
-    import KopnikVue from "./KopnikVue";
     import MapVue from "./MapVue";
     import {container} from "../plugins/bottle";
     import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator'
@@ -152,16 +146,9 @@
             KopaInvite,
             Vue2LeafletPolylineDecorator,
             LPolyline,
-            KopnikVue,
-            LMap,
-            LTileLayer,
             LMarker,
-            LControlAttribution,
-            LControlLayers,
             LControl,
-            LControlScale,
             LIcon,
-            LPopup,
             LTooltip,
             MapVue
         },
@@ -190,7 +177,7 @@
                             value: eachTop,
                             size: Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE * Math.pow(eachTop.rank, 1 / 3) / Math.pow(2, 18 - this.zoom))),
                             className: 'map_avatar' + (this.application.user === eachTop ? ' map_avatar-user' : '') + (this.application.selected === eachTop ? ' map_avatar-selected' : ''),
-                            zIndex: this.application.selected == eachTop ? Number.MAX_SAFE_INTEGER : eachTop.rank * 1000,
+                            zIndex: this.application.selected === eachTop ? Number.MAX_SAFE_INTEGER : eachTop.rank * 1000,
                         }
                     })
                 // console.log(result)
@@ -235,7 +222,7 @@
             }
         },
         watch: {
-            'application.user': async function (current, old) {
+            'application.user': async function (current) {
                 if (current) {
                     await this.application.loadTop20()
                 }
@@ -291,11 +278,11 @@
                     event.preventDefault()
                 }
             },
-            marker_click(kopnik, event) {
+            marker_click(kopnik) {
                 this.application.selected = kopnik
                 return false
             },
-            marker_dblclick(kopnik, event) {
+            marker_dblclick(kopnik) {
                 this.application.analyzeSquad(kopnik)
                 return false
             },
@@ -314,10 +301,6 @@
     }
 </script>
 <style>
-    .k-kopaInvite {
-        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
     .k-kopaInvite .kopa-leave-to {
         opacity: 0;
     }

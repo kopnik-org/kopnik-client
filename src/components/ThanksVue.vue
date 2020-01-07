@@ -13,7 +13,7 @@
                     </v-list-item-content>
                     <v-list-item-action v-if="eachDeal.link">
                         <a :href="eachDeal.link" target="_blank" style="text-decoration: inherit">
-                            <v-btn icon @click="">
+                            <v-btn icon >
                                 <v-icon>mdi-link</v-icon>
                             </v-btn>
                         </a>

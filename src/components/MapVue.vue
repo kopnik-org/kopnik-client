@@ -26,17 +26,10 @@
     import {OpenStreetMapProvider} from 'leaflet-geosearch';
 
     import {
-        LTooltip,
-        LPopup,
-        LIcon,
         LControlScale,
         LMap,
         LTileLayer,
-        LMarker,
-        LControlAttribution,
         LControlLayers,
-        LControl,
-        LControlZoom
     } from 'vue2-leaflet'
     import VGeosearch from 'vue2-leaflet-geosearch';
     import VLocatecontrol from 'vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol'
@@ -50,16 +43,9 @@
             VGeosearch,
             LMap,
             LTileLayer,
-            LMarker,
-            LControlAttribution,
             LControlLayers,
-            LControl,
             LControlScale,
-            LIcon,
-            LPopup,
-            LTooltip,
-            LControlZoom,
-            VLocatecontrol,
+            VLocatecontrol
         },
         props: {
             center: {
@@ -219,7 +205,7 @@
             this.$nextTick(() => {
                 this.map = this.$refs.map.mapObject
                 // this.map.on('geosearch/showlocation', console.log)
-                this.map.on('click', event => {
+                this.map.on('click', () => {
                     // this.$emit('click', event)
                 })
             })

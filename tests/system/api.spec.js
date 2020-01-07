@@ -1,5 +1,6 @@
 import api from "../../src/api";
 import {bottle, container} from "../../src/plugins/bottle";
+import {KopnikApiError} from "../../src/KopnikError";
 
 function login(id){
     return api('test/login/'+id)
@@ -8,6 +9,16 @@ function login(id){
 describe('system api', () => {
     beforeEach(()=>{
         bottle.resetProviders(['cookieService'])
+    })
+    it.only('anonymous@users/get?ids=1', async () => {
+        try {
+            await api('users/get?ids=')
+            throw new Error('should not be hire')
+        }
+        catch(err){
+            expect(err.message).toContain('auth')
+            expect(err).toBeInstanceOf(KopnikApiError)
+        }
     })
     it('anonymous@test/login/1', async () => {
         let result = await login(1)
