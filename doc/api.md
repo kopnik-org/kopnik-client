@@ -38,10 +38,12 @@ HTTP status code: 200 (как у всех успешных запросов)
         "request_params": [{
             "key": "oauth",
             "value": "1"
-            }, {
+            }, 
+            {
             "key": "method",
             "value": "getInstancenstance"
-            }
+            },
+            "..."
         ]
     }
 }
@@ -67,7 +69,7 @@ __Ответ__
         "patronymic": "asdf",
         "nickname": "Boroda",
         "birthyear": "1900",
-        "location": {"lat:"14.3125, "lng": 54.3245}
+        "location": {"lat":14.3125, "lng": 54.3245}
         "photo": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
         "smallPhoto": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
         "status": 1, 
@@ -113,6 +115,7 @@ __Ответ__
 Получить ```count``` самых старших пользователей в заданном квадрате в порядке возрастния ранга.
 
 __Параметры__
+
 ```x1=123.123,y1=123.123,x2=1243.24,y2=53.23``` координаты квадрата
 
 ```count=20``` кооличество возвращаемых копников
@@ -126,14 +129,16 @@ __Ответ__
 Обновить своего (текущего) пользователя. Меняет статус пользователя на ОЖИДАЕТ ЗАВЕРЕНИЯ.
 
 __Параметры__
-```code
-   "firstName": "sadgfd",
-   "lastName": "jklsdfg89rfs",
-   "patronymic": "sdfafasd",
-   "birthyear": "1900",
-   "passport": "1984",
-   "nickname": "sdakljh23",
-   "location": [1238974.12, 9124.12390],
+```json 
+{
+    "firstName": "sadgfd",
+    "lastName": "jklsdfg89rfs",
+    "patronymic": "sdfafasd",
+    "birthyear": 1900,
+    "passport": 1984,
+    "nickname": "sdakljh23",
+    "location": [1238974.12, 9124.12390]
+}
 ```
 __Ошибки__
 
@@ -151,7 +156,7 @@ __Ответ__
 }
 ```
 
-## GET users/getWitnessRequests
+## GET users/getPending
 
 Получить заявки на регистрацию, которые должен заверять текущий пользователь.
 
@@ -160,30 +165,37 @@ __Ответ__
 аналогичен методу ```users/get(ids)``` 
 с добавлением поля ```passport``` последние 4 цифры поспорта
 
-## POST users/patchWitnessRequest
+## POST users/updatePending
 
-Подтвердить заявку на регистрацию.
+Подтвердить/отклонить заявку на регистрацию.
 
 __Параметры__
 
-```id=21``` идентификатор заявки
-
-```status=2``` новое состояние заявки
+```json
+{
+    "id": 21
+    "status": 2
+}
 
 __Ответ__
+
 ```json
 {
     "response": true
 }
 ```
 
-## POST users/patchLocale
+## POST users/updateLocale
 
 Поменять локаль пользователя.
 
 __Параметры__
  
- ```locale=ru``` новая локаль
+ ```json 
+{
+    "locale": "ru"
+}
+```
 
 __Ответ__
 ```json
