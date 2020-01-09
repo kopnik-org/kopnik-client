@@ -110,7 +110,7 @@ export default class Application {
 
     async loadTop20() {
         this.top20 = await Promise.all([1, 2, 3, 4].map(each => Kopnik.get(each)))
-        this.logger.warn('manual set foremans')
+        this.logger.info('manual set foremans')
         Kopnik.getReference(1).rank = 4
         Kopnik.getReference(2).foreman = Kopnik.getReference(3)
         Kopnik.getReference(2).rank = 1

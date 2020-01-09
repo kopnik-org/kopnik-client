@@ -2,14 +2,16 @@
   "name": "kopnik-client",
   "version": "0.1.0",
   "private": true,
+  "test": "npm run test",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
+    "test:unit": "vue-cli-service test:unit --test-match '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)'",
     "test:unit:watch": "vue-cli-service test:unit --test-match '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)' --watch",
-    "test:integration:watch": "jest --test-match '<rootDir>/tests/integration/**/*.spec.(js|jsx|ts|tsx)' --watch",
+    "test:system": "jest --test-match '<rootDir>/tests/system/**/*.spec.(js|jsx|ts|tsx)'",
+    "test:system:watch": "jest --test-match '<rootDir>/tests/system/**/*.spec.(js|jsx|ts|tsx)' --watch",
     "port": "sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 8080"
   },
   "dependencies": {

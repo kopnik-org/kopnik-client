@@ -66,7 +66,8 @@ describe('unit conponents AppVue', () => {
         })
     })
 
-    describe.only('status=new', () => {
+    // ожидаем users/list чтобы пожно было под разными пользователями заходить
+    describe.skip('status=new', () => {
         beforeEach(async () => {
             await login(2)
         })
@@ -94,7 +95,7 @@ describe('unit conponents AppVue', () => {
                     expect(application.section).toBe(Application.Section.Profile)
                     expect(vm.$el.textContent).toContain('Язык')
             })
-            it.only('/witness', async () => {
+            it('/witness', async () => {
                 application.authenticate()
                 vm.$mount()
                 try {

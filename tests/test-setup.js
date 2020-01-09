@@ -29,6 +29,8 @@ let vuetify = new Vuetify({
 })
 
 Vue.config.productionTip = false
+Vue.config.devtools = false
+
 
 global.login = function login(id) {
     return container.api('test/login/' + id)

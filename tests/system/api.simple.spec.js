@@ -7,7 +7,7 @@ it('test/get&ids=', async () => {
     try {
         await api('test/login/1')
         let result = await api('users/get?ids=')
-        console.log(result)
+        // console.log(result)
     }
     catch(err) {
         console.log(err)
