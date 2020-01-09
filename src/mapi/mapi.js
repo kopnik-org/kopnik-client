@@ -3,6 +3,7 @@ import {utils} from 'jest-snapshot'
 import {resolve} from 'path'
 import JSON5 from 'json5'
 import handlers from './handlers'
+import getData from "./data";
 
 async function mapi(url, options = {}) {
     const user = container.cookieService.cookie || 'anonymous',
@@ -17,3 +18,4 @@ async function mapi(url, options = {}) {
 }
 
 export default mapi
+export {getData}

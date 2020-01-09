@@ -1,9 +1,14 @@
 import mapi from "../../src/mapi";
 import {bottle, container} from "../../src/plugins/bottle";
+import {getData} from "../../src/mapi/mapi";
 
 
 describe('unit mapi', () => {
     describe('base', () => {
+        it('getData', ()=>{
+            const mapiData=getData()
+            expect(mapiData).toBeInstanceOf(Array)
+        })
     })
 
     describe('do', () => {
