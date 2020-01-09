@@ -26,6 +26,7 @@ export default class Kopnik extends AbstractSync {
     @object witness = undefined
 
     @collection ten
+    @collection tenRequests
     @collection witnessRequests
 
     get name() {
