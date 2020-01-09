@@ -9,9 +9,9 @@
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
     "test:unit": "vue-cli-service test:unit --test-match '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)'",
-    "test:unit:watch": "vue-cli-service test:unit --test-match '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)' --watch",
+    "test:unit:watch": "vue-cli-service test:unit --test-match '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)' --watchAll",
     "test:system": "jest --test-match '<rootDir>/tests/system/**/*.spec.(js|jsx|ts|tsx)'",
-    "test:system:watch": "jest --test-match '<rootDir>/tests/system/**/*.spec.(js|jsx|ts|tsx)' --watch",
+    "test:system:watch": "jest --test-match '<rootDir>/tests/system/**/*.spec.(js|jsx|ts|tsx)' --watchAll",
     "port": "sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 8080"
   },
   "dependencies": {
