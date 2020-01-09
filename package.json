@@ -47,6 +47,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "flush-promises": "^1.0.2",
+    "husky": "^4.0.3",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^24.9.0",
     "jest-serializer-vue": "^2.0.2",
@@ -104,5 +105,12 @@
     "setupFiles": [
       "<rootDir>/tests/test-setup.js"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test",
+      "...": "..."
+    }
   }
 }
