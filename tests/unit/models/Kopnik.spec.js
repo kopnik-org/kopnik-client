@@ -2,7 +2,7 @@ import {Kopnik} from "../../../src/models";
 import {bottle, container} from "../../../src/plugins/bottle";
 import {KopnikApiError} from "../../../src/KopnikError";
 
-describe('unit.models.Kopnik', () => {
+describe('unit models Kopnik', () => {
     describe('merge', () => {
         it('Kopnik.merge id', async () => {
             let kopnik1 = new Kopnik()
@@ -65,27 +65,30 @@ describe('unit.models.Kopnik', () => {
             expect(plain.witness_id).toBe(2)
             expect(plain.ten).toBeInstanceOf(Array)
             expect(plain.ten.length).toBe(2)
-            expect(plain.ten[0].id).toBe(3)
+            expect(plain.ten[0]).toBe(3)
         })
     })
 
     describe('loaded', () => {
+        beforeEach(() => {
+            // удаляем, потому что ThanksVue пообует авторизоваться перед отрисовкой
+            bottle.resetProviders(['application', 'cookieService'])
+        })
+
         it('throw error without cookie', async () => {
             let kopnik2 = Kopnik.getReference(2)
             try {
-                container.cookieService.push()
                 await kopnik2.loaded()
             } catch (e) {
                 // console.log(e)
                 expect(e).toBeInstanceOf(KopnikApiError)
-                expect(e.message).toMatch(/no.+auth/i)
-            } finally {
-                container.cookieService.pop()
+                expect(e.message).toContain('Auth')
             }
             expect(kopnik2).toMatchSnapshot()
         })
 
         it('success', async () => {
+            await login(1)
             let kopnik2 = Kopnik.getReference(2)
             await kopnik2.loaded()
             expect(kopnik2).toMatchSnapshot()

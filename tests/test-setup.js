@@ -3,7 +3,8 @@
  * иначе тот подсунет свой базный полифил. Баг в том, что куки не приходят от сервера
  */
 import isomorphicFetch from 'isomorphic-fetch'
-global.isomorphicFetch= isomorphicFetch
+
+global.isomorphicFetch = isomorphicFetch
 import Vue from 'vue'
 import i18n from '../src/plugins/i18n'
 import '../src/plugins/vee-validate'
@@ -29,8 +30,10 @@ let vuetify = new Vuetify({
 
 Vue.config.productionTip = false
 
-global.login= function login(id){
-    return container.api('test/login/'+id)
+global.login = function login(id) {
+    return container.api('test/login/' + id)
 }
 
+const vuePlugins = {i18n, vuetify}
+export default vuePlugins
 export {i18n, vuetify, routerFactory}

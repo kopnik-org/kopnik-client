@@ -74,7 +74,9 @@ export default class AbstractSync {
             result[eachObjectName + "_id"] = (this[eachObjectName] instanceof AbstractSync) ? this[eachObjectName].id : null
         }
         for (let eachCollectionName of this.constructor.collections) {
-            result[eachCollectionName] = (this[eachCollectionName] instanceof Array) ? this[eachCollectionName].map(eachItem => eachItem.id) : null
+            result[eachCollectionName] = (this[eachCollectionName] instanceof Array) ? this[eachCollectionName].map(eachItem => {
+                return eachItem.id
+            }) : null
         }
         return result;
     }

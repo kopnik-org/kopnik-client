@@ -1,7 +1,7 @@
 <template>
-    <v-list>
+    <v-list v-if="value.isLoaded">
         <v-list-item>
-            <avatar-vue v-if="value" :value="value" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}"
+            <avatar-vue :value="value" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}"
                           @click="avatar_click" @dblclick="avatar_dblclick">
             </avatar-vue>
         </v-list-item>
@@ -219,9 +219,9 @@
             },
         },
         async created() {
-            await this.value.loaded()
         },
         async mounted() {
+            await this.value.loaded()
         }
     }
 </script>

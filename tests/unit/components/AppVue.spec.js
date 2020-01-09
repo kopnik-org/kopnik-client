@@ -8,8 +8,9 @@ import Application from "../../../src/Application";
 describe('unit conponents AppVue', () => {
     let vm,
         application
+
     beforeEach(() => {
-        bottle.resetProviders(['Application', 'cookieService'])
+        bottle.resetProviders(['application', 'cookieService'])
         application = container.application
         vm = new Vue({
             ...AppVue,

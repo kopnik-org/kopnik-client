@@ -63,6 +63,9 @@ export default class Kopnik extends AbstractSync {
         if (result.rank==undefined){
             result.rank=1
         }
+        if (result.location instanceof Array){
+            // result.location={lat: result.location[0], lng: result.location[1]}
+        }
         return result
     }
 

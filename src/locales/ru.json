@@ -2,7 +2,7 @@
   "profile": {
     "language": "Язык",
     "firstName": "Имя",
-    "lastName": "Фамиля",
+    "lastName": "Фамилия",
     "patronymic": "Отчество",
     "birthyear": "Год рождения",
     "passport": "Последние 4 цифры пасспорта",
