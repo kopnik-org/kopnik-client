@@ -1,0 +1,399 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`system api anonymous@test/login/1 1`] = `
+Object {
+  "message": "test login success",
+  "status": "success",
+  "user": Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "location": Array [
+      47.042697,
+      147.94418,
+    ],
+    "passport": 9991,
+    "patronymic": "Якушев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "vk_id": 261824271,
+    "witness_id": null,
+  },
+}
+`;
+
+exports[`system api anonymous@test/login/2 1`] = `
+Object {
+  "message": "test login success",
+  "status": "success",
+  "user": Object {
+    "birthyear": 1984,
+    "firstName": "Максим",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Калашниковa",
+    "location": Array [
+      -14.544987,
+      -67.221535,
+    ],
+    "passport": 5259,
+    "patronymic": "Колесников",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 0,
+    "vk_id": 674188840,
+    "witness_id": null,
+  },
+}
+`;
+
+exports[`system api anonymous@test/login/3 1`] = `
+Object {
+  "message": "test login success",
+  "status": "success",
+  "user": Object {
+    "birthyear": 1963,
+    "firstName": "Валериан",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Некрасов",
+    "location": Array [
+      74.513164,
+      -29.77027,
+    ],
+    "passport": 5220,
+    "patronymic": "Дементьев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 1,
+    "vk_id": 318346165,
+    "witness_id": null,
+  },
+}
+`;
+
+exports[`system api anonymous@test/login/4 1`] = `
+Object {
+  "message": "test login success",
+  "status": "success",
+  "user": Object {
+    "birthyear": 1979,
+    "firstName": "Клим",
+    "foreman_id": null,
+    "id": 4,
+    "lastName": "Сазонов",
+    "location": Array [
+      84.287083,
+      -108.15802,
+    ],
+    "passport": 2861,
+    "patronymic": "Гуляевa",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 3,
+    "vk_id": 977688691,
+    "witness_id": null,
+  },
+}
+`;
+
+exports[`system api user1@users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "location": Array [
+      47.042697,
+      147.94418,
+    ],
+    "passport": 9991,
+    "patronymic": "Якушев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user1@users/get?ids=1 1`] = `
+Array [
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "location": Array [
+      47.042697,
+      147.94418,
+    ],
+    "passport": 9991,
+    "patronymic": "Якушев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user1@users/get?ids=1,2,3 1`] = `
+Array [
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "location": Array [
+      47.042697,
+      147.94418,
+    ],
+    "passport": 9991,
+    "patronymic": "Якушев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1984,
+    "firstName": "Максим",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Калашниковa",
+    "location": Array [
+      -14.544987,
+      -67.221535,
+    ],
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 0,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1963,
+    "firstName": "Валериан",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Некрасов",
+    "location": Array [
+      74.513164,
+      -29.77027,
+    ],
+    "passport": null,
+    "patronymic": "Дементьев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 1,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user1@users/get?ids=2 1`] = `
+Array [
+  Object {
+    "birthyear": 1984,
+    "firstName": "Максим",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Калашниковa",
+    "location": Array [
+      -14.544987,
+      -67.221535,
+    ],
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 0,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user1@users/get?ids=3 1`] = `
+Array [
+  Object {
+    "birthyear": 1963,
+    "firstName": "Валериан",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Некрасов",
+    "location": Array [
+      74.513164,
+      -29.77027,
+    ],
+    "passport": null,
+    "patronymic": "Дементьев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 1,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user1@users/get?ids=4 1`] = `
+Array [
+  Object {
+    "birthyear": 1979,
+    "firstName": "Клим",
+    "foreman_id": null,
+    "id": 4,
+    "lastName": "Сазонов",
+    "location": Array [
+      84.287083,
+      -108.15802,
+    ],
+    "passport": null,
+    "patronymic": "Гуляевa",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 3,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user2@users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1984,
+    "firstName": "Максим",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Калашниковa",
+    "location": Array [
+      -14.544987,
+      -67.221535,
+    ],
+    "passport": 5259,
+    "patronymic": "Колесников",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 0,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user2@users/get?ids=2 1`] = `
+Array [
+  Object {
+    "birthyear": 1984,
+    "firstName": "Максим",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Калашниковa",
+    "location": Array [
+      -14.544987,
+      -67.221535,
+    ],
+    "passport": 5259,
+    "patronymic": "Колесников",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 0,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user3@users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1963,
+    "firstName": "Валериан",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Некрасов",
+    "location": Array [
+      74.513164,
+      -29.77027,
+    ],
+    "passport": 5220,
+    "patronymic": "Дементьев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 1,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user3@users/get?ids=3 1`] = `
+Array [
+  Object {
+    "birthyear": 1963,
+    "firstName": "Валериан",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Некрасов",
+    "location": Array [
+      74.513164,
+      -29.77027,
+    ],
+    "passport": 5220,
+    "patronymic": "Дементьев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 1,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user4@users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1979,
+    "firstName": "Клим",
+    "foreman_id": null,
+    "id": 4,
+    "lastName": "Сазонов",
+    "location": Array [
+      84.287083,
+      -108.15802,
+    ],
+    "passport": 2861,
+    "patronymic": "Гуляевa",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 3,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user4@users/get?ids=4 1`] = `
+Array [
+  Object {
+    "birthyear": 1979,
+    "firstName": "Клим",
+    "foreman_id": null,
+    "id": 4,
+    "lastName": "Сазонов",
+    "location": Array [
+      84.287083,
+      -108.15802,
+    ],
+    "passport": 2861,
+    "patronymic": "Гуляевa",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 3,
+    "witness_id": null,
+  },
+]
+`;

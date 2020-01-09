@@ -1,0 +1,248 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unit conponents AppVue anonymous renders 1`] = `
+<div
+  class="v-application v-application--is-ltr theme--light"
+  data-app="true"
+  id="inspire"
+>
+  <div
+    class="v-application--wrap"
+  >
+    <!---->
+     
+    <!---->
+     
+    <!---->
+     
+    <!---->
+     
+    <main
+      class="v-content"
+      style="padding: 0px 0px 0px 0px;"
+    >
+      <div
+        class="v-content__wrap"
+      >
+        <div
+          class="row fill-height pa-0 flex-column flex-nowrap align-center"
+          login=""
+          style="position: fixed; top: 0px; left: 0px; right: 0px; z-index: 100;"
+        >
+          <div
+            class="col"
+          />
+           
+          <div
+            class="v-avatar"
+            style="height: 170px; min-width: 170px; width: 170px;"
+          >
+            <div
+              class="v-responsive v-image"
+            >
+              <div
+                class="v-image__image v-image__image--preload v-image__image--cover"
+                style="background-position: center center;"
+              />
+              <div
+                class="v-responsive__content"
+              />
+            </div>
+          </div>
+           
+          <div
+            class="pa-1 tagline text-center"
+          >
+            <span>
+              КОПНОЕ ПРАВО
+            </span>
+             
+            <div
+              style="font-size: smaller;"
+            >
+              в телефоне каждого славянина
+            </div>
+          </div>
+           
+          <div
+            class="d-flex align-end col"
+            style="width: inherit;"
+          >
+            <button
+              class="mb-12 v-btn v-btn--contained theme--light v-size--default primary"
+              type="button"
+            >
+              <span
+                class="v-btn__content"
+              >
+                Войти через ВКонтакте
+              </span>
+            </button>
+          </div>
+        </div>
+         
+        <div
+          class="container fill-height pa-0 k-content container--fluid k-main"
+        >
+          <div
+            class="v-dialog__content"
+            role="document"
+            style="z-index: 0;"
+          >
+            <div
+              class="v-dialog v-dialog--persistent v-bottom-sheet v-bottom-sheet--inset"
+              style="max-width: auto; display: none;"
+            />
+          </div>
+          <div
+            class="vue2leaflet-map leaflet-container leaflet-grab leaflet-touch-drag"
+            style="z-index: 0; position: relative;"
+            tabindex="0"
+          >
+            <div />
+            <div />
+            <div />
+             
+            <!---->
+            <div
+              class="leaflet-pane leaflet-map-pane"
+              style="left: 0px; top: 0px;"
+            >
+              <div
+                class="leaflet-pane leaflet-tile-pane"
+              >
+                <div
+                  class="leaflet-layer "
+                  style="z-index: 1;"
+                >
+                  <div
+                    class="leaflet-tile-container leaflet-zoom-animated"
+                    style="z-index: 18; left: 0px; top: 0px;"
+                  >
+                    <img
+                      alt=""
+                      class="leaflet-tile"
+                      role="presentation"
+                      src="https://a.tile.openstreetmap.org/2/2/1.png"
+                      style="width: 256px; height: 256px; left: -107px; top: -64px;"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="leaflet-pane leaflet-shadow-pane"
+              />
+              <div
+                class="leaflet-pane leaflet-overlay-pane"
+              />
+              <div
+                class="leaflet-pane leaflet-marker-pane"
+              />
+              <div
+                class="leaflet-pane leaflet-tooltip-pane"
+              />
+              <div
+                class="leaflet-pane leaflet-popup-pane"
+              />
+            </div>
+            <div
+              class="leaflet-control-container"
+            >
+              <div
+                class="leaflet-top leaflet-left"
+              >
+                <div
+                  class="leaflet-control-zoom leaflet-bar leaflet-control"
+                >
+                  <a
+                    aria-label="Zoom in"
+                    class="leaflet-control-zoom-in"
+                    href="#"
+                    role="button"
+                    title="Zoom in"
+                  >
+                    +
+                  </a>
+                  <a
+                    aria-label="Zoom out"
+                    class="leaflet-control-zoom-out"
+                    href="#"
+                    role="button"
+                    title="Zoom out"
+                  >
+                    −
+                  </a>
+                </div>
+              </div>
+              <div
+                class="leaflet-top leaflet-right"
+              >
+                <div
+                  class="leaflet-control"
+                />
+              </div>
+              <div
+                class="leaflet-bottom leaflet-left"
+              />
+              <div
+                class="leaflet-bottom leaflet-right"
+              >
+                <div
+                  class="leaflet-control-attribution leaflet-control"
+                >
+                  <a
+                    href="https://leafletjs.com"
+                    title="A JS library for interactive maps"
+                  >
+                    Leaflet
+                  </a>
+                   | Map data: © 
+                  <a
+                    href="http://www.openstreetmap.org/copyright"
+                  >
+                    OpenStreetMap
+                  </a>
+                  , 
+                  <a
+                    href="http://viewfinderpanoramas.org"
+                  >
+                    SRTM
+                  </a>
+                   | Map style: © 
+                  <a
+                    href="https://opentopomap.org"
+                  >
+                    OpenTopoMap
+                  </a>
+                   (
+                  <a
+                    href="https://creativecommons.org/licenses/by-sa/3.0/"
+                  >
+                    CC-BY-SA
+                  </a>
+                  )
+                </div>
+              </div>
+            </div>
+             
+            <!---->
+             
+            <!---->
+             
+            <!---->
+             
+              
+          </div>
+           
+          <!---->
+           
+          <div
+            class="v-dialog__container"
+            role="dialog"
+          />
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+`;
