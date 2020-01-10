@@ -1,43 +1,46 @@
 <template>
-    <v-container fluid class="fill-height">
-        <v-card v-for="(eachThank, eachThankIndex) in value" :key="eachThankIndex"
-                elevation="12" class="mb-10 mx-auto" width="100%" max-width="350px">
-            <kopnik-view :value="eachThank.who"></kopnik-view>
-            <v-divider></v-divider>
-            <v-list>
-                <v-list-item v-for="(eachDeal, eachDealIndex) of eachThank.deals" :key="eachDealIndex">
-                    <v-list-item-content>
-                        <v-list-item-title :title="eachDeal.project">{{eachDeal.project}}</v-list-item-title>
-                        <v-list-item-subtitle>{{eachDeal.role}}</v-list-item-subtitle>
-                        <v-list-item-subtitle>{{eachDeal.results}}</v-list-item-subtitle>
-                    </v-list-item-content>
-                    <v-list-item-action v-if="eachDeal.link">
-                        <a :href="eachDeal.link" target="_blank" style="text-decoration: inherit">
-                            <v-btn icon >
-                                <v-icon>mdi-link</v-icon>
-                            </v-btn>
-                        </a>
-                    </v-list-item-action>
-                </v-list-item>
-            </v-list>
+    <v-container fluid class="fill-height k-ten flex-column align-center">
+        <v-card elevation="12" class="mb-10" width="100%" max-width="350px">
+            <!--            <v-card-title>
+                            Моя десятка
+                        </v-card-title>-->
+            <div class="d-flex flex-wrap mt-2 justify-space-around">
+                <template v-for="(eachDruzhe, eachDruzheIndex) of extendedTen">
+                    <v-badge v-if="eachDruzhe" :key="eachDruzhe.id" :title="eachDruzhe.name"
+                             class='k-badge-event-handler' color="red" :offset-x="(64/64)*7+14" :offset-y="(64/64)*7+14"
+                    >
+                        <div @click="druzhe_del(eachDruzhe)" slot="badge" style="cursor: pointer">x</div>
+                        <AvatarVue :value="eachDruzhe"
+                                   :size="64" class="mb-2">
+                        </AvatarVue>
+                    </v-badge>
+                    <v-avatar v-else :key="-eachDruzheIndex"
+                              :size="64" class="mb-2">
+                        <v-icon :size="64">mdi-account</v-icon>
+                    </v-avatar>
+                </template>
+            </div>
         </v-card>
 
-        <div style="width: 100%"></div>
-
-        <v-card elevation="12" class="mx-auto" width="100%" max-width="350px">
-                <v-img src="https://technicalsupportoverseas.com/wp-content/uploads/revslider/AboutUs/slider-rev-about.png"></v-img>
-            <v-card-title>
-                Тоже хочешь участвовать?
-            </v-card-title>
-            <v-card-subtitle>
-                Принять участие в создании первой международной сети Копного права очень просто. Узнай как присоединиться.
-            </v-card-subtitle>
-            <v-card-actions>
-                <v-btn color="primary" @click="join_click" class="mx-auto">
-                    Узнать как присоединиться
-                </v-btn>
-            </v-card-actions>
-        </v-card>
+        <transition-group v-if="application.user.tenRequests && application.user.tenRequests.length" name="list-complete" tag="div" class="mx-auto"
+                          style="width: 100%; max-width:350px; position: relative;">
+            <v-card v-for="eachRequest in value.tenRequests" :key="eachRequest.id"
+                    elevation="12" class="mb-10 list-complete-item" style="width: 100%;">
+                <kopnik-view :value="eachRequest" location></kopnik-view>
+                <v-divider></v-divider>
+                <v-card-actions>
+                    <v-btn color="success" class="flex"
+                           @click="request_confirm(eachRequest)">
+                        Принять в десятку
+                    </v-btn>
+                    <v-btn color="error" class="flex"
+                           @click="request_decline(eachRequest)">
+                        Отклонить
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </transition-group>
+        <div v-else class="overline font-weight-bold my-auto" style="font-size: 1.625rem !important; color: #BDBD">Заявок нет</div>
     </v-container>
 </template>
 <script>
@@ -45,43 +48,87 @@
     import thanks from "../thanks";
 
     import KopnikView from './KopnikVue'
+    import AvatarVue from "./AvatarVue";
     import logger from "./mixin/logger";
     import {container} from "../plugins/bottle";
 
     export default {
-        name: "Thanks",
+        name: "Ten",
         mixins: [logger],
         components: {
-            KopnikView
+            KopnikView,
+            AvatarVue,
         },
         data: () => {
             return {
                 application: container.application,
-                value: [],
+                items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
             }
         },
-        props: {},
-        computed: {},
-        watch: {},
-        methods: {
-            join_click() {
-                window.open('https://docs.google.com/document/d/1NzlfhHoDkT9FBR1aH41bZZ_eZQeUH7kTGTXABpvY3YE/edit#heading=h.pn4ly25488lj')
+        props: {
+            value: {
+                type: Kopnik,
+                required: true
             }
         },
-        async created() {
-            await this.application.resolveUser()
-            this.value = thanks.map(eachThank => {
-                let eachWho
-                eachWho = new Kopnik()
-                eachWho.id = eachThank.who.id
-                eachWho.merge(eachThank.who)
-                if (!eachThank.who.id || !this.application.user) {
-                    eachWho.isLoaded = true
+        computed: {
+            extendedTen() {
+                const result = [],
+                    ten = application.user.ten
+                for (let length = 0; length < 10; length++) {
+                    result.push((ten !== undefined && ten.length >= length) ? ten[length] : null)
                 }
-                eachWho.firstName = eachThank.who.name
-                eachThank.who = eachWho
-                return eachThank
-            })
+                return result
+            }
         },
+        methods: {
+            shuffle: function () {
+                this.items.splice(0, 1)
+                // this.items = _.shuffle(this.items)
+            },
+            request_confirm(request) {
+                this.shuffle()
+                const requests = this.application.user.tenRequests
+                requests.splice(requests.indexOf(request), 1)
+                this.application.user.ten.push(request)
+            },
+            request_decline(request) {
+                const requests = this.application.user.tenRequests
+                requests.splice(requests.indexOf(request), 1)
+            },
+            druzhe_del(druzhe) {
+                const ten = this.application.user.ten
+                ten.splice(ten.indexOf(druzhe), 1)
+            }
+        }
+        ,
+        async created() {
+            // this.application.user.ten = [Kopnik.getReference(1), Kopnik.getReference(3), Kopnik.getReference(4)]
+            this.application.user.tenRequests = [
+                Kopnik.getReference(1), Kopnik.getReference(3), Kopnik.getReference(4),
+            ]
+        }
+        ,
     }
 </script>
+
+<style>
+    .k-badge-event-handler .v-badge__wrapper{
+        pointer-events: all;
+    }
+
+    .list-complete-leave-active {
+        position: absolute;
+    }
+
+    .list-complete-leave-to {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    .list-complete-item {
+        transition: all .25s;
+        display: inline-block;
+        margin-right: 10px;
+    }
+</style>

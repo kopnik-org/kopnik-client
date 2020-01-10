@@ -133,6 +133,7 @@
     import KopaInvite from "./KopaInviteVue";
     import AvatarVue from "./AvatarVue";
 
+
     // На 18-ом увеличении
     const ARROW_WIDTH = 10,
         TOOLTIP_ARROW_WITH = 15,

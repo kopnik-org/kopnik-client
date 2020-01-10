@@ -18,7 +18,7 @@
             <LoginVue v-if="!application.user && application.section!=='Thanks'"></LoginVue>
 <!--            <keep-alive :exclude="[Main]">-->
 <!--                <transition :name="contentTransitionName">-->
-                    <component class="k-content" v-bind:is="application.section+'Vue'"></component>
+                    <component class="k-content" v-bind:is="application.section+'Vue'" :value="application.user"></component>
 <!--                </transition>-->
 <!--            </keep-alive>-->
         </v-content>
@@ -39,6 +39,7 @@
     import Application from "../Application";
     import {Kopnik} from '../models'
     import flushPromises from "flush-promises";
+    import TenVue from './KTen'
 
     export default {
         mixins: [logger],
@@ -48,7 +49,8 @@
             ProfileVue,
             MainVue,
             ThanksVue,
-            WitnessVue
+            WitnessVue,
+            TenVue
         },
         props: {
             source: String,
