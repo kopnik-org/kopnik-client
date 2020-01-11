@@ -1,5 +1,5 @@
 <template>
-    <v-badge :content="value.rank" bottom :offset-x="(size/64)*7+14" :offset-y="(size/64)*7+14"
+    <v-badge v-if="value.isLoaded" :content="value.rank" bottom :offset-x="(size/64)*7+14" :offset-y="(size/64)*7+14"
              color="orange">
         <v-avatar :size="size"
                   @click="$emit('click', $event)" @dblclick="$emit('dblclick', $event)">

@@ -4,7 +4,7 @@ exports[`system models Kopnik confirmed update kopnik1@users/update 1`] = `
 Array [
   Object {
     "birthyear": 1985,
-    "firstName": "Alexey",
+    "firstName": "Павел",
     "foreman_id": null,
     "id": 1,
     "lastName": "Сысоев",

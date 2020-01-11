@@ -78,11 +78,12 @@ export default class Application {
         switch (section) {
             case Application.Section.Profile:
             case Application.Section.Witness:
+            case Application.Section.Ten:
                 if (await this.resolveUser()) {
-                    if (section === Application.Section.Witness && this.user.status !== Kopnik.Status.CONFIRMED) {
-                        result = await this.setSection(Application.Section.Main)
-                    } else {
+                    if (section === Application.Section.Profile || this.user.status === Kopnik.Status.CONFIRMED) {
                         result = section
+                    } else {
+                        result = await this.setSection(Application.Section.Main)
                     }
                 } else {
                     result = await this.setSection(Application.Section.Main)
@@ -111,17 +112,17 @@ export default class Application {
     async loadTop20() {
         this.top20 = await Promise.all([1, 2, 3, 4].map(each => Kopnik.get(each)))
         this.logger.info('manual set foremans')
-        Kopnik.getReference(1).rank = 4
-        Kopnik.getReference(2).foreman = Kopnik.getReference(3)
-        Kopnik.getReference(2).rank = 1
-        Kopnik.getReference(3).foreman = Kopnik.getReference(1)
+        Kopnik.getReference(1).rank = 1
+        Kopnik.getReference(1).foreman = Kopnik.getReference(3)
+        Kopnik.getReference(2).rank = 4
+        Kopnik.getReference(3).foreman = Kopnik.getReference(2)
         Kopnik.getReference(3).rank = 3
         Kopnik.getReference(4).foreman = Kopnik.getReference(3)
         Kopnik.getReference(4).rank = 1
 
-        Kopnik.getReference(1).ten = [Kopnik.getReference(3)]
-        Kopnik.getReference(2).ten = []
-        Kopnik.getReference(3).ten = [Kopnik.getReference(2), Kopnik.getReference(4)]
+        Kopnik.getReference(1).ten = []
+        Kopnik.getReference(2).ten = [Kopnik.getReference(3)]
+        Kopnik.getReference(3).ten = [Kopnik.getReference(1), Kopnik.getReference(4)]
         Kopnik.getReference(4).ten = []
     }
 
@@ -205,4 +206,5 @@ Application.Section = {
     Profile: 'Profile',
     Witness: 'Witness',
     Thanks: 'Thanks',
+    Ten: 'Ten',
 }

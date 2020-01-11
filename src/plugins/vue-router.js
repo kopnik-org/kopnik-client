@@ -45,17 +45,33 @@ const routes = [
             async (to, from, next) => {
                 await application.lockSection(async () => {
                     await application.setSection(Application.Section.Witness)
-                    if (application.section === Application.Section.Witness ) {
+                    if (application.section === Application.Section.Witness) {
                         next()
-                    }  else if (application.section === from.name) {
+                    } else if (application.section === from.name) {
                         next(false)
                     } else {
                         next({name: application.section})
                     }
                 })
             }
-    }
-    ,
+    },
+    {
+        path: '/' + Application.Section.Ten.toLowerCase(),
+        name:Application.Section.Ten,
+        beforeEnter:
+            async (to, from, next) => {
+                await application.lockSection(async () => {
+                    await application.setSection(Application.Section.Ten)
+                    if (application.section === Application.Section.Ten) {
+                        next()
+                    } else if (application.section === from.name) {
+                        next(false)
+                    } else {
+                        next({name: application.section})
+                    }
+                })
+            }
+    },
     {
         path: '/' + Application.Section.Thanks.toLowerCase(),
         name:
@@ -66,7 +82,7 @@ const routes = [
                     await application.setSection(Application.Section.Thanks)
                     if (application.section === Application.Section.Thanks) {
                         next()
-                    }  else if (application.section === from.name) {
+                    } else if (application.section === from.name) {
                         next(false)
                     } else {
                         next({name: application.section})
@@ -85,7 +101,7 @@ const routes = [
                     await application.setSection(Application.Section.Main)
                     if (application.section === Application.Section.Main) {
                         next()
-                    }  else if (application.section === from.name) {
+                    } else if (application.section === from.name) {
                         next(false)
                     } else {
                         next({name: application.section})
