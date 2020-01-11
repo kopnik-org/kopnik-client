@@ -10,7 +10,7 @@ describe('system api', () => {
     beforeEach(()=>{
         bottle.resetProviders(['cookieService'])
     })
-    it.only('anonymous@users/get?ids=1', async () => {
+    it('anonymous@users/get?ids=1', async () => {
         try {
             await api('users/get?ids=')
             throw new Error('should not be hire')
@@ -107,6 +107,69 @@ describe('system api', () => {
     it('user4@users/get?ids=4', async () => {
         await login(4)
         let result = await api('users/get?ids=4')
+        expect(result).toMatchSnapshot()
+    })
+
+    /********************************************************
+     * user_6_foreman
+     *******************************************************/
+    it('anonymous@test/login/6', async () => {
+        let result = await login(6)
+        expect(result).toMatchSnapshot()
+    })
+    it('user6@users/get?ids=', async () => {
+        await login(6)
+        let result = await api('users/get?ids=')
+        expect(result).toMatchSnapshot()
+    })
+    it('user6@users/get?ids=6', async () => {
+        await login(6)
+        let result = await api('users/get?ids=6')
+        expect(result).toMatchSnapshot()
+    })
+    it('user6@users/get?ids=7', async () => {
+        await login(6)
+        let result = await api('users/get?ids=7')
+        expect(result).toMatchSnapshot()
+    })
+    it('user6@users/get?ids=8', async () => {
+        await login(6)
+        let result = await api('users/get?ids=8')
+        expect(result).toMatchSnapshot()
+    })
+    it('user6@users/get?ids=9', async () => {
+        await login(6)
+        let result = await api('users/get?ids=9')
+        expect(result).toMatchSnapshot()
+    })
+    it('user6@users/get?ids=10', async () => {
+        await login(6)
+        let result = await api('users/get?ids=10')
+        expect(result).toMatchSnapshot()
+    })
+    it('user6@users/get?ids=11', async () => {
+        await login(6)
+        let result = await api('users/get?ids=11')
+        expect(result).toMatchSnapshot()
+    })
+    it('user6@users/get?ids=12', async () => {
+        await login(6)
+        let result = await api('users/get?ids=12')
+        expect(result).toMatchSnapshot()
+    })
+    it('user6@users/get?ids=13', async () => {
+        await login(6)
+        let result = await api('users/get?ids=13')
+        expect(result).toMatchSnapshot()
+    })
+    it('user6@users/get?ids=14', async () => {
+        await login(6)
+        let result = await api('users/get?ids=14')
+        expect(result).toMatchSnapshot()
+    })
+    it('user6@users/get?ids=15', async () => {
+        await login(6)
+        let result = await api('users/get?ids=15')
         expect(result).toMatchSnapshot()
     })
 })

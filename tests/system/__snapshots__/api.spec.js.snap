@@ -100,6 +100,31 @@ Object {
 }
 `;
 
+exports[`system api anonymous@test/login/6 1`] = `
+Object {
+  "message": "test login success",
+  "status": "success",
+  "user": Object {
+    "birthyear": 1963,
+    "firstName": "Альберт",
+    "foreman_id": null,
+    "id": 6,
+    "lastName": "Андреев",
+    "location": Array [
+      82.420116,
+      33.733625,
+    ],
+    "passport": 6296,
+    "patronymic": "Доронинa",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "vk_id": 261824271,
+    "witness_id": null,
+  },
+}
+`;
+
 exports[`system api user1@users/get?ids= 1`] = `
 Array [
   Object {
@@ -393,6 +418,248 @@ Array [
     "photo": "@todo",
     "smallPhoto": "@todo",
     "status": 3,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user6@users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1963,
+    "firstName": "Альберт",
+    "foreman_id": null,
+    "id": 6,
+    "lastName": "Андреев",
+    "location": Array [
+      82.420116,
+      33.733625,
+    ],
+    "passport": 6296,
+    "patronymic": "Доронинa",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user6@users/get?ids=6 1`] = `
+Array [
+  Object {
+    "birthyear": 1963,
+    "firstName": "Альберт",
+    "foreman_id": null,
+    "id": 6,
+    "lastName": "Андреев",
+    "location": Array [
+      82.420116,
+      33.733625,
+    ],
+    "passport": 6296,
+    "patronymic": "Доронинa",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user6@users/get?ids=7 1`] = `
+Array [
+  Object {
+    "birthyear": 1956,
+    "firstName": "Вячеслав",
+    "foreman_id": 6,
+    "id": 7,
+    "lastName": "Бобров",
+    "location": Array [
+      -15.743008,
+      171.877681,
+    ],
+    "passport": null,
+    "patronymic": "Кудрявцевa",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user6@users/get?ids=8 1`] = `
+Array [
+  Object {
+    "birthyear": 1968,
+    "firstName": "Марат",
+    "foreman_id": 6,
+    "id": 8,
+    "lastName": "Меркушевa",
+    "location": Array [
+      52.07028,
+      -100.035163,
+    ],
+    "passport": null,
+    "patronymic": "Гурьев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user6@users/get?ids=9 1`] = `
+Array [
+  Object {
+    "birthyear": 1979,
+    "firstName": "Ираклий",
+    "foreman_id": 6,
+    "id": 9,
+    "lastName": "Копыловa",
+    "location": Array [
+      -68.491715,
+      -133.189715,
+    ],
+    "passport": null,
+    "patronymic": "Шашковa",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user6@users/get?ids=10 1`] = `
+Array [
+  Object {
+    "birthyear": 1978,
+    "firstName": "Андрей",
+    "foreman_id": 6,
+    "id": 10,
+    "lastName": "Филиппов",
+    "location": Array [
+      -1.516831,
+      30.380085,
+    ],
+    "passport": null,
+    "patronymic": "Ершов",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user6@users/get?ids=11 1`] = `
+Array [
+  Object {
+    "birthyear": 1962,
+    "firstName": "Дмитрий",
+    "foreman_id": 6,
+    "id": 11,
+    "lastName": "Моисеев",
+    "location": Array [
+      -48.417224,
+      141.534037,
+    ],
+    "passport": null,
+    "patronymic": "Колобов",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user6@users/get?ids=12 1`] = `
+Array [
+  Object {
+    "birthyear": 1981,
+    "firstName": "Юлиан",
+    "foreman_id": 6,
+    "id": 12,
+    "lastName": "Ларионовa",
+    "location": Array [
+      6.461354,
+      164.598153,
+    ],
+    "passport": null,
+    "patronymic": "Ермаков",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user6@users/get?ids=13 1`] = `
+Array [
+  Object {
+    "birthyear": 1954,
+    "firstName": "Илларион",
+    "foreman_id": 6,
+    "id": 13,
+    "lastName": "Носовa",
+    "location": Array [
+      -7.803183,
+      131.695178,
+    ],
+    "passport": null,
+    "patronymic": "Селиверстов",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user6@users/get?ids=14 1`] = `
+Array [
+  Object {
+    "birthyear": 1964,
+    "firstName": "Аполлон",
+    "foreman_id": 6,
+    "id": 14,
+    "lastName": "Герасимов",
+    "location": Array [
+      76.951544,
+      49.111308,
+    ],
+    "passport": null,
+    "patronymic": "Капустин",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api user6@users/get?ids=15 1`] = `
+Array [
+  Object {
+    "birthyear": 1975,
+    "firstName": "Виктор",
+    "foreman_id": 6,
+    "id": 15,
+    "lastName": "Ефремов",
+    "location": Array [
+      26.594891,
+      90.339277,
+    ],
+    "passport": null,
+    "patronymic": "Якушев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 2,
     "witness_id": null,
   },
 ]

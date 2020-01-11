@@ -15,7 +15,8 @@
                         </AvatarVue>
                     </v-badge>
                     <v-avatar v-else :key="-eachDruzheIndex"
-                              :size="64" class="mb-2">
+
+                 :size="64" class="mb-2">
                         <v-icon :size="64">mdi-account</v-icon>
                     </v-avatar>
                 </template>
@@ -74,7 +75,7 @@
         computed: {
             extendedTen() {
                 const result = [],
-                    ten = application.user.ten
+                    ten = this.application.user.ten
                 for (let length = 0; length < 10; length++) {
                     result.push((ten !== undefined && ten.length >= length) ? ten[length] : null)
                 }
