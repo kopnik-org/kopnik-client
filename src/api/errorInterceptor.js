@@ -16,7 +16,7 @@ export default {
             throw new Error(response.statusText, response.status, null)
         }
         if (response.data.error) {
-            throw new KopnikApiError(response.data.error.error_msg, response.data.error.error_code, /*fullUrl*/)
+            throw new KopnikApiError(response.data.error.error_msg, response.data.error.error_code, response.url)
         }
         return response
     },

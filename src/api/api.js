@@ -9,7 +9,12 @@ export default async function api(url, options={}) {
         return response.data.response
         // Пропал 4G
     } catch (err) {
-        throw new KopnikApiError(err.message, null, fullUrl)
+        if (err instanceof KopnikApiError){
+            throw err
+        }
+        else{
+            throw new KopnikApiError(err.message, err.code, fullUrl)
+        }
     }
     // Не найдена страница или синтаксическая ошибка в веб-сервисе
     if (!response.ok) {

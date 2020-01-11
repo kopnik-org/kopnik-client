@@ -1,16 +1,14 @@
 class KopnikError extends Error {
-    constructor(message, code) {
+    constructor(message, code, base) {
         super(message)
         this.code = code
+        this.base= base
     }
 }
 class KopnikApiError extends KopnikError {
-    constructor(message, code, url) {
-        super(message, code)
+    constructor(message, code, url, base) {
+        super(message, code, base)
         this.url = url
-    }
-    toString(){
-        return `${this.message} (${this.code}) ${this.url}`
     }
 }
 
