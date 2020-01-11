@@ -7,7 +7,7 @@ import getData from "./data";
 
 async function mapi(url, options = {}) {
     const user = container.cookieService.cookie || 'anonymous',
-        key = `system api ${user}@${url} 1`
+        key = `system api ${user} ${url} 1`
     // console.log('cookie', container.cookieService.cookie)
 
     for(let [eachPattern, eachHandler] of handlers){
