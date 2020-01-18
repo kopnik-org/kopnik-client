@@ -92,7 +92,7 @@ __Ответ__
 
 Часть полей передаются только для своего копника: ```passport```, ```locale```, ```witness_id```, ```witnessChatInviteLink```
 
-## GET users/getTopInsideSquare(x1, y1, x2, y2)
+## GET users/getTopInsideSquare(x1, y1, x2, y2, count)
 Получить ```count``` самых старших пользователей в заданном квадрате в порядке возрастния ранга.
 
 __Параметры__
