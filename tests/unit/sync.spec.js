@@ -70,13 +70,13 @@ describe('sync', () => {
       expect(kopnik).toHaveProperty("loadedTen")
     })
 
-    it('collection loaded getter',  async () => {
+    it.skip('collection loaded getter',  async () => {
       let kopnik= new Kopnik(1)
       await kopnik.loadedTen
       expect(kopnik.ten).toBeInstanceOf(Array)
     })
 
-    it('collection loaded getter load once',  async () => {
+    it.skip('collection loaded getter load once',  async () => {
       let kopnik= new Kopnik(1)
       await kopnik.loadedTen
       expect(kopnik.ten).toEqual(await kopnik.loadedTen)

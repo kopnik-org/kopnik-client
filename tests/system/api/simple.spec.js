@@ -1,7 +1,7 @@
-import {KopnikApiError} from "../../src/KopnikError";
-import {bottle, container} from "../../src/plugins/bottle";
+import {KopnikApiError} from "../../../src/KopnikError";
+import {bottle, container} from "../../../src/plugins/bottle";
 
-import api from "../../src/api";
+import api from "../../../src/api";
 
 it('test/get&ids=', async () => {
     try {

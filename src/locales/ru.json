@@ -10,7 +10,7 @@
     "nickname": "Прозвище",
     "sendRequest": "На подтверждение"
   },
-  "witness": {
+  "Join": {
     "confirm": "Заверить",
     "decline": "Отклонить"
   },
@@ -22,7 +22,7 @@
     "myTen": "Моя десятка",
     "tenChat": "Чат десятки",
     "foremanChat": "Чат старшины",
-    "witnessRequests": "Заявки на вступление",
+    "entranceRequests": "Заявки на вступление",
     "thanks": "Благодарность",
     "help": "Подсказка",
     "logout": "Выход"

@@ -2,12 +2,12 @@
   "name": "kopnik-client",
   "version": "0.1.0",
   "private": true,
-  "test": "npm run test",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
+    "test": "npm run test:system && npm run test:unit",
     "test:unit": "vue-cli-service test:unit --test-match '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)'",
     "test:unit:watch": "vue-cli-service test:unit --test-match '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)' --watchAll",
     "test:system": "jest --test-match '<rootDir>/tests/system/**/*.spec.(js|jsx|ts|tsx)'",
@@ -102,7 +102,8 @@
       "<rootDir>/(tests/**/*.spec.(js|jsx|ts|tsx))"
     ],
     "snapshotSerializers": [
-      "<rootDir>/node_modules/jest-serializer-vue"
+      "<rootDir>/node_modules/jest-serializer-vue",
+      "<rootDir>/tests/jest-serializer-error"
     ],
     "setupFiles": [
       "<rootDir>/tests/test-setup.js"

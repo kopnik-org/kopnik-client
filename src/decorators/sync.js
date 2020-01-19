@@ -119,7 +119,7 @@ export function collection(target, name, descriptor) {
 
     Object.defineProperty(
         target,
-        "reload" + capitalizedName,
+        "_reload" + capitalizedName,
         {
             configurable: true,
             value: once(async function (...args) {

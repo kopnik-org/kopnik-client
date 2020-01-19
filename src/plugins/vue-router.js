@@ -1,14 +1,8 @@
 import Vue from "vue"
 
 import VueRouter from "vue-router";
-import Profile from "../components/ProfileVue";
-import Witness from "../components/WitnessVue";
-import Map from "../components/MainVue";
-import Thanks from "../components/ThanksVue";
 import {container} from "./bottle";
-import {Kopnik} from '../models'
 import Application from "../Application";
-import flushPromises from "flush-promises";
 
 Vue.use(VueRouter)
 const application = container.application
@@ -38,14 +32,14 @@ const routes = [
         }
     },
     {
-        path: '/' + Application.Section.Witness.toLowerCase(),
+        path: '/' + Application.Section.Join.toLowerCase(),
         name:
-        Application.Section.Witness,
+        Application.Section.Join,
         beforeEnter:
             async (to, from, next) => {
                 await application.lockSection(async () => {
-                    await application.setSection(Application.Section.Witness)
-                    if (application.section === Application.Section.Witness) {
+                    await application.setSection(Application.Section.Join)
+                    if (application.section === Application.Section.Join) {
                         next()
                     } else if (application.section === from.name) {
                         next(false)

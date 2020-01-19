@@ -32,7 +32,7 @@
     import MainVue from './MainVue'
     import ThanksVue from './ThanksVue'
     import ProfileVue from "./ProfileVue";
-    import WitnessVue from "./WitnessVue";
+    import JoinVue from "./JoinVue";
     import {container} from "../plugins/bottle";
     import DrawerVue from "./DrawerVue";
     import logger from './mixin/logger'
@@ -49,7 +49,7 @@
             ProfileVue,
             MainVue,
             ThanksVue,
-            WitnessVue,
+            JoinVue,
             TenVue
         },
         props: {

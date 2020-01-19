@@ -49,11 +49,11 @@ describe('unit conponents AppVue', () => {
                     expect(vm.$el.textContent).toContain('Войти через ВКонтакте')
                 }
             })
-            it('/witness', async () => {
+            it('/Join', async () => {
                 application.authenticate()
                 vm.$mount()
                 try {
-                    await vm.$router.push({name: Application.Section.Witness})
+                    await vm.$router.push({name: Application.Section.Join})
                     throw new Error('should not be hire')
                 } catch (err) {
                     expect(err).toBe(false)
@@ -95,11 +95,11 @@ describe('unit conponents AppVue', () => {
                     expect(application.section).toBe(Application.Section.Profile)
                     expect(vm.$el.textContent).toContain('Язык')
             })
-            it('/witness', async () => {
+            it('/Join', async () => {
                 application.authenticate()
                 vm.$mount()
                 try {
-                    await vm.$router.push({name: Application.Section.Witness})
+                    await vm.$router.push({name: Application.Section.Join})
                     throw new Error('should not be hire')
                 } catch (err) {
                     expect(err).toBe(false)

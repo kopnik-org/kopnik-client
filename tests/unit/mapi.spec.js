@@ -7,7 +7,7 @@ describe('unit mapi', () => {
     describe('base', () => {
         it('getData', ()=>{
             const mapiData=getData()
-            expect(mapiData).toBeInstanceOf(Array)
+            expect(mapiData).toBeInstanceOf(Object)
         })
     })
 

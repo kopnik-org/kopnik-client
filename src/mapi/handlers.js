@@ -5,7 +5,7 @@ import {container} from "../plugins/bottle"
 const mapiData = getData()
 const handlers = new Map()
 
-handlers.set(/test\/login\/\d+/, (url, user, key, next) => {
+handlers.set(/test\/login\/\d+/, (url, options, user, key) => {
     const userId = url.match(/test.login.(\d+)/)[1]
 
     // console.log('cookie', `user${userId}`)
@@ -13,7 +13,7 @@ handlers.set(/test\/login\/\d+/, (url, user, key, next) => {
     return data(key)
 })
 
-handlers.set(/.*/, (url, user, key, next) => {
+handlers.set(/.*/, (url, options, user, key) => {
     if (user === 'anonymous') {
         throw new KopnikApiError('Not Authorized', 401, container.config.api.path + url)
     }
@@ -24,7 +24,11 @@ function data(key) {
     if (mapiData[key] === undefined) {
         throw new Error(`mapi could not find [${key}]. use npm run test:system:watch -t fetchApi`)
     }
-    return mapiData[key]
+    let result= mapiData[key]
+    if (result instanceof Error){
+        throw result
+    }
+    return result
 }
 
 export default handlers

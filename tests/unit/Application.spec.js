@@ -20,8 +20,8 @@ describe('unit/Application', () => {
                 await application.setSection(Application.Section.Profile)
                 expect(application.section).toBe(Application.Section.Main)
             })
-            it('witness', async () => {
-                await application.setSection(Application.Section.Witness)
+            it('Join', async () => {
+                await application.setSection(Application.Section.Join)
                 expect(application.section).toBe(Application.Section.Main)
             })
             it('thanks', async () => {
@@ -52,8 +52,8 @@ describe('unit/Application', () => {
                 await application.setSection(Application.Section.Profile)
                 expect(application.section).toBe(Application.Section.Profile)
             })
-            it('witness', async () => {
-                await application.setSection(Application.Section.Witness)
+            it('Join', async () => {
+                await application.setSection(Application.Section.Join)
                 expect(application.section).toBe(Application.Section.Main)
             })
             it('thanks', async () => {
@@ -84,8 +84,8 @@ describe('unit/Application', () => {
                 await application.setSection(Application.Section.Profile)
                 expect(application.section).toBe(Application.Section.Profile)
             })
-            it('witness', async () => {
-                await application.setSection(Application.Section.Witness)
+            it('Join', async () => {
+                await application.setSection(Application.Section.Join)
                 expect(application.section).toBe(Application.Section.Main)
             })
         })
@@ -112,9 +112,9 @@ describe('unit/Application', () => {
                 await application.setSection(Application.Section.Profile)
                 expect(application.section).toBe(Application.Section.Profile)
             })
-            it('witness', async () => {
-                await application.setSection(Application.Section.Witness)
-                expect(application.section).toBe(Application.Section.Witness)
+            it('Join', async () => {
+                await application.setSection(Application.Section.Join)
+                expect(application.section).toBe(Application.Section.Join)
             })
         })
     })
@@ -140,8 +140,8 @@ describe('unit/Application', () => {
                 await application.setSection(Application.Section.Profile)
                 expect(application.section).toBe(Application.Section.Profile)
             })
-            it('witness', async () => {
-                await application.setSection(Application.Section.Witness)
+            it('Join', async () => {
+                await application.setSection(Application.Section.Join)
                 expect(application.section).toBe(Application.Section.Main)
             })
         })

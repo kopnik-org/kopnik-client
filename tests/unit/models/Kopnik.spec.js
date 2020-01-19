@@ -3,6 +3,7 @@ import {bottle, container} from "../../../src/plugins/bottle";
 import {KopnikApiError} from "../../../src/KopnikError";
 
 describe('unit models Kopnik', () => {
+    let kopnik
     describe('merge', () => {
         it('Kopnik.merge id', async () => {
             let kopnik1 = new Kopnik()
@@ -79,12 +80,11 @@ describe('unit models Kopnik', () => {
             let kopnik2 = Kopnik.getReference(2)
             try {
                 await kopnik2.loaded()
+                throw new Error("should not be hire")
             } catch (e) {
-                // console.log(e)
                 expect(e).toBeInstanceOf(KopnikApiError)
                 expect(e.message).toContain('Auth')
             }
-            expect(kopnik2).toMatchSnapshot()
         })
 
         it('success', async () => {
@@ -92,6 +92,72 @@ describe('unit models Kopnik', () => {
             let kopnik2 = Kopnik.getReference(2)
             await kopnik2.loaded()
             expect(kopnik2).toMatchSnapshot()
+        })
+    })
+
+    describe('anonymous', () => {
+        beforeEach(async () => {
+            kopnik = new Kopnik()
+        })
+    })
+
+    describe('new', () => {
+        beforeEach(async () => {
+            bottle.resetProviders('cookieService')
+            await login(2)
+            kopnik = await Kopnik.get(2)
+        })
+        it('update', async () => {
+            await kopnik.update(kopnik.plain)
+        })
+    })
+
+    describe('pending', () => {
+        beforeAll(async () => {
+            bottle.resetProviders('cookieService')
+            await login(3)
+            kopnik = await Kopnik.get(3)
+        })
+        it('update', async () => {
+            await kopnik.update(kopnik.plain)
+        })
+    })
+
+    describe('declined', () => {
+        beforeAll(async () => {
+            bottle.resetProviders('cookieService')
+            await login(4)
+            kopnik = await Kopnik.get(4)
+        })
+        it('update', async () => {
+            await kopnik.update(kopnik.plain)
+        })
+    })
+
+    describe('confirmed', () => {
+        beforeAll(async () => {
+            bottle.resetProviders('cookieService')
+            await login(5)
+            kopnik = await Kopnik.get(5)
+        })
+        it('update', async () => {
+            let result = await kopnik.update(kopnik.plain)
+        })
+    })
+
+    describe('confirmed witness', () => {
+        let kopnik
+        beforeAll(async () => {
+            bottle.resetProviders(['cookieService'])
+            await login(1)
+            kopnik = await Kopnik.get(1)
+        })
+        it('getPending', async () => {
+            await kopnik.reloadJoining()
+            expect(kopnik.joining.map(each => each.plain)).toMatchSnapshot()
+        })
+        it('updateJoiningStatus(pending)', async () => {
+            await kopnik.updateJoiningStatus({id: 3, status: 2})
         })
     })
 })

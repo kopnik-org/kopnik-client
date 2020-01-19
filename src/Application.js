@@ -77,7 +77,7 @@ export default class Application {
         }
         switch (section) {
             case Application.Section.Profile:
-            case Application.Section.Witness:
+            case Application.Section.Join:
             case Application.Section.Ten:
                 if (await this.resolveUser()) {
                     if (section === Application.Section.Profile || this.user.status === Kopnik.Status.CONFIRMED) {
@@ -204,7 +204,7 @@ export default class Application {
 Application.Section = {
     Main: 'Main',
     Profile: 'Profile',
-    Witness: 'Witness',
+    Join: 'Join',
     Thanks: 'Thanks',
     Ten: 'Ten',
 }

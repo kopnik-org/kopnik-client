@@ -1,6 +1,7 @@
-import api from "../../src/api";
-import {bottle, container} from "../../src/plugins/bottle";
-import {KopnikApiError} from "../../src/KopnikError";
+import api from "../../../src/api";
+import {bottle, container} from "../../../src/plugins/bottle";
+import {KopnikApiError} from "../../../src/KopnikError";
+import {AbstractSync, Kopnik} from "../../../src/models";
 
 /**
  * Реализация без участия контейнера
@@ -11,9 +12,14 @@ function login(id) {
     return api('test/login/' + id)
 }
 
-describe('system api', () => {
+container.config.di.fetch = true
+
+describe('system api get', () => {
+    beforeEach(async () => {
+        AbstractSync.clearCache()
+    })
     describe('anonymous', () => {
-        beforeAll(() => {
+        beforeEach(() => {
             bottle.resetProviders(['cookieService'])
         })
         it('users/get?ids=1', async () => {
@@ -44,14 +50,28 @@ describe('system api', () => {
             let result = await login(4)
             expect(result).toMatchSnapshot()
         })
+        it('test/login/5', async () => {
+            let result = await login(5)
+            expect(result).toMatchSnapshot()
+        })
         it('test/login/6', async () => {
             let result = await login(6)
             expect(container.cookieService.cookie).toContain('PHPSESSID')
             expect(result).toMatchSnapshot()
         })
+        it('users/pending', async () => {
+            try {
+                await api('users/pending')
+                throw new Error('should not be hire')
+            } catch (err) {
+                expect(err).toBeInstanceOf(KopnikApiError)
+                expect(err.code).toBe(401)
+                expect(err).toMatchSnapshot()
+            }
+        })
     })
     describe('user1', () => {
-        beforeAll(async ()=>{
+        beforeAll(async () => {
             await login(1)
         })
         it('users/get?ids=', async () => {
@@ -78,12 +98,16 @@ describe('system api', () => {
             let result = await api('users/get?ids=1,2,3')
             expect(result).toMatchSnapshot()
         })
+        it('users/pending', async () => {
+            let result = await api('users/pending')
+            expect(result).toMatchSnapshot()
+        })
     })
     /********************************************************
      * user_2_new
      *******************************************************/
     describe('user2', () => {
-        beforeAll(async ()=>{
+        beforeAll(async () => {
             await login(2)
         })
         it('users/get?ids=', async () => {
@@ -94,12 +118,22 @@ describe('system api', () => {
             let result = await api('users/get?ids=2')
             expect(result).toMatchSnapshot()
         })
+        it('users/pending', async () => {
+            try {
+                await api('users/pending')
+                throw new Error('should not be hire')
+            } catch (err) {
+                expect(err).toBeInstanceOf(KopnikApiError)
+                expect(err.code).toBe(403)
+                expect(err).toMatchSnapshot()
+            }
+        })
     })
     /********************************************************
      * user_3_pending
      *******************************************************/
     describe('user3', () => {
-        beforeAll(async ()=>{
+        beforeAll(async () => {
             await login(3)
         })
         it('users/get?ids=', async () => {
@@ -110,12 +144,23 @@ describe('system api', () => {
             let result = await api('users/get?ids=3')
             expect(result).toMatchSnapshot()
         })
+
+        it('users/pending', async () => {
+            try {
+                await api('users/pending')
+                throw new Error('should not be hire')
+            } catch (err) {
+                expect(err).toBeInstanceOf(KopnikApiError)
+                expect(err.code).toBe(403)
+                expect(err).toMatchSnapshot()
+            }
+        })
     })
     /********************************************************
-     * user_4_pending
+     * user_4_declined
      *******************************************************/
     describe('user4', () => {
-        beforeAll(async ()=>{
+        beforeAll(async () => {
             await login(4)
         })
         it('users/get?ids=', async () => {
@@ -126,13 +171,50 @@ describe('system api', () => {
             let result = await api('users/get?ids=4')
             expect(result).toMatchSnapshot()
         })
+
+        it('users/pending', async () => {
+            try {
+                await api('users/pending')
+                throw new Error('should not be hire')
+            } catch (err) {
+                expect(err).toBeInstanceOf(KopnikApiError)
+                expect(err.code).toBe(403)
+                expect(err).toMatchSnapshot()
+            }
+        })
+    })
+    /********************************************************
+     * user_5_confirmed
+     *******************************************************/
+    describe('user5', () => {
+        beforeAll(async () => {
+            await login(5)
+        })
+        it('users/get?ids=', async () => {
+            let result = await api('users/get?ids=')
+            expect(result).toMatchSnapshot()
+        })
+        it('users/get?ids=5', async () => {
+            let result = await api('users/get?ids=5')
+            expect(result).toMatchSnapshot()
+        })
+        it('users/pending', async () => {
+            try {
+                await api('users/pending')
+                throw new Error('should not be hire')
+            } catch (err) {
+                expect(err).toBeInstanceOf(KopnikApiError)
+                expect(err.code).toBe(403)
+                expect(err).toMatchSnapshot()
+            }
+        })
     })
 
     /********************************************************
      * user_6_foreman
      *******************************************************/
     describe('user6', () => {
-        beforeAll(async ()=>{
+        beforeAll(async () => {
             await login(6)
         })
         it('users/get?ids=', async () => {

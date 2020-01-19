@@ -29,7 +29,7 @@ export default {
         }
         let cookie = response.headers.get('set-cookie')
         if (!cookie){
-            container.logger.warn('no cookie received from server')
+            // container.logger.warn('no cookie received from server')
         }
         else {
             cookie = cookie.match(/(\w+=(\w|\d)+)/)[0]

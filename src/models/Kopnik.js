@@ -27,13 +27,13 @@ export default class Kopnik extends AbstractSync {
 
     @collection ten
     @collection tenRequests
-    @collection witnessRequests
+    @collection joining
 
     get name() {
         return [this.lastName, this.firstName, this.patronymic].filter(each => each).join(' ')
     }
 
-    get rankName(){
+    get rankName() {
         return this.name + (this.rank > 1 ? ` (+${this.rank})` : '')
     }
 
@@ -61,10 +61,10 @@ export default class Kopnik extends AbstractSync {
         if (result.photo == '@todo') {
             result.photo = '/avatar.png'
         }
-        if (result.rank==undefined){
-            result.rank=1
+        if (result.rank == undefined) {
+            result.rank = 1
         }
-        if (result.location instanceof Array){
+        if (result.location instanceof Array) {
             // result.location={lat: result.location[0], lng: result.location[1]}
         }
         return result
@@ -79,14 +79,20 @@ export default class Kopnik extends AbstractSync {
         })
     }
 
-    async patchWitnessRequest(witnessRequest, status) {
-        let result = await this.constructor.api('patchWitnessRequest', {
-            id: witnessRequest.id,
-            status
+    async updateJoiningStatus(joining) {
+        let result = await this.constructor.api('pending/update', {
+            method: 'post',
+            body: {
+                id: joining.id,
+                status: joining.status,
+            },
         })
-        if (result) {
-            witnessRequest.status = status
-        }
+        return result
+    }
+
+    async reloadJoining() {
+        let result = await this.constructor.api('pending')
+        this.joining= result.map(eachKopnikAsJson=>Kopnik.merge(eachKopnikAsJson))
     }
 
     async patchLocale() {

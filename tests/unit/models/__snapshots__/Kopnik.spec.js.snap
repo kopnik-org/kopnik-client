@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`unit models Kopnik confirmed witness getPending 1`] = `
+Array [
+  Object {
+    "birthyear": 1963,
+    "firstName": "Валериан",
+    "foreman_id": null,
+    "id": 3,
+    "joining": null,
+    "lastName": "Некрасов",
+    "locale": null,
+    "location": Array [
+      74.513164,
+      -29.77027,
+    ],
+    "nickname": null,
+    "passport": 5220,
+    "patronymic": "Дементьев",
+    "photo": "@todo",
+    "smallPhoto": "@todo",
+    "status": 1,
+    "ten": null,
+    "tenRequests": null,
+    "uid": null,
+    "witness_id": 1,
+  },
+]
+`;
+
 exports[`unit models Kopnik loaded success 1`] = `
 Kopnik {
   "attachments": Array [],
@@ -9,6 +37,7 @@ Kopnik {
   "foreman": null,
   "id": 2,
   "isLoaded": true,
+  "joining": undefined,
   "lastName": "Калашниковa",
   "locale": undefined,
   "location": Array [
@@ -50,56 +79,5 @@ Kopnik {
   "tenRequests": undefined,
   "uid": undefined,
   "witness": null,
-  "witnessRequests": undefined,
-}
-`;
-
-exports[`unit models Kopnik loaded throw error without cookie 1`] = `
-Kopnik {
-  "attachments": Array [],
-  "birthyear": undefined,
-  "created": undefined,
-  "firstName": undefined,
-  "foreman": undefined,
-  "id": 2,
-  "isLoaded": false,
-  "lastName": undefined,
-  "locale": undefined,
-  "location": undefined,
-  "log": Logger {
-    "debug": [Function],
-    "disableAll": [Function],
-    "enableAll": [Function],
-    "error": [Function],
-    "getLevel": [Function],
-    "info": [Function],
-    "levels": Object {
-      "DEBUG": 1,
-      "ERROR": 4,
-      "INFO": 2,
-      "SILENT": 5,
-      "TRACE": 0,
-      "WARN": 3,
-    },
-    "log": [Function],
-    "methodFactory": [Function],
-    "name": "Kopnik",
-    "setDefaultLevel": [Function],
-    "setLevel": [Function],
-    "trace": [Function],
-    "warn": [Function],
-  },
-  "nickname": undefined,
-  "note": undefined,
-  "passport": undefined,
-  "patronymic": undefined,
-  "photo": undefined,
-  "smallPhoto": undefined,
-  "status": undefined,
-  "ten": undefined,
-  "tenRequests": undefined,
-  "uid": undefined,
-  "witness": undefined,
-  "witnessRequests": undefined,
 }
 `;

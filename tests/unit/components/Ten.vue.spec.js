@@ -14,7 +14,7 @@ describe('unit components Ten', () => {
     beforeEach(() => {
     })
 
-    it('draw', async () => {
+    it.skip('draw', async () => {
         const kopnik= Kopnik.getReference(6)
         await container.application.authenticate()
         kopnik.ten= [7,].map(eachDruzheId=>Kopnik.getReference(eachDruzheId))
