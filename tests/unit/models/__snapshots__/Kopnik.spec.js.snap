@@ -7,7 +7,6 @@ Array [
     "firstName": "Валериан",
     "foreman_id": null,
     "id": 3,
-    "joining": null,
     "lastName": "Некрасов",
     "locale": null,
     "location": Array [
@@ -23,6 +22,7 @@ Array [
     "ten": null,
     "tenRequests": null,
     "uid": null,
+    "witnessRequests": null,
     "witness_id": 1,
   },
 ]
@@ -37,7 +37,6 @@ Kopnik {
   "foreman": null,
   "id": 2,
   "isLoaded": true,
-  "joining": undefined,
   "lastName": "Калашниковa",
   "locale": undefined,
   "location": Array [
@@ -79,5 +78,6 @@ Kopnik {
   "tenRequests": undefined,
   "uid": undefined,
   "witness": null,
+  "witnessRequests": undefined,
 }
 `;

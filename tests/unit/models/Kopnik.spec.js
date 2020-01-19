@@ -153,11 +153,11 @@ describe('unit models Kopnik', () => {
             kopnik = await Kopnik.get(1)
         })
         it('getPending', async () => {
-            await kopnik.reloadJoining()
-            expect(kopnik.joining.map(each => each.plain)).toMatchSnapshot()
+            await kopnik.reloadWitnessRequests()
+            expect(kopnik.witnessRequests.map(each => each.plain)).toMatchSnapshot()
         })
-        it('updateJoiningStatus(pending)', async () => {
-            await kopnik.updateJoiningStatus({id: 3, status: 2})
+        it('updateWitnessRequestStatus(pending)', async () => {
+            await kopnik.updateWitnessRequestStatus({id: 3, status: 2})
         })
     })
 })

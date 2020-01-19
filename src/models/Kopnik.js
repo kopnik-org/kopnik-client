@@ -27,7 +27,7 @@ export default class Kopnik extends AbstractSync {
 
     @collection ten
     @collection tenRequests
-    @collection joining
+    @collection witnessRequests
 
     get name() {
         return [this.lastName, this.firstName, this.patronymic].filter(each => each).join(' ')
@@ -79,7 +79,7 @@ export default class Kopnik extends AbstractSync {
         })
     }
 
-    async updateJoiningStatus(joining) {
+    async updateWitnessRequestStatus(joining) {
         let result = await this.constructor.api('pending/update', {
             method: 'post',
             body: {
@@ -90,9 +90,9 @@ export default class Kopnik extends AbstractSync {
         return result
     }
 
-    async reloadJoining() {
+    async reloadWitnessRequests() {
         let result = await this.constructor.api('pending')
-        this.joining= result.map(eachKopnikAsJson=>Kopnik.merge(eachKopnikAsJson))
+        this.witnessRequests= result.map(eachKopnikAsJson=>Kopnik.merge(eachKopnikAsJson))
     }
 
     async patchLocale() {

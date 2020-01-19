@@ -32,14 +32,14 @@ const routes = [
         }
     },
     {
-        path: '/' + Application.Section.Join.toLowerCase(),
+        path: '/' + Application.Section.Witness.toLowerCase(),
         name:
-        Application.Section.Join,
+        Application.Section.Witness,
         beforeEnter:
             async (to, from, next) => {
                 await application.lockSection(async () => {
-                    await application.setSection(Application.Section.Join)
-                    if (application.section === Application.Section.Join) {
+                    await application.setSection(Application.Section.Witness)
+                    if (application.section === Application.Section.Witness) {
                         next()
                     } else if (application.section === from.name) {
                         next(false)

@@ -10,7 +10,7 @@
     "lastName": "lastName",
     "sendRequest": "Send request"
   },
-  "Join": {
+  "witness": {
     "confirm": "Confirm",
     "decline": "Decline"
   },
@@ -22,7 +22,7 @@
     "myTen": "My ten",
     "tenChat": "Ten's chat",
     "foremanChat": "Foreman's chat",
-    "entranceRequests": "Entrance requests",
+    "witnessRequests": "Entrance requests",
     "thanks": "Thanks",
     "help": "Help",
     "logout": "Logout"

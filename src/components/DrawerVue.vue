@@ -40,12 +40,12 @@
                     <v-list-item-title>{{ $t('drawer.foremanChat') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
-            <v-list-item link to="/Join">
+            <v-list-item link to="/Witness">
                 <v-list-item-action>
                     <v-icon>mdi-human-greeting</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title>{{ $t('drawer.entranceRequests') }}</v-list-item-title>
+                    <v-list-item-title>{{ $t('drawer.witnessRequests') }}</v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-action>
                     <v-icon>mdi-account-question</v-icon>
