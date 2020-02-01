@@ -56,18 +56,17 @@ export default class Kopnik extends AbstractSync {
         return super.getReference(id)
     }
 
-    async reload() {
-        let result = await super.reload()
-        if (result.photo == '@todo') {
-            result.photo = '/avatar.png'
+    async merge(plain) {
+        super.merge(plain)
+        if (this.photo === '@todo') {
+            this.photo = '/avatar.png'
         }
-        if (result.rank == undefined) {
-            result.rank = 1
+        if (!this.rank) {
+            this.rank = 1
         }
-        if (result.location instanceof Array) {
+        if (this.location instanceof Array) {
             // result.location={lat: result.location[0], lng: result.location[1]}
         }
-        return result
     }
 
 

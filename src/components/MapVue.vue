@@ -1,9 +1,13 @@
 <template>
     <LMap ref="map" :center="center" :zoom="zoom" :options="{zoomControl: zoomControl}"
-          @click="map_click($event)"
-          @update:bounds="map_updateBounds"
-          @update:center="map_updateCenter"
-          @update:zoom="map_updateZoom"
+          @click="lmap_click"
+          @ready="lmap_ready"
+          @zoomstart="lmap_zoomstart"
+          @movestart="lmap_movestart"
+          @update:bounds="lmap_updateBounds"
+          @update:center="lmap_updateCenter"
+          @update:zoom="lmap_updateZoom"
+
           style="z-index: 0">
         <!--        <l-control-zoom position="left"  ></l-control-zoom>-->
         <l-tile-layer
@@ -24,6 +28,7 @@
 </template>
 <script>
     import {OpenStreetMapProvider} from 'leaflet-geosearch';
+    import _ from 'lodash'
 
     import {
         LControlScale,
@@ -46,36 +51,6 @@
             LControlLayers,
             LControlScale,
             VLocatecontrol
-        },
-        props: {
-            center: {
-                type: [Array, Object],
-                // default: () => [55.753215, 37.622504]
-            },
-            zoom: {
-                type: Number,
-                // default: 14
-            },
-            storageKey: {
-                type: String
-            },
-            //bar|button
-            geosearch: {
-                type: String
-            },
-            zoomControl: {
-                // type: Boolean,
-                // default: true
-            },
-            layersControl: {
-                // type: [Boolean,Object],
-                // default: true
-            },
-            locateControl: {
-                // type: [Boolean,Object],
-                // default: true
-            },
-            scaleControl: {}
         },
         data() {
             return {
@@ -122,6 +97,36 @@
                 },
             }
         },
+        props: {
+            center: {
+                type: [Array, Object],
+                // default: () => [55.753215, 37.622504]
+            },
+            zoom: {
+                type: Number,
+                // default: 14
+            },
+            storageKey: {
+                type: String
+            },
+            //bar|button
+            geosearch: {
+                type: String
+            },
+            zoomControl: {
+                // type: Boolean,
+                // default: true
+            },
+            layersControl: {
+                // type: [Boolean,Object],
+                // default: true
+            },
+            locateControl: {
+                // type: [Boolean,Object],
+                // default: true
+            },
+            scaleControl: {}
+        },
         watch: {
             'tileProvider1.visible':
 
@@ -138,62 +143,44 @@
             map_dblclick(event) {
                 alert(event)
             },
-            map_click(event) {
+            lmap_ready(event) {
+                this.$emit('ready', event)
+            },
+            lmap_click(event) {
                 this.$emit('click', event)
             },
-            store() {
-                if (!this.storageKey) {
-                    throw new Error("No storage key provided")
-                }
-                const correctedCenter = Object.assign({}, this.center)
-                correctedCenter.lng = Math.min(correctedCenter.lng, 180)
-                correctedCenter.lng = Math.max(correctedCenter.lng, -180)
-                localStorage.setItem(this.storageKey, JSON.stringify({
-                    center: correctedCenter,
-                    zoom: this.zoom
-                }))
+            lmap_zoomstart(event) {
+                this.$emit('zoomstart', event)
             },
-            restore() {
-                if (!this.storageKey) {
-                    throw new Error("No storage key provided")
-                }
-                let storedData = localStorage.getItem(this.storageKey)
-                if (storedData) {
-                    // console.log('should be center+zoom', storedData)
-                    storedData = JSON.parse(storedData)
-                    if (storedData.zoom) {
-                        this.map_updateZoom(storedData.zoom)
-                    }
-                    if (storedData.center) {
-                        this.map_updateCenter(storedData.center)
-                    }
-                }
+            lmap_movestart(event) {
+                this.$emit('movestart', event)
             },
             onLocationClick() {
                 alert("getInstance current location")
             },
-            map_updateBounds(event) {
-                // console.log("map_updateBounds")
+            lmap_updateBounds(event) {
+                // фиксим ошибку vue-leaflet, который выбрасывает два события подряд
+                if (this._prevBounds && _.isEqual(this._prevBounds, event)) {
+                    return
+                }
                 this.$emit('update:bounds', event)
+                this._prevBounds = event
             },
-            map_updateCenter(event) {
+            lmap_updateCenter(event) {
+                // фиксим ошибку vue-leaflet, который выбрасывает два события подряд
+                if (this._prevCenter && _.isEqual(this._prevCenter, event)) {
+                    return
+                }
                 this.$emit('update:center', event)
-                if (this.storageKey && localStorage) {
-                    if (!this.center.lat || !this.center.lng) {
-                    } else {
-                        this.store()
-                    }
-                }
+                this._prevCenter = event
             },
-            map_updateZoom(event) {
-                this.$emit('update:zoom', event)
-                if (this.storageKey && localStorage) {
-                    if (!this.center.lat || !this.center.lng) {
-
-                    } else {
-                        this.store()
-                    }
+            lmap_updateZoom(event) {
+                // фиксим ошибку vue-leaflet, который выбрасывает два события подряд
+                if (this._prevZoom && _.isEqual(this._prevZoom, event)) {
+                    return
                 }
+                this.$emit('update:zoom', event)
+                this._prevZoom = event
             }
         },
         created() {

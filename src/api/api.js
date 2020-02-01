@@ -12,6 +12,9 @@ export default async function api(url, options={}) {
         if (err instanceof KopnikApiError){
             throw err
         }
+        else if (err.name=='AbortError'){
+            throw err
+        }
         else{
             throw new KopnikApiError(err.message, err.code, fullUrl)
         }

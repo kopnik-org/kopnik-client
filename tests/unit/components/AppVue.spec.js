@@ -3,7 +3,7 @@ import {i18n, vuetify, routerFactory} from "../../test-setup";
 import AppVue from "../../../src/components/AppVue";
 import {bottle, container} from "../../../src/plugins/bottle";
 import flushPromises from "flush-promises";
-import Application from "../../../src/Application";
+import Application from "../../../src/application/Application";
 
 describe('unit conponents AppVue', () => {
     let vm,

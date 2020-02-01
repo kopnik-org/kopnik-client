@@ -1,14 +1,16 @@
 import AsyncLock from 'async-lock'
-import {AbstractSync, Kopnik, Kopa} from "./models";
-import {KopnikApiError, KopnikError} from "./KopnikError";
-import once from "./decorators/once";
-import SquadAnalyzer from "./SquadAnalyzer";
+import {AbstractSync, Kopnik, Kopa} from "../models";
+import {KopnikApiError, KopnikError} from "../KopnikError";
+import once from "../decorators/once";
+import SquadAnalyzer from "../SquadAnalyzer";
 import fetchIntercept from 'fetch-intercept'
-import {container} from "./plugins/bottle";
+import {container} from "../plugins/bottle";
+import {LatLng, LatLngBounds} from 'leaflet'
+import Main from "./Main";
 
 export default class Application {
     constructor(logger) {
-        this.logger = logger.getLogger('application')
+        this.logger = logger.getLogger('Application')
         /**
          * Кэш моделей
          * @type {Array}
@@ -34,14 +36,6 @@ export default class Application {
          */
         this.user = undefined
 
-        this.top20 = []
-        this.squadAnalyzer = new SquadAnalyzer()
-        this.kopa = new Kopa
-        /**
-         *
-         * @type {Kopnik}
-         */
-        this.selected = null
         /**
          * Сообщения пользователю
          * @type {String[]}
@@ -52,7 +46,9 @@ export default class Application {
          * @type {Error[]}
          */
         this.errors = []
-        this.mapBounds = {x1: null, y1: null, x2: null, y2: null}
+        this.sections = {
+            Main: new Main(this)
+        }
     }
 
     /**
@@ -101,44 +97,6 @@ export default class Application {
         return this.section = result
     }
 
-    /**
-     * Исследует дружину
-     * @param {Kopnik} kopnik
-     * @returns {Promise<void>}
-     */
-    async analyzeSquad(kopnik) {
-        await this.squadAnalyzer.analyze(kopnik)
-    }
-
-    async loadTop20() {
-        let top20AsJson = await container.api(`users/getTopInsideSquare?x1=${this.mapBounds.x1}&y1=${this.mapBounds.y1}&x2=${this.mapBounds.x2}&y2=${this.mapBounds.y2}&count=20`)
-        this.top20= top20AsJson.map(eachTopAsJson=>Kopnik.merge(eachTopAsJson, true))
-
-        this.logger.info('manual set foremans')
-        Kopnik.getReference(1).rank = 1
-        Kopnik.getReference(1).foreman = Kopnik.getReference(3)
-        Kopnik.getReference(2).rank = 4
-        Kopnik.getReference(3).foreman = Kopnik.getReference(2)
-        Kopnik.getReference(3).rank = 3
-        Kopnik.getReference(4).foreman = Kopnik.getReference(3)
-        Kopnik.getReference(4).rank = 1
-
-        Kopnik.getReference(1).ten = []
-        Kopnik.getReference(2).ten = [Kopnik.getReference(3)]
-        Kopnik.getReference(3).ten = [Kopnik.getReference(1), Kopnik.getReference(4)]
-        Kopnik.getReference(4).ten = []
-    }
-
-    /**
-     * Определиться с пользователем. Или он некий копник, или он null, то есть незарегистрирован на сервере
-     * @returns {Promise<Kopnik>}
-     */
-    async resolveUser() {
-        if (this.user === undefined) {
-            await this.authenticate()
-        }
-        return this.user
-    }
 
     getSharedState() {
         return {
@@ -151,7 +109,16 @@ export default class Application {
             this.section = state.section
         }
     }
-
+    /**
+     * Определиться с пользователем. Или он некий копник, или он null, то есть незарегистрирован на сервере
+     * @returns {Promise<Kopnik>}
+     */
+    async resolveUser() {
+        if (this.user === undefined) {
+            await this.authenticate()
+        }
+        return this.user
+    }
     /**
      * Инициализирует ползователя при запуске приложения
      *
@@ -172,38 +139,11 @@ export default class Application {
             }
         }
     }
-
-    /**
-     * Учстанавливает пользователем объект из VK.Auth callback
-     *
-     * @param vkUser
-     * @returns
-     */
-    /*    async setVkUser(vkUser) {
-            global.credentials = {
-                uid: vkUser.uid,
-                hash: vkUser.hash
-            }
-            this.user = await Kopnik.getByUid(vkUser.uid)
-            if (!this.user) {
-                this.user = new Kopnik
-                this.user.merge({
-                    firstName: vkUser.first_name,
-                    lastName: vkUser.last_name,
-                    photo: vkUser.photo,
-                    smallPhoto: vkUser.photo_rec,
-                })
-
-                this.section = "Profile"
-            }
-            // this.user.uid= vkUser.uid
-            // this.user.hash= vkUser.hash
-
-            // localStorage.setItem("vkUser", JSON.stringify(vkUser))
-        }
-        */
 }
 
+/**
+ * @enum {string}
+ */
 Application.Section = {
     Main: 'Main',
     Profile: 'Profile',

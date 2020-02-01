@@ -3,26 +3,32 @@
                  fluid class="fill-height pa-0"
                  @keyup.esc="this_keydown_esc">
         <!-- zoom-control передается дальшее в options LMap, а они не реактиные, поэтому сразу нужно ставить true-->
-        <MapVue ref="map" :center.sync="center" :zoom.sync="zoom"
+        <MapVue ref="map" :center.sync="value.map.center" :zoom.sync="value.map.zoom"
                 :layers-control="application.user"
                 :locate-control="application.user"
                 :scale-control="application.user"
                 :zoom-control="true"
-                storage-key="MainVue.map"
+                @ready="map_ready"
+                @click="value.selected=null"
+                @zoomstart="value.abortLoadTop20()"
+                @movestart="value.abortLoadTop20()"
+                @update:center="map_updateCenter"
+                @update:zoom="map_updateZoom"
                 @update:bounds="map_updateBounds"
                 style="z-index: 0"
-                @click="application.selected=null"
+
+
         >
             <!--            скрыть копные связи-->
             <l-control position="topright">
-                <div v-if="application.squadAnalyzer.isAnalyzing()" class="d-flex flex-column align-center">
+                <div v-if="value.squadAnalyzer.isAnalyzing()" class="d-flex flex-column align-center">
                     <v-btn fab small
                            title="Скрыть копные связи"
                            @click="this_keydown_esc"
                            style="order: -1000000000">
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
-                    <!--                    <v-avatar v-for="eachMember of application.squadAnalyzer.members" :key="'avatar'+eachMember.id"
+                    <!--                    <v-avatar v-for="eachMember of value.squadAnalyzer.members" :key="'avatar'+eachMember.id"
                                                   :size="48"
                                                   :title="eachMember.rankName"
                                                   :style="{order: -eachMember.rank}"
@@ -61,19 +67,17 @@
             >
                 <l-icon
                         :icon-size="[eachMarker.size, eachMarker.size]"
-                        :icon-anchor="[eachMarker.size/2,eachMarker.size/2]"
+                        :icon-anchor="[eachMarker.size/2, eachMarker.size/2]"
                         :class-name="eachMarker.className"
                         icon-url="avatar.png">
                 </l-icon>
                 <l-tooltip v-if="!isTouchDevice" :options="{}">{{eachMarker.value.rankName}}</l-tooltip>
-                <!--                <l-popup>l-popup!</l-popup>-->
             </l-marker>
-
         </MapVue>
 
         <!--        копники на копу-->
         <transition name="kopa">
-            <kopa-invite v-if="application.kopa.parts.length" :value="application.kopa"
+            <kopa-invite v-if="value.kopa.parts.length" :value="value.kopa"
                          style="position: fixed; left: 50%; transform: translateX(-50%); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"
                          :style="{bottom: kopaBottom}"
                          @avatar_click="avatar_click($event)" @avatar_dblclick="avatar_dblclick($event)">
@@ -86,28 +90,28 @@
             </kopa-invite>
         </transition>
         <!--        копник внизу-->
-        <v-bottom-sheet :value="application.selected" :attach="$refs.main"
+        <v-bottom-sheet :value="value.selected" :attach="$refs.main"
                         persistent hide-overlay no-click-animation :retain-focus="false" :inset="true"
                         @input="details_input"
         >
             <v-card>
-                <v-list-item v-if="application.selected">
-                    <avatar-vue :value="application.selected" :size="80" class="ma-3 ml-0"
-                                @dblclick="avatar_dblclick(application.selected)">
+                <v-list-item v-if="value.selected">
+                    <avatar-vue :value="value.selected" :size="80" class="ma-3 ml-0"
+                                @dblclick="avatar_dblclick(value.selected)">
                     </avatar-vue>
                     <v-list-item-content>
-                        <v-list-item-subtitle class="text-wrap">{{application.selected.name}}</v-list-item-subtitle>
+                        <v-list-item-subtitle class="text-wrap">{{value.selected.name}}</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
 
                 <v-card-actions class="flex-nowrap">
-                    <v-btn text :disabled="application.user===application.selected" class="flex">
+                    <v-btn text :disabled="application.user===value.selected" class="flex">
                         В беседу
                     </v-btn>
-                    <v-btn text :disabled="application.user===application.selected" class="flex" @click="toggle_click">
-                        {{application.kopa.isAdded(application.selected)?'Не звать':'На копу'}}
+                    <v-btn text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
+                        {{value.kopa.isAdded(value.selected)?'Не звать':'На копу'}}
                     </v-btn>
-                    <v-btn text :disabled="application.user===application.selected" class="flex">
+                    <v-btn text :disabled="application.user===value.selected" class="flex">
                         В старшины
                     </v-btn>
                 </v-card-actions>
@@ -116,7 +120,7 @@
     </v-container>
 </template>
 <script>
-    import L from 'leaflet'
+    import L, {Map} from 'leaflet'
     import {
         LPolyline,
         LTooltip,
@@ -132,6 +136,7 @@
     import logger from "./mixin/logger";
     import KopaInvite from "./KopaInviteVue";
     import AvatarVue from "./AvatarVue";
+    import Main from "../application/Main";
 
 
     // На 18-ом увеличении
@@ -153,46 +158,56 @@
             LTooltip,
             MapVue
         },
-        props: {},
         data() {
             return {
-                zoom: 2,
-                center: [55.753215, 37.622504],
                 application: container.application,
-                details: {show: false, value: null},
-                info: null,
+                /**
+                 * @type {Main}
+                 */
+                value: application.sections.Main
+            }
+        },
+        props: {
+            /**
+             * Автокомплит в разделе <template> не работает :(
+             * По этой причине это свойство перенесено в свойство data
+             */
+            valueX: {
+                type: Main,
+                required: false,
             }
         },
         computed: {
             kopaBottom() {
-                if (this.application.selected) {
+                if (this.value.selected) {
                     return '155px'
                 } else {
                     return 0
                 }
             },
             markers() {
-                const result = this.application.top20
+                const result = this.value.top20
                     .map(eachTop => {
                         return {
                             value: eachTop,
-                            size: Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE * Math.pow(eachTop.rank, 1 / 3) / Math.pow(2, 18 - this.zoom))),
-                            className: 'map_avatar' + (this.application.user === eachTop ? ' map_avatar-user' : '') + (this.application.selected === eachTop ? ' map_avatar-selected' : ''),
-                            zIndex: this.application.selected === eachTop ? Number.MAX_SAFE_INTEGER : eachTop.rank * 1000,
+                            // size: Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE * Math.pow(eachTop.rank, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom))),
+                            size: MIN_MARKER_SIZE,
+                            className: 'map_avatar' + (this.application.user === eachTop ? ' map_avatar-user' : '') + (this.value.selected === eachTop ? ' map_avatar-selected' : ''),
+                            zIndex: this.value.selected === eachTop ? Number.MAX_SAFE_INTEGER : eachTop.rank * 1000,
                         }
                     })
                 // console.log(result)
                 return result
             },
             arrows() {
-                const squadAnalyzer = this.application.squadAnalyzer,
+                const squadAnalyzer = this.value.squadAnalyzer,
                     result = squadAnalyzer.members
-                    // стрелки идкт если старшина в исследованной части
+                        // стрелки идкт если старшина в исследованной части
                         .filter(eachMember => squadAnalyzer.members.indexOf(eachMember.foreman) !== -1)
                         // стрелка идет от младшего к старшему
                         .map(eachMember => {
                             let color = (eachMember === squadAnalyzer.starter || squadAnalyzer.foremans.includes(eachMember)) && squadAnalyzer.foremans.includes(eachMember.foreman) ? 'red' : 'blue',
-                                width = Math.max(1, Math.round(ARROW_WIDTH * Math.pow(eachMember.rank, 1 / 3) / Math.pow(2, 18 - this.zoom))),
+                                width = Math.max(1, Math.round(ARROW_WIDTH * Math.pow(eachMember.rank, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom))),
                                 eachArrow = {
                                     color,
                                     weight: width,
@@ -225,7 +240,7 @@
         watch: {
             'application.user': async function (current) {
                 if (current) {
-                    await this.application.loadTop20()
+                    await this.value.loadTop20()
                 }
             },
             /**
@@ -233,7 +248,7 @@
              * @param {Kopnik} current
              * @param {Kopnik} old
              */
-            'application.selected': function (current, old) {
+            'value.selected': function (current, old) {
 
             },
         },
@@ -242,7 +257,7 @@
              * @param {Kopnik} event
              */
             avatar_click(event) {
-                this.application.selected = event
+                this.value.selected = event
             },
             /**
              * @param {Kopnik} event
@@ -260,41 +275,51 @@
                 }
             },
             inviteAll_click() {
-                this.application.kopa.inviteAll()
+                this.value.kopa.inviteAll()
                 this.application.infos.push('Приглашение на Копу отправлено')
             },
             details_input(event) {
                 if (!event) {
-                    this.application.selected = null
+                    this.value.selected = null
                 }
             },
             toggle_click() {
-                this.application.kopa.stupidAdd(this.application.selected)
-                // this.application.kopa.toggle(this.application.selected)
+                this.value.kopa.stupidAdd(this.value.selected)
+                // this.value.kopa.toggle(this.value.selected)
             },
             this_keydown_esc(event) {
-                if (this.application.squadAnalyzer.isAnalyzing()) {
-                    this.application.squadAnalyzer.reset()
+                if (this.value.squadAnalyzer.isAnalyzing()) {
+                    this.value.squadAnalyzer.reset()
                     event.stopPropagation()
                     event.preventDefault()
                 }
             },
             marker_click(kopnik) {
-                this.application.selected = kopnik
+                this.value.selected = kopnik
                 return false
             },
             marker_dblclick(kopnik) {
-                this.application.analyzeSquad(kopnik)
+                this.value.analyzeSquad(kopnik)
                 return false
             },
+            async map_updateCenter(event) {
+                this.value.setMapCenter(event)
+            },
+            /**
+             *
+             * @param {Map} event
+             * @returns {Promise<void>}
+             */
+            async map_ready(event) {
+                console.log(event.getBounds())
+                await this.value.setMapBounds(event.getBounds())
+            },
+            async map_updateZoom(event) {
+                this.value.setMapZoom(event)
+            },
             async map_updateBounds(event) {
-                // this.logger.info('map_updateBounds', event)
-                this.application.mapBounds.x1= event.getWest()
-                this.application.mapBounds.x2= event.getEast()
-                this.application.mapBounds.y1= event.getSouth()
-                this.application.mapBounds.y2= event.getNorth()
-                this.application.loadTop20()
-            }
+                await this.value.setMapBounds(event)
+            },
         },
         created() {
         },

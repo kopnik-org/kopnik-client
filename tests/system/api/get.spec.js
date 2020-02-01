@@ -69,9 +69,9 @@ describe('system api get', () => {
                 expect(err).toMatchSnapshot()
             }
         })
-        it('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20', async () => {
+        it('users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20', async () => {
             try {
-                await api('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20')
+                await api('users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20')
                 throw new Error('should not be hire')
             } catch (err) {
                 expect(err).toBeInstanceOf(KopnikApiError)
@@ -138,8 +138,8 @@ describe('system api get', () => {
                 expect(err).toMatchSnapshot()
             }
         })
-        it('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20', async () => {
-            let result = await api('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20')
+        it('users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20', async () => {
+            let result = await api('users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20')
             expect(result).toBeInstanceOf(Array)
             expect(result).toMatchSnapshot()
         })
@@ -170,8 +170,8 @@ describe('system api get', () => {
                 expect(err).toMatchSnapshot()
             }
         })
-        it('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20', async () => {
-            let result = await api('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20')
+        it('users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20', async () => {
+            let result = await api('users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20')
             expect(result).toBeInstanceOf(Array)
             expect(result).toMatchSnapshot()
         })
@@ -202,8 +202,8 @@ describe('system api get', () => {
                 expect(err).toMatchSnapshot()
             }
         })
-        it('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20', async () => {
-            let result = await api('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20')
+        it('users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20', async () => {
+            let result = await api('users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20')
             expect(result).toBeInstanceOf(Array)
             expect(result).toMatchSnapshot()
         })
@@ -233,8 +233,8 @@ describe('system api get', () => {
                 expect(err).toMatchSnapshot()
             }
         })
-        it('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20', async () => {
-            let result = await api('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20')
+        it('users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20', async () => {
+            let result = await api('users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20')
             expect(result).toBeInstanceOf(Array)
             expect(result).toMatchSnapshot()
         })

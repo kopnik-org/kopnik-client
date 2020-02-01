@@ -1,8 +1,10 @@
 import {bottle, container} from "../../src/plugins/bottle";
 import {Kopnik} from "../../src/models";
-import Application from "../../src/Application";
+import Application from "../../src/application/Application";
+import {LatLng, LatLngBounds} from "leaflet";
 
 describe('unit/Application', () => {
+    /** @type {Application} */
     let application
     beforeEach(() => {
         // сбросить application, потому что в конце каждого теста user уже установлен
@@ -104,15 +106,9 @@ describe('unit/Application', () => {
             expect(application.user).toBeInstanceOf(Kopnik)
         })
         it('top20()', async () => {
-            console.log(container.cookieService.cookie)
-            application.mapBounds = {
-                x1: 0,
-                y1: -90,
-                x2: 180,
-                y2: 90,
-            }
-            await application.loadTop20()
-            expect(application.top20).toBeInstanceOf(Array)
+            application.sections.Main.map.bounds = new LatLngBounds(new LatLng(-90,-180), new LatLng(90, 180))
+            await application.sections.Main.loadTop20()
+            expect(application.sections.Main.top20).toBeInstanceOf(Array)
         })
         describe('setSection', () => {
             it('profile', async () => {

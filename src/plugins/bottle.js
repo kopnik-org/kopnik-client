@@ -3,7 +3,7 @@ import _ from "lodash"
 import 'json-form-data'
 import * as loglevel from "loglevel";
 
-import Application from "../Application"
+import Application from "../application/Application"
 import config from '../../config'
 import api from "../api";
 import CookieService from "../bottle/CookieService"

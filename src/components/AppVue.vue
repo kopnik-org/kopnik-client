@@ -36,7 +36,7 @@
     import {container} from "../plugins/bottle";
     import DrawerVue from "./DrawerVue";
     import logger from './mixin/logger'
-    import Application from "../Application";
+    import Application from "../application/Application";
     import {Kopnik} from '../models'
     import flushPromises from "flush-promises";
     import TenVue from './KTen'
