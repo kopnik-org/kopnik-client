@@ -288,7 +288,12 @@
                 return false
             },
             async map_updateBounds(event) {
-                // await Kopnik.api("list")
+                // this.logger.info('map_updateBounds', event)
+                this.application.mapBounds.x1= event.getWest()
+                this.application.mapBounds.x2= event.getEast()
+                this.application.mapBounds.y1= event.getSouth()
+                this.application.mapBounds.y2= event.getNorth()
+                this.application.loadTop20()
             }
         },
         created() {

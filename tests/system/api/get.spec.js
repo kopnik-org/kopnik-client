@@ -69,6 +69,16 @@ describe('system api get', () => {
                 expect(err).toMatchSnapshot()
             }
         })
+        it('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20', async () => {
+            try {
+                await api('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20')
+                throw new Error('should not be hire')
+            } catch (err) {
+                expect(err).toBeInstanceOf(KopnikApiError)
+                expect(err.code).toBe(401)
+                expect(err).toMatchSnapshot()
+            }
+        })
     })
     describe('user1', () => {
         beforeAll(async () => {
@@ -128,6 +138,11 @@ describe('system api get', () => {
                 expect(err).toMatchSnapshot()
             }
         })
+        it('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20', async () => {
+            let result = await api('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20')
+            expect(result).toBeInstanceOf(Array)
+            expect(result).toMatchSnapshot()
+        })
     })
     /********************************************************
      * user_3_pending
@@ -154,6 +169,11 @@ describe('system api get', () => {
                 expect(err.code).toBe(403)
                 expect(err).toMatchSnapshot()
             }
+        })
+        it('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20', async () => {
+            let result = await api('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20')
+            expect(result).toBeInstanceOf(Array)
+            expect(result).toMatchSnapshot()
         })
     })
     /********************************************************
@@ -182,6 +202,11 @@ describe('system api get', () => {
                 expect(err).toMatchSnapshot()
             }
         })
+        it('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20', async () => {
+            let result = await api('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20')
+            expect(result).toBeInstanceOf(Array)
+            expect(result).toMatchSnapshot()
+        })
     })
     /********************************************************
      * user_5_confirmed
@@ -207,6 +232,11 @@ describe('system api get', () => {
                 expect(err.code).toBe(403)
                 expect(err).toMatchSnapshot()
             }
+        })
+        it('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20', async () => {
+            let result = await api('users/getTopInsideSquare?x1=0&y1=-90&x2=180&y2=90&count=20')
+            expect(result).toBeInstanceOf(Array)
+            expect(result).toMatchSnapshot()
         })
     })
 

@@ -4,6 +4,7 @@ import {KopnikApiError, KopnikError} from "./KopnikError";
 import once from "./decorators/once";
 import SquadAnalyzer from "./SquadAnalyzer";
 import fetchIntercept from 'fetch-intercept'
+import {container} from "./plugins/bottle";
 
 export default class Application {
     constructor(logger) {
@@ -51,7 +52,7 @@ export default class Application {
          * @type {Error[]}
          */
         this.errors = []
-
+        this.mapBounds = {x1: null, y1: null, x2: null, y2: null}
     }
 
     /**
@@ -110,7 +111,9 @@ export default class Application {
     }
 
     async loadTop20() {
-        this.top20 = await Promise.all([1, 2, 3, 4].map(each => Kopnik.get(each)))
+        let top20AsJson = await container.api(`users/getTopInsideSquare?x1=${this.mapBounds.x1}&y1=${this.mapBounds.y1}&x2=${this.mapBounds.x2}&y2=${this.mapBounds.y2}&count=20`)
+        this.top20= top20AsJson.map(eachTopAsJson=>Kopnik.merge(eachTopAsJson, true))
+
         this.logger.info('manual set foremans')
         Kopnik.getReference(1).rank = 1
         Kopnik.getReference(1).foreman = Kopnik.getReference(3)

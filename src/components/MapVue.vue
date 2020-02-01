@@ -173,13 +173,13 @@
                 alert("getInstance current location")
             },
             map_updateBounds(event) {
+                // console.log("map_updateBounds")
                 this.$emit('update:bounds', event)
             },
             map_updateCenter(event) {
                 this.$emit('update:center', event)
                 if (this.storageKey && localStorage) {
                     if (!this.center.lat || !this.center.lng) {
-
                     } else {
                         this.store()
                     }

@@ -185,12 +185,16 @@ export default class AbstractSync {
      * Мержит плоский объект или модель в кэш моделей
      *
      * @param {Object | AbstractAsync} what
+     * @param {Boolean} isLoaded установить флаг isLoaded после мержа
      * @returns {*}
      */
-    static merge(what) {
+    static merge(what, isLoaded= undefined) {
         let result
         result = this.getReference(what.id)
         result.merge(what)
+        if (isLoaded!==undefined){
+            result.isLoaded= isLoaded
+        }
 
         return result
     }

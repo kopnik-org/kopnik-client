@@ -90,10 +90,10 @@ describe('unit/Application', () => {
             })
         })
     })
-    
+
     describe('status=confirmed', () => {
         beforeEach(async () => {
-            await login(1)
+            await login(5)
         })
         it('authenticate()', async () => {
             await application.authenticate()
@@ -104,6 +104,13 @@ describe('unit/Application', () => {
             expect(application.user).toBeInstanceOf(Kopnik)
         })
         it('top20()', async () => {
+            console.log(container.cookieService.cookie)
+            application.mapBounds = {
+                x1: 0,
+                y1: -90,
+                x2: 180,
+                y2: 90,
+            }
             await application.loadTop20()
             expect(application.top20).toBeInstanceOf(Array)
         })
