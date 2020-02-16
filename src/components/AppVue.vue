@@ -6,7 +6,7 @@
                 Закрыть
             </v-btn>
         </v-snackbar>
-        <v-snackbar v-if="application.infos.length" v-model="infoVisible" bottom color="info" :timeout="500">
+        <v-snackbar v-if="application.infos.length" v-model="infoVisible" bottom color="info" :timeout="3500">
             {{ application.infos[application.infos.length-1] }}
         </v-snackbar>
         <v-app-bar v-if="application.user" app color="indigo">
@@ -75,6 +75,9 @@
                     })
                 }
             },
+            /**
+             * меняем роут вслед за изменением раздела в моделе
+             */
             'application.SECTION': async function (current, prev) {
                 await this.application.lockSection(async () => {
                     if (this.application.section !== this.$route.name) {

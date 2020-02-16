@@ -77,7 +77,6 @@
         </MapVue>
 
         <!--        копники на копу-->
-        <transition name="kopa">
             <kopa-invite v-if="value.kopa.parts.length" :value="value.kopa"
                          style="position: fixed; left: 50%; transform: translateX(-50%); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"
                          :style="{bottom: kopaBottom}"
@@ -85,11 +84,11 @@
                 <v-btn fab small color="primary"
                        title="Созвать всех на копу..."
                        @click="inviteAll_click"
-                       class="ml-auto mr-1 mb-2" width="48" height="48">
+                       class="ml-auto mr-1 mb-2" width="52" height="52">
                     <v-icon>mdi-handshake</v-icon>
                 </v-btn>
             </kopa-invite>
-        </transition>
+
         <!--        копник внизу-->
         <v-bottom-sheet :value="value.selected" :attach="$refs.main"
                         persistent hide-overlay no-click-animation :retain-focus="false" :inset="true"
@@ -285,8 +284,8 @@
                 }
             },
             toggle_click() {
-                this.value.kopa.stupidAdd(this.value.selected)
-                // this.value.kopa.toggle(this.value.selected)
+                // this.value.kopa.stupidAdd(this.value.selected)
+                this.value.kopa.toggle(this.value.selected)
             },
             this_keydown_esc(event) {
                 if (this.value.squadAnalyzer.isAnalyzing()) {

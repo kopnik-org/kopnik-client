@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-wrap justify-start align-start k-kopaInvite"
+    <div class="d-flex flex-wrap justify-start align-center k-kopaInvite"
          :class="{'k-kopaInvite-long': $vuetify.breakpoint.smAndUp}">
         <avatar-vue v-for="eachAvatar of avatars" :key="eachAvatar.value.id" :value="eachAvatar.value"
                       :size="48" class="ml-1 mr-1 mb-2" :class="eachAvatar.className"
@@ -68,7 +68,7 @@
     }
 </script>
 <style lang="scss">
-    $avatar-size: 48px;
+    $avatar-size: 52px; // 48+2*2 borders
     $margin: 4px;
     $element-width: $margin+$avatar-size+$margin;
 
