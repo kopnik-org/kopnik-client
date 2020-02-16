@@ -50,22 +50,7 @@
         watch: {},
         methods: {
             login_click() {
-                function popupwindow(url, title, w, h) {
-                    var left = (screen.width / 2) - (w / 2);
-                    var top = (screen.height / 2) - (h / 2);
-                    return window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-                }
-
-                const loginWindow = popupwindow(container.config.messenger.loginUrl, 'Войти через ВКонтакте', 700, 350)
-                loginWindow.addEventListener('close', () => alert('closed'))
-                loginWindow.onclose = (e) => alert('closed')
-
-                let timer = setInterval(async () => {
-                    if (loginWindow.closed) {
-                        clearInterval(timer);
-                        await container.application.authenticate()
-                    }
-                }, 1000);
+                location.href=container.config.messenger.loginUrl
             },
             vk_login_click() {
                 VK.Auth.login((...args) => {
