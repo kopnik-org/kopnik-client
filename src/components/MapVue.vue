@@ -38,7 +38,7 @@
     } from 'vue2-leaflet'
     import VGeosearch from 'vue2-leaflet-geosearch';
     import VLocatecontrol from 'vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol'
-    import {container} from "../plugins/bottle";
+    import {container} from "../bottle/bottle";
     import logger from "./mixin/logger";
 
     export default {

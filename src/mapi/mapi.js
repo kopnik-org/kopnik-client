@@ -1,4 +1,4 @@
-import {bottle, container} from '../plugins/bottle'
+import {bottle, container} from '../bottle/bottle'
 import {utils} from 'jest-snapshot'
 import {resolve} from 'path'
 import JSON5 from 'json5'

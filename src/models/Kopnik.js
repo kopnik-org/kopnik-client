@@ -20,7 +20,7 @@ export default class Kopnik extends AbstractSync {
     @scalar photo = undefined
     @scalar smallPhoto = undefined
     @scalar status = undefined
-    @scalar locale = undefined
+    @scalar locale = 'ru'
 
     @object foreman = undefined
     @object witness = undefined

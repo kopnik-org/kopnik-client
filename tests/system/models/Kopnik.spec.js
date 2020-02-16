@@ -1,6 +1,6 @@
 import {KopnikApiError} from "../../../src/KopnikError";
 import {AbstractSync, Kopnik} from "../../../src/models";
-import {bottle, container} from "../../../src/plugins/bottle";
+import {bottle, container} from "../../../src/bottle/bottle";
 
 container.config.di.fetch = true
 

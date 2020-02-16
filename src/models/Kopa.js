@@ -1,5 +1,6 @@
 import {sync, collection, scalar, object} from '../decorators/sync'
 import AbstractSync from "./AbstractSync";
+import {container} from "../bottle/bottle";
 
 
 export default class Kopa extends AbstractSync {
@@ -68,7 +69,7 @@ export default class Kopa extends AbstractSync {
     }
 
     inviteAll() {
-        // alert("СОЗВАТЬ ВСЕХ НА КОПУ В РАЗРАБОТКЕ")
         this.parts.splice(0)
+        container.application.errors.push(container.application.getMessage('errors.underConstruction'))
     }
 }

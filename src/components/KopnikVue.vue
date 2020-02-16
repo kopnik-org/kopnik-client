@@ -13,7 +13,7 @@
         <v-list-item v-if="locale">
             <v-list-item-content>
                 <v-combobox ref="locale"
-                            readonly
+                            :readonly="readonly"
                             :return-object="false"
                             :allow-overflow="false"
                             v-model="value.locale"
@@ -29,16 +29,13 @@
         <v-list-item v-if="fio">
             <v-list-item-content>
                 <ValidationProvider name="lastName" rules="required" v-slot="{ errors, valid }">
-
                     <v-text-field
                             v-model="value.lastName"
                             :label="$t('profile.lastName')"
                             :error-messages="errors"
                             :success="valid"
-                            required
-                            readonly
+                            :readonly="readonly"
                     >
-
                     </v-text-field>
                 </ValidationProvider>
             </v-list-item-content>
@@ -51,7 +48,7 @@
                             :label="$t('profile.firstName')"
                             :error-messages="errors"
                             :success="valid"
-                            required
+                            :readonly="readonly"
                     ></v-text-field>
                 </ValidationProvider>
             </v-list-item-content>
@@ -64,19 +61,7 @@
                             :label="$t('profile.patronymic')"
                             :error-messages="errors"
                             :success="valid"
-                            required
-                    ></v-text-field>
-                </ValidationProvider>
-            </v-list-item-content>
-        </v-list-item>
-        <v-list-item v-if="fio">
-            <v-list-item-content>
-                <ValidationProvider name="nickname" rules="" v-slot="{ errors, valid }">
-                    <v-text-field
-                            v-model="value.nickname"
-                            :label="$t('profile.nickname')"
-                            :error-messages="errors"
-                            :success="valid"
+                            :readonly="readonly"
                     ></v-text-field>
                 </ValidationProvider>
             </v-list-item-content>
@@ -90,7 +75,7 @@
                             :label="$t('profile.birthyear')"
                             :error-messages="errors"
                             :success="valid"
-                            required
+                            :readonly="readonly"
                     ></v-text-field>
                 </ValidationProvider>
             </v-list-item-content>
@@ -100,13 +85,12 @@
                 <ValidationProvider name="passport" rules="required|numeric|length:4"
                                     v-slot="{ errors, valid }">
                     <v-text-field
-
                             v-model="value.passport"
                             :counter="4"
                             :label="$t('profile.passport')"
                             :error-messages="errors"
                             :success="valid"
-                            required
+                            :readonly="readonly"
                     ></v-text-field>
                 </ValidationProvider>
             </v-list-item-content>
@@ -114,7 +98,7 @@
         <v-list-item v-if="location">
             <v-list-item-content>
                 <MapVue :center="value.location" :zoom="14"
-                        :zoom-control="false" :layers-control="false" :locate-control="false"
+                        :zoom-control="true" :layers-control="false" :locate-control="false"
                         @update:center="$emit('map_updateCenter', $event)"
                         class="" style="z-index: 0; height: 50vh;">
                     <l-marker :lat-lng="value.location"></l-marker>
@@ -130,7 +114,7 @@
     import MapVue from "./MapVue";
     import AvatarVue from "./AvatarVue";
     import logger from "./mixin/logger"
-    import {container} from "../plugins/bottle";
+    import {container} from "../bottle/bottle";
     import {
         ValidationProvider,
     } from "vee-validate"

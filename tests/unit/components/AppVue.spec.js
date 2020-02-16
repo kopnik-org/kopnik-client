@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import {i18n, vuetify, routerFactory} from "../../test-setup";
 import AppVue from "../../../src/components/AppVue";
-import {bottle, container} from "../../../src/plugins/bottle";
+import {bottle, container} from "../../../src/bottle/bottle";
 import flushPromises from "flush-promises";
 import Application from "../../../src/application/Application";
 

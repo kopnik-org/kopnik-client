@@ -2,7 +2,7 @@
     <v-container v-if="request"
                  fluid class="fill-height">
         <ValidationObserver ref="obs" v-slot="{ invalid, validated, passes, validate }"
-                            class="mx-auto " width="100%" max-width="350px">
+                            tag="div" class="mx-auto" style="width: 100%; max-width:350px">
             <v-card elevation="12">
                 <v-card-text>
                     <v-form>
@@ -10,7 +10,7 @@
                                     locale fio birthyear passport location
                                     @locale_change="locale_change" @map_updateCenter="map_updateCenter"
                         ></kopnik-vue>
-                        <v-btn color="primary" block :disabled="false && ( invalid || !validated)"
+                        <v-btn color="primary" block :disabled="invalid"
                                @click="putWitnessRequest_click"
                         >
                             {{$t('profile.sendRequest')}}
@@ -28,7 +28,7 @@
     } from "vee-validate"
 
     import {Kopnik} from "../models"
-    import {container} from "../plugins/bottle";
+    import {container} from "../bottle/bottle";
     import logger from "./mixin/logger";
     import KopnikVue from "./KopnikVue";
 

@@ -26,5 +26,8 @@
     "thanks": "Thanks",
     "help": "Help",
     "logout": "Logout"
+  },
+  "errors": {
+    "underConstruction": "This functional is under construction by now"
   }
 }

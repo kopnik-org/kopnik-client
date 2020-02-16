@@ -1,4 +1,4 @@
-import {container} from "../plugins/bottle";
+import {container} from "../bottle/bottle";
 
 export default {
     request: function (url, options) {

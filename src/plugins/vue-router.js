@@ -1,7 +1,7 @@
 import Vue from "vue"
 
 import VueRouter from "vue-router";
-import {container} from "./bottle";
+import {container} from "../bottle/bottle";
 import Application from "../application/Application";
 
 Vue.use(VueRouter)

@@ -8,7 +8,7 @@ import _ from "lodash"
 
 import * as models from "."
 import once from "../decorators/once";
-import {container} from "../plugins/bottle";
+import {container} from "../bottle/bottle";
 
 /**
  * Общий принцип работы следующий

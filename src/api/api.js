@@ -1,4 +1,4 @@
-import {container} from "../plugins/bottle";
+import {container} from "../bottle/bottle";
 import {KopnikApiError} from "../KopnikError";
 
 export default async function api(url, options={}) {

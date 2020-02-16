@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 import vuePlugins from "../../test-setup";
 import ThanksVue from "../../../src/components/ThanksVue";
-import {bottle, container} from "../../../src/plugins/bottle";
+import {bottle, container} from "../../../src/bottle/bottle";
 
 describe('unit components Thanks', () => {
     beforeAll(async () => {

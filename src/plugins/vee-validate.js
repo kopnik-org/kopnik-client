@@ -26,7 +26,7 @@ import { localize } from 'vee-validate';
 import en from 'vee-validate/dist/locale/en.json';
 import ru from 'vee-validate/dist/locale/ru.json';
 
-// Install English and Arabic locales.
+// Install English and Arabic messages.
 localize({
     en,
     ru

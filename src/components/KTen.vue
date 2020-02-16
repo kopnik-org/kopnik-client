@@ -16,14 +16,15 @@
                     </v-badge>
                     <v-avatar v-else :key="-eachDruzheIndex"
 
-                 :size="64" class="mb-2">
+                              :size="64" class="mb-2">
                         <v-icon :size="64">mdi-account</v-icon>
                     </v-avatar>
                 </template>
             </div>
         </v-card>
 
-        <transition-group v-if="application.user.tenRequests && application.user.tenRequests.length" name="list-complete" tag="div" class="mx-auto"
+        <transition-group v-if="application.user.tenRequests && application.user.tenRequests.length"
+                          name="list-complete" tag="div" class="mx-auto"
                           style="width: 100%; max-width:350px; position: relative;">
             <v-card v-for="eachRequest in value.tenRequests" :key="eachRequest.id"
                     elevation="12" class="mb-10 list-complete-item" style="width: 100%;">
@@ -41,7 +42,9 @@
                 </v-card-actions>
             </v-card>
         </transition-group>
-        <div v-else class="overline font-weight-bold my-auto" style="font-size: 1.625rem !important; color: #BDBD">Заявок нет</div>
+        <div v-else class="overline font-weight-bold my-auto" style="font-size: 1.625rem !important; color: #BDBD">
+            Заявок нет
+        </div>
     </v-container>
 </template>
 <script>
@@ -51,7 +54,7 @@
     import KopnikView from './KopnikVue'
     import AvatarVue from "./AvatarVue";
     import logger from "./mixin/logger";
-    import {container} from "../plugins/bottle";
+    import {container} from "../bottle/bottle";
 
     export default {
         name: "Ten",
@@ -92,29 +95,32 @@
                 const requests = this.application.user.tenRequests
                 requests.splice(requests.indexOf(request), 1)
                 this.application.user.ten.push(request)
+                this.application.errors.push(this.application.getMessage('errors.underConstruction'))
             },
             request_decline(request) {
                 const requests = this.application.user.tenRequests
                 requests.splice(requests.indexOf(request), 1)
+                this.application.errors.push(this.application.getMessage('errors.underConstruction'))
             },
             druzhe_del(druzhe) {
                 const ten = this.application.user.ten
                 ten.splice(ten.indexOf(druzhe), 1)
+                this.application.errors.push(this.application.getMessage('errors.underConstruction'))
             }
-        }
-        ,
+        },
         async created() {
             // this.application.user.ten = [Kopnik.getReference(1), Kopnik.getReference(3), Kopnik.getReference(4)]
-            this.application.user.tenRequests = [
-                Kopnik.getReference(1), Kopnik.getReference(3), Kopnik.getReference(4),
-            ]
-        }
-        ,
+            if (this.application.user.id === 2) {
+                this.application.user.tenRequests = [
+                    Kopnik.getReference(1), Kopnik.getReference(3), Kopnik.getReference(4),
+                ]
+            }
+        },
     }
 </script>
 
 <style>
-    .k-badge-event-handler .v-badge__wrapper{
+    .k-badge-event-handler .v-badge__wrapper {
         pointer-events: all;
     }
 

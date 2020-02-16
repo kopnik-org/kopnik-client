@@ -1,5 +1,5 @@
 import {Kopnik, Kopa} from "../../../src/models";
-import {bottle, container} from "../../../src/plugins/bottle";
+import {bottle, container} from "../../../src/bottle/bottle";
 import {KopnikApiError} from "../../../src/KopnikError";
 
 describe('unit models Kopa', () => {

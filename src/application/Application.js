@@ -1,12 +1,16 @@
+import get from "keypather/get"
+import has from "keypather/has"
+
 import AsyncLock from 'async-lock'
 import {AbstractSync, Kopnik, Kopa} from "../models";
 import {KopnikApiError, KopnikError} from "../KopnikError";
 import once from "../decorators/once";
 import SquadAnalyzer from "../SquadAnalyzer";
 import fetchIntercept from 'fetch-intercept'
-import {container} from "../plugins/bottle";
+import {container} from "../bottle/bottle";
 import {LatLng, LatLngBounds} from 'leaflet'
 import Main from "./Main";
+import messages from "../locales";
 
 export default class Application {
     constructor(logger) {
@@ -33,6 +37,7 @@ export default class Application {
         /**
          * 0 потому что на undefined не срабатывает watcher,
          * а null занят под "пользователь не аутентифицирован"
+         * @type {Kopnik}
          */
         this.user = undefined
 
@@ -49,6 +54,19 @@ export default class Application {
         this.sections = {
             Main: new Main(this)
         }
+    }
+
+    getMessage(message) {
+        const locale = this.user ? this.user.locale : 'ru'
+        let m= messages
+        if (has(messages[locale], message)) {
+            const result = get(messages[locale], message)
+            return get(messages[locale], message)
+        }
+        if (has(messages['ru'], message)) {
+            return get(messages['ru'], message)
+        }
+        throw new KopnikError('No message provided: ' + message, 2)
     }
 
     /**
@@ -109,6 +127,7 @@ export default class Application {
             this.section = state.section
         }
     }
+
     /**
      * Определиться с пользователем. Или он некий копник, или он null, то есть незарегистрирован на сервере
      * @returns {Promise<Kopnik>}
@@ -119,6 +138,7 @@ export default class Application {
         }
         return this.user
     }
+
     /**
      * Инициализирует ползователя при запуске приложения
      *

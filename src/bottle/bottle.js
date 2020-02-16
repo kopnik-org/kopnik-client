@@ -6,7 +6,7 @@ import * as loglevel from "loglevel";
 import Application from "../application/Application"
 import config from '../../config'
 import api from "../api";
-import CookieService from "../bottle/CookieService"
+import CookieService from "./CookieService"
 
 Bottle.config.strict = true
 const bottle = new Bottle()

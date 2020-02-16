@@ -1,4 +1,4 @@
-import {container} from "../plugins/bottle";
+import {container} from "../bottle/bottle";
 import _ from 'lodash'
 
 export default {

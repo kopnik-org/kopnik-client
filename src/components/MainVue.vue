@@ -105,13 +105,13 @@
                 </v-list-item>
 
                 <v-card-actions class="flex-nowrap">
-                    <v-btn text :disabled="application.user===value.selected" class="flex">
+                    <v-btn text :disabled="application.user===value.selected" class="flex" @click="talk_click">
                         В беседу
                     </v-btn>
                     <v-btn text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
                         {{value.kopa.isAdded(value.selected)?'Не звать':'На копу'}}
                     </v-btn>
-                    <v-btn text :disabled="application.user===value.selected" class="flex">
+                    <v-btn text :disabled="application.user===value.selected" class="flex" @click="setForeman_click">
                         В старшины
                     </v-btn>
                 </v-card-actions>
@@ -130,7 +130,7 @@
     } from 'vue2-leaflet'
     import {Kopnik} from "../models"
     import MapVue from "./MapVue";
-    import {container} from "../plugins/bottle";
+    import {container} from "../bottle/bottle";
     import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator'
     import touchDetector from "./mixin/touch-detecter";
     import logger from "./mixin/logger";
@@ -254,6 +254,18 @@
         },
         methods: {
             /**
+             * Позвать копника в беседу
+             */
+            talk_click(){
+                this.application.errors.push(this.application.getMessage('errors.underConstruction'))
+            },
+            /**
+             * Выбрать копника старшиной
+             */
+            setForeman_click(){
+                this.application.errors.push(this.application.getMessage('errors.underConstruction'))
+            },
+            /**
              * @param {Kopnik} event
              */
             avatar_click(event) {
@@ -276,7 +288,7 @@
             },
             inviteAll_click() {
                 this.value.kopa.inviteAll()
-                this.application.infos.push('Приглашение на Копу отправлено')
+                // this.application.infos.push('Приглашение на Копу отправлено')
             },
             details_input(event) {
                 if (!event) {

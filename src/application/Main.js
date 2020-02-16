@@ -4,7 +4,7 @@ import {KopnikApiError, KopnikError} from "../KopnikError";
 import once from "../decorators/once";
 import SquadAnalyzer from "../SquadAnalyzer";
 import fetchIntercept from 'fetch-intercept'
-import {container} from "../plugins/bottle";
+import {container} from "../bottle/bottle";
 import {LatLng, LatLngBounds} from 'leaflet'
 
 export default class Main {

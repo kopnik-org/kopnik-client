@@ -1,5 +1,5 @@
 import api from "../../../src/api";
-import {bottle, container} from "../../../src/plugins/bottle";
+import {bottle, container} from "../../../src/bottle/bottle";
 import {KopnikApiError} from "../../../src/KopnikError";
 import {AbstractSync, Kopnik} from "../../../src/models";
 

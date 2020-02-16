@@ -1,7 +1,7 @@
 <template>
     <v-app id="inspire" :class="{'k-touch-device':isTouchDevice}">
         <v-snackbar v-if="application.errors.length" v-model="errorVisible" :timeout="0" multi-line top color="error">
-            {{application.errors[application.errors.length-1].message}}
+            {{application.errors[application.errors.length-1].message || application.errors[application.errors.length-1]}}
             <v-btn text xcolor="error" @click="errorVisible = false">
                 Закрыть
             </v-btn>
@@ -13,7 +13,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>kopnik.org</v-toolbar-title>
         </v-app-bar>
-        <DrawerVue v-if="application.user" v-model="drawer"></DrawerVue>
+        <DrawerVue v-if="application.user" v-model="drawer" style="z-index: 700;"></DrawerVue>
         <v-content>
             <LoginVue v-if="!application.user && application.section!=='Thanks'"></LoginVue>
 <!--            <keep-alive :exclude="[Main]">-->
@@ -33,7 +33,7 @@
     import ThanksVue from './ThanksVue'
     import ProfileVue from "./ProfileVue";
     import WitnessVue from "./WitnessVue";
-    import {container} from "../plugins/bottle";
+    import {container} from "../bottle/bottle";
     import DrawerVue from "./DrawerVue";
     import logger from './mixin/logger'
     import Application from "../application/Application";
