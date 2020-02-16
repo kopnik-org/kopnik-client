@@ -2,7 +2,7 @@ import {container} from "../plugins/bottle";
 
 export default {
     request: function (url, options) {
-        if (!url.startsWith(container.config.api.path)) {
+        if (!url.includes(container.config.api.path)) {
             return [url, options]
         }
         if (options.method !== 'GET' && options.body) {
@@ -14,7 +14,7 @@ export default {
         return Promise.reject(error)
     },
     response: async function (response) {
-        if (!response.url.startsWith(container.config.api.path)) {
+        if (!response.url.includes(container.config.api.path)) {
             return response
         }
         switch (response.headers.get('Content-Type')) {

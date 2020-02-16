@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 export default {
     request: function (url, options) {
-        if (!url.startsWith(container.config.api.path)) {
+        if (!url.includes(container.config.api.path)) {
             return [url, options]
         }
         if (!container.config.di.cookie) {
@@ -21,7 +21,7 @@ export default {
         return Promise.reject(error);
     },
     response: async function (response) {
-        if (!response.url.startsWith(container.config.api.path)) {
+        if (!response.url.includes(container.config.api.path)) {
             return response
         }
         if (!container.config.di.cookie) {

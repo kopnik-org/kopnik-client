@@ -3,7 +3,7 @@ import _ from "lodash";
 
 export default {
     request: function (url, options) {
-        if (!url.startsWith(container.config.api.path)) {
+        if (!url.includes(container.config.api.path)) {
             return [url, options]
         }
 

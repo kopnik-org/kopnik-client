@@ -18,4 +18,5 @@ module.exports = {
     devServer: {
         disableHostCheck: true
     },
+    chainWebpack: config => config.optimization.minimize(false)
 }

@@ -9,7 +9,7 @@ export default {
         return Promise.reject(error);
     },
     response: async function (response) {
-        if (!response.url.startsWith(container.config.api.path)) {
+        if (!response.url.includes(container.config.api.path)) {
             return response
         }
         if (!response.ok){

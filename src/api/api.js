@@ -2,8 +2,8 @@ import {container} from "../plugins/bottle";
 import {KopnikApiError} from "../KopnikError";
 
 export default async function api(url, options={}) {
-    let response,
-        fullUrl= container.config.api.path +'/'+ url
+    let response
+    let fullUrl= container.config.api.path +'/'+ url
     try {
         response= await fetch(fullUrl, Object.assign({api: true}, options))
         return response.data.response
