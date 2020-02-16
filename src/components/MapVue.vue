@@ -20,7 +20,7 @@
                 :token="tileProvider.token"
                 layer-type="base"/>
         <v-geosearch v-if="geosearch" :options="geosearchOptions"></v-geosearch>
-        <l-control-layers v-if="layersControl" position="topleft"></l-control-layers>
+<!--        <l-control-layers v-if="layersControl" position="topleft"></l-control-layers>-->
         <l-control-scale v-if="scaleControl" position="bottomright" :imperial="false" :metric="true"></l-control-scale>
         <v-locatecontrol v-if="locateControl" :options="locateOptions"></v-locatecontrol>
         <slot></slot>

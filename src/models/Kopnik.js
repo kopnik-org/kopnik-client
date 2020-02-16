@@ -58,9 +58,6 @@ export default class Kopnik extends AbstractSync {
 
     async merge(plain) {
         super.merge(plain)
-        if (this.photo === '@todo') {
-            this.photo = '/avatar.png'
-        }
         if (!this.rank) {
             this.rank = 1
         }

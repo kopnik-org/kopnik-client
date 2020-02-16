@@ -15,6 +15,7 @@
                 @update:center="map_updateCenter"
                 @update:zoom="map_updateZoom"
                 @update:bounds="map_updateBounds"
+
                 style="z-index: 0"
 
 
@@ -69,7 +70,7 @@
                         :icon-size="[eachMarker.size, eachMarker.size]"
                         :icon-anchor="[eachMarker.size/2, eachMarker.size/2]"
                         :class-name="eachMarker.className"
-                        icon-url="avatar.png">
+                        :icon-url="eachMarker.value.smallPhoto">
                 </l-icon>
                 <l-tooltip v-if="!isTouchDevice" :options="{}">{{eachMarker.value.rankName}}</l-tooltip>
             </l-marker>
@@ -311,7 +312,6 @@
              * @returns {Promise<void>}
              */
             async map_ready(event) {
-                console.log(event.getBounds())
                 await this.value.setMapBounds(event.getBounds())
             },
             async map_updateZoom(event) {
@@ -332,6 +332,11 @@
     }
 </script>
 <style>
+    /*Баг хрома из-за скрываемой адресной строки*/
+    .k-main .leaflet-touch .leaflet-control-container .leaflet-top{
+        margin-top:50px;
+    }
+
     .k-kopaInvite .kopa-leave-to {
         opacity: 0;
     }

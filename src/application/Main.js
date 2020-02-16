@@ -102,6 +102,11 @@ export default class Main {
      * @returns {Promise<void>}
      */
     async loadTop20() {
+        // временно не выводим копников до регистрации
+        if(!container.application.user){
+            return
+        }
+
         this._loadTop20AbortController.abort()
         this._loadTop20AbortController = new AbortController()
         const bounds = this.map.bounds

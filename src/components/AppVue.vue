@@ -1,5 +1,5 @@
 <template>
-    <v-app id="inspire">
+    <v-app id="inspire" :class="{'k-touch-device':isTouchDevice}">
         <v-snackbar v-if="application.errors.length" v-model="errorVisible" :timeout="0" multi-line top color="error">
             {{application.errors[application.errors.length-1].message}}
             <v-btn text xcolor="error" @click="errorVisible = false">
@@ -40,9 +40,10 @@
     import {Kopnik} from '../models'
     import flushPromises from "flush-promises";
     import TenVue from './KTen'
+    import touchDetector from "./mixin/touch-detecter";
 
     export default {
-        mixins: [logger],
+        mixins: [touchDetector, logger],
         components: {
             DrawerVue,
             LoginVue,
@@ -119,6 +120,12 @@
                 // this.$refs.map.mapObject.setView([51.505, -0.09], 13)
 
             })
+/*            window.addEventListener('beforeunload', (event) => {
+                // Cancel the event as stated by the standard.
+                event.preventDefault();
+                // Chrome requires returnValue to be set.
+                event.returnValue = '';
+            });*/
         }
     }
 </script>
