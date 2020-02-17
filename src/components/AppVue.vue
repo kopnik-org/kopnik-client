@@ -1,13 +1,17 @@
 <template>
     <v-app id="inspire" :class="{'k-touch-device':isTouchDevice}">
         <v-snackbar v-if="application.errors.length" v-model="errorVisible" :timeout="0" multi-line top color="error">
-            {{application.errors[application.errors.length-1].message || application.errors[application.errors.length-1]}}
+            {{application.errors[application.errors.length-1].message ||
+            application.errors[application.errors.length-1]}}
             <v-btn text xcolor="error" @click="errorVisible = false">
                 Закрыть
             </v-btn>
         </v-snackbar>
-        <v-snackbar v-if="application.infos.length" v-model="infoVisible" bottom color="info" :timeout="3500">
+        <v-snackbar v-if="application.infos.length" v-model="infoVisible" :timeout="0" multi-line bottom color="info">
             {{ application.infos[application.infos.length-1] }}
+            <v-btn text xcolor="error" @click="infoVisible = false">
+                Закрыть
+            </v-btn>
         </v-snackbar>
         <v-app-bar v-if="application.user" app color="indigo">
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
@@ -16,11 +20,11 @@
         <DrawerVue v-if="application.user" v-model="drawer" style="z-index: 700;"></DrawerVue>
         <v-content>
             <LoginVue v-if="!application.user && application.section!=='Thanks'"></LoginVue>
-<!--            <keep-alive :exclude="[Main]">-->
-<!--                <transition :name="contentTransitionName">-->
-                    <component class="k-content" v-bind:is="application.section+'Vue'" :value="application.user"></component>
-<!--                </transition>-->
-<!--            </keep-alive>-->
+            <!--            <keep-alive :exclude="[Main]">-->
+            <!--                <transition :name="contentTransitionName">-->
+            <component class="k-content" v-bind:is="application.section+'Vue'" :value="application.user"></component>
+            <!--                </transition>-->
+            <!--            </keep-alive>-->
         </v-content>
     </v-app>
 </template>
@@ -102,7 +106,7 @@
                 return this.application.user ? this.application.user.locale : 'ru'
             },
             contentTransitionName() {
-                let result= this.application.SECTION === Application.Section.Main ? 'content2main' : 'content2other'
+                let result = this.application.SECTION === Application.Section.Main ? 'content2main' : 'content2other'
                 this.logger.log(result)
                 return result
             },
@@ -123,12 +127,12 @@
                 // this.$refs.map.mapObject.setView([51.505, -0.09], 13)
 
             })
-/*            window.addEventListener('beforeunload', (event) => {
-                // Cancel the event as stated by the standard.
-                event.preventDefault();
-                // Chrome requires returnValue to be set.
-                event.returnValue = '';
-            });*/
+            /*            window.addEventListener('beforeunload', (event) => {
+                            // Cancel the event as stated by the standard.
+                            event.preventDefault();
+                            // Chrome requires returnValue to be set.
+                            event.returnValue = '';
+                        });*/
         }
     }
 </script>

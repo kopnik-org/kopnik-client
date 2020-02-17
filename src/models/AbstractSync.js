@@ -64,7 +64,8 @@ export default class AbstractSync {
 
     get plain() {
         let result = {
-            id: this.id
+            id: this.id,
+            isLoaded: this.isLoaded,
         }
 
         for (let eachScalarName of this.constructor.scalars.concat("id")) {
@@ -234,6 +235,7 @@ export default class AbstractSync {
 
      */
     merge(plain) {
+        this.isLoaded=plain.isLoaded
         for (let eachScalarName of this.constructor.scalars.concat("id")) {
             if (plain[eachScalarName] !== undefined) {
                 this[eachScalarName] = plain[eachScalarName]

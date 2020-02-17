@@ -98,7 +98,7 @@
         <v-list-item v-if="location">
             <v-list-item-content>
                 <MapVue :center="value.location" :zoom="14"
-                        :zoom-control="true" :layers-control="false" :locate-control="false"
+                        :zoom-control="true" :layers-control="false" :locate-control="true"
                         @update:center="$emit('map_updateCenter', $event)"
                         class="" style="z-index: 0; height: 50vh;">
                     <l-marker :lat-lng="value.location"></l-marker>

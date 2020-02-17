@@ -99,8 +99,7 @@
         },
         props: {
             center: {
-                type: [Array, Object],
-                // default: () => [55.753215, 37.622504]
+                type: [Array,Object],
             },
             zoom: {
                 type: Number,

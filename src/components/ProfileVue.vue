@@ -34,7 +34,7 @@
 
     export default {
         mixins: [logger],
-        name: "Profile",
+        name: "Profile2",
         components: {
             ValidationObserver,
             KopnikVue,
@@ -54,7 +54,7 @@
                 this.request.location = event
             },
             async putWitnessRequest_click() {
-                await this.application.user.putWitnessRequest(this.request)
+                await this.application.user.update(this.request)
             },
             async locale_change(event) {
                 // vue-i18n
@@ -75,9 +75,9 @@
 
             this.request = new Kopnik
             this.request.merge(this.application.user.plain)
-            if (!this.request.location || !this.request.location[0]) {
+            // if (!this.request.location || !this.request.location[0]) {
                 this.request.location = [55.753215, 37.622504]
-            }
+            // }
         },
         async mounted() {
         }
