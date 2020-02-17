@@ -124,7 +124,8 @@ __Параметры__
     "birthyear": 1900,
     "passport": 1984,
     "nickname": "sdakljh23",
-    "location": [1238974.12, 9124.12390]
+    "location": {tal: 14.12, lng: 124.12390},
+    "locale": "ru"
 }
 ```
 __Ошибки__
