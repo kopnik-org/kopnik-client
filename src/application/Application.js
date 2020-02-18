@@ -56,6 +56,10 @@ export default class Application {
         }
     }
 
+    onerror(err){
+        this.errors.push(err)
+    }
+
     getMessage(message) {
         const locale = this.user ? this.user.locale : 'ru'
         let m= messages

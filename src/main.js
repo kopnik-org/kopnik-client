@@ -20,19 +20,23 @@ import './plugins/className'
 
 Vue.config.productionTip = false
 
+// error handling
+window.addEventListener("error", function (event) {
+    container.application.onerror(event.error)
+})
+window.addEventListener("unhandledrejection", function (event) {
+    container.application.onerror(event.reason)
+})
+Vue.config.errorHandler = (err, vm, info) => {
+    err.vm= vm
+    err.info= info
+    container.application.onerror(err)
+}
+
 global.application = container.application
 global.application.authenticate()
-/*    .then(() => {
-        if (!this.user) {
-            this.section = 'Map'
-        } else if (this.user.status == Kopnik.Status.NEW || this.user.status == Kopnik.Status.DECLINED) {
-            this.section = 'Profile'
-        } else {
-            this.section = 'Map'
-        }
-    })*/
 
-global.vue = new Vue({
+global.vm = new Vue({
     ...AppVue,
     el: "#appContainer",
     vuetify,
