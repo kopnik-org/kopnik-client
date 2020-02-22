@@ -88,16 +88,19 @@ export default class Kopnik extends AbstractSync {
 
     async reloadWitnessRequests() {
         let result = await this.constructor.api('pending')
-        this.witnessRequests= result.map(eachKopnikAsJson=>Kopnik.merge(eachKopnikAsJson))
+        this.witnessRequests= result.map(eachKopnikAsJson=>Kopnik.merge(eachKopnikAsJson, true))
     }
 
-    async patchLocale() {
-        await this.constructor.api('patchLocale', {
+    async updateLocale() {
+        await this.constructor.api('updateLocale', {
             method: 'POST',
             body: {
                 locale: this.locale
             }
         })
+    }
+    async isMessagesFromGroupAllowed() {
+        return await this.constructor.api('isMessagesFromGroupAllowed')
     }
 }
 
