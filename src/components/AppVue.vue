@@ -119,6 +119,8 @@
                     event.preventDefault()
                 }
             },
+        },
+        created(){
 
         },
         mounted() {

@@ -1,5 +1,6 @@
 import {sync, collection, scalar, object} from '../decorators/sync'
 import AbstractSync from "./AbstractSync";
+import {KopnikError} from '../KopnikError'
 
 
 export default class Kopnik extends AbstractSync {
@@ -66,21 +67,30 @@ export default class Kopnik extends AbstractSync {
         }
     }
 
-
+    /**
+     * Подать заявку на заверение себя
+     *
+     * @param data
+     * @return {Promise<void>}
+     */
     async update(data) {
-        data.update = true
-        return await this.constructor.api("update", {
+        if (!data.passport){
+            throw new KopnikError('Passport required')
+        }
+        await this.constructor.api("update", {
             method: 'POST',
             body: data
         })
+        this.merge(data)
+        this.status = Kopnik.Status.PENDING
     }
 
-    async updateWitnessRequestStatus(joining) {
+    async updateWitnessRequestStatus(witnessRequest) {
         let result = await this.constructor.api('pending/update', {
             method: 'post',
             body: {
-                id: joining.id,
-                status: joining.status,
+                id: witnessRequest.id,
+                status: witnessRequest.status,
             },
         })
         return result
@@ -88,7 +98,7 @@ export default class Kopnik extends AbstractSync {
 
     async reloadWitnessRequests() {
         let result = await this.constructor.api('pending')
-        this.witnessRequests= result.map(eachKopnikAsJson=>Kopnik.merge(eachKopnikAsJson, true))
+        this.witnessRequests = result.map(eachKopnikAsJson => Kopnik.merge(eachKopnikAsJson, true))
     }
 
     async updateLocale() {
@@ -99,6 +109,7 @@ export default class Kopnik extends AbstractSync {
             }
         })
     }
+
     async isMessagesFromGroupAllowed() {
         return await this.constructor.api('isMessagesFromGroupAllowed')
     }

@@ -2,7 +2,7 @@
 
 exports[`unit components KopaInviteVue.vue render 1`] = `
 <div
-  class="d-flex flex-wrap justify-start align-start k-kopaInvite k-kopaInvite-long"
+  class="d-flex flex-wrap justify-start align-center k-kopaInvite k-kopaInvite-long"
 >
   <span
     class="v-badge ml-1 mr-1 mb-2 v-badge--bottom theme--light map_avatar"
@@ -13,7 +13,7 @@ exports[`unit components KopaInviteVue.vue render 1`] = `
       style="height: 48px; min-width: 48px; width: 48px;"
     >
       <img
-        src="/avatar.png"
+        src="https://lorempixel.com/200/200/?38194"
         style="object-fit: cover;"
       />
     </div>

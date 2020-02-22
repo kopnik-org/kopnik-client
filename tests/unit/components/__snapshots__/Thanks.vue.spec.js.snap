@@ -38,7 +38,9 @@ exports[`unit components Thanks offline 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -58,8 +60,6 @@ exports[`unit components Thanks offline 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -153,7 +153,9 @@ exports[`unit components Thanks offline 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -173,8 +175,6 @@ exports[`unit components Thanks offline 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -527,7 +527,9 @@ exports[`unit components Thanks offline 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -547,8 +549,6 @@ exports[`unit components Thanks offline 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -672,7 +672,9 @@ exports[`unit components Thanks offline 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -692,8 +694,6 @@ exports[`unit components Thanks offline 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -913,7 +913,9 @@ exports[`unit components Thanks offline 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -933,8 +935,6 @@ exports[`unit components Thanks offline 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -1050,7 +1050,9 @@ exports[`unit components Thanks offline 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -1070,8 +1072,6 @@ exports[`unit components Thanks offline 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -1217,7 +1217,9 @@ exports[`unit components Thanks offline 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -1237,8 +1239,6 @@ exports[`unit components Thanks offline 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -1384,7 +1384,9 @@ exports[`unit components Thanks offline 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -1404,8 +1406,6 @@ exports[`unit components Thanks offline 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -1625,7 +1625,9 @@ exports[`unit components Thanks offline 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -1645,8 +1647,6 @@ exports[`unit components Thanks offline 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -1844,7 +1844,9 @@ exports[`unit components Thanks offline 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -1864,8 +1866,6 @@ exports[`unit components Thanks offline 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -2007,7 +2007,7 @@ exports[`unit components Thanks online 1`] = `
             style="height: 128px; min-width: 128px; width: 128px;"
           >
             <img
-              src="/avatar.png"
+              src="https://sun1-93.userapi.com/tvpmiLDOH0x85TWF3KktOksi7C0lmarbnu6XTQ/V26eVKeaST8.jpg"
               style="object-fit: cover;"
             />
           </div>
@@ -2038,12 +2038,10 @@ exports[`unit components Thanks online 1`] = `
           <div
             class="v-list-item__title title"
           >
-            Сысоев Павел Якушев
+            Ражков Артем
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -2124,7 +2122,7 @@ exports[`unit components Thanks online 1`] = `
             style="height: 128px; min-width: 128px; width: 128px;"
           >
             <img
-              src="/avatar.png"
+              src="https://i.imgur.com/lwWzCDl.jpg"
               style="object-fit: cover;"
             />
           </div>
@@ -2155,12 +2153,10 @@ exports[`unit components Thanks online 1`] = `
           <div
             class="v-list-item__title title"
           >
-            Калашниковa Максим Колесников
+            Баранов Алексей
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -2513,7 +2509,9 @@ exports[`unit components Thanks online 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -2533,8 +2531,6 @@ exports[`unit components Thanks online 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -2658,7 +2654,9 @@ exports[`unit components Thanks online 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -2678,8 +2676,6 @@ exports[`unit components Thanks online 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -2899,7 +2895,9 @@ exports[`unit components Thanks online 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -2919,8 +2917,6 @@ exports[`unit components Thanks online 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -3023,7 +3019,7 @@ exports[`unit components Thanks online 1`] = `
             style="height: 128px; min-width: 128px; width: 128px;"
           >
             <img
-              src="/avatar.png"
+              src="https://sun1-91.userapi.com/c857628/v857628007/644b7/1dFOLyFpK_8.jpg"
               style="object-fit: cover;"
             />
           </div>
@@ -3054,12 +3050,10 @@ exports[`unit components Thanks online 1`] = `
           <div
             class="v-list-item__title title"
           >
-            Некрасов Валериан Дементьев
+            Титов Александр
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -3205,7 +3199,9 @@ exports[`unit components Thanks online 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -3225,8 +3221,6 @@ exports[`unit components Thanks online 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -3372,7 +3366,9 @@ exports[`unit components Thanks online 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -3392,8 +3388,6 @@ exports[`unit components Thanks online 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -3613,7 +3607,9 @@ exports[`unit components Thanks online 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -3633,8 +3629,6 @@ exports[`unit components Thanks online 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        
@@ -3832,7 +3826,9 @@ exports[`unit components Thanks online 1`] = `
               aria-live="polite"
               class="v-badge__badge orange"
               role="status"
-            />
+            >
+              1
+            </span>
           </span>
         </span>
       </div>
@@ -3852,8 +3848,6 @@ exports[`unit components Thanks online 1`] = `
           </div>
         </div>
       </div>
-       
-      <!---->
        
       <!---->
        

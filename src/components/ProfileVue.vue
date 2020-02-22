@@ -10,7 +10,7 @@
                                     locale fio birthyear passport location
                                     @locale_change="locale_change" @map_updateCenter="map_updateCenter"
                         ></kopnik-vue>
-                        <v-btn color="primary" block :disabled="invalid"
+                        <v-btn color="primary" block :disabledX="false && invalid"
                                @click="putWitnessRequest_click"
                         >
                             {{$t('profile.sendRequest')}}

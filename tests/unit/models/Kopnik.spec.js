@@ -5,62 +5,69 @@ import {KopnikApiError} from "../../../src/KopnikError";
 describe('unit models Kopnik', () => {
     let kopnik
     describe('merge', () => {
-        it('Kopnik.merge id', async () => {
-            let kopnik1 = new Kopnik()
-            kopnik1.id = undefined
-            kopnik1.merge({id: 10})
+        it('id', async () => {
+            let kopnik = new Kopnik()
+            kopnik.id = undefined
+            kopnik.merge({id: 10})
 
-            expect(kopnik1.id).toBe(10)
+            expect(kopnik.id).toBe(10)
         })
 
-        it('Kopnik.merge scalar', async () => {
-            let kopnik1 = new Kopnik()
-            kopnik1.firstName = "Павел"
-            kopnik1.merge({firstName: "Ярослав"})
+        it('scalar', async () => {
+            let kopnik = new Kopnik()
+            kopnik.firstName = "Павел"
+            kopnik.merge({firstName: "Ярослав"})
 
-            expect(kopnik1.firstName).toBe("Ярослав")
+            expect(kopnik.firstName).toBe("Ярослав")
         })
 
-        it('Kopnik.merge does not merge absend scalar', async () => {
-            let kopnik1 = new Kopnik()
-            kopnik1.firstName = "Ярослав"
-            kopnik1.merge({id: 10})
+        it('does not merge absend scalar', async () => {
+            let kopnik = new Kopnik()
+            kopnik.firstName = "Ярослав"
+            kopnik.merge({id: 10})
 
-            expect(kopnik1.firstName).toBe("Ярослав")
+            expect(kopnik.firstName).toBe("Ярослав")
         })
 
-        it('Kopnik.merge object', async () => {
-            let kopnik1 = new Kopnik()
-            kopnik1.witness = undefined
-            kopnik1.merge({witness_id: 1})
+        it('object', async () => {
+            let kopnik = new Kopnik()
+            kopnik.witness = undefined
+            kopnik.merge({witness_id: 1})
 
-            expect(kopnik1.witness).toBe(Kopnik.getReference(1))
+            expect(kopnik.witness).toBe(Kopnik.getReference(1))
         })
-        it('Kopnik.merge does not merge absend object', async () => {
-            let kopnik1 = new Kopnik()
-            kopnik1.witness = Kopnik.getReference(1)
-            kopnik1.merge({id: 10})
+        it('does not merge absend object', async () => {
+            let kopnik = new Kopnik()
+            kopnik.witness = Kopnik.getReference(1)
+            kopnik.merge({id: 10})
 
-            expect(kopnik1.witness).toBe(Kopnik.getReference(1))
+            expect(kopnik.witness).toBe(Kopnik.getReference(1))
         })
 
-        it('Kopnik.merge merge null', async () => {
-            let kopnik1 = new Kopnik()
-            kopnik1.witness = Kopnik.getReference(1)
-            kopnik1.merge({witness_id: null})
+        it('merge null', async () => {
+            let kopnik = new Kopnik()
+            kopnik.witness = Kopnik.getReference(1)
+            kopnik.merge({witness_id: null})
 
-            expect(kopnik1.witness).toBe(null)
+            expect(kopnik.witness).toBe(null)
+        })
+
+        it('merge isLoaded', async () => {
+            let kopnik = new Kopnik()
+            kopnik.merge({isLoaded: true})
+
+            expect(kopnik.isLoaded).toBe(true)
         })
     })
 
     describe('plain', () => {
         it('Kopnik.plain', async () => {
-            let kopnik1 = Kopnik.getReference(1)
-            kopnik1.firstName = "Ярослав"
-            kopnik1.witness = Kopnik.getReference(2)
-            kopnik1.ten = [Kopnik.getReference(3), Kopnik.getReference(4)]
+            let kopnik = Kopnik.getReference(1)
+            kopnik.firstName = "Ярослав"
+            kopnik.witness = Kopnik.getReference(2)
+            kopnik.ten = [Kopnik.getReference(3), Kopnik.getReference(4)]
 
-            let plain = kopnik1.plain
+            let plain = kopnik.plain
             expect(plain.id).toBe(1)
             expect(plain.firstName).toBe("Ярослав")
             expect(plain.witness_id).toBe(2)
@@ -95,6 +102,12 @@ describe('unit models Kopnik', () => {
         })
     })
 
+    it('update', async () => {
+        await login(3)
+        kopnik = await Kopnik.get(3)
+        await kopnik.update(kopnik.plain)
+    })
+
     describe('anonymous', () => {
         beforeEach(async () => {
             kopnik = new Kopnik()
@@ -107,9 +120,6 @@ describe('unit models Kopnik', () => {
             await login(2)
             kopnik = await Kopnik.get(2)
         })
-        it('update', async () => {
-            await kopnik.update(kopnik.plain)
-        })
     })
 
     describe('pending', () => {
@@ -117,9 +127,6 @@ describe('unit models Kopnik', () => {
             bottle.resetProviders('cookieService')
             await login(3)
             kopnik = await Kopnik.get(3)
-        })
-        it('update', async () => {
-            await kopnik.update(kopnik.plain)
         })
     })
 
@@ -129,9 +136,6 @@ describe('unit models Kopnik', () => {
             await login(4)
             kopnik = await Kopnik.get(4)
         })
-        it('update', async () => {
-            await kopnik.update(kopnik.plain)
-        })
     })
 
     describe('confirmed', () => {
@@ -139,9 +143,6 @@ describe('unit models Kopnik', () => {
             bottle.resetProviders('cookieService')
             await login(5)
             kopnik = await Kopnik.get(5)
-        })
-        it('update', async () => {
-            let result = await kopnik.update(kopnik.plain)
         })
     })
 
@@ -152,11 +153,11 @@ describe('unit models Kopnik', () => {
             await login(1)
             kopnik = await Kopnik.get(1)
         })
-        it('getPending', async () => {
+        it('reloadWitnessRequests', async () => {
             await kopnik.reloadWitnessRequests()
             expect(kopnik.witnessRequests.map(each => each.plain)).toMatchSnapshot()
         })
-        it('updateWitnessRequestStatus(pending)', async () => {
+        it('updateWitnessRequestStatus', async () => {
             await kopnik.updateWitnessRequestStatus({id: 3, status: 2})
         })
     })

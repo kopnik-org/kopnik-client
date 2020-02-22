@@ -1,0 +1,1531 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`system api get anonymous users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20 1`] = `{ error: {"message":"No authentication","code":401,"url":"http://localhost:8082/api/users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20"} }`;
+
+exports[`system api get anonymous users/pending 1`] = `{ error: {"message":"No authentication","code":401,"url":"http://localhost:8082/api/users/pending"} }`;
+
+exports[`system api get user1 users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.042697,
+      "lng": 147.94418,
+    },
+    "passport": 9991,
+    "patronymic": "Якушев",
+    "photo": "https://lorempixel.com/200/200/?64516",
+    "smallPhoto": "https://lorempixel.com/200/200/?64516",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user1 users/get?ids=1 1`] = `
+Array [
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.042697,
+      "lng": 147.94418,
+    },
+    "passport": 9991,
+    "patronymic": "Якушев",
+    "photo": "https://lorempixel.com/200/200/?64516",
+    "smallPhoto": "https://lorempixel.com/200/200/?64516",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user1 users/get?ids=1,2,3 1`] = `
+Array [
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.042697,
+      "lng": 147.94418,
+    },
+    "passport": 9991,
+    "patronymic": "Якушев",
+    "photo": "https://lorempixel.com/200/200/?64516",
+    "smallPhoto": "https://lorempixel.com/200/200/?64516",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1969,
+    "firstName": "Максим",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Калашниковa",
+    "locale": "ru",
+    "location": Object {
+      "lat": 62.335965,
+      "lng": -29.089973,
+    },
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "https://lorempixel.com/200/200/?38194",
+    "smallPhoto": "https://lorempixel.com/200/200/?38194",
+    "status": 0,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1968,
+    "firstName": "Иммануил",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Медведев",
+    "locale": "ru",
+    "location": Object {
+      "lat": -30.091114,
+      "lng": 149.026328,
+    },
+    "passport": null,
+    "patronymic": "Гордеев",
+    "photo": "https://lorempixel.com/200/200/?47557",
+    "smallPhoto": "https://lorempixel.com/200/200/?47557",
+    "status": 1,
+    "witness_id": 1,
+  },
+]
+`;
+
+exports[`system api get user1 users/get?ids=2 1`] = `
+Array [
+  Object {
+    "birthyear": 1969,
+    "firstName": "Максим",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Калашниковa",
+    "locale": "ru",
+    "location": Object {
+      "lat": 62.335965,
+      "lng": -29.089973,
+    },
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "https://lorempixel.com/200/200/?38194",
+    "smallPhoto": "https://lorempixel.com/200/200/?38194",
+    "status": 0,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user1 users/get?ids=3 1`] = `
+Array [
+  Object {
+    "birthyear": 1968,
+    "firstName": "Иммануил",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Медведев",
+    "locale": "ru",
+    "location": Object {
+      "lat": -30.091114,
+      "lng": 149.026328,
+    },
+    "passport": null,
+    "patronymic": "Гордеев",
+    "photo": "https://lorempixel.com/200/200/?47557",
+    "smallPhoto": "https://lorempixel.com/200/200/?47557",
+    "status": 1,
+    "witness_id": 1,
+  },
+]
+`;
+
+exports[`system api get user1 users/get?ids=4 1`] = `
+Array [
+  Object {
+    "birthyear": 1958,
+    "firstName": "Донат",
+    "foreman_id": null,
+    "id": 4,
+    "lastName": "Жданов",
+    "locale": "ru",
+    "location": Object {
+      "lat": 38.874692,
+      "lng": 168.574166,
+    },
+    "passport": null,
+    "patronymic": "Фомичёв",
+    "photo": "https://lorempixel.com/200/200/?27960",
+    "smallPhoto": "https://lorempixel.com/200/200/?27960",
+    "status": 3,
+    "witness_id": 1,
+  },
+]
+`;
+
+exports[`system api get user1 users/pending 1`] = `
+Array [
+  Object {
+    "birthyear": 1968,
+    "firstName": "Иммануил",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Медведев",
+    "locale": "ru",
+    "location": Object {
+      "lat": -30.091114,
+      "lng": 149.026328,
+    },
+    "passport": 9777,
+    "patronymic": "Гордеев",
+    "photo": "https://lorempixel.com/200/200/?47557",
+    "smallPhoto": "https://lorempixel.com/200/200/?47557",
+    "status": 1,
+    "witness_id": 1,
+  },
+]
+`;
+
+exports[`system api get user2 users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1969,
+    "firstName": "Максим",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Калашниковa",
+    "locale": "ru",
+    "location": Object {
+      "lat": 62.335965,
+      "lng": -29.089973,
+    },
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "https://lorempixel.com/200/200/?38194",
+    "smallPhoto": "https://lorempixel.com/200/200/?38194",
+    "status": 0,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user2 users/get?ids=2 1`] = `
+Array [
+  Object {
+    "birthyear": 1969,
+    "firstName": "Максим",
+    "foreman_id": null,
+    "id": 2,
+    "lastName": "Калашниковa",
+    "locale": "ru",
+    "location": Object {
+      "lat": 62.335965,
+      "lng": -29.089973,
+    },
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "https://lorempixel.com/200/200/?38194",
+    "smallPhoto": "https://lorempixel.com/200/200/?38194",
+    "status": 0,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user2 users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20 1`] = `
+Array [
+  Object {
+    "birthyear": 1954,
+    "firstName": "Анатолий",
+    "foreman_id": 6,
+    "id": 9,
+    "lastName": "Лукин",
+    "locale": "ru",
+    "location": Object {
+      "lat": 38.837528,
+      "lng": -136.98343,
+    },
+    "passport": null,
+    "patronymic": "Михайлов",
+    "photo": "https://lorempixel.com/200/200/?21702",
+    "smallPhoto": "https://lorempixel.com/200/200/?21702",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1983,
+    "firstName": "Антонин",
+    "foreman_id": null,
+    "id": 5,
+    "lastName": "Ларионов",
+    "locale": "ru",
+    "location": Object {
+      "lat": 75.46131,
+      "lng": -119.580512,
+    },
+    "passport": null,
+    "patronymic": "Гордеев",
+    "photo": "https://lorempixel.com/200/200/?96979",
+    "smallPhoto": "https://lorempixel.com/200/200/?96979",
+    "status": 2,
+    "witness_id": 1,
+  },
+  Object {
+    "birthyear": 1980,
+    "firstName": "Клим",
+    "foreman_id": 6,
+    "id": 11,
+    "lastName": "Тихонов",
+    "locale": "ru",
+    "location": Object {
+      "lat": -35.363019,
+      "lng": -96.834448,
+    },
+    "passport": null,
+    "patronymic": "Щукин",
+    "photo": "https://lorempixel.com/200/200/?90383",
+    "smallPhoto": "https://lorempixel.com/200/200/?90383",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1958,
+    "firstName": "Руслан",
+    "foreman_id": 6,
+    "id": 7,
+    "lastName": "Антоновa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -59.595532,
+      "lng": -31.486016,
+    },
+    "passport": null,
+    "patronymic": "Харитоновa",
+    "photo": "https://lorempixel.com/200/200/?97969",
+    "smallPhoto": "https://lorempixel.com/200/200/?97969",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1954,
+    "firstName": "Стефан",
+    "foreman_id": 6,
+    "id": 13,
+    "lastName": "Овчинников",
+    "locale": "ru",
+    "location": Object {
+      "lat": -71.843162,
+      "lng": -15.606366,
+    },
+    "passport": null,
+    "patronymic": "Павлов",
+    "photo": "https://lorempixel.com/200/200/?87923",
+    "smallPhoto": "https://lorempixel.com/200/200/?87923",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1960,
+    "firstName": "Адам",
+    "foreman_id": 6,
+    "id": 10,
+    "lastName": "Фёдоровa",
+    "locale": "ru",
+    "location": Object {
+      "lat": 35.203692,
+      "lng": -3.033662,
+    },
+    "passport": null,
+    "patronymic": "Самсоновa",
+    "photo": "https://lorempixel.com/200/200/?62595",
+    "smallPhoto": "https://lorempixel.com/200/200/?62595",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1952,
+    "firstName": "Данила",
+    "foreman_id": 6,
+    "id": 12,
+    "lastName": "Гущин",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.787319,
+      "lng": 12.922707,
+    },
+    "passport": null,
+    "patronymic": "Трофимов",
+    "photo": "https://lorempixel.com/200/200/?96149",
+    "smallPhoto": "https://lorempixel.com/200/200/?96149",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1962,
+    "firstName": "Константин",
+    "foreman_id": 6,
+    "id": 15,
+    "lastName": "Журавлёв",
+    "locale": "ru",
+    "location": Object {
+      "lat": 22.260997,
+      "lng": 53.189783,
+    },
+    "passport": null,
+    "patronymic": "Рогов",
+    "photo": "https://lorempixel.com/200/200/?77584",
+    "smallPhoto": "https://lorempixel.com/200/200/?77584",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1979,
+    "firstName": "Виктор",
+    "foreman_id": 6,
+    "id": 8,
+    "lastName": "Костин",
+    "locale": "ru",
+    "location": Object {
+      "lat": -9.69579,
+      "lng": 104.14056,
+    },
+    "passport": null,
+    "patronymic": "Миронов",
+    "photo": "https://lorempixel.com/200/200/?29991",
+    "smallPhoto": "https://lorempixel.com/200/200/?29991",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.042697,
+      "lng": 147.94418,
+    },
+    "passport": null,
+    "patronymic": "Якушев",
+    "photo": "https://lorempixel.com/200/200/?64516",
+    "smallPhoto": "https://lorempixel.com/200/200/?64516",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1984,
+    "firstName": "Артём",
+    "foreman_id": 6,
+    "id": 14,
+    "lastName": "Орловa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -27.831397,
+      "lng": 153.903088,
+    },
+    "passport": null,
+    "patronymic": "Елисеев",
+    "photo": "https://lorempixel.com/200/200/?67277",
+    "smallPhoto": "https://lorempixel.com/200/200/?67277",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1973,
+    "firstName": "Борис",
+    "foreman_id": null,
+    "id": 6,
+    "lastName": "Павловa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -29.953031,
+      "lng": 164.840232,
+    },
+    "passport": null,
+    "patronymic": "Лапин",
+    "photo": "https://lorempixel.com/200/200/?63433",
+    "smallPhoto": "https://lorempixel.com/200/200/?63433",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user2 users/pending 1`] = `{ error: {"message":"ACCESS_DENIED: Получить заявки могут только заверители","code":403,"url":"http://localhost:8082/api/users/pending"} }`;
+
+exports[`system api get user3 users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1968,
+    "firstName": "Иммануил",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Медведев",
+    "locale": "ru",
+    "location": Object {
+      "lat": -30.091114,
+      "lng": 149.026328,
+    },
+    "passport": 9777,
+    "patronymic": "Гордеев",
+    "photo": "https://lorempixel.com/200/200/?47557",
+    "smallPhoto": "https://lorempixel.com/200/200/?47557",
+    "status": 1,
+    "witness_id": 1,
+  },
+]
+`;
+
+exports[`system api get user3 users/get?ids=3 1`] = `
+Array [
+  Object {
+    "birthyear": 1968,
+    "firstName": "Иммануил",
+    "foreman_id": null,
+    "id": 3,
+    "lastName": "Медведев",
+    "locale": "ru",
+    "location": Object {
+      "lat": -30.091114,
+      "lng": 149.026328,
+    },
+    "passport": 9777,
+    "patronymic": "Гордеев",
+    "photo": "https://lorempixel.com/200/200/?47557",
+    "smallPhoto": "https://lorempixel.com/200/200/?47557",
+    "status": 1,
+    "witness_id": 1,
+  },
+]
+`;
+
+exports[`system api get user3 users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20 1`] = `
+Array [
+  Object {
+    "birthyear": 1954,
+    "firstName": "Анатолий",
+    "foreman_id": 6,
+    "id": 9,
+    "lastName": "Лукин",
+    "locale": "ru",
+    "location": Object {
+      "lat": 38.837528,
+      "lng": -136.98343,
+    },
+    "passport": null,
+    "patronymic": "Михайлов",
+    "photo": "https://lorempixel.com/200/200/?21702",
+    "smallPhoto": "https://lorempixel.com/200/200/?21702",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1983,
+    "firstName": "Антонин",
+    "foreman_id": null,
+    "id": 5,
+    "lastName": "Ларионов",
+    "locale": "ru",
+    "location": Object {
+      "lat": 75.46131,
+      "lng": -119.580512,
+    },
+    "passport": null,
+    "patronymic": "Гордеев",
+    "photo": "https://lorempixel.com/200/200/?96979",
+    "smallPhoto": "https://lorempixel.com/200/200/?96979",
+    "status": 2,
+    "witness_id": 1,
+  },
+  Object {
+    "birthyear": 1980,
+    "firstName": "Клим",
+    "foreman_id": 6,
+    "id": 11,
+    "lastName": "Тихонов",
+    "locale": "ru",
+    "location": Object {
+      "lat": -35.363019,
+      "lng": -96.834448,
+    },
+    "passport": null,
+    "patronymic": "Щукин",
+    "photo": "https://lorempixel.com/200/200/?90383",
+    "smallPhoto": "https://lorempixel.com/200/200/?90383",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1958,
+    "firstName": "Руслан",
+    "foreman_id": 6,
+    "id": 7,
+    "lastName": "Антоновa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -59.595532,
+      "lng": -31.486016,
+    },
+    "passport": null,
+    "patronymic": "Харитоновa",
+    "photo": "https://lorempixel.com/200/200/?97969",
+    "smallPhoto": "https://lorempixel.com/200/200/?97969",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1954,
+    "firstName": "Стефан",
+    "foreman_id": 6,
+    "id": 13,
+    "lastName": "Овчинников",
+    "locale": "ru",
+    "location": Object {
+      "lat": -71.843162,
+      "lng": -15.606366,
+    },
+    "passport": null,
+    "patronymic": "Павлов",
+    "photo": "https://lorempixel.com/200/200/?87923",
+    "smallPhoto": "https://lorempixel.com/200/200/?87923",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1960,
+    "firstName": "Адам",
+    "foreman_id": 6,
+    "id": 10,
+    "lastName": "Фёдоровa",
+    "locale": "ru",
+    "location": Object {
+      "lat": 35.203692,
+      "lng": -3.033662,
+    },
+    "passport": null,
+    "patronymic": "Самсоновa",
+    "photo": "https://lorempixel.com/200/200/?62595",
+    "smallPhoto": "https://lorempixel.com/200/200/?62595",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1952,
+    "firstName": "Данила",
+    "foreman_id": 6,
+    "id": 12,
+    "lastName": "Гущин",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.787319,
+      "lng": 12.922707,
+    },
+    "passport": null,
+    "patronymic": "Трофимов",
+    "photo": "https://lorempixel.com/200/200/?96149",
+    "smallPhoto": "https://lorempixel.com/200/200/?96149",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1962,
+    "firstName": "Константин",
+    "foreman_id": 6,
+    "id": 15,
+    "lastName": "Журавлёв",
+    "locale": "ru",
+    "location": Object {
+      "lat": 22.260997,
+      "lng": 53.189783,
+    },
+    "passport": null,
+    "patronymic": "Рогов",
+    "photo": "https://lorempixel.com/200/200/?77584",
+    "smallPhoto": "https://lorempixel.com/200/200/?77584",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1979,
+    "firstName": "Виктор",
+    "foreman_id": 6,
+    "id": 8,
+    "lastName": "Костин",
+    "locale": "ru",
+    "location": Object {
+      "lat": -9.69579,
+      "lng": 104.14056,
+    },
+    "passport": null,
+    "patronymic": "Миронов",
+    "photo": "https://lorempixel.com/200/200/?29991",
+    "smallPhoto": "https://lorempixel.com/200/200/?29991",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.042697,
+      "lng": 147.94418,
+    },
+    "passport": null,
+    "patronymic": "Якушев",
+    "photo": "https://lorempixel.com/200/200/?64516",
+    "smallPhoto": "https://lorempixel.com/200/200/?64516",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1984,
+    "firstName": "Артём",
+    "foreman_id": 6,
+    "id": 14,
+    "lastName": "Орловa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -27.831397,
+      "lng": 153.903088,
+    },
+    "passport": null,
+    "patronymic": "Елисеев",
+    "photo": "https://lorempixel.com/200/200/?67277",
+    "smallPhoto": "https://lorempixel.com/200/200/?67277",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1973,
+    "firstName": "Борис",
+    "foreman_id": null,
+    "id": 6,
+    "lastName": "Павловa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -29.953031,
+      "lng": 164.840232,
+    },
+    "passport": null,
+    "patronymic": "Лапин",
+    "photo": "https://lorempixel.com/200/200/?63433",
+    "smallPhoto": "https://lorempixel.com/200/200/?63433",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user3 users/pending 1`] = `{ error: {"message":"ACCESS_DENIED: Получить заявки могут только заверители","code":403,"url":"http://localhost:8082/api/users/pending"} }`;
+
+exports[`system api get user4 users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1958,
+    "firstName": "Донат",
+    "foreman_id": null,
+    "id": 4,
+    "lastName": "Жданов",
+    "locale": "ru",
+    "location": Object {
+      "lat": 38.874692,
+      "lng": 168.574166,
+    },
+    "passport": 3118,
+    "patronymic": "Фомичёв",
+    "photo": "https://lorempixel.com/200/200/?27960",
+    "smallPhoto": "https://lorempixel.com/200/200/?27960",
+    "status": 3,
+    "witness_id": 1,
+  },
+]
+`;
+
+exports[`system api get user4 users/get?ids=4 1`] = `
+Array [
+  Object {
+    "birthyear": 1958,
+    "firstName": "Донат",
+    "foreman_id": null,
+    "id": 4,
+    "lastName": "Жданов",
+    "locale": "ru",
+    "location": Object {
+      "lat": 38.874692,
+      "lng": 168.574166,
+    },
+    "passport": 3118,
+    "patronymic": "Фомичёв",
+    "photo": "https://lorempixel.com/200/200/?27960",
+    "smallPhoto": "https://lorempixel.com/200/200/?27960",
+    "status": 3,
+    "witness_id": 1,
+  },
+]
+`;
+
+exports[`system api get user4 users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20 1`] = `
+Array [
+  Object {
+    "birthyear": 1954,
+    "firstName": "Анатолий",
+    "foreman_id": 6,
+    "id": 9,
+    "lastName": "Лукин",
+    "locale": "ru",
+    "location": Object {
+      "lat": 38.837528,
+      "lng": -136.98343,
+    },
+    "passport": null,
+    "patronymic": "Михайлов",
+    "photo": "https://lorempixel.com/200/200/?21702",
+    "smallPhoto": "https://lorempixel.com/200/200/?21702",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1983,
+    "firstName": "Антонин",
+    "foreman_id": null,
+    "id": 5,
+    "lastName": "Ларионов",
+    "locale": "ru",
+    "location": Object {
+      "lat": 75.46131,
+      "lng": -119.580512,
+    },
+    "passport": null,
+    "patronymic": "Гордеев",
+    "photo": "https://lorempixel.com/200/200/?96979",
+    "smallPhoto": "https://lorempixel.com/200/200/?96979",
+    "status": 2,
+    "witness_id": 1,
+  },
+  Object {
+    "birthyear": 1980,
+    "firstName": "Клим",
+    "foreman_id": 6,
+    "id": 11,
+    "lastName": "Тихонов",
+    "locale": "ru",
+    "location": Object {
+      "lat": -35.363019,
+      "lng": -96.834448,
+    },
+    "passport": null,
+    "patronymic": "Щукин",
+    "photo": "https://lorempixel.com/200/200/?90383",
+    "smallPhoto": "https://lorempixel.com/200/200/?90383",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1958,
+    "firstName": "Руслан",
+    "foreman_id": 6,
+    "id": 7,
+    "lastName": "Антоновa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -59.595532,
+      "lng": -31.486016,
+    },
+    "passport": null,
+    "patronymic": "Харитоновa",
+    "photo": "https://lorempixel.com/200/200/?97969",
+    "smallPhoto": "https://lorempixel.com/200/200/?97969",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1954,
+    "firstName": "Стефан",
+    "foreman_id": 6,
+    "id": 13,
+    "lastName": "Овчинников",
+    "locale": "ru",
+    "location": Object {
+      "lat": -71.843162,
+      "lng": -15.606366,
+    },
+    "passport": null,
+    "patronymic": "Павлов",
+    "photo": "https://lorempixel.com/200/200/?87923",
+    "smallPhoto": "https://lorempixel.com/200/200/?87923",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1960,
+    "firstName": "Адам",
+    "foreman_id": 6,
+    "id": 10,
+    "lastName": "Фёдоровa",
+    "locale": "ru",
+    "location": Object {
+      "lat": 35.203692,
+      "lng": -3.033662,
+    },
+    "passport": null,
+    "patronymic": "Самсоновa",
+    "photo": "https://lorempixel.com/200/200/?62595",
+    "smallPhoto": "https://lorempixel.com/200/200/?62595",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1952,
+    "firstName": "Данила",
+    "foreman_id": 6,
+    "id": 12,
+    "lastName": "Гущин",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.787319,
+      "lng": 12.922707,
+    },
+    "passport": null,
+    "patronymic": "Трофимов",
+    "photo": "https://lorempixel.com/200/200/?96149",
+    "smallPhoto": "https://lorempixel.com/200/200/?96149",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1962,
+    "firstName": "Константин",
+    "foreman_id": 6,
+    "id": 15,
+    "lastName": "Журавлёв",
+    "locale": "ru",
+    "location": Object {
+      "lat": 22.260997,
+      "lng": 53.189783,
+    },
+    "passport": null,
+    "patronymic": "Рогов",
+    "photo": "https://lorempixel.com/200/200/?77584",
+    "smallPhoto": "https://lorempixel.com/200/200/?77584",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1979,
+    "firstName": "Виктор",
+    "foreman_id": 6,
+    "id": 8,
+    "lastName": "Костин",
+    "locale": "ru",
+    "location": Object {
+      "lat": -9.69579,
+      "lng": 104.14056,
+    },
+    "passport": null,
+    "patronymic": "Миронов",
+    "photo": "https://lorempixel.com/200/200/?29991",
+    "smallPhoto": "https://lorempixel.com/200/200/?29991",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.042697,
+      "lng": 147.94418,
+    },
+    "passport": null,
+    "patronymic": "Якушев",
+    "photo": "https://lorempixel.com/200/200/?64516",
+    "smallPhoto": "https://lorempixel.com/200/200/?64516",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1984,
+    "firstName": "Артём",
+    "foreman_id": 6,
+    "id": 14,
+    "lastName": "Орловa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -27.831397,
+      "lng": 153.903088,
+    },
+    "passport": null,
+    "patronymic": "Елисеев",
+    "photo": "https://lorempixel.com/200/200/?67277",
+    "smallPhoto": "https://lorempixel.com/200/200/?67277",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1973,
+    "firstName": "Борис",
+    "foreman_id": null,
+    "id": 6,
+    "lastName": "Павловa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -29.953031,
+      "lng": 164.840232,
+    },
+    "passport": null,
+    "patronymic": "Лапин",
+    "photo": "https://lorempixel.com/200/200/?63433",
+    "smallPhoto": "https://lorempixel.com/200/200/?63433",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user4 users/pending 1`] = `{ error: {"message":"ACCESS_DENIED: Получить заявки могут только заверители","code":403,"url":"http://localhost:8082/api/users/pending"} }`;
+
+exports[`system api get user5 users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1983,
+    "firstName": "Антонин",
+    "foreman_id": null,
+    "id": 5,
+    "lastName": "Ларионов",
+    "locale": "ru",
+    "location": Object {
+      "lat": 75.46131,
+      "lng": -119.580512,
+    },
+    "passport": 9063,
+    "patronymic": "Гордеев",
+    "photo": "https://lorempixel.com/200/200/?96979",
+    "smallPhoto": "https://lorempixel.com/200/200/?96979",
+    "status": 2,
+    "witness_id": 1,
+  },
+]
+`;
+
+exports[`system api get user5 users/get?ids=5 1`] = `
+Array [
+  Object {
+    "birthyear": 1983,
+    "firstName": "Антонин",
+    "foreman_id": null,
+    "id": 5,
+    "lastName": "Ларионов",
+    "locale": "ru",
+    "location": Object {
+      "lat": 75.46131,
+      "lng": -119.580512,
+    },
+    "passport": 9063,
+    "patronymic": "Гордеев",
+    "photo": "https://lorempixel.com/200/200/?96979",
+    "smallPhoto": "https://lorempixel.com/200/200/?96979",
+    "status": 2,
+    "witness_id": 1,
+  },
+]
+`;
+
+exports[`system api get user5 users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20 1`] = `
+Array [
+  Object {
+    "birthyear": 1954,
+    "firstName": "Анатолий",
+    "foreman_id": 6,
+    "id": 9,
+    "lastName": "Лукин",
+    "locale": "ru",
+    "location": Object {
+      "lat": 38.837528,
+      "lng": -136.98343,
+    },
+    "passport": null,
+    "patronymic": "Михайлов",
+    "photo": "https://lorempixel.com/200/200/?21702",
+    "smallPhoto": "https://lorempixel.com/200/200/?21702",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1983,
+    "firstName": "Антонин",
+    "foreman_id": null,
+    "id": 5,
+    "lastName": "Ларионов",
+    "locale": "ru",
+    "location": Object {
+      "lat": 75.46131,
+      "lng": -119.580512,
+    },
+    "passport": 9063,
+    "patronymic": "Гордеев",
+    "photo": "https://lorempixel.com/200/200/?96979",
+    "smallPhoto": "https://lorempixel.com/200/200/?96979",
+    "status": 2,
+    "witness_id": 1,
+  },
+  Object {
+    "birthyear": 1980,
+    "firstName": "Клим",
+    "foreman_id": 6,
+    "id": 11,
+    "lastName": "Тихонов",
+    "locale": "ru",
+    "location": Object {
+      "lat": -35.363019,
+      "lng": -96.834448,
+    },
+    "passport": null,
+    "patronymic": "Щукин",
+    "photo": "https://lorempixel.com/200/200/?90383",
+    "smallPhoto": "https://lorempixel.com/200/200/?90383",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1958,
+    "firstName": "Руслан",
+    "foreman_id": 6,
+    "id": 7,
+    "lastName": "Антоновa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -59.595532,
+      "lng": -31.486016,
+    },
+    "passport": null,
+    "patronymic": "Харитоновa",
+    "photo": "https://lorempixel.com/200/200/?97969",
+    "smallPhoto": "https://lorempixel.com/200/200/?97969",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1954,
+    "firstName": "Стефан",
+    "foreman_id": 6,
+    "id": 13,
+    "lastName": "Овчинников",
+    "locale": "ru",
+    "location": Object {
+      "lat": -71.843162,
+      "lng": -15.606366,
+    },
+    "passport": null,
+    "patronymic": "Павлов",
+    "photo": "https://lorempixel.com/200/200/?87923",
+    "smallPhoto": "https://lorempixel.com/200/200/?87923",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1960,
+    "firstName": "Адам",
+    "foreman_id": 6,
+    "id": 10,
+    "lastName": "Фёдоровa",
+    "locale": "ru",
+    "location": Object {
+      "lat": 35.203692,
+      "lng": -3.033662,
+    },
+    "passport": null,
+    "patronymic": "Самсоновa",
+    "photo": "https://lorempixel.com/200/200/?62595",
+    "smallPhoto": "https://lorempixel.com/200/200/?62595",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1952,
+    "firstName": "Данила",
+    "foreman_id": 6,
+    "id": 12,
+    "lastName": "Гущин",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.787319,
+      "lng": 12.922707,
+    },
+    "passport": null,
+    "patronymic": "Трофимов",
+    "photo": "https://lorempixel.com/200/200/?96149",
+    "smallPhoto": "https://lorempixel.com/200/200/?96149",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1962,
+    "firstName": "Константин",
+    "foreman_id": 6,
+    "id": 15,
+    "lastName": "Журавлёв",
+    "locale": "ru",
+    "location": Object {
+      "lat": 22.260997,
+      "lng": 53.189783,
+    },
+    "passport": null,
+    "patronymic": "Рогов",
+    "photo": "https://lorempixel.com/200/200/?77584",
+    "smallPhoto": "https://lorempixel.com/200/200/?77584",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1979,
+    "firstName": "Виктор",
+    "foreman_id": 6,
+    "id": 8,
+    "lastName": "Костин",
+    "locale": "ru",
+    "location": Object {
+      "lat": -9.69579,
+      "lng": 104.14056,
+    },
+    "passport": null,
+    "patronymic": "Миронов",
+    "photo": "https://lorempixel.com/200/200/?29991",
+    "smallPhoto": "https://lorempixel.com/200/200/?29991",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1985,
+    "firstName": "Павел",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Сысоев",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.042697,
+      "lng": 147.94418,
+    },
+    "passport": null,
+    "patronymic": "Якушев",
+    "photo": "https://lorempixel.com/200/200/?64516",
+    "smallPhoto": "https://lorempixel.com/200/200/?64516",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1984,
+    "firstName": "Артём",
+    "foreman_id": 6,
+    "id": 14,
+    "lastName": "Орловa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -27.831397,
+      "lng": 153.903088,
+    },
+    "passport": null,
+    "patronymic": "Елисеев",
+    "photo": "https://lorempixel.com/200/200/?67277",
+    "smallPhoto": "https://lorempixel.com/200/200/?67277",
+    "status": 2,
+    "witness_id": null,
+  },
+  Object {
+    "birthyear": 1973,
+    "firstName": "Борис",
+    "foreman_id": null,
+    "id": 6,
+    "lastName": "Павловa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -29.953031,
+      "lng": 164.840232,
+    },
+    "passport": null,
+    "patronymic": "Лапин",
+    "photo": "https://lorempixel.com/200/200/?63433",
+    "smallPhoto": "https://lorempixel.com/200/200/?63433",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user5 users/pending 1`] = `{ error: {"message":"ACCESS_DENIED: Получить заявки могут только заверители","code":403,"url":"http://localhost:8082/api/users/pending"} }`;
+
+exports[`system api get user6 users/get?ids= 1`] = `
+Array [
+  Object {
+    "birthyear": 1973,
+    "firstName": "Борис",
+    "foreman_id": null,
+    "id": 6,
+    "lastName": "Павловa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -29.953031,
+      "lng": 164.840232,
+    },
+    "passport": 4766,
+    "patronymic": "Лапин",
+    "photo": "https://lorempixel.com/200/200/?63433",
+    "smallPhoto": "https://lorempixel.com/200/200/?63433",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user6 users/get?ids=6 1`] = `
+Array [
+  Object {
+    "birthyear": 1973,
+    "firstName": "Борис",
+    "foreman_id": null,
+    "id": 6,
+    "lastName": "Павловa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -29.953031,
+      "lng": 164.840232,
+    },
+    "passport": 4766,
+    "patronymic": "Лапин",
+    "photo": "https://lorempixel.com/200/200/?63433",
+    "smallPhoto": "https://lorempixel.com/200/200/?63433",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user6 users/get?ids=7 1`] = `
+Array [
+  Object {
+    "birthyear": 1958,
+    "firstName": "Руслан",
+    "foreman_id": 6,
+    "id": 7,
+    "lastName": "Антоновa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -59.595532,
+      "lng": -31.486016,
+    },
+    "passport": null,
+    "patronymic": "Харитоновa",
+    "photo": "https://lorempixel.com/200/200/?97969",
+    "smallPhoto": "https://lorempixel.com/200/200/?97969",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user6 users/get?ids=8 1`] = `
+Array [
+  Object {
+    "birthyear": 1979,
+    "firstName": "Виктор",
+    "foreman_id": 6,
+    "id": 8,
+    "lastName": "Костин",
+    "locale": "ru",
+    "location": Object {
+      "lat": -9.69579,
+      "lng": 104.14056,
+    },
+    "passport": null,
+    "patronymic": "Миронов",
+    "photo": "https://lorempixel.com/200/200/?29991",
+    "smallPhoto": "https://lorempixel.com/200/200/?29991",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user6 users/get?ids=9 1`] = `
+Array [
+  Object {
+    "birthyear": 1954,
+    "firstName": "Анатолий",
+    "foreman_id": 6,
+    "id": 9,
+    "lastName": "Лукин",
+    "locale": "ru",
+    "location": Object {
+      "lat": 38.837528,
+      "lng": -136.98343,
+    },
+    "passport": null,
+    "patronymic": "Михайлов",
+    "photo": "https://lorempixel.com/200/200/?21702",
+    "smallPhoto": "https://lorempixel.com/200/200/?21702",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user6 users/get?ids=10 1`] = `
+Array [
+  Object {
+    "birthyear": 1960,
+    "firstName": "Адам",
+    "foreman_id": 6,
+    "id": 10,
+    "lastName": "Фёдоровa",
+    "locale": "ru",
+    "location": Object {
+      "lat": 35.203692,
+      "lng": -3.033662,
+    },
+    "passport": null,
+    "patronymic": "Самсоновa",
+    "photo": "https://lorempixel.com/200/200/?62595",
+    "smallPhoto": "https://lorempixel.com/200/200/?62595",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user6 users/get?ids=11 1`] = `
+Array [
+  Object {
+    "birthyear": 1980,
+    "firstName": "Клим",
+    "foreman_id": 6,
+    "id": 11,
+    "lastName": "Тихонов",
+    "locale": "ru",
+    "location": Object {
+      "lat": -35.363019,
+      "lng": -96.834448,
+    },
+    "passport": null,
+    "patronymic": "Щукин",
+    "photo": "https://lorempixel.com/200/200/?90383",
+    "smallPhoto": "https://lorempixel.com/200/200/?90383",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user6 users/get?ids=12 1`] = `
+Array [
+  Object {
+    "birthyear": 1952,
+    "firstName": "Данила",
+    "foreman_id": 6,
+    "id": 12,
+    "lastName": "Гущин",
+    "locale": "ru",
+    "location": Object {
+      "lat": 47.787319,
+      "lng": 12.922707,
+    },
+    "passport": null,
+    "patronymic": "Трофимов",
+    "photo": "https://lorempixel.com/200/200/?96149",
+    "smallPhoto": "https://lorempixel.com/200/200/?96149",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user6 users/get?ids=13 1`] = `
+Array [
+  Object {
+    "birthyear": 1954,
+    "firstName": "Стефан",
+    "foreman_id": 6,
+    "id": 13,
+    "lastName": "Овчинников",
+    "locale": "ru",
+    "location": Object {
+      "lat": -71.843162,
+      "lng": -15.606366,
+    },
+    "passport": null,
+    "patronymic": "Павлов",
+    "photo": "https://lorempixel.com/200/200/?87923",
+    "smallPhoto": "https://lorempixel.com/200/200/?87923",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user6 users/get?ids=14 1`] = `
+Array [
+  Object {
+    "birthyear": 1984,
+    "firstName": "Артём",
+    "foreman_id": 6,
+    "id": 14,
+    "lastName": "Орловa",
+    "locale": "ru",
+    "location": Object {
+      "lat": -27.831397,
+      "lng": 153.903088,
+    },
+    "passport": null,
+    "patronymic": "Елисеев",
+    "photo": "https://lorempixel.com/200/200/?67277",
+    "smallPhoto": "https://lorempixel.com/200/200/?67277",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api get user6 users/get?ids=15 1`] = `
+Array [
+  Object {
+    "birthyear": 1962,
+    "firstName": "Константин",
+    "foreman_id": 6,
+    "id": 15,
+    "lastName": "Журавлёв",
+    "locale": "ru",
+    "location": Object {
+      "lat": 22.260997,
+      "lng": 53.189783,
+    },
+    "passport": null,
+    "patronymic": "Рогов",
+    "photo": "https://lorempixel.com/200/200/?77584",
+    "smallPhoto": "https://lorempixel.com/200/200/?77584",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;

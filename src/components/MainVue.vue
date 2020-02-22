@@ -164,7 +164,7 @@
                 /**
                  * @type {Main}
                  */
-                value: application.sections.Main
+                value: container.application.sections.Main
             }
         },
         props: {

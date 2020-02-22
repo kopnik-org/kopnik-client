@@ -18,7 +18,7 @@ exports[`unit components Kopnik render short 1`] = `
         style="height: 128px; min-width: 128px; width: 128px;"
       >
         <img
-          src="/avatar.png"
+          src="https://lorempixel.com/200/200/?64516"
           style="object-fit: cover;"
         />
       </div>
@@ -53,8 +53,6 @@ exports[`unit components Kopnik render short 1`] = `
       </div>
     </div>
   </div>
-   
-  <!---->
    
   <!---->
    

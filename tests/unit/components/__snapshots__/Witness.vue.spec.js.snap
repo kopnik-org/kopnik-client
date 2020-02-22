@@ -1,0 +1,558 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unit components Witness draw 1`] = `
+<div
+  class="container fill-height k-witness flex-column align-center container--fluid"
+>
+  <div
+    class="mb-10 v-card v-sheet theme--light elevation-12"
+    style="max-width: 350px; width: 100%;"
+  >
+    <div
+      birth-year=""
+      class="v-list v-sheet v-sheet--tile theme--light"
+      role="list"
+    >
+      <div
+        class="v-list-item theme--light"
+        role="listitem"
+        tabindex="-1"
+      >
+        <span
+          class="v-badge {avatarMxAuto: 'mx-auto'} v-badge--bottom theme--light"
+        >
+          <div
+            class="v-avatar"
+            style="height: 128px; min-width: 128px; width: 128px;"
+          >
+            <img
+              src="https://lorempixel.com/200/200/?47557"
+              style="object-fit: cover;"
+            />
+          </div>
+          <span
+            class="v-badge__wrapper"
+          >
+            <span
+              aria-atomic="true"
+              aria-label="знак"
+              aria-live="polite"
+              class="v-badge__badge orange"
+              role="status"
+            >
+              1
+            </span>
+          </span>
+        </span>
+      </div>
+       
+      <!---->
+       
+      <div
+        class="v-list-item theme--light"
+        role="listitem"
+        tabindex="-1"
+      >
+        <div
+          class="v-list-item__content"
+        >
+          <div
+            class="v-input v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted v-select v-autocomplete"
+          >
+            <div
+              class="v-input__control"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-owns="list-14"
+                class="v-input__slot"
+                role="combobox"
+              >
+                <div
+                  class="v-select__slot"
+                >
+                  <label
+                    class="v-label v-label--active theme--light"
+                    for="input-14"
+                    style="left: 0px; position: absolute;"
+                  >
+                    Язык / Language
+                  </label>
+                  <input
+                    autocomplete="off"
+                    id="input-14"
+                    type="text"
+                  />
+                  <div
+                    class="v-input__append-inner"
+                  >
+                    <div
+                      class="v-input__icon v-input__icon--append"
+                    >
+                      <i
+                        aria-hidden="true"
+                        class="v-icon notranslate mdi mdi-menu-down theme--light"
+                      />
+                    </div>
+                  </div>
+                  <input
+                    type="hidden"
+                    value="ru"
+                  />
+                </div>
+                <div
+                  class="v-menu"
+                >
+                  <div
+                    class="v-menu__content theme--light v-autocomplete__content"
+                    style="max-height: 304px; min-width: 0px; max-width: auto; top: 12px; left: 0px; transform-origin: top left; z-index: 0; display: none;"
+                  />
+                </div>
+              </div>
+              <div
+                class="v-text-field__details"
+              >
+                <div
+                  class="v-messages theme--light"
+                >
+                  <span
+                    class="v-messages__wrapper"
+                    name="message-transition"
+                    tag="div"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       
+      <div
+        class="v-list-item theme--light"
+        role="listitem"
+        tabindex="-1"
+      >
+        <div
+          class="v-list-item__content"
+        >
+          <span>
+            <div
+              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+            >
+              <div
+                class="v-input__control"
+              >
+                <div
+                  class="v-input__slot"
+                >
+                  <div
+                    class="v-text-field__slot"
+                  >
+                    <label
+                      class="v-label v-label--active theme--light success--text"
+                      for="input-22"
+                      style="left: 0px; position: absolute;"
+                    >
+                      Фамилия
+                    </label>
+                    <input
+                      id="input-22"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="v-text-field__details"
+                >
+                  <div
+                    class="v-messages theme--light success--text"
+                  >
+                    <span
+                      class="v-messages__wrapper"
+                      name="message-transition"
+                      tag="div"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+       
+      <div
+        class="v-list-item theme--light"
+        role="listitem"
+        tabindex="-1"
+      >
+        <div
+          class="v-list-item__content"
+        >
+          <span>
+            <div
+              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+            >
+              <div
+                class="v-input__control"
+              >
+                <div
+                  class="v-input__slot"
+                >
+                  <div
+                    class="v-text-field__slot"
+                  >
+                    <label
+                      class="v-label v-label--active theme--light success--text"
+                      for="input-27"
+                      style="left: 0px; position: absolute;"
+                    >
+                      Имя
+                    </label>
+                    <input
+                      id="input-27"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="v-text-field__details"
+                >
+                  <div
+                    class="v-messages theme--light success--text"
+                  >
+                    <span
+                      class="v-messages__wrapper"
+                      name="message-transition"
+                      tag="div"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+       
+      <div
+        class="v-list-item theme--light"
+        role="listitem"
+        tabindex="-1"
+      >
+        <div
+          class="v-list-item__content"
+        >
+          <span>
+            <div
+              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+            >
+              <div
+                class="v-input__control"
+              >
+                <div
+                  class="v-input__slot"
+                >
+                  <div
+                    class="v-text-field__slot"
+                  >
+                    <label
+                      class="v-label v-label--active theme--light success--text"
+                      for="input-32"
+                      style="left: 0px; position: absolute;"
+                    >
+                      Отчество
+                    </label>
+                    <input
+                      id="input-32"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="v-text-field__details"
+                >
+                  <div
+                    class="v-messages theme--light success--text"
+                  >
+                    <span
+                      class="v-messages__wrapper"
+                      name="message-transition"
+                      tag="div"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+       
+      <!---->
+       
+      <div
+        class="v-list-item theme--light"
+        role="listitem"
+        tabindex="-1"
+      >
+        <div
+          class="v-list-item__content"
+        >
+          <span>
+            <div
+              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+            >
+              <div
+                class="v-input__control"
+              >
+                <div
+                  class="v-input__slot"
+                >
+                  <div
+                    class="v-text-field__slot"
+                  >
+                    <label
+                      class="v-label v-label--active theme--light success--text"
+                      for="input-37"
+                      style="left: 0px; position: absolute;"
+                    >
+                      Последние 4 цифры пасспорта
+                    </label>
+                    <input
+                      id="input-37"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="v-text-field__details"
+                >
+                  <div
+                    class="v-messages theme--light success--text"
+                  >
+                    <span
+                      class="v-messages__wrapper"
+                      name="message-transition"
+                      tag="div"
+                    />
+                  </div>
+                  <div
+                    class="v-counter theme--light"
+                  >
+                    4 / 4
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+       
+      <div
+        class="v-list-item theme--light"
+        role="listitem"
+        tabindex="-1"
+      >
+        <div
+          class="v-list-item__content"
+        >
+          <div
+            class="vue2leaflet-map leaflet-container leaflet-grab leaflet-touch-drag"
+            style="z-index: 0; height: 50vh; position: relative;"
+            tabindex="0"
+          >
+            <div />
+            <div />
+            <div />
+             
+            <!---->
+            <div
+              class="leaflet-pane leaflet-map-pane"
+              style="left: 0px; top: 0px;"
+            >
+              <div
+                class="leaflet-pane leaflet-tile-pane"
+              >
+                <div
+                  class="leaflet-layer "
+                  style="z-index: 1;"
+                >
+                  <div
+                    class="leaflet-tile-container leaflet-zoom-animated"
+                    style="z-index: 18; left: 0px; top: 0px;"
+                  >
+                    <img
+                      alt=""
+                      class="leaflet-tile"
+                      role="presentation"
+                      src="https://a.tile.openstreetmap.org/14/14974/9629.png"
+                      style="width: 256px; height: 256px; left: -91px; top: -40px;"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="leaflet-pane leaflet-shadow-pane"
+              >
+                <img
+                  alt=""
+                  class="leaflet-marker-shadow leaflet-zoom-hide"
+                  src="marker-shadow.png"
+                  style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; left: 0px; top: 0px;"
+                />
+              </div>
+              <div
+                class="leaflet-pane leaflet-overlay-pane"
+              />
+              <div
+                class="leaflet-pane leaflet-marker-pane"
+              >
+                <img
+                  alt=""
+                  class="leaflet-marker-icon leaflet-zoom-hide leaflet-interactive"
+                  src="marker-icon.png"
+                  style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; left: 0px; top: 0px; z-index: 0;"
+                  tabindex="0"
+                />
+              </div>
+              <div
+                class="leaflet-pane leaflet-tooltip-pane"
+              />
+              <div
+                class="leaflet-pane leaflet-popup-pane"
+              />
+            </div>
+            <div
+              class="leaflet-control-container"
+            >
+              <div
+                class="leaflet-top leaflet-left"
+              >
+                <div
+                  class="leaflet-control-zoom leaflet-bar leaflet-control"
+                >
+                  <a
+                    aria-label="Zoom in"
+                    class="leaflet-control-zoom-in"
+                    href="#"
+                    role="button"
+                    title="Zoom in"
+                  >
+                    +
+                  </a>
+                  <a
+                    aria-label="Zoom out"
+                    class="leaflet-control-zoom-out"
+                    href="#"
+                    role="button"
+                    title="Zoom out"
+                  >
+                    −
+                  </a>
+                </div>
+              </div>
+              <div
+                class="leaflet-top leaflet-right"
+              />
+              <div
+                class="leaflet-bottom leaflet-left"
+              />
+              <div
+                class="leaflet-bottom leaflet-right"
+              >
+                <div
+                  class="leaflet-control-locate leaflet-bar leaflet-control"
+                >
+                  <a
+                    class="leaflet-bar-part leaflet-bar-part-single"
+                    title="Определить мое местоположение"
+                  >
+                    <span
+                      class="fa fa-map-marker"
+                    />
+                  </a>
+                </div>
+                <div
+                  class="leaflet-control-attribution leaflet-control"
+                >
+                  <a
+                    href="https://leafletjs.com"
+                    title="A JS library for interactive maps"
+                  >
+                    Leaflet
+                  </a>
+                   | Map data: © 
+                  <a
+                    href="http://www.openstreetmap.org/copyright"
+                  >
+                    OpenStreetMap
+                  </a>
+                  , 
+                  <a
+                    href="http://viewfinderpanoramas.org"
+                  >
+                    SRTM
+                  </a>
+                   | Map style: © 
+                  <a
+                    href="https://opentopomap.org"
+                  >
+                    OpenTopoMap
+                  </a>
+                   (
+                  <a
+                    href="https://creativecommons.org/licenses/by-sa/3.0/"
+                  >
+                    CC-BY-SA
+                  </a>
+                  )
+                </div>
+              </div>
+            </div>
+             
+            <!---->
+             
+            <div
+              style="display: none;"
+            />
+             
+            <!---->
+          </div>
+        </div>
+      </div>
+       
+    </div>
+     
+    <div
+      class="v-card__actions"
+    >
+      <button
+        class="flex-grow-1 v-btn v-btn--contained theme--light v-size--default"
+        type="button"
+      >
+        <span
+          class="v-btn__content"
+        >
+          
+                Заверить
+            
+        </span>
+      </button>
+       
+      <button
+        class="flex-grow-1 v-btn v-btn--contained theme--light v-size--default"
+        type="button"
+      >
+        <span
+          class="v-btn__content"
+        >
+          
+                Отклонить
+            
+        </span>
+      </button>
+    </div>
+  </div>
+   
+  <!---->
+</div>
+`;
