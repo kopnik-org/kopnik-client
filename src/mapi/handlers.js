@@ -10,7 +10,7 @@ handlers.set(/test\/login\/\d+/, (url, options, user, key) => {
 
     // console.log('cookie', `user${userId}`)
     container.cookieService.cookie = `user${userId}`
-    return data(key)
+    // return data(key)
 })
 
 handlers.set(/.*/, (url, options, user, key) => {
