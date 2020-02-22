@@ -208,3 +208,14 @@ __Ответ__
   "response": true
 }
 ```
+
+## GET users/isMessagesFromGroupAllowed
+
+Возможность отрпавки сообщений пользователю
+
+__Ответ__
+```json
+{
+  "response": true
+}
+```
