@@ -66,7 +66,7 @@ exports[`unit components Profile draw new 1`] = `
                 class="v-list-item__content"
               >
                 <div
-                  class="v-input v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted v-select v-autocomplete"
+                  class="v-input v-input--is-label-active v-input--is-dirty theme--light v-text-field v-select v-autocomplete"
                 >
                   <div
                     class="v-input__control"
@@ -74,7 +74,7 @@ exports[`unit components Profile draw new 1`] = `
                     <div
                       aria-expanded="false"
                       aria-haspopup="listbox"
-                      aria-owns="list-15"
+                      aria-owns="list-16"
                       class="v-input__slot"
                       role="combobox"
                     >
@@ -83,14 +83,14 @@ exports[`unit components Profile draw new 1`] = `
                       >
                         <label
                           class="v-label v-label--active theme--light"
-                          for="input-15"
+                          for="input-16"
                           style="left: 0px; position: absolute;"
                         >
                           Язык / Language
                         </label>
                         <input
                           autocomplete="off"
-                          id="input-15"
+                          id="input-16"
                           type="text"
                         />
                         <div
@@ -145,7 +145,7 @@ exports[`unit components Profile draw new 1`] = `
               >
                 <span>
                   <div
-                    class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+                    class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field success--text"
                   >
                     <div
                       class="v-input__control"
@@ -158,13 +158,13 @@ exports[`unit components Profile draw new 1`] = `
                         >
                           <label
                             class="v-label v-label--active theme--light success--text"
-                            for="input-23"
+                            for="input-24"
                             style="left: 0px; position: absolute;"
                           >
                             Фамилия
                           </label>
                           <input
-                            id="input-23"
+                            id="input-24"
                             type="text"
                           />
                         </div>
@@ -196,7 +196,7 @@ exports[`unit components Profile draw new 1`] = `
               >
                 <span>
                   <div
-                    class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+                    class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field success--text"
                   >
                     <div
                       class="v-input__control"
@@ -209,13 +209,13 @@ exports[`unit components Profile draw new 1`] = `
                         >
                           <label
                             class="v-label v-label--active theme--light success--text"
-                            for="input-28"
+                            for="input-29"
                             style="left: 0px; position: absolute;"
                           >
                             Имя
                           </label>
                           <input
-                            id="input-28"
+                            id="input-29"
                             type="text"
                           />
                         </div>
@@ -247,7 +247,7 @@ exports[`unit components Profile draw new 1`] = `
               >
                 <span>
                   <div
-                    class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+                    class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field success--text"
                   >
                     <div
                       class="v-input__control"
@@ -260,13 +260,13 @@ exports[`unit components Profile draw new 1`] = `
                         >
                           <label
                             class="v-label v-label--active theme--light success--text"
-                            for="input-33"
+                            for="input-34"
                             style="left: 0px; position: absolute;"
                           >
                             Отчество
                           </label>
                           <input
-                            id="input-33"
+                            id="input-34"
                             type="text"
                           />
                         </div>
@@ -298,7 +298,7 @@ exports[`unit components Profile draw new 1`] = `
               >
                 <span>
                   <div
-                    class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+                    class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field success--text"
                   >
                     <div
                       class="v-input__control"
@@ -311,13 +311,13 @@ exports[`unit components Profile draw new 1`] = `
                         >
                           <label
                             class="v-label v-label--active theme--light success--text"
-                            for="input-38"
+                            for="input-39"
                             style="left: 0px; position: absolute;"
                           >
                             Год рождения
                           </label>
                           <input
-                            id="input-38"
+                            id="input-39"
                             type="text"
                           />
                         </div>
@@ -349,7 +349,7 @@ exports[`unit components Profile draw new 1`] = `
               >
                 <span>
                   <div
-                    class="v-input theme--light v-text-field v-text-field--is-booted"
+                    class="v-input theme--light v-text-field"
                   >
                     <div
                       class="v-input__control"
@@ -362,13 +362,13 @@ exports[`unit components Profile draw new 1`] = `
                         >
                           <label
                             class="v-label theme--light"
-                            for="input-43"
+                            for="input-44"
                             style="left: 0px; position: absolute;"
                           >
                             Последние 4 цифры пасспорта
                           </label>
                           <input
-                            id="input-43"
+                            id="input-44"
                             type="text"
                           />
                         </div>

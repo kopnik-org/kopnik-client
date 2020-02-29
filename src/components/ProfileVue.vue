@@ -10,10 +10,17 @@
                                     locale fio birthyear passport location
                                     @locale_change="locale_change" @map_updateCenter="map_updateCenter"
                         ></kopnik-vue>
-                        <v-btn color="primary" block :disabledX="false && invalid"
-                               @click="putWitnessRequest_click"
+                        <!-- VK Widget https://vk.com/dev/widget_allow_messages_from_community -->
+                        <template v-if="wasMessagesFromGroupAllowed===false">
+                            <div class="font-weight-bold">{{ $t('profile.messagesFromGroup.allow') }}</div>
+                            <div v-if="isMessagesFromGroupAllowed === false" id="vk_allow_messages_from_community"></div>
+                            <v-btn text v-else height="30">{{ $t('profile.messagesFromGroup.allowed') }}</v-btn>
+                        </template>
+                        <v-btn id='submit' color="primary" block
+                               :disabledX="false && invalid || !isMessagesFromGroupAllowed"
+                               @click="submit_click"
                         >
-                            {{$t('profile.sendRequest')}}
+                            {{$t('profile.submit')}}
                         </v-btn>
                     </v-form>
                 </v-card-text>
@@ -44,6 +51,10 @@
             return {
                 application: container.application,
                 request: null,
+                // в текущий момент
+                isMessagesFromGroupAllowed: undefined,
+                // при инициализации страницы
+                wasMessagesFromGroupAllowed: undefined,
             }
         },
         props: {},
@@ -53,8 +64,13 @@
             map_updateCenter(event) {
                 this.request.location = event
             },
-            async putWitnessRequest_click() {
+            async submit_click() {
+                const isInfoNeeds = this.application.user.status !== Kopnik.Status.CONFIRMED
                 await this.application.user.update(this.request)
+                if (isInfoNeeds) {
+                    this.application.infos.push(this.$t('profile.successMessage'))
+                    await this.application.setSection(Application.Section.Main)
+                }
             },
             async locale_change(event) {
                 // vue-i18n
@@ -75,11 +91,26 @@
 
             this.request = new Kopnik
             this.request.merge(this.application.user.plain)
-            // if (!this.request.location || !this.request.location[0]) {
-                this.request.location = [55.753215, 37.622504]
-            // }
+            if (!this.request.location || !this.request.location.lat) {
+                this.request.location = {lat: 55.753215, lng: 37.622504}
+            }
         },
         async mounted() {
-        }
+            this.wasMessagesFromGroupAllowed = this.isMessagesFromGroupAllowed = await this.application.user.isMessagesFromGroupAllowed()
+            // https://vk.com/dev/widget_allow_messages_from_community
+            if (!this.isMessagesFromGroupAllowed) {
+                container.VK.Widgets.AllowMessagesFromCommunity("vk_allow_messages_from_community", {height: 30}, 144968351);
+                container.VK.Observer.subscribe("widgets.allowMessagesFromCommunity.allowed", function f(userId) {
+                    this.isMessagesFromGroupAllowed = true
+                })
+                container.VK.Observer.subscribe("widgets.allowMessagesFromCommunity.denied", function f(userId) {
+                    this.isMessagesFromGroupAllowed = false
+                })
+            }
+        },
+        beforeDestroy() {
+            container.VK.Observer.unsubscribe("widgets.allowMessagesFromCommunity.allowed")
+            container.VK.Observer.unsubscribe("widgets.allowMessagesFromCommunity.denied")
+        },
     }
 </script>

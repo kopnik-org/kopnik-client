@@ -8,7 +8,42 @@
     "patronymic": "Patronymic",
     "nickname": "Nickname",
     "lastName": "lastName",
-    "sendRequest": "Send request"
+    "submit": "Send request",
+    "successMessage": "Request for membership has been sent to your witness. Now go to VKontakte and read how to communicate with your witness and confirm the accuracy of sended data. Good luck!",
+    "messagesFromGroup": {
+      "allow": "By clicking the button below to turn on the nationwide system",
+      "allowed": "Turned on!"
+    },
+    "role": {
+      "title": "My role in the Kopa's community",
+      "trueKopnik": {
+        "title": "True Kopnik",
+        "criteria": [
+          "Have a family",
+          "There is a Son who has a family",
+          "There is a Son from the Son",
+          "There is housing (house / apartment / rented apartment)",
+          "There is a farm (own business / work)"
+        ]
+      },
+      "danilovKopnik": {
+        "title": "Kopnik (simplified requirements proposed by S. Danilov",
+        "criteria": [
+          "Have a family",
+          "Have a Son or Daughter",
+          "There are 30 years",
+          "There is housing (house / apartment / rented apartment",
+          "There is a farm (own business / work)"
+        ]
+      },
+      "futureKopnik": {
+        "title": "I strive to become a Kopnik",
+        "criteria": [
+          "The man"
+        ]
+      },
+      "women": "I am a woman"
+    }
   },
   "witness": {
     "confirm": "Confirm",
