@@ -110,6 +110,7 @@
                     <v-text-field
                             v-model="value.birthyear"
                             :label="$t('profile.birthyear')"
+                            :v-mask="['####']"
                             :error-messages="errors"
                             :success="valid"
                             :readonly="readonly"
@@ -123,7 +124,7 @@
                                     v-slot="{ errors, valid }">
                     <v-text-field
                             v-model="value.passport"
-                            :counter="4"
+                            mask="####"
                             :label="$t('profile.passport')"
                             :error-messages="errors"
                             :success="valid"
@@ -134,6 +135,7 @@
         </v-list-item>
         <v-list-item v-if="location">
             <v-list-item-content>
+                <v-list-item-title  class="mb-3" style="white-space: inherit !important;">{{ $t('profile.location') }}</v-list-item-title>
                 <MapVue :center="value.location" :zoom="14"
                         :zoom-control="true" :layers-control="false" :locate-control="true"
                         @update:center="$emit('map_updateCenter', $event)"
