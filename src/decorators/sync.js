@@ -28,19 +28,19 @@ export function sync(constructor) {
         return this
     })
 
-    let result= function (...args) {
+    let result = function (...args) {
         let instance = new constructor(...args)
         instance.isLoaded = false
         return instance
     }
-    result.scalars= constructor.scalars
+    result.scalars = constructor.scalars
 
     return result
 }
 
 export function scalar(target, name, descriptor) {
     //положить все скалярные поля в статический массив
-    target.constructor.scalars= target.constructor.scalars || []
+    target.constructor.scalars = target.constructor.scalars || []
     target.constructor.scalars.push(name)
 
     //обозначить скарярность в дескрипторе свойства -  не работает
@@ -49,8 +49,13 @@ export function scalar(target, name, descriptor) {
 
 export function object(target, name, descriptor) {
     //положить все скалярные поля в статический массив
-    target.constructor.objects= target.constructor.objects || []
+    target.constructor.objects = target.constructor.objects || []
     target.constructor.objects.push(name)
+}
+
+export function collection(target, name, descriptor) {
+    target.constructor.collections = target.constructor.collections || []
+    target.constructor.collections.push(name)
 
     let capitalizedName = name[0].toUpperCase() + name.slice(1)
     Object.defineProperty(
@@ -58,19 +63,13 @@ export function object(target, name, descriptor) {
         "get" + capitalizedName,
         {
             value: once(async function (...args) {
-                if (this[name+'_id']===undefined){
-                    throw new Error("model is not loaded")
-                }
-                else if (this[name+'_id']===null){
-                    return null
-                }
-                else {
-                    return await models['Kopnik'].get(this[name + '_id'])
-                }
+                let result = []
+                return result
             })
         }
     )
 
+/* conflicts with reloadWitnessRequests
     Object.defineProperty(
         target,
         "reload" + capitalizedName,
@@ -82,6 +81,7 @@ export function object(target, name, descriptor) {
             })
         }
     )
+*/
 
     Object.defineProperty(
         target,
@@ -90,53 +90,7 @@ export function object(target, name, descriptor) {
             configurable: true,
             get: once(async function (...args) {
                 if (this[name] == undefined) {
-                    this[name] = await this["reload" + capitalizedName](...args)
-                }
-                return this[name]
-            })
-        }
-    )
-}
-
-export function collection(target, name, descriptor) {
-    target.constructor.collections= target.constructor.collections || []
-    target.constructor.collections.push(name)
-
-    let capitalizedName = name[0].toUpperCase() + name.slice(1)
-    Object.defineProperty(
-        target,
-        "get" + capitalizedName,
-        {
-            value: once(async function (...args) {
-                let result = []
-                for (let x = 0; x < Math.ceil(Math.random() * 10); x++) {
-                    result.push({id: Math.ceil(Math.random() * 100)})
-                }
-                return result
-            })
-        }
-    )
-
-    Object.defineProperty(
-        target,
-        "_reload" + capitalizedName,
-        {
-            configurable: true,
-            value: once(async function (...args) {
-                this[name] = this["get" + capitalizedName](...args)
-                return this[name]
-            })
-        }
-    )
-
-    Object.defineProperty(
-        target,
-        "loaded" + capitalizedName,
-        {
-            configurable: true,
-            get: once(async function (...args) {
-                if (this[name] == undefined) {
-                    this[name] = await this["reload" + capitalizedName](...args)
+                    await this["reload" + capitalizedName](...args)
                 }
                 return this[name]
             })

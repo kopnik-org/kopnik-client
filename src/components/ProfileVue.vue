@@ -10,14 +10,18 @@
                                     locale fio birthyear passport location
                                     @locale_change="locale_change" @map_updateCenter="map_updateCenter"
                         ></kopnik-vue>
-                        <!-- VK Widget https://vk.com/dev/widget_allow_messages_from_community -->
-                        <template v-if="wasMessagesFromGroupAllowed===false">
-                            <div class="font-weight-bold">{{ $t('profile.messagesFromGroup.allow') }}</div>
-                            <div v-if="isMessagesFromGroupAllowed === false" id="vk_allow_messages_from_community"></div>
-                            <v-btn text v-else height="30">{{ $t('profile.messagesFromGroup.allowed') }}</v-btn>
-                        </template>
+                        <v-list  v-if="isMessagesFromGroupAllowed===false">
+                            <v-list-item>
+                                <v-list-item-content>
+                                        <v-list-item-title cstyle="white-space: inherit !important;">{{ $t('profile.messagesFromGroup.allow') }}</v-list-item-title>
+                                        <!-- VK Widget https://vk.com/dev/AllowMessagesFromCommunity https://vk.com/dev/widget_allow_messages_from_community -->
+                                        <div id="vk_allow_messages_from_community" class="text-center my-3"></div>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <slot></slot>
+                        </v-list>
                         <v-btn id='submit' color="primary" block
-                               :disabledX="false && invalid || !isMessagesFromGroupAllowed"
+                               :disabled="invalid || !isMessagesFromGroupAllowed"
                                @click="submit_click"
                         >
                             {{$t('profile.submit')}}
@@ -69,7 +73,7 @@
                 await this.application.user.update(this.request)
                 if (isInfoNeeds) {
                     this.application.infos.push(this.$t('profile.successMessage'))
-                    await this.application.setSection(Application.Section.Main)
+                    await this.application.setSection(container.application.constructor.Section.Main)
                 }
             },
             async locale_change(event) {
@@ -100,10 +104,10 @@
             // https://vk.com/dev/widget_allow_messages_from_community
             if (!this.isMessagesFromGroupAllowed) {
                 container.VK.Widgets.AllowMessagesFromCommunity("vk_allow_messages_from_community", {height: 30}, 144968351);
-                container.VK.Observer.subscribe("widgets.allowMessagesFromCommunity.allowed", function f(userId) {
+                container.VK.Observer.subscribe("widgets.allowMessagesFromCommunity.allowed", (userId) => {
                     this.isMessagesFromGroupAllowed = true
                 })
-                container.VK.Observer.subscribe("widgets.allowMessagesFromCommunity.denied", function f(userId) {
+                container.VK.Observer.subscribe("widgets.allowMessagesFromCommunity.denied", (userId) => {
                     this.isMessagesFromGroupAllowed = false
                 })
             }

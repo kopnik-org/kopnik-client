@@ -1,5 +1,8 @@
 import {KopnikApiError} from "../KopnikError";
 import {container} from "../bottle/bottle";
+import log from "loglevel";
+
+const logger= log.getLogger('errorInterceptor')
 
 export default {
     request: function (url, options) {

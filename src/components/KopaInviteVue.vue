@@ -41,7 +41,7 @@
                     .map(eachPart => {
                         return {
                             value: eachPart,
-                            className: 'map_avatar' + (this.application.user === eachPart ? ' map_avatar-user' : '') + (this.application.selected === eachPart ? ' map_avatar-selected' : ''),
+                            className: 'map_avatar' + (this.application.user === eachPart ? ' map_avatar-user' : '') + (this.application.sections.main.selected === eachPart ? ' map_avatar-selected' : ''),
                         }
                     })
                 // console.log(result)

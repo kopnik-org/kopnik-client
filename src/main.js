@@ -1,8 +1,10 @@
 import Vue from 'vue'
+import 'vue-the-mask'
 import vuetify from './plugins/vuetify'
 import routerFactory from './plugins/vue-router'
 import i18n from './plugins/i18n'
 import "./plugins/vee-validate"
+
 
 import {Icon} from 'leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -44,3 +46,4 @@ global.vm = new Vue({
     router: routerFactory(),
     // render: h => h(App)
 })//.$mount('#app')
+Vue.config.devtools = true

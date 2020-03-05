@@ -1,5 +1,8 @@
 import {container} from "../bottle/bottle";
 import _ from 'lodash'
+import log from "loglevel";
+
+const logger= log.getLogger('cookieInterceptor')
 
 export default {
     request: function (url, options) {
@@ -14,7 +17,7 @@ export default {
                 Cookie: container.cookieService.cookie
             }
         })
-
+        logger.debug('send', url, options)
         return [url, options]
     },
     requestError: function (error) {
@@ -28,12 +31,12 @@ export default {
             return response
         }
         let cookie = response.headers.get('set-cookie')
-        if (!cookie){
+        if (!cookie) {
             // container.logger.warn('no cookie received from server')
-        }
-        else {
+        } else {
             cookie = cookie.match(/(\w+=(\w|\d)+)/)[0]
             container.cookieService.cookie = cookie
+            logger.debug('receive', cookie)
         }
         return response
     },

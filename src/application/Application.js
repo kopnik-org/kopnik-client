@@ -52,12 +52,13 @@ export default class Application {
          */
         this.errors = []
         this.sections = {
-            Main: new Main(this)
+            main: new Main(this)
         }
     }
 
     onerror(err){
         this.errors.push(err)
+        throw err
     }
 
     getMessage(message) {

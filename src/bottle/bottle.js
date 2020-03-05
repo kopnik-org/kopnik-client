@@ -7,6 +7,7 @@ import Application from "../application/Application"
 import config from '../../config'
 import api from "../api";
 import CookieService from "./CookieService"
+import MK from "../mk/mk";
 
 Bottle.config.strict = true
 const bottle = new Bottle()
@@ -14,6 +15,9 @@ const bottle = new Bottle()
 bottle.service('cookieService', CookieService, 'config')
 bottle.factory('api', function apiFactory(container) {
     return container.config.di.fetch ? api : global.mapi
+})
+bottle.factory('VK', function vkFactory(container) {
+    return process.env.NODE_ENV==='test' ? MK : global.VK
 })
 bottle.factory('config', function configFactory() {
     if (!process.env.NODE_ENV) {
@@ -55,6 +59,7 @@ bottle.factory('logger', function loggerFactory() {
  * @property {Application} application
  * @property {Location} Location
  * @property {fetch} api
+ * @property {MK.class} VK
  * @property {CookieService} cookieService
  * @property {Object} config
  * @property {Object} config.api

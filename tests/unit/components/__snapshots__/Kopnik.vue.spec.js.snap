@@ -18,7 +18,7 @@ exports[`unit components Kopnik render short 1`] = `
         style="height: 128px; min-width: 128px; width: 128px;"
       >
         <img
-          src="https://lorempixel.com/200/200/?64516"
+          src="https://lorempixel.com/200/200/?38191"
           style="object-fit: cover;"
         />
       </div>
@@ -49,10 +49,12 @@ exports[`unit components Kopnik render short 1`] = `
       <div
         class="v-list-item__title title"
       >
-        Сысоев Павел Якушев
+        Гурьев Трофим Колесников
       </div>
     </div>
   </div>
+   
+  <!---->
    
   <!---->
    

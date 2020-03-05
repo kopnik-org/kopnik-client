@@ -32,12 +32,14 @@ export default class SquadAnalyzer {
         }
         const analyzed = [kopnik]
         if (kopnik.foreman) {
-            analyzed.push(await kopnik.loadedForeman)
+            await kopnik.foreman.loaded()
+            analyzed.push(await kopnik.foreman)
             if (!this.foremans.includes(kopnik.foreman) && (kopnik === this.starter || this.foremans.includes(kopnik))) {
                 this.foremans.push(kopnik.foreman)
             }
         }
-        analyzed.push(...await kopnik.loadedTen)
+        let ten= await kopnik.loadedTen
+        analyzed.push(...ten)
         for (let eachMember of analyzed) {
             if (!this.members.includes(eachMember)) {
                 this.members.push(eachMember)

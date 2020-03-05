@@ -6,14 +6,14 @@ exports[`unit components KopaInviteVue.vue render 1`] = `
 >
   <span
     class="v-badge ml-1 mr-1 mb-2 v-badge--bottom theme--light map_avatar"
-    title="Калашниковa Максим Колесников"
+    title="Сысоев Павел Иванович"
   >
     <div
       class="v-avatar"
       style="height: 48px; min-width: 48px; width: 48px;"
     >
       <img
-        src="https://lorempixel.com/200/200/?38194"
+        src="https://lorempixel.com/200/200/?38192"
         style="object-fit: cover;"
       />
     </div>

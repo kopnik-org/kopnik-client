@@ -143,6 +143,10 @@ describe('system api get', () => {
             expect(result).toBeInstanceOf(Array)
             expect(result).toMatchSnapshot()
         })
+        it('users/isMessagesFromGroupAllowed', async () => {
+            let result = await api('users/isMessagesFromGroupAllowed')
+            expect(result).toMatchSnapshot()
+        })
     })
     /********************************************************
      * user_3_pending

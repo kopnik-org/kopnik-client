@@ -10,7 +10,7 @@ function login(id) {
 }
 
 describe('system errors', ()=>{
-    it('logout', async () => {
+    it.skip('logout', async () => {
         await login(1)
         let result = await api('logout')
     })

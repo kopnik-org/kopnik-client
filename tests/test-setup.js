@@ -6,6 +6,7 @@ import isomorphicFetch from 'isomorphic-fetch'
 
 global.isomorphicFetch = isomorphicFetch
 import Vue from 'vue'
+import 'vue-the-mask'
 import i18n from '../src/plugins/i18n'
 import '../src/plugins/vee-validate'
 import mapi from "../src/mapi";

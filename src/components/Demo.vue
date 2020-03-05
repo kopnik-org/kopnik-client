@@ -7,5 +7,10 @@
             return {}
         },
         props:["dog"],
+        computed:{
+            dogAge(){
+                return this.dog.age
+            }
+        }
     }
 </script>

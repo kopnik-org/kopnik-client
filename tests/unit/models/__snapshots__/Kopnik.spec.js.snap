@@ -1,23 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`unit models Kopnik confirmed witness getPending 1`] = `
+exports[`unit models Kopnik confirmed witness reloadWitnessRequests 1`] = `
 Array [
   Object {
     "birthyear": 1963,
-    "firstName": "Валериан",
+    "firstName": "Иммануил",
     "foreman_id": null,
     "id": 3,
+    "isLoaded": true,
     "lastName": "Некрасов",
-    "locale": null,
-    "location": Array [
-      74.513164,
-      -29.77027,
-    ],
+    "locale": "ru",
+    "location": Object {
+      "lat": 30.091113,
+      "lng": 149.026323,
+    },
     "nickname": null,
-    "passport": 5220,
-    "patronymic": "Дементьев",
-    "photo": "@todo",
-    "smallPhoto": "@todo",
+    "passport": 7363,
+    "patronymic": "Валериан",
+    "photo": "https://lorempixel.com/200/200/?47553",
+    "smallPhoto": "https://lorempixel.com/200/200/?47553",
     "status": 1,
     "ten": null,
     "tenRequests": null,
@@ -31,18 +32,18 @@ Array [
 exports[`unit models Kopnik loaded success 1`] = `
 Kopnik {
   "attachments": Array [],
-  "birthyear": 1984,
+  "birthyear": 1962,
   "created": undefined,
-  "firstName": "Максим",
+  "firstName": "Павел",
   "foreman": null,
   "id": 2,
   "isLoaded": true,
-  "lastName": "Калашниковa",
-  "locale": undefined,
-  "location": Array [
-    -14.544987,
-    -67.221535,
-  ],
+  "lastName": "Сысоев",
+  "locale": "ru",
+  "location": Object {
+    "lat": 35.2672,
+    "lng": 64.7382,
+  },
   "log": Logger {
     "debug": [Function],
     "disableAll": [Function],
@@ -69,10 +70,10 @@ Kopnik {
   "nickname": undefined,
   "note": undefined,
   "passport": null,
-  "patronymic": "Колесников",
-  "photo": "/avatar.png",
+  "patronymic": "Иванович",
+  "photo": "https://lorempixel.com/200/200/?38192",
   "rank": 1,
-  "smallPhoto": "@todo",
+  "smallPhoto": "https://lorempixel.com/200/200/?38192",
   "status": 0,
   "ten": undefined,
   "tenRequests": undefined,

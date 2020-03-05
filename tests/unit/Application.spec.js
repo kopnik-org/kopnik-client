@@ -106,9 +106,9 @@ describe('unit/Application', () => {
             expect(application.user).toBeInstanceOf(Kopnik)
         })
         it('top20()', async () => {
-            application.sections.Main.map.bounds = new LatLngBounds(new LatLng(-90,-180), new LatLng(90, 180))
-            await application.sections.Main.loadTop20()
-            expect(application.sections.Main.top20).toBeInstanceOf(Array)
+            application.sections.main.map.bounds = new LatLngBounds(new LatLng(-90,-180), new LatLng(90, 180))
+            await application.sections.main.loadTop20()
+            expect(application.sections.main.top20).toBeInstanceOf(Array)
         })
         describe('setSection', () => {
             it('profile', async () => {

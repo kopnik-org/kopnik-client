@@ -7,7 +7,7 @@
                 Закрыть
             </v-btn>
         </v-snackbar>
-        <v-snackbar v-if="application.infos.length" v-model="infoVisible" :timeout="0" multi-line bottom color="info">
+        <v-snackbar v-if="application.infos.length" v-model="infoVisible" :timeout="10000" multi-line bottom color="info">
             {{ application.infos[application.infos.length-1] }}
             <v-btn text xcolor="error" @click="infoVisible = false">
                 Закрыть

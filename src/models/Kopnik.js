@@ -100,6 +100,9 @@ export default class Kopnik extends AbstractSync {
         let result = await this.constructor.api('pending')
         this.witnessRequests = result.map(eachKopnikAsJson => Kopnik.merge(eachKopnikAsJson, true))
     }
+    async reloadTen() {
+        this.ten = []
+    }
 
     async updateLocale() {
         await this.constructor.api('updateLocale', {

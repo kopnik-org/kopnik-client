@@ -2,7 +2,6 @@
   "profile": {
     "language": "Language",
     "birthyear": "Birthyear",
-    "location": "Home location",
     "firstName": "Name",
     "passport": "Last for number of passport",
     "patronymic": "Patronymic",
@@ -43,7 +42,8 @@
         ]
       },
       "women": "I am a woman"
-    }
+    },
+    "location": "Place of permanent residence, accurate to home"
   },
   "witness": {
     "confirm": "Confirm",

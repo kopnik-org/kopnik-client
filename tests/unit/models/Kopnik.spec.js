@@ -3,6 +3,7 @@ import {bottle, container} from "../../../src/bottle/bottle";
 import {KopnikApiError} from "../../../src/KopnikError";
 
 describe('unit models Kopnik', () => {
+    /** @type {Kopnik} */
     let kopnik
     describe('merge', () => {
         it('id', async () => {
@@ -144,6 +145,10 @@ describe('unit models Kopnik', () => {
             await login(5)
             kopnik = await Kopnik.get(5)
         })
+
+        it('loadedTen', async ()=>{
+            await kopnik.loadedTen
+        })
     })
 
     describe('confirmed witness', () => {
@@ -159,6 +164,9 @@ describe('unit models Kopnik', () => {
         })
         it('updateWitnessRequestStatus', async () => {
             await kopnik.updateWitnessRequestStatus({id: 3, status: 2})
+        })
+        it('loadedWitnessRequests', async ()=>{
+            await kopnik.loadedWitnessRequests
         })
     })
 })

@@ -7,39 +7,55 @@ let dog,
     wrapper,
     vm
 
-beforeEach(() => {
-    dog = {age: 2}
-    wrapper = mount(Demo, {
-        propsData: {
-            dog
-        }
-    })
-    vm = new Vue({
-        ...Demo,
-        propsData: {
-            dog,
-        }
-    }).$mount()
-})
 
-describe.skip('vue-test-utils', ()=>{
+
+describe('vue-test-utils', ()=>{
+    beforeEach(() => {
+        dog = {age: 2}
+        wrapper = mount(Demo, {
+            propsData: {
+                dog
+            }
+        })
+    })
     it('initial state', () => {
-        expect(wrapper.vm.dog.age).toBe(2)
+        expect(wrapper.vm.$props.dog.age).toBe(2)
         expect(wrapper.text()).toBe('2')
     })
-
-    it('change reactive property', async () => {
-        dog.age = 6
-        expect(wrapper.vm.dog.age).toBe(6) // OK
+    it('reactive computed', async () => {
+        dog.age = 18
+        expect (wrapper.vm.dogAge).toBe(18)
         await flushPromises()
-        expect(wrapper.text()).toBe('6') // FAIL!! WHY ??
+    })
+    it.skip('reactive view on same props', async () => {
+        dog.age = 18
+        await flushPromises()
+        await new Promise(res=>setTimeout(res,1))
+        expect(wrapper.vm.$el.textContent).toBe('18')
+    })
+    it('reactive view on other props', async () => {
+        dog.age = 18
+        wrapper.setProps({
+            dog: {age:18}
+        })
+        await flushPromises()
+        expect(wrapper.text()).toBe('18')
     })
 })
 
-
-it('change reactive property direct', async () => {
-    dog.age = 6
-    expect(vm.dog.age).toBe(6) // OK
-    // await flushPromises()
-    expect(vm.$el.textContent).toBe('6') // OK
+describe('native', ()=>{
+    beforeEach(() => {
+        dog = {age: 2}
+        vm = new Vue({
+            ...Demo,
+            propsData: {
+                dog,
+            }
+        }).$mount()
+    })
+    it('change reactive property direct', async () => {
+        dog.age = 18
+        await flushPromises()
+        expect(vm.$el.textContent).toBe('18')
+    })
 })
