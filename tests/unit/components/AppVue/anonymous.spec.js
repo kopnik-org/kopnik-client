@@ -1,17 +1,11 @@
 import Vue from 'vue'
-import {i18n, vuetify, routerFactory} from "../../test-setup";
-import AppVue from "../../../src/components/AppVue";
-import {bottle, container} from "../../../src/bottle/bottle";
+import {i18n, vuetify, routerFactory} from "../../../test-setup";
+import AppVue from "../../../../src/components/AppVue";
+import {bottle, container} from "../../../../src/bottle/bottle";
 import flushPromises from "flush-promises";
-import Application from "../../../src/application/Application";
-import {createLocalVue, mount} from "@vue/test-utils";
-import _ from 'lodash'
+import Application from "../../../../src/application/Application";
 
-import VueRouter from "vue-router";
-import VueTheMask from 'vue-the-mask'
-import VueI18n from 'vue-i18n'
-
-describe('unit conponents AppVue', () => {
+describe('unit components AppVue', () => {
     let vm,
         application
 
@@ -20,32 +14,12 @@ describe('unit conponents AppVue', () => {
         console.log('inside before each')
         application = container.application
         const router= routerFactory()
-        const temp= _.cloneDeep(AppVue)
-
-        ///
-        const localVue= createLocalVue()
-        localVue.use(VueRouter)
-        localVue.use(VueTheMask)
-        localVue.use(VueI18n)
-        const wrapper= mount(temp, {
-            localVue,
-            i18n,
-            vuetify,
-            router
-        })
-        vm= wrapper.vm
-        ///
-
-/*        vm = new Vue({
+        vm = new Vue({
             ...AppVue,
             i18n,
             vuetify,
             router
-        })*/
-    })
-
-    afterEach(()=>{
-        vm.$destroy()
+        })
     })
 
     describe('anonymous', () => {
@@ -120,7 +94,7 @@ describe('unit conponents AppVue', () => {
             })
             it.only('/profile', async () => {
                 console.log('inside test 2')
-                await vm.$router.push({name: Application.Section.Profile})
+                // await vm.$router.push({name: Application.Section.Profile})
                 application.authenticate()
                 vm.$mount()
 

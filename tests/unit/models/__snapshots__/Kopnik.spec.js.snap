@@ -18,6 +18,7 @@ Array [
     "passport": 7363,
     "patronymic": "Валериан",
     "photo": "https://lorempixel.com/200/200/?47553",
+    "role": null,
     "smallPhoto": "https://lorempixel.com/200/200/?47553",
     "status": 1,
     "ten": null,
@@ -39,7 +40,10 @@ Kopnik {
   "id": 2,
   "isLoaded": true,
   "lastName": "Сысоев",
-  "locale": "ru",
+  "locale": Locale {
+    "languageName": "Русский",
+    "name": "ru",
+  },
   "location": Object {
     "lat": 35.2672,
     "lng": 64.7382,
@@ -73,6 +77,7 @@ Kopnik {
   "patronymic": "Иванович",
   "photo": "https://lorempixel.com/200/200/?38192",
   "rank": 1,
+  "role": undefined,
   "smallPhoto": "https://lorempixel.com/200/200/?38192",
   "status": 0,
   "ten": undefined,

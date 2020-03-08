@@ -1,6 +1,7 @@
 import {Kopnik} from "../../../src/models";
 import {bottle, container} from "../../../src/bottle/bottle";
 import {KopnikApiError} from "../../../src/KopnikError";
+import Locale from "../../../src/locales/Locale";
 
 describe('unit models Kopnik', () => {
     /** @type {Kopnik} */
@@ -59,6 +60,12 @@ describe('unit models Kopnik', () => {
 
             expect(kopnik.isLoaded).toBe(true)
         })
+        it('merge locale', async () => {
+            let kopnik = new Kopnik()
+            kopnik.merge({locale: 'ru'})
+
+            expect(kopnik.locale).toBeInstanceOf(Locale)
+        })
     })
 
     describe('plain', () => {
@@ -67,6 +74,7 @@ describe('unit models Kopnik', () => {
             kopnik.firstName = "Ярослав"
             kopnik.witness = Kopnik.getReference(2)
             kopnik.ten = [Kopnik.getReference(3), Kopnik.getReference(4)]
+            kopnik.locale=container.localeManager.currentLocale
 
             let plain = kopnik.plain
             expect(plain.id).toBe(1)
@@ -75,6 +83,7 @@ describe('unit models Kopnik', () => {
             expect(plain.ten).toBeInstanceOf(Array)
             expect(plain.ten.length).toBe(2)
             expect(plain.ten[0]).toBe(3)
+            expect(plain.locale).toBe('ru')
         })
     })
 

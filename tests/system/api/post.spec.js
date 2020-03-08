@@ -2,6 +2,7 @@ import api from "../../../src/api";
 import {bottle, container} from "../../../src/bottle/bottle";
 import {KopnikApiError} from "../../../src/KopnikError";
 import {AbstractSync, Kopnik} from "../../../src/models";
+import Locale from "../../../src/locales/Locale";
 
 /**
  * Реализация без участия контейнера
@@ -135,7 +136,6 @@ describe('system api post', () => {
         it('users/update', async () => {
             const kopnik = await Kopnik.get(2)
             const location = kopnik.location= {lat: 45, lng:100}
-            const locale= kopnik.locale= 'en'
             kopnik.passport=1234
             const result= await api('users/update', {
                 method: 'POST',
@@ -145,7 +145,7 @@ describe('system api post', () => {
             expect(result.witness_id=1)
             expect(kopnik.status).toBe(1)
             expect(kopnik.location).toEqual(location)
-            expect(kopnik.locale).toBe(locale)
+            expect(kopnik.locale).toBeInstanceOf(Locale)
             expect(result).toMatchSnapshot()
         })
         it('users/pending/update', async () => {

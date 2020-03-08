@@ -9,8 +9,8 @@ function login(id) {
     return api('test/login/' + id)
 }
 
-describe('system errors', ()=>{
-    it.skip('logout', async () => {
+describe('system api', ()=>{
+    it('logout', async () => {
         await login(1)
         let result = await api('logout')
     })

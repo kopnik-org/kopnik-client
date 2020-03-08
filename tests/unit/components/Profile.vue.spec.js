@@ -1,6 +1,6 @@
 import flushPromises from "flush-promises";
 import Vue from 'vue'
-import { mount } from '@vue/test-utils'
+import {mount} from '@vue/test-utils'
 
 import vuePlugins from "../../test-setup";
 import KTen from "../../../src/components/KTen";
@@ -19,7 +19,7 @@ describe('unit components Profile', () => {
 
     it('draw new', async () => {
         await login(2)
-        const kopnik= Kopnik.getReference(2)
+        const kopnik = Kopnik.getReference(2)
         await container.application.authenticate()
         const wrapper = mount(ProfileVue, {
             ...vuePlugins,
@@ -30,28 +30,29 @@ describe('unit components Profile', () => {
 
     it('submit disabled', async () => {
         await login(2)
-        const kopnik= Kopnik.getReference(2)
+        const kopnik = Kopnik.getReference(2)
         await container.application.authenticate()
-        kopnik.patronymic=null
+        kopnik.patronymic = null
         const wrapper = mount(ProfileVue, {
             ...vuePlugins,
         })
         await flushPromises()
-        const submitBtn= wrapper.find('#submit')
+        const submitBtn = wrapper.find('#submit')
         await flushPromises()
         expect(submitBtn.attributes('disabled')).toBe('disabled')
     })
 
     it('submit enabled', async () => {
         await login(2)
-        const kopnik= Kopnik.getReference(2)
+        const kopnik = await Kopnik.get(2)
+        kopnik.role = 1
         await container.application.authenticate()
-        kopnik.patronymic='qwertyujhgfdjklxc'
+        kopnik.patronymic = 'qwertyujhgfdjklxc'
         const wrapper = mount(ProfileVue, {
             ...vuePlugins,
         })
         await flushPromises()
-        const submitBtn= wrapper.find('#submit')
+        const submitBtn = wrapper.find('#submit')
         await flushPromises()
         expect(submitBtn.attributes('disabled')).toBeUndefined()
     })
@@ -59,17 +60,33 @@ describe('unit components Profile', () => {
 
     it('submit', async () => {
         await login(2)
-        const kopnik= Kopnik.getReference(2)
+        const kopnik = Kopnik.getReference(2)
         await container.application.authenticate()
         const wrapper = mount(ProfileVue, {
             ...vuePlugins,
         })
         await flushPromises()
-        const submitBtn= wrapper.find('#submit')
+        const submitBtn = wrapper.find('#submit')
         submitBtn.trigger('click')
         await flushPromises()
         expect(container.application.section).toBe(Application.Section.Main)
-console.log(container.application.infos)
+        console.log(container.application.infos)
+        expect(container.application.infos.length).toBe(1)
+    })
+
+    it('submit self-witness', async () => {
+        await login(2)
+        const kopnik = await Kopnik.get(2)
+        kopnik.witness= kopnik
+        await container.application.authenticate()
+        const wrapper = mount(ProfileVue, {
+            ...vuePlugins,
+        })
+        await flushPromises()
+        const submitBtn = wrapper.find('#submit')
+        submitBtn.trigger('click')
+        await flushPromises()
+        expect(container.application.section).toBe(Application.Section.Main)
         expect(container.application.infos.length).toBe(1)
     })
 })

@@ -2,6 +2,7 @@ import {bottle, container} from "../../src/bottle/bottle";
 import {Kopnik} from "../../src/models";
 import Application from "../../src/application/Application";
 import {LatLng, LatLngBounds} from "leaflet";
+import flushPromises from "flush-promises";
 
 describe('unit/Application', () => {
     /** @type {Application} */
@@ -12,6 +13,12 @@ describe('unit/Application', () => {
         bottle.resetProviders(['application', 'cookieService'])
         application = container.application
     })
+    describe ("common", ()=>{
+        it ('getMessage',()=>{
+            expect(application.getMessage('profile.firstName')).toBe('Имя')
+        })
+    })
+
     describe('anonymous', () => {
         it('authenticate()', async () => {
             await application.authenticate()
@@ -62,6 +69,24 @@ describe('unit/Application', () => {
                 await application.setSection(Application.Section.Thanks)
                 expect(application.section).toBe(Application.Section.Thanks)
             })
+        })
+        it('logout', async () => {
+            await application.setSection(Application.Section.Profile)
+            await application.logout()
+            expect(application.section).toBe(Application.Section.Main)
+            expect(application.user).toBeNull()
+            expect(container.cookieService.cookie).toBeNull()
+        })
+
+        // TODO: https://github.com/kopnik-org/kopnik-client/issues/14
+        it.skip('onerror(401)', async () => {
+            await application.setSection(Application.Section.Profile)
+            container.cookieService.pop()
+            await Kopnik.get(666)
+            await flushPromises()
+            expect(application.section).toBe(Application.Section.Main)
+            expect(application.user).toBeNull()
+            expect(container.cookieService.cookie).toBeNull()
         })
     })
 

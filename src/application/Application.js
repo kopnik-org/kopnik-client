@@ -56,20 +56,25 @@ export default class Application {
         }
     }
 
-    onerror(err){
-        this.errors.push(err)
-        throw err
+    async onerror(err) {
+        if (err.code === 401) {
+            await container.application.lockSection(async () => {
+                await application.setSection(Application.Section.Main)
+            })
+            this.user= null
+            console.info('prevent 401 error', err)
+        } else {
+            this.errors.push(err)
+            throw err
+        }
     }
 
     getMessage(message) {
-        const locale = this.user ? this.user.locale : 'ru'
-        let m= messages
-        if (has(messages[locale], message)) {
-            const result = get(messages[locale], message)
-            return get(messages[locale], message)
-        }
-        if (has(messages['ru'], message)) {
-            return get(messages['ru'], message)
+        for(const eachLocaleName of [container.localeManager.currentLocale.name, 'ru']) {
+            if (has(container.messages[eachLocaleName], message)) {
+                const result = get(container.messages[eachLocaleName], message)
+                return result
+            }
         }
         throw new KopnikError('No message provided: ' + message, 2)
     }
@@ -157,12 +162,29 @@ export default class Application {
             this.logger.info('user authenticated', this.user)
         } catch (err) {
             if ((err instanceof KopnikApiError) && err.message.match(/no.+aut/i)) {
-                this.user = null
+                 this.user = null
                 this.logger.info('user not authenticated')
             } else {
                 throw err
             }
         }
+    }
+
+    /**
+     * Инициализирует ползователя при запуске приложения
+     *
+     * @returns {Promise<void>}
+     */
+    @once
+    async logout() {
+        if (![Application.Section.Thanks, Application.Section.Help].includes(this.section)) {
+            await this.lockSection(() => {
+                this.setSection(Application.Section.Main)
+            })
+        }
+        this.sections.main.selected= null
+        await container.api('logout')
+        this.user = null
     }
 }
 
@@ -175,4 +197,5 @@ Application.Section = {
     Witness: 'Witness',
     Thanks: 'Thanks',
     Ten: 'Ten',
+    Help: 'Help',
 }

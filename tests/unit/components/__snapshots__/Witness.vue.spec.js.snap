@@ -57,7 +57,7 @@ exports[`unit components Witness draw 1`] = `
           class="v-list-item__content"
         >
           <div
-            class="v-input v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted v-select v-autocomplete"
+            class="v-input v-input--is-label-active v-input--is-dirty theme--light v-text-field v-select v-autocomplete"
           >
             <div
               class="v-input__control"
@@ -136,7 +136,7 @@ exports[`unit components Witness draw 1`] = `
         >
           <span>
             <div
-              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field success--text"
             >
               <div
                 class="v-input__control"
@@ -187,7 +187,7 @@ exports[`unit components Witness draw 1`] = `
         >
           <span>
             <div
-              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field success--text"
             >
               <div
                 class="v-input__control"
@@ -238,7 +238,7 @@ exports[`unit components Witness draw 1`] = `
         >
           <span>
             <div
-              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field success--text"
             >
               <div
                 class="v-input__control"
@@ -293,7 +293,7 @@ exports[`unit components Witness draw 1`] = `
         >
           <span>
             <div
-              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field v-text-field--is-booted success--text"
+              class="v-input v-input--has-state v-input--is-label-active v-input--is-dirty theme--light v-text-field success--text"
             >
               <div
                 class="v-input__control"
@@ -327,11 +327,6 @@ exports[`unit components Witness draw 1`] = `
                       class="v-messages__wrapper"
                     />
                   </div>
-                  <div
-                    class="v-counter theme--light"
-                  >
-                    4 / 4
-                  </div>
                 </div>
               </div>
             </div>
@@ -348,9 +343,11 @@ exports[`unit components Witness draw 1`] = `
           class="v-list-item__content"
         >
           <div
-            class="text-justify"
+            class="v-list-item__title mb-3"
+            style="white-space: inherit;"
           >
             Место постоянного проживания (не прописки), с точностью до дома
+            
           </div>
            
           <div

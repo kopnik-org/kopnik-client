@@ -3,10 +3,11 @@
  * иначе тот подсунет свой базный полифил. Баг в том, что куки не приходят от сервера
  */
 import isomorphicFetch from 'isomorphic-fetch'
+import '../src/register-error-handlers'
 
 global.isomorphicFetch = isomorphicFetch
 import Vue from 'vue'
-import 'vue-the-mask'
+import '../src/plugins/vue-the-mask'
 import i18n from '../src/plugins/i18n'
 import '../src/plugins/vee-validate'
 import mapi from "../src/mapi";
