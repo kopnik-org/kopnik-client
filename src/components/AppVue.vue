@@ -15,7 +15,7 @@
         </v-snackbar>
         <v-app-bar v-if="application.user" app>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-            <v-toolbar-title>kopnik.org v0.1.1-beta</v-toolbar-title>
+            <v-toolbar-title>kopnik.org v{{ packageVersion }} </v-toolbar-title>
         </v-app-bar>
         <DrawerVue v-if="application.user" v-model="drawer" style="z-index: 700;"></DrawerVue>
         <v-content>
@@ -102,13 +102,8 @@
             },
         },
         computed: {
-            locale() {
-                return this.application.user ? this.application.user.locale : 'ru'
-            },
-            contentTransitionName() {
-                let result = this.application.SECTION === Application.Section.Main ? 'content2main' : 'content2other'
-                this.logger.log(result)
-                return result
+            packageVersion(){
+                return process.env.PACKAGE_VERSION
             },
         },
         methods: {
