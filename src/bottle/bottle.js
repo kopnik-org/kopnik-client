@@ -8,16 +8,32 @@ import config from '../../config'
 import api from "../api";
 import CookieService from "./CookieService"
 import MK from "../mk/mk";
+import LocaleManager from "../locales/LocaleManager";
+import ru from '../locales/ru'
+import en from '../locales/en'
 
 Bottle.config.strict = true
 const bottle = new Bottle()
 
+bottle.constant('messages', {
+    ru,
+    en,
+})
+
+bottle.factory('env', function env() {
+    return process.env.NODE_ENV || 'development'
+})
+bottle.service('localeManager', function localeManager() {
+    const localeManager = new LocaleManager()
+    localeManager.currentLocale = container.env === 'development' ? 'en' : 'ru'
+    return localeManager
+})
 bottle.service('cookieService', CookieService, 'config')
 bottle.factory('api', function apiFactory(container) {
     return container.config.di.fetch ? api : global.mapi
 })
 bottle.factory('VK', function vkFactory(container) {
-    return process.env.NODE_ENV==='test' ? MK : global.VK
+    return process.env.NODE_ENV === 'test' ? MK : global.VK
 })
 bottle.factory('config', function configFactory() {
     if (!process.env.NODE_ENV) {
@@ -50,7 +66,7 @@ bottle.factory('logger', function loggerFactory() {
 /**
  * @callback fetch
  * @param {string} url
- * @param {Object} options
+ * @param {Object?} options
  */
 /**
  * @type {Object}
@@ -70,6 +86,9 @@ bottle.factory('logger', function loggerFactory() {
  * @property {Number} config.messenger.clientId
  * @property {String} config.messenger.loginUrl
  * @property {String} config.messenger.redirectUrl
+ * @property {LocaleManager} localeManager
+ * @property {string} env
+ * @property {{ru, en}} messages
  */
 const container = bottle.container
 export {bottle, container}

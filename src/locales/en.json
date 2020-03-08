@@ -1,4 +1,8 @@
 {
+  "languageName": "English",
+  "application": {
+    "goToProfile": "Welcome, Brother. You are at kopnik.org. To begin, go through the registration, after which all the features of the system will become available."
+  },
   "profile": {
     "language": "Language",
     "birthyear": "Birthyear",
@@ -6,17 +10,18 @@
     "passport": "Last for number of passport",
     "patronymic": "Patronymic",
     "nickname": "Nickname",
-    "lastName": "lastName",
+    "lastName": "Last name",
     "submit": "Send request",
     "successMessage": "Request for membership has been sent to your witness. Now go to VKontakte and read how to communicate with your witness and confirm the accuracy of sended data. Good luck!",
     "messagesFromGroup": {
       "allow": "By clicking the button below to turn on the nationwide system",
       "allowed": "Turned on!"
     },
-    "role": {
-      "title": "My role in the Kopa's community",
+    "rolesTitle": "My role in the Kopa's community",
+    "roles": {
+
       "trueKopnik": {
-        "title": "True Kopnik",
+        "title": "Original Kopnik",
         "criteria": [
           "Have a family",
           "There is a Son who has a family",
@@ -41,7 +46,9 @@
           "The man"
         ]
       },
-      "women": "I am a woman"
+      "women": {
+        "title": "I am a woman"
+      }
     },
     "location": "Place of permanent residence, accurate to home"
   },
@@ -63,6 +70,12 @@
     "logout": "Logout"
   },
   "errors": {
-    "underConstruction": "This functional is under construction by now"
+    "underConstruction": "This functional is under construction by now. Will be able soon in v0.2.0"
+  },
+  "details": {
+    "toChat": "Talk",
+    "toKopa": "To Kopa",
+    "notToKopa": "Don't invite",
+    "toForeman": "To foreman"
   }
 }
