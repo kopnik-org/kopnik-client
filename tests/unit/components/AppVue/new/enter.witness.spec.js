@@ -11,7 +11,6 @@ describe('unit components AppVue', () => {
 
     beforeEach(() => {
         bottle.resetProviders(['application', 'cookieService'])
-        console.log('inside before each')
         application = container.application
         const router= routerFactory()
         vm = new Vue({

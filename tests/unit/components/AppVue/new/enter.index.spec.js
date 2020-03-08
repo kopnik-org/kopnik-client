@@ -28,14 +28,12 @@ describe('unit components AppVue', () => {
 
         describe('enter', () => {
             it('/', async () => {
-                console.log('---> inside test 1')
                 vm.$mount()
                 await application.authenticate()
                 await flushPromises()
                 expect(vm.$el.textContent).not.toContain('Войти через ВКонтакте')
                 expect(application.section).toBe(Application.Section.Profile)
                 expect(vm.$route.name).toBe('Profile')
-                console.log('inside test 1')
             })
         })
     })

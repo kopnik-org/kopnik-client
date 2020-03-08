@@ -70,7 +70,6 @@ describe('unit components Profile', () => {
         submitBtn.trigger('click')
         await flushPromises()
         expect(container.application.section).toBe(Application.Section.Main)
-        console.log(container.application.infos)
         expect(container.application.infos.length).toBe(1)
     })
 

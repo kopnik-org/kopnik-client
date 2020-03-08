@@ -3,7 +3,7 @@
  * иначе тот подсунет свой базный полифил. Баг в том, что куки не приходят от сервера
  */
 import isomorphicFetch from 'isomorphic-fetch'
-import '../src/register-error-handlers'
+// import '../src/register-error-handlers'
 
 global.isomorphicFetch = isomorphicFetch
 import Vue from 'vue'

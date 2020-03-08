@@ -11,7 +11,6 @@ describe('unit components AppVue', () => {
 
     beforeEach(() => {
         bottle.resetProviders(['application', 'cookieService'])
-        console.log('inside before each')
         application = container.application
         const router= routerFactory()
         vm = new Vue({
@@ -83,17 +82,14 @@ describe('unit components AppVue', () => {
         // TODO: why this tests fail???
         describe('enter', () => {
             it.only('/', async () => {
-                console.log('---> inside test 1')
                 vm.$mount()
                 await application.authenticate()
                 await flushPromises()
                 expect(vm.$el.textContent).not.toContain('Войти через ВКонтакте')
                 expect(application.section).toBe(Application.Section.Profile)
                 expect(vm.$route.name).toBe('Profile')
-                console.log('inside test 1')
             })
             it.only('/profile', async () => {
-                console.log('inside test 2')
                 // await vm.$router.push({name: Application.Section.Profile})
                 application.authenticate()
                 vm.$mount()
