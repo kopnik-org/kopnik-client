@@ -1,0 +1,14 @@
+{
+  "lang": "ru-RU",
+  "name": "Электронное копное парво kopnik.org",
+  "short_name": "kopnik.org",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Копное право в телефоне каждого славянина",
+  "icons": [{
+    "src": "img/logo_circle.png",
+    "sizes": "192x192 168x168 144x144 96x96 72x72 48x48 32x32 16x16",
+    "type": "image/png"
+  }]
+}
