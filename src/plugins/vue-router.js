@@ -5,7 +5,7 @@ import {container} from "../bottle/bottle";
 import Application from "../application/Application";
 
 Vue.use(VueRouter)
-const application = container.application
+// const application = container.application  не работает в тестах, потому что при каждом тесте application создается по новой
 
 /**
  * Маршрут меняется только как реакция на изменение application.Section
@@ -18,6 +18,7 @@ const routes = [
         path: '/' + Application.Section.Profile.toLowerCase(),
         name: Application.Section.Profile,
         beforeEnter: async (to, from, next) => {
+            const application = container.application
             await application.lockSection(async () => {
                     await application.setSection(Application.Section.Profile)
                     if (application.section === Application.Section.Profile) {
@@ -37,6 +38,7 @@ const routes = [
         Application.Section.Witness,
         beforeEnter:
             async (to, from, next) => {
+                const application = container.application
                 await application.lockSection(async () => {
                     await application.setSection(Application.Section.Witness)
                     if (application.section === Application.Section.Witness) {
@@ -51,9 +53,10 @@ const routes = [
     },
     {
         path: '/' + Application.Section.Ten.toLowerCase(),
-        name:Application.Section.Ten,
+        name: Application.Section.Ten,
         beforeEnter:
             async (to, from, next) => {
+                const application = container.application
                 await application.lockSection(async () => {
                     await application.setSection(Application.Section.Ten)
                     if (application.section === Application.Section.Ten) {
@@ -72,6 +75,7 @@ const routes = [
         Application.Section.Thanks,
         beforeEnter:
             async (to, from, next) => {
+                const application = container.application
                 await application.lockSection(async () => {
                     await application.setSection(Application.Section.Thanks)
                     if (application.section === Application.Section.Thanks) {
@@ -91,6 +95,7 @@ const routes = [
         Application.Section.Main,
         beforeEnter:
             async (to, from, next) => {
+                const application = container.application
                 await application.lockSection(async () => {
                     await application.setSection(Application.Section.Main)
                     if (application.section === Application.Section.Main) {

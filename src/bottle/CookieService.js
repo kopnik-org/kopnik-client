@@ -16,7 +16,12 @@ export default class CookieService {
         return this.stack.pop()
     }
     get cookie (){
-        return this.stack[this.stack.length-1]
+        if (this.stack.length) {
+            return this.stack[this.stack.length - 1]
+        }
+        else{
+            return null
+        }
     }
     set cookie (value){
         this.stack[this.stack.length-1]=value

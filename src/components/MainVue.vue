@@ -77,19 +77,19 @@
         </MapVue>
 
         <!--        копники на копу-->
-            <kopa-invite v-if="value.kopa.parts.length" :value="value.kopa"
-                         style="position: fixed; left: 50%; transform: translateX(-50%); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"
-                         :style="{bottom: kopaBottom}"
-                         @avatar_click="avatar_click($event)" @avatar_dblclick="avatar_dblclick($event)">
-                <v-btn fab small color="primary"
-                       title="Созвать всех на копу..."
-                       @click="inviteAll_click"
-                       class="ml-auto mr-1 mb-2" width="52" height="52">
-                    <v-icon>mdi-handshake</v-icon>
-                </v-btn>
-            </kopa-invite>
+        <kopa-invite v-if="value.kopa.parts.length" :value="value.kopa"
+                     style="position: fixed; left: 50%; transform: translateX(-50%); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"
+                     :style="{bottom: kopaBottom}"
+                     @avatar_click="avatar_click($event)" @avatar_dblclick="avatar_dblclick($event)">
+            <v-btn fab small color="primary"
+                   title="Созвать всех на копу..."
+                   @click="inviteAll_click"
+                   class="ml-auto mr-1 mb-2" width="52" height="52">
+                <v-icon>mdi-handshake</v-icon>
+            </v-btn>
+        </kopa-invite>
 
-        <!--        копник внизу-->
+        <!--       детали копник внизу-->
         <v-bottom-sheet :value="value.selected" :attach="$refs.main"
                         persistent hide-overlay no-click-animation :retain-focus="false" :inset="true"
                         @input="details_input"
@@ -106,13 +106,13 @@
 
                 <v-card-actions class="flex-nowrap">
                     <v-btn text :disabled="application.user===value.selected" class="flex" @click="talk_click">
-                        В беседу
+                        {{ $t('details.toChat') }}
                     </v-btn>
                     <v-btn text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
-                        {{value.kopa.isAdded(value.selected)?'Не звать':'На копу'}}
+                      {{ value.kopa.isAdded(value.selected)? $t('details.notToKopa'):$t('details.toKopa') }}
                     </v-btn>
                     <v-btn text :disabled="application.user===value.selected" class="flex" @click="setForeman_click">
-                        В старшины
+                        {{ $t('details.toForeman') }}
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -120,7 +120,7 @@
     </v-container>
 </template>
 <script>
-    import L, {Map} from 'leaflet'
+    import L, {LatLng, LatLngBounds, Map} from 'leaflet'
     import {
         LPolyline,
         LTooltip,
@@ -178,6 +178,16 @@
             }
         },
         computed: {
+            visibleKopniks(){
+                const result= new Set([...this.value.top20, ...this.value.squadAnalyzer.members])
+                if (this.application.user) {
+                    result.add(this.application.user)
+                }
+                if (this.value.selected) {
+                    result.add(this.value.selected)
+                }
+                return [...result]
+            },
             kopaBottom() {
                 if (this.value.selected) {
                     return '155px'
@@ -186,7 +196,7 @@
                 }
             },
             markers() {
-                const result = this.value.top20
+                const result = this.visibleKopniks
                     .map(eachTop => {
                         return {
                             value: eachTop,
@@ -256,13 +266,13 @@
             /**
              * Позвать копника в беседу
              */
-            talk_click(){
+            talk_click() {
                 this.application.errors.push(this.application.getMessage('errors.underConstruction'))
             },
             /**
              * Выбрать копника старшиной
              */
-            setForeman_click(){
+            setForeman_click() {
                 this.application.errors.push(this.application.getMessage('errors.underConstruction'))
             },
             /**
@@ -335,17 +345,16 @@
         created() {
         },
         async mounted() {
-            this.$nextTick(() => {
-                this.lmap = this.$refs.map.$refs.map.mapObject
-            })
+            await this.$nextTick()
+            this.lmap = this.$refs.map.$refs.map.mapObject
             await this.application.resolveUser()
         }
     }
 </script>
 <style>
     /*Баг хрома из-за скрываемой адресной строки*/
-    .k-main .leaflet-touch .leaflet-control-container .leaflet-top{
-        margin-top:50px;
+    .k-main .leaflet-touch .leaflet-control-container .leaflet-top {
+        margin-top: 50px;
     }
 
     .k-kopaInvite .kopa-leave-to {

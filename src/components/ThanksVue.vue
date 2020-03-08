@@ -27,10 +27,10 @@
         <v-card elevation="12" class="mx-auto" width="100%" max-width="350px">
                 <v-img src="https://technicalsupportoverseas.com/wp-content/uploads/revslider/AboutUs/slider-rev-about.png"></v-img>
             <v-card-title>
-                Тоже хочешь участвовать?
+                Присоединяйся к нашей команде
             </v-card-title>
             <v-card-subtitle>
-                Принять участие в создании первой международной сети Копного права очень просто. Узнай как присоединиться.
+                Принять участие в создании первой международной сети Копного права очень просто.
             </v-card-subtitle>
             <v-card-actions>
                 <v-btn color="primary" @click="join_click" class="mx-auto">
@@ -74,6 +74,7 @@
                 let eachWho
                 eachWho = new Kopnik()
                 eachWho.id = eachThank.who.id
+                eachThank.who.locale= container.localeManager.currentLocale
                 eachWho.merge(eachThank.who)
                 if (!eachThank.who.id || !this.application.user) {
                     eachWho.isLoaded = true

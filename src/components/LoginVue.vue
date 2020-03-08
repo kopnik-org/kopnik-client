@@ -4,7 +4,7 @@
 
         </v-col>
         <v-avatar size="170">
-            <v-img src="logo circle.png"></v-img>
+            <v-img src="img/logo_circle.png"></v-img>
         </v-avatar>
         <div class="pa-1 tagline text-center">
             <span>КОПНОЕ ПРАВО</span>

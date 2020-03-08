@@ -20,7 +20,7 @@
                 :token="tileProvider.token"
                 layer-type="base"/>
         <v-geosearch v-if="geosearch" :options="geosearchOptions"></v-geosearch>
-<!--        <l-control-layers v-if="layersControl" position="topleft"></l-control-layers>-->
+        <!--        <l-control-layers v-if="layersControl" position="topleft"></l-control-layers>-->
         <l-control-scale v-if="scaleControl" position="bottomright" :imperial="false" :metric="true"></l-control-scale>
         <v-locatecontrol v-if="locateControl" :options="locateOptions"></v-locatecontrol>
         <slot></slot>
@@ -29,6 +29,7 @@
 <script>
     import {OpenStreetMapProvider} from 'leaflet-geosearch';
     import _ from 'lodash'
+    import {LatLngBounds, LatLng} from 'leaflet'
 
     import {
         LControlScale,
@@ -99,7 +100,7 @@
         },
         props: {
             center: {
-                type: [Array,Object],
+                type: [Array, Object],
             },
             zoom: {
                 type: Number,
@@ -189,11 +190,11 @@
         },
         async mounted() {
             this.$nextTick(() => {
-                this.map = this.$refs.map.mapObject
+                // this.map = this.$refs.map.mapObject
                 // this.map.on('geosearch/showlocation', console.log)
-                this.map.on('click', () => {
-                    // this.$emit('click', event)
-                })
+                // this.map.on('click', () => {
+                //     // this.$emit('click', event)
+                // })
             })
         }
     }

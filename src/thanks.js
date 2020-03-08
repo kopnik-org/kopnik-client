@@ -5,7 +5,7 @@ let thanks = [
     // Артем
     {
         who: {
-            id: 1,
+            // id: 1,
             uid: null,
             photo: 'https://sun1-93.userapi.com/tvpmiLDOH0x85TWF3KktOksi7C0lmarbnu6XTQ/V26eVKeaST8.jpg',
             name: 'Ражков Артем',
@@ -22,7 +22,7 @@ let thanks = [
     //Алексей
     {
         who: {
-            id: 2,
+            // id: 2,
             uid: null,
             photo: 'https://i.imgur.com/lwWzCDl.jpg',
             name: 'Баранов Алексей',
@@ -97,7 +97,7 @@ let thanks = [
     //Александр
     {
         who: {
-            id: 3,
+            // id: 3,
             uid: null,
             photo: 'https://sun1-91.userapi.com/c857628/v857628007/644b7/1dFOLyFpK_8.jpg',
             name: 'Титов Александр'

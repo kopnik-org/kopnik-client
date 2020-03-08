@@ -2,7 +2,7 @@
     <v-list v-if="value.isLoaded">
         <v-list-item>
             <avatar-vue :value="value" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}"
-                          @click="avatar_click" @dblclick="avatar_dblclick">
+                        @click="avatar_click" @dblclick="avatar_dblclick">
             </avatar-vue>
         </v-list-item>
         <v-list-item v-if="!fio">
@@ -12,9 +12,11 @@
         </v-list-item>
         <v-list-item v-if="locale">
             <v-list-item-content>
-                <v-combobox ref="locale"
+                <v-select ref="locale"
+                          item-text="languageName"
+                          item-value="name"
                             :readonly="readonly"
-                            :return-object="false"
+                            :return-object="true"
                             :allow-overflow="false"
                             v-model="value.locale"
                             :items="locales"
@@ -22,7 +24,7 @@
                             label="Язык / Language"
                             @change="$emit('locale_change', $event)"
                 >
-                </v-combobox>
+                </v-select>
             </v-list-item-content>
         </v-list-item>
 
@@ -66,43 +68,6 @@
                 </ValidationProvider>
             </v-list-item-content>
         </v-list-item>
-        <v-list-item v-if="role">
-            <v-list-item-content>
-                <ValidationProvider name="role" rules="required" v-slot="{ errors, valid }">
-                    <v-radio-group v-model="value.role">
-                        <template v-slot:label>
-                            <div>{{ $t('profile.role.title')}}</div>
-                        </template>
-                        <v-radio :value="1" :label="$t('profile.role.trueKopnik.title')">
-                            <template v-slot:label>
-                                <v-checkbox value="true" readonly color="success">{{ $t('profile.role.trueKopnik.criteria[0]') }}</v-checkbox>
-                                <v-checkbox value="true" readonly color="success">{{ $t('profile.role.trueKopnik.criteria[1]') }}</v-checkbox>
-                                <v-checkbox value="true" readonly color="success">{{ $t('profile.role.trueKopnik.criteria[2]') }}</v-checkbox>
-                                <v-checkbox value="true" readonly color="success">{{ $t('profile.role.trueKopnik.criteria[3]') }}</v-checkbox>
-                                <v-checkbox value="true" readonly color="success">{{ $t('profile.role.trueKopnik.criteria[4]') }}</v-checkbox>
-                            </template>
-                        </v-radio>
-                        <v-radio :value="2" :label="$t('profile.role.danilovKopnik.title')">
-                            <template v-slot:label>
-                                <v-checkbox value="true" readonly color="success">{{ $t('profile.role.danilovKopnik.criteria[0]') }}</v-checkbox>
-                                <v-checkbox value="true" readonly color="success">{{ $t('profile.role.danilovKopnik.criteria[1]') }}</v-checkbox>
-                                <v-checkbox value="true" readonly color="success">{{ $t('profile.role.danilovKopnik.criteria[2]') }}</v-checkbox>
-                                <v-checkbox value="true" readonly color="success">{{ $t('profile.role.danilovKopnik.criteria[3]') }}</v-checkbox>
-                                <v-checkbox value="true" readonly color="success">{{ $t('profile.role.danilovKopnik.criteria[4]') }}</v-checkbox>
-                            </template>
-                        </v-radio>
-                        <v-radio :value="3" :label="$t('profile.role.futureKopnik.title')">
-                            <template v-slot:label>
-                                <v-checkbox value="true" readonly color="success">{{ $t('profile.role.futureKopnik.criteria[0]') }}</v-checkbox>
-                            </template>
-                        </v-radio>
-                        <v-radio :value="4" :label="$t('profile.role.women.title')">
-                        </v-radio>
-                    </v-radio-group>
-                </ValidationProvider>
-            </v-list-item-content>
-        </v-list-item>
-
         <v-list-item v-if="birthyear">
             <v-list-item-content>
                 <ValidationProvider name="birthyear" rules="required|numeric|length:4"
@@ -110,11 +75,31 @@
                     <v-text-field
                             v-model="value.birthyear"
                             :label="$t('profile.birthyear')"
-                            :v-mask="['####']"
+                            v-mask="['####']"
                             :error-messages="errors"
                             :success="valid"
                             :readonly="readonly"
                     ></v-text-field>
+                </ValidationProvider>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="role">
+            <v-list-item-content>
+                <ValidationProvider name="role" rules="required" v-slot="{ errors, valid }">
+                    <v-radio-group v-model="value.role">
+                        <template v-slot:label>
+                            <div>{{ $t('profile.rolesTitle')}}</div>
+                        </template>
+                        <template v-for="(eachRole, eachRoleIndex) of $t('profile.roles')">
+                            <v-radio :value="eachRoleIndex+1" :label="eachRole.title" color="success"></v-radio>
+                            <ul v-show="value.role===eachRoleIndex+1" class="mb-4" style="font-size: smaller;">
+                                <li v-for="eachCriteria of eachRole.criteria" class="criteria">
+                                    <v-icon color="success">mdi-checkbox-marked</v-icon>
+                                    {{ eachCriteria }}
+                                </li>
+                            </ul>
+                        </template>
+                    </v-radio-group>
                 </ValidationProvider>
             </v-list-item-content>
         </v-list-item>
@@ -124,7 +109,7 @@
                                     v-slot="{ errors, valid }">
                     <v-text-field
                             v-model="value.passport"
-                            mask="####"
+                            v-mask="['####']"
                             :label="$t('profile.passport')"
                             :error-messages="errors"
                             :success="valid"
@@ -135,7 +120,8 @@
         </v-list-item>
         <v-list-item v-if="location">
             <v-list-item-content>
-                <v-list-item-title  class="mb-3" style="white-space: inherit !important;">{{ $t('profile.location') }}</v-list-item-title>
+                <v-list-item-title class="mb-3" style="white-space: inherit !important;">{{ $t('profile.location') }}
+                </v-list-item-title>
                 <MapVue :center="value.location" :zoom="14"
                         :zoom-control="true" :layers-control="false" :locate-control="true"
                         @update:center="$emit('map_updateCenter', $event)"
@@ -169,17 +155,9 @@
         },
         data: () => {
             return {
+                temp: true,
                 application: container.application,
-                locales: [
-                    {
-                        text: "Русский",
-                        value: "ru"
-                    },
-                    {
-                        text: "English",
-                        value: "en"
-                    }
-                ],
+                locales: container.localeManager.locales,
             }
         },
         props: {
@@ -225,7 +203,7 @@
                 type: Boolean,
                 default: false
             },
-            role:{
+            role: {
                 type: Boolean,
                 default: false,
             }
@@ -238,6 +216,9 @@
         computed: {},
         watch: {},
         methods: {
+            role_click(value) {
+                this.value.role = value
+            },
             avatar_click() {
                 this.$emit('click', this.value)
             },
@@ -252,3 +233,9 @@
         }
     }
 </script>
+
+<style>
+    li.criteria {
+        list-style-type: none;
+    }
+</style>

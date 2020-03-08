@@ -7,21 +7,23 @@
                 <v-card-text>
                     <v-form>
                         <kopnik-vue :value="request"
-                                    locale fio birthyear passport location
+                                    locale fio birthyear passport role location
                                     @locale_change="locale_change" @map_updateCenter="map_updateCenter"
                         ></kopnik-vue>
-                        <v-list  v-if="isMessagesFromGroupAllowed===false">
+                        <v-list v-if="isMessagesFromGroupAllowed===false">
                             <v-list-item>
                                 <v-list-item-content>
-                                        <v-list-item-title cstyle="white-space: inherit !important;">{{ $t('profile.messagesFromGroup.allow') }}</v-list-item-title>
-                                        <!-- VK Widget https://vk.com/dev/AllowMessagesFromCommunity https://vk.com/dev/widget_allow_messages_from_community -->
-                                        <div id="vk_allow_messages_from_community" class="text-center my-3"></div>
+                                    <v-list-item-title style="white-space: inherit !important;">{{
+                                        $t('profile.messagesFromGroup.allow') }}
+                                    </v-list-item-title>
+                                    <!-- VK Widget https://vk.com/dev/AllowMessagesFromCommunity https://vk.com/dev/widget_allow_messages_from_community -->
+                                    <div id="vk_allow_messages_from_community" class="text-center my-3"></div>
                                 </v-list-item-content>
                             </v-list-item>
                             <slot></slot>
                         </v-list>
                         <v-btn id='submit' color="primary" block
-                               :disabled="invalid || !isMessagesFromGroupAllowed"
+                               :disabled="invalid || !isMessagesFromGroupAllowed || !request.location.lat"
                                @click="submit_click"
                         >
                             {{$t('profile.submit')}}
@@ -69,32 +71,35 @@
                 this.request.location = event
             },
             async submit_click() {
-                const isInfoNeeds = this.application.user.status !== Kopnik.Status.CONFIRMED
-                await this.application.user.update(this.request)
-                if (isInfoNeeds) {
-                    this.application.infos.push(this.$t('profile.successMessage'))
-                    await this.application.setSection(container.application.constructor.Section.Main)
-                }
+                await this.application.user.update(this.request.plain)
+                this.application.infos.push(this.$t('profile.successMessage'))
+                await this.application.setSection(container.application.constructor.Section.Main)
             },
+            /**
+             *
+             * @param {{text:string, value:string}}event
+             * @returns {Promise<void>}
+             */
             async locale_change(event) {
-                // vue-i18n
-                this.$root.$options.i18n.locale = event
-                // vuetify
-                this.$vuetify.lang.current = event
-                // vee-validate
-                localize(event)
-                // сохранить на сервере
+                // задаем локаль текущему пользователю
+                this.application.user.locale=event
+                // задаем текущую локаль приложению
+                container.localeManager.currentLocale= event
+                // меняем сообщения в разметке страниц
+                this.$root.$options.i18n.locale = event.name
+                // меняем сообщения в разметке vuetify
+                this.$vuetify.lang.current = event.name
+                // меняем сообщения об ошибках валидации
+                localize(event.name)
+                // сохраняем на сервере
                 // await this.application.user.patchLocale()
             }
         },
         async created() {
-            let user = this.application.user
-            if (user.id) {
-                await user.loaded()
-            }
+            let user = await this.application.resolveUser()
 
             this.request = new Kopnik
-            this.request.merge(this.application.user.plain)
+            this.request.merge(this.application.user)
             if (!this.request.location || !this.request.location.lat) {
                 this.request.location = {lat: 55.753215, lng: 37.622504}
             }

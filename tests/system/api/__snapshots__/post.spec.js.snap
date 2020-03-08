@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`system api post anonymous users/pending/update 1`] = `{ error: {"message":"No authentication","code":401,"url":"http://localhost:8082/api/users/pending/update"} }`;
+
+exports[`system api post anonymous users/update 1`] = `{ error: {"message":"No authentication","code":401,"url":"http://localhost:8082/api/users/update"} }`;
+
+exports[`system api post user1 users/pending/update 1`] = `true`;
+
+exports[`system api post user2 users/pending/update 1`] = `{ error: {"message":"ACCESS_DENIED: заявку могут обрабатывать только заверители","code":403,"url":"http://localhost:8082/api/users/pending/update"} }`;
+
+exports[`system api post user2 users/update 1`] = `
+Array [
+  Object {
+    "birthyear": 1961,
+    "firstName": "Трофим",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Калашников",
+    "locale": "ru",
+    "location": Object {
+      "lat": 62.335961,
+      "lng": 29.089971,
+    },
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "https://lorempixel.com/200/200/?38191",
+    "smallPhoto": "https://lorempixel.com/200/200/?38191",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api post user3 users/pending/update 1`] = `{ error: {"message":"ACCESS_DENIED: заявку могут обрабатывать только заверители","code":403,"url":"http://localhost:8082/api/users/pending/update"} }`;
+
+exports[`system api post user3 users/update 1`] = `
+Array [
+  Object {
+    "birthyear": 1961,
+    "firstName": "Трофим",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Калашников",
+    "locale": "ru",
+    "location": Object {
+      "lat": 62.335961,
+      "lng": 29.089971,
+    },
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "https://lorempixel.com/200/200/?38191",
+    "smallPhoto": "https://lorempixel.com/200/200/?38191",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api post user4 users/pending/update 1`] = `{ error: {"message":"ACCESS_DENIED: заявку могут обрабатывать только заверители","code":403,"url":"http://localhost:8082/api/users/pending/update"} }`;
+
+exports[`system api post user4 users/update 1`] = `
+Array [
+  Object {
+    "birthyear": 1961,
+    "firstName": "Трофим",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Калашников",
+    "locale": "ru",
+    "location": Object {
+      "lat": 62.335961,
+      "lng": 29.089971,
+    },
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "https://lorempixel.com/200/200/?38191",
+    "smallPhoto": "https://lorempixel.com/200/200/?38191",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;
+
+exports[`system api post user5 users/pending/update 1`] = `{ error: {"message":"ACCESS_DENIED: заявку могут обрабатывать только заверители","code":403,"url":"http://localhost:8082/api/users/pending/update"} }`;
+
+exports[`system api post user5 users/update 1`] = `
+Array [
+  Object {
+    "birthyear": 1961,
+    "firstName": "Трофим",
+    "foreman_id": null,
+    "id": 1,
+    "lastName": "Калашников",
+    "locale": "ru",
+    "location": Object {
+      "lat": 62.335961,
+      "lng": 29.089971,
+    },
+    "passport": null,
+    "patronymic": "Колесников",
+    "photo": "https://lorempixel.com/200/200/?38191",
+    "smallPhoto": "https://lorempixel.com/200/200/?38191",
+    "status": 2,
+    "witness_id": null,
+  },
+]
+`;

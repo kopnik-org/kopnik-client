@@ -7,15 +7,15 @@
                 Закрыть
             </v-btn>
         </v-snackbar>
-        <v-snackbar v-if="application.infos.length" v-model="infoVisible" :timeout="10000" multi-line bottom color="info">
+        <v-snackbar v-if="application.infos.length" v-model="infoVisible" :timeout="0" multi-line bottom color="info">
             {{ application.infos[application.infos.length-1] }}
             <v-btn text xcolor="error" @click="infoVisible = false">
                 Закрыть
             </v-btn>
         </v-snackbar>
-        <v-app-bar v-if="application.user" app color="indigo">
+        <v-app-bar v-if="application.user" app>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-            <v-toolbar-title>kopnik.org</v-toolbar-title>
+            <v-toolbar-title>kopnik.org v0.1.1-beta</v-toolbar-title>
         </v-app-bar>
         <DrawerVue v-if="application.user" v-model="drawer" style="z-index: 700;"></DrawerVue>
         <v-content>
@@ -74,15 +74,15 @@
             'application.user': async function (current, old) {
                 if (current && (current.status === Kopnik.Status.NEW || current.status === Kopnik.Status.DECLINED)) {
                     await this.application.lockSection(async () => {
+                        this.application.infos.push(this.application.getMessage('application.goToProfile'))
                         await this.application.setSection(Application.Section.Profile)
-                        this.application.infos.push('Для начала пройдите регистрацию. После этого станут доступны все возможности системы.')
                     })
                 }
             },
             /**
              * меняем роут вслед за изменением раздела в моделе
              */
-            'application.SECTION': async function (current, prev) {
+            'application.section': async function (current, prev) {
                 await this.application.lockSection(async () => {
                     if (this.application.section !== this.$route.name) {
                         // вызывается асинхронно, чтобы предотвратить рекурсивный lockSection

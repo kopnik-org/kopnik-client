@@ -12,6 +12,4 @@ fetchIntercept.register(dataInterceptor)
 fetchIntercept.register(cookieInterceptor)
 fetchIntercept.register(headersInterceptor)
 
-
-
 export default api

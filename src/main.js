@@ -1,5 +1,6 @@
+import './register-error-handlers'
 import Vue from 'vue'
-import 'vue-the-mask'
+import './plugins/vue-the-mask'
 import vuetify from './plugins/vuetify'
 import routerFactory from './plugins/vue-router'
 import i18n from './plugins/i18n'
@@ -21,19 +22,6 @@ import {container} from "./bottle/bottle"
 import './plugins/className'
 
 Vue.config.productionTip = false
-
-// error handling
-window.addEventListener("error", function (event) {
-    container.application.onerror(event.error)
-})
-window.addEventListener("unhandledrejection", function (event) {
-    container.application.onerror(event.reason)
-})
-Vue.config.errorHandler = (err, vm, info) => {
-    err.vm= vm
-    err.info= info
-    container.application.onerror(err)
-}
 
 global.application = container.application
 global.application.authenticate()

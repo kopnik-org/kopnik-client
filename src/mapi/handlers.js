@@ -12,6 +12,20 @@ handlers.set(/test\/login\/\d+/, (url, options, user, key) => {
     container.cookieService.cookie = `user${userId}`
     // return data(key)
 })
+handlers.set(/users\/getTopInsideSquare/, (url, options, user, key) => {
+    if (user === 'anonymous') {
+        throw new KopnikApiError('Not Authorized', 401, container.config.api.path + url)
+    }
+    return data(`system api ${options.method} ${user} users/getTopInsideSquare?x1=-180&y1=-90&x2=180&y2=90&count=20 1`)
+})
+
+handlers.set(/logout/, (url, options, user, key) => {
+    if (user === 'anonymous') {
+        throw new KopnikApiError('Not Authorized', 401, container.config.api.path + url)
+    }
+    container.cookieService.pop()
+    return {}
+})
 
 handlers.set(/.*/, (url, options, user, key) => {
     if (user === 'anonymous') {

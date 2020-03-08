@@ -1,6 +1,8 @@
 import {sync, collection, scalar, object} from '../decorators/sync'
 import AbstractSync from "./AbstractSync";
 import {KopnikError} from '../KopnikError'
+import Locale from "../locales/Locale";
+import {container} from "../bottle/bottle";
 
 
 export default class Kopnik extends AbstractSync {
@@ -21,7 +23,9 @@ export default class Kopnik extends AbstractSync {
     @scalar photo = undefined
     @scalar smallPhoto = undefined
     @scalar status = undefined
-    @scalar locale = 'ru'
+    /** @type {Locale} */
+    @scalar locale = container.localeManager.currentLocale
+    @scalar role
 
     @object foreman = undefined
     @object witness = undefined
@@ -29,6 +33,13 @@ export default class Kopnik extends AbstractSync {
     @collection ten
     @collection tenRequests
     @collection witnessRequests
+
+    constructor() {
+        super();
+        if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+            this.role = 1
+        }
+    }
 
     get name() {
         return [this.lastName, this.firstName, this.patronymic].filter(each => each).join(' ')
@@ -57,14 +68,23 @@ export default class Kopnik extends AbstractSync {
         return super.getReference(id)
     }
 
-    async merge(plain) {
-        super.merge(plain)
+    async merge(what) {
+        super.merge(what)
         if (!this.rank) {
             this.rank = 1
+        }
+        if (what.locale !== undefined) {
+            this.locale = (what.locale instanceof Locale) ? what.locale : container.localeManager.getLocaleByShortName(what.locale)
         }
         if (this.location instanceof Array) {
             // result.location={lat: result.location[0], lng: result.location[1]}
         }
+    }
+
+    get plain() {
+        const result = super.plain
+        result.locale = this.locale.name
+        return result
     }
 
     /**
@@ -74,9 +94,13 @@ export default class Kopnik extends AbstractSync {
      * @return {Promise<void>}
      */
     async update(data) {
-        if (!data.passport){
+        if (!data.passport) {
             throw new KopnikError('Passport required')
         }
+        if (!data.location.lat || !data.location.lng) {
+            throw new KopnikError('House location required')
+        }
+        this.merge({locale: data.locale})
         await this.constructor.api("update", {
             method: 'POST',
             body: data
@@ -100,6 +124,7 @@ export default class Kopnik extends AbstractSync {
         let result = await this.constructor.api('pending')
         this.witnessRequests = result.map(eachKopnikAsJson => Kopnik.merge(eachKopnikAsJson, true))
     }
+
     async reloadTen() {
         this.ten = []
     }

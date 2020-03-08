@@ -69,7 +69,7 @@
                 </v-list-item-content>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item link @click="logout_click">
+            <v-list-item logout link @click="logout_click">
                 <v-list-item-action>
                     <v-icon>mdi-location-exit</v-icon>
                 </v-list-item-action>
@@ -108,10 +108,8 @@
                 this.$emit('input', event)
             },
             async logout_click(){
-                await container.api('logout')
-                this.application.user= null
+                await this.application.logout()
             }
-
         },
         async created() {
                 await this.application.resolveUser()
