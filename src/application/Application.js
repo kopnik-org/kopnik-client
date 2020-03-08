@@ -177,11 +177,9 @@ export default class Application {
      */
     @once
     async logout() {
-        if (![Application.Section.Thanks, Application.Section.Help].includes(this.section)) {
-            await this.lockSection(() => {
-                this.setSection(Application.Section.Main)
-            })
-        }
+        await this.lockSection(() => {
+            this.setSection(Application.Section.Main)
+        })
         this.sections.main.selected= null
         await container.api('logout')
         this.user = null
