@@ -4,6 +4,12 @@ import AppVue from "../../../src/components/AppVue";
 import {bottle, container} from "../../../src/bottle/bottle";
 import flushPromises from "flush-promises";
 import Application from "../../../src/application/Application";
+import {createLocalVue, mount} from "@vue/test-utils";
+import _ from 'lodash'
+
+import VueRouter from "vue-router";
+import VueTheMask from 'vue-the-mask'
+import VueI18n from 'vue-i18n'
 
 describe('unit conponents AppVue', () => {
     let vm,
@@ -11,13 +17,35 @@ describe('unit conponents AppVue', () => {
 
     beforeEach(() => {
         bottle.resetProviders(['application', 'cookieService'])
+        console.log('inside before each')
         application = container.application
-        vm = new Vue({
+        const router= routerFactory()
+        const temp= _.cloneDeep(AppVue)
+
+        ///
+        const localVue= createLocalVue()
+        localVue.use(VueRouter)
+        localVue.use(VueTheMask)
+        localVue.use(VueI18n)
+        const wrapper= mount(temp, {
+            localVue,
+            i18n,
+            vuetify,
+            router
+        })
+        vm= wrapper.vm
+        ///
+
+/*        vm = new Vue({
             ...AppVue,
             i18n,
             vuetify,
-            router: routerFactory()
-        })
+            router
+        })*/
+    })
+
+    afterEach(()=>{
+        vm.$destroy()
     })
 
     describe('anonymous', () => {
@@ -67,35 +95,41 @@ describe('unit conponents AppVue', () => {
     })
 
     // ожидаем users/list чтобы пожно было под разными пользователями заходить
-    describe.skip('status=new', () => {
+    describe('status=new', () => {
         beforeEach(async () => {
             await login(2)
         })
 
-        it('render', async () => {
+        it.skip('render', async () => {
             application.authenticate()
             vm.$mount()
             await flushPromises()
         })
 
+        // TODO: why this tests fail???
         describe('enter', () => {
-            it('/', async () => {
-                application.authenticate()
+            it.only('/', async () => {
+                console.log('---> inside test 1')
                 vm.$mount()
+                await application.authenticate()
                 await flushPromises()
                 expect(vm.$el.textContent).not.toContain('Войти через ВКонтакте')
-                expect(application.section).toBe(Application.Section.Main)
+                expect(application.section).toBe(Application.Section.Profile)
+                expect(vm.$route.name).toBe('Profile')
+                console.log('inside test 1')
             })
-            it('/profile', async () => {
+            it.only('/profile', async () => {
+                console.log('inside test 2')
+                await vm.$router.push({name: Application.Section.Profile})
                 application.authenticate()
                 vm.$mount()
-                    await vm.$router.push({name: Application.Section.Profile})
-                    await flushPromises()
-                    expect(vm.$router.currentRoute.name).toBe(Application.Section.Profile)
-                    expect(application.section).toBe(Application.Section.Profile)
-                    expect(vm.$el.textContent).toContain('Язык')
+
+                await flushPromises()
+                expect(vm.$router.currentRoute.name).toBe(Application.Section.Profile)
+                expect(application.section).toBe(Application.Section.Profile)
+                expect(vm.$el.textContent).toContain('Язык')
             })
-            it('/witness', async () => {
+            it.skip('/witness', async () => {
                 application.authenticate()
                 vm.$mount()
                 try {
