@@ -8,7 +8,8 @@
                     <v-form>
                         <kopnik-vue :value="request"
                                     locale fio birthyear passport role location
-                                    @locale_change="locale_change" @map_updateCenter="map_updateCenter"
+                                    @locale_change="locale_change"
+                                    @map_move="map_move"
                         ></kopnik-vue>
                         <v-list v-if="isMessagesFromGroupAllowed===false">
                             <v-list-item>
@@ -67,8 +68,9 @@
         computed: {},
         watch: {},
         methods: {
-            map_updateCenter(event) {
-                this.request.location = event
+            map_move(event) {
+                this.request.location = event.target.getCenter()
+                // console.log(event.target.getCenter())
             },
             async submit_click() {
                 await this.application.user.update(this.request.plain)

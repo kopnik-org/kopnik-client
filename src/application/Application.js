@@ -65,7 +65,8 @@ export default class Application {
             console.info('prevent 401 error', err)
         } else {
             this.errors.push(err)
-            throw err
+            this.logger.error(err)
+            // throw err
         }
     }
 

@@ -4,12 +4,14 @@
           @ready="lmap_ready"
           @zoomstart="lmap_zoomstart"
           @movestart="lmap_movestart"
+          @move="$emit('move', $event)"
           @update:bounds="lmap_updateBounds"
           @update:center="lmap_updateCenter"
           @update:zoom="lmap_updateZoom"
 
           style="z-index: 0">
-        <!--        <l-control-zoom position="left"  ></l-control-zoom>-->
+
+        <!--                <l-control-zoom position="left"  ></l-control-zoom>-->
         <l-tile-layer
                 v-for="tileProvider in tileProviders"
                 :key="tileProvider.name"
@@ -23,6 +25,10 @@
         <!--        <l-control-layers v-if="layersControl" position="topleft"></l-control-layers>-->
         <l-control-scale v-if="scaleControl" position="bottomright" :imperial="false" :metric="true"></l-control-scale>
         <v-locatecontrol v-if="locateControl" :options="locateOptions"></v-locatecontrol>
+        <l-control position="bottomleft">
+            <v-text-field v-if="env==='development'"
+                          :value="centerText"></v-text-field>
+        </l-control>
         <slot></slot>
     </LMap>
 </template>
@@ -36,6 +42,7 @@
         LMap,
         LTileLayer,
         LControlLayers,
+        LControl
     } from 'vue2-leaflet'
     import VGeosearch from 'vue2-leaflet-geosearch';
     import VLocatecontrol from 'vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol'
@@ -51,7 +58,8 @@
             LTileLayer,
             LControlLayers,
             LControlScale,
-            VLocatecontrol
+            VLocatecontrol,
+            LControl,
         },
         data() {
             return {
@@ -135,6 +143,15 @@
                 }
         },
         computed: {
+            env() {
+                return container.env
+            },
+            centerText() {
+                return JSON.stringify({
+                    lat: Math.round(this.center.lat * 1000) / 1000,
+                    lng: Math.round(this.center.lng * 1000) / 1000,
+                })
+            },
             tileProviders() {
                 return [this.tileProvider1, this.tileProvider2, this.tileProvider3]
             }
