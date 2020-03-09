@@ -136,7 +136,7 @@ describe('system api post', () => {
         it('users/update', async () => {
             const kopnik = await Kopnik.get(2)
             const location = kopnik.location= {lat: 45, lng:100}
-            kopnik.passport=1234
+            kopnik.passport="0234"
             const result= await api('users/update', {
                 method: 'POST',
                 body: kopnik.plain

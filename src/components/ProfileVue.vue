@@ -73,6 +73,7 @@
                 // console.log(event.target.getCenter())
             },
             async submit_click() {
+                this.request.birthyear = parseInt(this.request.birthyear)
                 await this.application.user.update(this.request.plain)
                 this.application.infos.push(this.$t('profile.successMessage'))
                 await this.application.setSection(container.application.constructor.Section.Main)

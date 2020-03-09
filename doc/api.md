@@ -22,7 +22,7 @@ __Ответ__
         "smallPhoto": "https://sun1-19.u...EGxg5NXns.jpg?ava=1",
         "status": 1, 
         "witnessChatInviteLink": "vk.com/join........",
-        "passport": 4726,
+        "passport": "0726",
         "locale": "ru",
 
         "witness_id": "1234",

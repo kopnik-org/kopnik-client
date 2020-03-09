@@ -14,6 +14,7 @@ export default class Kopnik extends AbstractSync {
     @scalar nickname = undefined
 
     @scalar birthyear = undefined
+    //строка, т.к. может начинаться на "0"
     @scalar passport = undefined
     @scalar location = undefined
     /**
