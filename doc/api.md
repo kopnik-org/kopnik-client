@@ -39,7 +39,7 @@ __Ответ__
 Поле ```status``` имеет следующие значения: ```NEW= 0;  PENDING= 1; CONFIRMED= 2; DECLINE= 3;```
 
 
-Поле ```role``` имеет следующие значения: ```KOPNIK= 1;  DANILOV_KOPNIK= 2; FUTURE_KOPNIK= 3; WOOMEN= 4;```
+Поле ```role``` имеет следующие значения: ```KOPNIK= 1;  DANILOV_KOPNIK= 2; FUTURE_KOPNIK= 3; WOMEN= 4;```
 
 Часть полей передаются только для своего копника и заверителя: ```passport```, ```locale```, ```witness_id```, ```witnessChatInviteLink```
 
