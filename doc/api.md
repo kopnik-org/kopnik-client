@@ -24,8 +24,8 @@ __Ответ__
         "witnessChatInviteLink": "vk.com/join........",
         "passport": "0726",
         "locale": "ru",
-
-        "witness_id": "1234",
+        "role": 1,
+        "witness_id": 1234,
         "foreman_id": null,
 
         "ten": "undefined"
@@ -36,9 +36,12 @@ __Ответ__
     }]
  }
  ```
-Поле ```status``` имеет следующие значения: ```STATUS_NEW= 0;  STATUS_PENDING= 1; STATUS_CONFIRMED= 2; STATUS_DECLINE= 3;```
+Поле ```status``` имеет следующие значения: ```NEW= 0;  PENDING= 1; CONFIRMED= 2; DECLINE= 3;```
 
-Часть полей передаются только для своего копника: ```passport```, ```locale```, ```witness_id```, ```witnessChatInviteLink```
+
+Поле ```role``` имеет следующие значения: ```KOPNIK= 1;  DANILOV_KOPNIK= 2; FUTURE_KOPNIK= 3; WOOMEN= 4;```
+
+Часть полей передаются только для своего копника и заверителя: ```passport```, ```locale```, ```witness_id```, ```witnessChatInviteLink```
 
 ## GET api/users/getTopInsideSquare(x1, y1, x2, y2, count)
 Получить ```count``` самых старших пользователей в заданном квадрате в порядке убывания ранга (только заверенные пользователи)
@@ -70,10 +73,11 @@ __Параметры__
     "lastName": "jklsdfg89rfs",
     "patronymic": "sdfafasd",
     "birthyear": 1900,
-    "passport": 1984,
+    "passport": "1984",
     "nickname": "sdakljh23",
     "location": {"lat": 14.12, "lng": 124.12390},
-    "locale": "ru"
+    "locale": "ru",
+    "role": 1
 }
 ```
 __Ошибки__
