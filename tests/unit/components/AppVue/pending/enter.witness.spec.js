@@ -5,11 +5,11 @@ import {bottle, container} from "../../../../../src/bottle/bottle";
 import flushPromises from "flush-promises";
 import Application from "../../../../../src/application/Application";
 
-describe('unit components AppVue', () => {
+describe('unit components AppVue status=pending', () => {
     let vm,
         application
 
-    beforeEach(() => {
+    beforeEach(async () => {
         bottle.resetProviders(['application', 'cookieService'])
         application = container.application
         const router = routerFactory()
@@ -19,16 +19,22 @@ describe('unit components AppVue', () => {
             vuetify,
             router
         })
+        await login(3)
     })
 
-    describe('status=new', () => {
-        beforeEach(async () => {
-            await login(2)
-        })
-        it('render', async () => {
-            vm.$mount()
+    describe('enter', () => {
+        it('/witness', async () => {
             application.authenticate()
-            await flushPromises()
+            vm.$mount()
+            try {
+                await vm.$router.push({name: Application.Section.Witness})
+                throw new Error('should not be hire')
+            } catch (err) {
+                expect(err).toBe(false)
+                await flushPromises()
+                expect(vm.$router.currentRoute.name).toBe(Application.Section.Main)
+                expect(application.section).toBe(Application.Section.Main)
+            }
         })
     })
 })

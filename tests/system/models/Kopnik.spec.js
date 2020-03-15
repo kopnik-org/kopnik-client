@@ -1,6 +1,7 @@
 import {KopnikApiError} from "../../../src/KopnikError";
 import {AbstractSync, Kopnik} from "../../../src/models";
 import {bottle, container} from "../../../src/bottle/bottle";
+import Locale from "../../../src/locales/Locale";
 
 container.config.di.fetch = true
 
@@ -15,7 +16,7 @@ describe('system models Kopnik', () => {
     it('locale present', async () => {
         await login(1)
         const kopnik=  await Kopnik.get(1)
-        expect(kopnik.locale).toBe('ru')
+        expect(kopnik.locale).toBeInstanceOf(Locale)
     })
     it('location is object', async () => {
         await login(1)
@@ -40,7 +41,7 @@ describe('system models Kopnik', () => {
         await kopnik.reloadWitnessRequests()
         expect(kopnik.witnessRequests).toBeInstanceOf(Array)
         expect(kopnik.witnessRequests[0]).toHaveProperty('passport')
-        expect(kopnik.witnessRequests[0].passport).toBe(1234)
+        expect(kopnik.witnessRequests[0].passport).toBe("0234")
     })
     it('get havn\'t passport', async () => {
         await login(1)

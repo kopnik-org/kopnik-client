@@ -13,7 +13,7 @@
         <v-col class="d-flex align-end" style="width: inherit">
 
             <!--            <v-btn @click="href_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
-            <v-btn color="primary" @click="login_click" class="mb-12">Войти через ВКонтакте</v-btn>
+            <v-btn v-if="application.user===null" color="primary" @click="login_click" class="mb-12">Войти через ВКонтакте</v-btn>
             <!--            <v-btn @click="vk_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
             <!--        <div id="vk_auth" ></div>-->
         </v-col>
@@ -42,6 +42,7 @@
 
         data() {
             return {
+                application: container.application,
                 quoteIndex: 0
             }
         },

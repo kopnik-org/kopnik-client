@@ -12,7 +12,7 @@
     "nickname": "Nickname",
     "lastName": "Last name",
     "submit": "Send request",
-    "successMessage": "Request for membership has been sent to your witness. Now go to VKontakte and read how to communicate with your witness and confirm the accuracy of sended data. Good luck!",
+    "successMessage": "Your request for kopnik.org membership has been sent to your witness. Now go to VKontakte and read how to communicate with your witness and confirm the accuracy of sended data. Good luck!",
     "messagesFromGroup": {
       "allow": "By clicking the button below to turn on the nationwide system",
       "allowed": "Turned on!"

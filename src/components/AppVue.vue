@@ -1,15 +1,9 @@
 <template>
     <v-app id="inspire" :class="{'k-touch-device':isTouchDevice}">
         <alert-vue/>
-        <v-snackbar v-if="application.infos.length" v-model="infoVisible" :timeout="0" multi-line bottom color="info">
-            {{ application.infos[application.infos.length-1] }}
-            <v-btn text xcolor="error" @click="infoVisible = false">
-                Закрыть
-            </v-btn>
-        </v-snackbar>
         <v-app-bar v-if="application.user" app>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-            <v-toolbar-title>kopnik.org v{{ packageVersion }} </v-toolbar-title>
+            <v-toolbar-title>kopnik.org v{{ packageVersion }}</v-toolbar-title>
         </v-app-bar>
         <DrawerVue v-if="application.user" v-model="drawer" style="z-index: 700;"></DrawerVue>
         <v-content>
@@ -67,11 +61,19 @@
         },
         watch: {
             'application.user': async function (current, old) {
-                if (current && (current.status === Kopnik.Status.NEW || current.status === Kopnik.Status.DECLINED)) {
-                    await this.application.lockSection(async () => {
-                        this.application.infos.push(this.application.getMessage('application.goToProfile'))
-                        await this.application.setSection(Application.Section.Profile)
-                    })
+                if (current) {
+                    switch (current.status) {
+                        case Kopnik.Status.NEW:
+                        case Kopnik.Status.DECLINED:
+                            await this.application.lockSection(async () => {
+                                this.application.infos.push(this.application.getMessage('application.goToProfile'))
+                                await this.application.setSection(Application.Section.Profile)
+                            })
+                            break
+                        case Kopnik.Status.PENDING:
+                            this.application.infos.push(this.application.getMessage('profile.successMessage'))
+                            break
+                    }
                 }
             },
             /**
@@ -87,7 +89,7 @@
             },
         },
         computed: {
-            packageVersion(){
+            packageVersion() {
                 return process.env.PACKAGE_VERSION
             },
         },
@@ -100,7 +102,7 @@
                 }
             },
         },
-        created(){
+        created() {
 
         },
         mounted() {
