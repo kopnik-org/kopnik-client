@@ -1,12 +1,6 @@
 <template>
     <v-app id="inspire" :class="{'k-touch-device':isTouchDevice}">
-        <v-snackbar v-if="application.errors.length" v-model="errorVisible" :timeout="0" multi-line top color="error">
-            {{application.errors[application.errors.length-1].message ||
-            application.errors[application.errors.length-1]}}
-            <v-btn text xcolor="error" @click="errorVisible = false">
-                Закрыть
-            </v-btn>
-        </v-snackbar>
+        <alert-vue/>
         <v-snackbar v-if="application.infos.length" v-model="infoVisible" :timeout="0" multi-line bottom color="info">
             {{ application.infos[application.infos.length-1] }}
             <v-btn text xcolor="error" @click="infoVisible = false">
@@ -45,6 +39,7 @@
     import flushPromises from "flush-promises";
     import TenVue from './KTen'
     import touchDetector from "./mixin/touch-detecter";
+    import AlertVue from "./AlertVue";
 
     export default {
         mixins: [touchDetector, logger],
@@ -55,7 +50,8 @@
             MainVue,
             ThanksVue,
             WitnessVue,
-            TenVue
+            TenVue,
+            AlertVue,
         },
         props: {
             source: String,
@@ -66,8 +62,7 @@
                 center: [47.413220, -1.219482],
                 zoom: 14,
                 drawer: false,
-                errorVisible: false,
-                infoVisible: false,
+
             }
         },
         watch: {
@@ -89,16 +84,6 @@
                         this.$router.push({name: this.application.section})
                     }
                 })
-            },
-            async 'application.infos.length'(current, old) {
-                this.infoVisible = false
-                await Vue.nextTick()
-                this.infoVisible = true
-            },
-            async 'application.errors.length'(current, old) {
-                this.errorVisible = false
-                await Vue.nextTick()
-                this.errorVisible = true
             },
         },
         computed: {

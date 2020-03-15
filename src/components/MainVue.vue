@@ -22,7 +22,7 @@
         >
             <!--            скрыть копные связи-->
             <l-control position="topright">
-                <div v-if="value.squadAnalyzer.isAnalyzing()" class="d-flex flex-column align-center">
+                <div v-if="value.squadAnalyzer.isAnalyzing() && value.squadAnalyzer.members.length>1" class="d-flex flex-column align-center">
                     <v-btn fab small
                            title="Скрыть копные связи"
                            @click="this_keydown_esc"
