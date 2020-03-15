@@ -15,6 +15,20 @@ import en from '../locales/en'
 Bottle.config.strict = true
 const bottle = new Bottle()
 
+bottle.factory('logger', function loggerFactory() {
+    //все плагины ломают стектрейс консоли. то есть невозможно увидеть из какого файла и какой строки был вызван лог!
+    // LoglevelPluginPrefix.reg(loglevel)
+    // LoglevelPluginPrefix.apply(loglevel, {template: "%t [%l] %n: "})
+    loglevel.setLevel(loglevel.levels.DEBUG)
+    if (process.env.NODE_ENV == "test") {
+        loglevel.setLevel(loglevel.levels.WARN)
+        // LoglevelPluginToString.apply(loglevel, {})
+    }
+// Be sure to call setLevel method in order to apply plugin
+// loglevel.getLogger("StateManager").setLevel("info")
+    return loglevel
+})
+
 bottle.constant('messages', {
     ru,
     en,
@@ -49,19 +63,6 @@ if (!Application) {
     throw new Error("Application is undefined in bottle")
 }
 bottle.service('application', Application, 'logger')
-bottle.factory('logger', function loggerFactory() {
-    //все плагины ломают стектрейс консоли. то есть невозможно увидеть из какого файла и какой строки был вызван лог!
-    // LoglevelPluginPrefix.reg(loglevel)
-    // LoglevelPluginPrefix.apply(loglevel, {template: "%t [%l] %n: "})
-    loglevel.setLevel(loglevel.levels.DEBUG)
-    if (process.env.NODE_ENV == "test") {
-        loglevel.setLevel(loglevel.levels.WARN)
-        // LoglevelPluginToString.apply(loglevel, {})
-    }
-// Be sure to call setLevel method in order to apply plugin
-// loglevel.getLogger("StateManager").setLevel("info")
-    return loglevel
-})
 
 /**
  * @callback fetch
