@@ -64,8 +64,11 @@ export default class Application {
             this.user= null
             console.info('prevent 401 error', err)
         } else {
-            this.errors.push(err)
             this.logger.error(err)
+            if (err instanceof KopnikApiError){
+                this.logger.info(err.url)
+            }
+            this.errors.push(err)
             // throw err
         }
     }
