@@ -108,7 +108,7 @@ describe('unit models Kopnik', () => {
             await login(1)
             let kopnik2 = Kopnik.getReference(2)
             await kopnik2.loaded()
-            expect(kopnik2).toMatchSnapshot()
+            expect(kopnik2.plain).toMatchSnapshot()
         })
     })
 
@@ -169,7 +169,8 @@ describe('unit models Kopnik', () => {
         })
         it('reloadWitnessRequests', async () => {
             await kopnik.reloadWitnessRequests()
-            expect(kopnik.witnessRequests.map(each => each.plain)).toMatchSnapshot()
+            expect(kopnik.witnessRequests).toBeInstanceOf(Array)
+            expect(kopnik.witnessRequests[0]).toBeInstanceOf(Kopnik)
         })
         it('updateWitnessRequestStatus', async () => {
             await kopnik.updateWitnessRequestStatus({id: 3, status: 2})

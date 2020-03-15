@@ -15,6 +15,14 @@ function login(id) {
 container.config.di.fetch = true
 
 describe('system api get', () => {
+    beforeAll(async () => {
+        try{
+            await api('test/setupDB')
+        }
+        catch(err){
+            console.log(err)
+        }
+    })
     beforeEach(async () => {
         AbstractSync.clearCache()
     })
