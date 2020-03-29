@@ -148,13 +148,19 @@ export default class Kopnik extends AbstractSync {
         this.ten = []
     }
 
-    async updateLocale() {
+    /**
+     *
+     * @param {Locale} value
+     * @returns {Promise<void>}
+     */
+    async setLocale(value) {
         await this.constructor.api('updateLocale', {
             method: 'POST',
             body: {
-                locale: this.locale
+                locale: value.name
             }
         })
+        this.locale=value
     }
 
     async isMessagesFromGroupAllowed() {

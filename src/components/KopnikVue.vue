@@ -13,6 +13,7 @@
         <v-list-item v-if="locale">
             <v-list-item-content>
                 <v-select ref="locale"
+                          :id="'locale'+this.value.id"
                           item-text="languageName"
                           item-value="name"
                             :readonly="readonly"
@@ -25,21 +26,6 @@
                             @change="$emit('locale_change', $event)"
                 >
                 </v-select>
-            </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item v-if="fio">
-            <v-list-item-content>
-                <ValidationProvider name="lastName" rules="required" v-slot="{ errors, valid }">
-                    <v-text-field
-                            v-model="value.lastName"
-                            :label="$t('profile.lastName')"
-                            :error-messages="errors"
-                            :success="valid"
-                            :readonly="readonly"
-                    >
-                    </v-text-field>
-                </ValidationProvider>
             </v-list-item-content>
         </v-list-item>
         <v-list-item v-if="fio">
@@ -65,6 +51,20 @@
                             :success="valid"
                             :readonly="readonly"
                     ></v-text-field>
+                </ValidationProvider>
+            </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="fio">
+            <v-list-item-content>
+                <ValidationProvider name="lastName" rules="required" v-slot="{ errors, valid }">
+                    <v-text-field
+                            v-model="value.lastName"
+                            :label="$t('profile.lastName')"
+                            :error-messages="errors"
+                            :success="valid"
+                            :readonly="readonly"
+                    >
+                    </v-text-field>
                 </ValidationProvider>
             </v-list-item-content>
         </v-list-item>

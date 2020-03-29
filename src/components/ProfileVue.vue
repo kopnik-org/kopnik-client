@@ -45,6 +45,7 @@
     import {container} from "../bottle/bottle";
     import logger from "./mixin/logger";
     import KopnikVue from "./KopnikVue";
+    import api from "../api";
 
     export default {
         mixins: [logger],
@@ -85,7 +86,7 @@
              */
             async locale_change(event) {
                 // задаем локаль текущему пользователю
-                this.application.user.locale=event
+                await this.application.user.setLocale(event)
                 // задаем текущую локаль приложению
                 container.localeManager.currentLocale= event
                 // меняем сообщения в разметке страниц

@@ -31,6 +31,22 @@ describe('system api post', () => {
         beforeAll(() => {
             bottle.resetProviders(['cookieService'])
         })
+        it('users/updateLocale', async () => {
+            let kopnik = new Kopnik()
+            try {
+                await api('users/updateLocale', {
+                    method: 'POST',
+                    body: {
+                        locale: 'ru',
+                    }
+                })
+                throw new Error("should not be hire")
+            } catch (err) {
+                expect(err).toBeInstanceOf(KopnikApiError)
+                expect(err.code).toBe(401)
+                expect(err).toMatchSnapshot()
+            }
+        })
         it('users/update', async () => {
             let kopnik = new Kopnik()
             try {
@@ -73,7 +89,6 @@ describe('system api post', () => {
         beforeAll(async () => {
             await login(1)
         })
-
         it('users/pending/update', async () => {
             let result = await api('users/pending/update', {
                 method: 'POST',
@@ -86,7 +101,6 @@ describe('system api post', () => {
             expect(kopnik.status).toBe(2)
             expect(result).toMatchSnapshot()
         })
-
         it('users/pending/update(new)', async () => {
             try {
                 await api('users/pending/update', {
@@ -132,7 +146,17 @@ describe('system api post', () => {
                 expect(err.code).toBe(5)
             }
         })
-
+        it('users/updateLocale', async () => {
+            let result = await api('users/updateLocale', {
+                method: 'POST',
+                body: {
+                    locale: "ru",
+                }
+            })
+            let kopnik = await Kopnik.get(1)
+            expect(kopnik.locale.name).toBe('ru')
+            expect(result).toMatchSnapshot()
+        })
     })
     /********************************************************
      * user_2_new
@@ -141,6 +165,7 @@ describe('system api post', () => {
         beforeAll(async () => {
             await login(2)
         })
+
         it('users/update', async () => {
             const kopnik = await Kopnik.get(2)
             const location = kopnik.location= {lat: 45, lng:100}
@@ -172,6 +197,17 @@ describe('system api post', () => {
                 expect(err.code).toBe(403)
                 expect(err).toMatchSnapshot()
             }
+        })
+        it('users/updateLocale', async () => {
+            let result = await api('users/updateLocale', {
+                method: 'POST',
+                body: {
+                    locale: "ru",
+                }
+            })
+            let kopnik = await Kopnik.get(1)
+            expect(kopnik.locale.name).toBe('ru')
+            expect(result).toMatchSnapshot()
         })
     })
     /********************************************************
@@ -207,6 +243,17 @@ describe('system api post', () => {
                 expect(err).toMatchSnapshot()
             }
         })
+        it('users/updateLocale', async () => {
+            let result = await api('users/updateLocale', {
+                method: 'POST',
+                body: {
+                    locale: "ru",
+                }
+            })
+            let kopnik = await Kopnik.get(1)
+            expect(kopnik.locale.name).toBe('ru')
+            expect(result).toMatchSnapshot()
+        })
     })
     /********************************************************
      * user_4_declined
@@ -241,6 +288,17 @@ describe('system api post', () => {
                 expect(err).toMatchSnapshot()
             }
         })
+        it('users/updateLocale', async () => {
+            let result = await api('users/updateLocale', {
+                method: 'POST',
+                body: {
+                    locale: "ru",
+                }
+            })
+            let kopnik = await Kopnik.get(1)
+            expect(kopnik.locale.name).toBe('ru')
+            expect(result).toMatchSnapshot()
+        })
     })
     /********************************************************
      * user_5_confirmed
@@ -248,6 +306,17 @@ describe('system api post', () => {
     describe('user5', () => {
         beforeAll(async () => {
             await login(5)
+        })
+        it('users/updateLocale', async () => {
+            let result = await api('users/updateLocale', {
+                method: 'POST',
+                body: {
+                    locale: "ru",
+                }
+            })
+            let kopnik = await Kopnik.get(5)
+            expect(kopnik.locale.name).toBe('ru')
+            expect(result).toMatchSnapshot()
         })
         it('users/update', async () => {
             const kopnik = await Kopnik.get(5)

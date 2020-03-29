@@ -15,7 +15,7 @@ function getData() {
             const eachSnapshotJson = eachSnapshot.replace(/Object |Array /g, '')
             // console.log(temp)
             let eachSnapshotAsObject = JSON5.parse(eachSnapshotJson)
-            if (eachSnapshotAsObject.error) {
+            if (eachSnapshotAsObject && eachSnapshotAsObject.error) {
                 eachSnapshotAsObject = new KopnikApiError(eachSnapshotAsObject.error.message, eachSnapshotAsObject.error.code, eachSnapshotAsObject.error.url, eachSnapshotAsObject.error.base)
             }
             result[key] = eachSnapshotAsObject

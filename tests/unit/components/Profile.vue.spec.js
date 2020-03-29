@@ -1,13 +1,12 @@
 import flushPromises from "flush-promises";
-import Vue from 'vue'
 import {mount} from '@vue/test-utils'
 
 import vuePlugins from "../../test-setup";
-import KTen from "../../../src/components/KTen";
 import {bottle, container} from "../../../src/bottle/bottle";
 import {Kopnik} from "../../../src/models";
 import ProfileVue from "../../../src/components/ProfileVue";
 import Application from "../../../src/application/Application";
+import KopnikVue from "../../../src/components/KopnikVue";
 
 describe('unit components Profile', () => {
     beforeAll(async () => {
@@ -87,5 +86,38 @@ describe('unit components Profile', () => {
         await flushPromises()
         expect(container.application.section).toBe(Application.Section.Main)
         expect(container.application.infos.length).toBe(1)
+    })
+
+    // какого черта это не работает??? @change на v-select не срабатывает
+    it.skip('locale', async () => {
+        const en= container.localeManager.getLocaleByShortName('en')
+
+        await login(2)
+        await container.application.authenticate()
+        const wrapper = mount(ProfileVue, {
+            ...vuePlugins,
+        })
+        await flushPromises()
+        const localeWrapper = wrapper.find(".v-select")
+        localeWrapper.trigger('change', en)
+        await flushPromises()
+        expect(container.localeManager.currentLocale).toBe(en)
+        expect(container.application.user.locale).toBe(en)
+    })
+    // какого черта это не работает??? @locale_change на KopnikVue не срабатывает
+    it.skip('locale change_locale', async (done) => {
+        const en= container.localeManager.getLocaleByShortName('en')
+
+        await login(2)
+        await container.application.authenticate()
+        const wrapper = mount(ProfileVue, {
+            ...vuePlugins,
+        })
+        await flushPromises()
+        const kopnikWrapper = wrapper.find(KopnikVue)
+        kopnikWrapper.trigger('locale_change', en)
+        await flushPromises()
+        // expect(container.localeManager.currentLocale).toBe(en)
+        // expect(container.application.user.locale).toBe(en)
     })
 })

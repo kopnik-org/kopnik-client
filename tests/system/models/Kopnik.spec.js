@@ -2,12 +2,21 @@ import {KopnikApiError} from "../../../src/KopnikError";
 import {AbstractSync, Kopnik} from "../../../src/models";
 import {bottle, container} from "../../../src/bottle/bottle";
 import Locale from "../../../src/locales/Locale";
+import api from "../../../src/api";
 
 container.config.di.fetch = true
 
 describe('system models Kopnik', () => {
     let kopnik
 
+    beforeAll(async () => {
+        try{
+            await api('test/setupDB')
+        }
+        catch(err){
+            console.log(err)
+        }
+    })
     beforeEach(() => {
         bottle.resetProviders(['cookieService'])
         AbstractSync.clearCache()
@@ -29,10 +38,12 @@ describe('system models Kopnik', () => {
         expect(kopnik.location).toHaveProperty('lat')
         expect(kopnik.location).toHaveProperty('lng')
     })
-    it.skip('updateLocale', async () => {
-        await login(1)
-        const kopnik=  await Kopnik.get(1)
-        await kopnik.updateLocale('ru')
+    it('setLocale', async () => {
+        await login(2)
+        const kopnik=  await Kopnik.get(2)
+        await kopnik.setLocale(container.localeManager.getLocaleByShortName('en'))
+        await kopnik.reload()
+        expect(kopnik.locale.name).toBe('en')
     })
 
     it('isMessagesFromGroupAllowed', async () => {
@@ -47,7 +58,7 @@ describe('system models Kopnik', () => {
         await kopnik.reloadWitnessRequests()
         expect(kopnik.witnessRequests).toBeInstanceOf(Array)
         expect(kopnik.witnessRequests[0]).toHaveProperty('passport')
-        expect(kopnik.witnessRequests.find(eachWitnessRequest=>eachWitnessRequest.passport==="0234")).toBeTruthy()
+        expect(kopnik.witnessRequests[0].passport).toBe("0233")
     })
     it('get havn\'t passport', async () => {
         await login(1)
