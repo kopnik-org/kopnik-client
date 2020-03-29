@@ -47,7 +47,7 @@ Object {
   "passport": null,
   "patronymic": "Иванович",
   "photo": "https://lorempixel.com/200/200/?38192",
-  "role": null,
+  "role": 5,
   "smallPhoto": "https://lorempixel.com/200/200/?38192",
   "status": 0,
   "ten": null,

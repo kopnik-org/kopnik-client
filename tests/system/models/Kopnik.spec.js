@@ -13,6 +13,11 @@ describe('system models Kopnik', () => {
         AbstractSync.clearCache()
     })
 
+    it('role present', async () => {
+        await login(1)
+        const kopnik=  await Kopnik.get(1)
+        expect(kopnik.role).toBe(1)
+    })
     it('locale present', async () => {
         await login(1)
         const kopnik=  await Kopnik.get(1)
@@ -29,6 +34,7 @@ describe('system models Kopnik', () => {
         const kopnik=  await Kopnik.get(1)
         await kopnik.updateLocale('ru')
     })
+
     it('isMessagesFromGroupAllowed', async () => {
         await login(1)
         const kopnik=  await Kopnik.get(1)
@@ -41,7 +47,7 @@ describe('system models Kopnik', () => {
         await kopnik.reloadWitnessRequests()
         expect(kopnik.witnessRequests).toBeInstanceOf(Array)
         expect(kopnik.witnessRequests[0]).toHaveProperty('passport')
-        expect(kopnik.witnessRequests[0].passport).toBe("0234")
+        expect(kopnik.witnessRequests.find(eachWitnessRequest=>eachWitnessRequest.passport==="0234")).toBeTruthy()
     })
     it('get havn\'t passport', async () => {
         await login(1)

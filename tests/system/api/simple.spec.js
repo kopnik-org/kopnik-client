@@ -8,9 +8,8 @@ describe('system api simple', () => {
         bottle.resetProviders(['cookieService'])
     })
 
-    it('setupDB', async () => {
+    it.skip('setupDB', async () => {
         await api('test/setupDB')
-
     })
 
     // TODO: fix fetch-intersect intersects every fetch

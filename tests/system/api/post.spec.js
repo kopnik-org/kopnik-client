@@ -154,6 +154,7 @@ describe('system api post', () => {
             expect(kopnik.status).toBe(1)
             expect(kopnik.location).toEqual(location)
             expect(kopnik.locale).toBeInstanceOf(Locale)
+            expect(kopnik.role).toBe(5)
             expect(result).toMatchSnapshot()
         })
         it('users/pending/update', async () => {

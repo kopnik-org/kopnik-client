@@ -35,6 +35,24 @@ export default class Kopnik extends AbstractSync {
     @collection tenRequests
     @collection witnessRequests
 
+    static get Status (){
+        return {
+            NEW: 0,
+            PENDING: 1,
+            CONFIRMED: 2,
+            DECLINED: 3,
+        }
+    }
+    static get Role () {
+        return {
+            Kopnik: 1,
+            DanilovKopnik: 2,
+            FutureKopnik: 3,
+            Female: 4,
+            Stranger: 5,
+        }
+    }
+
     constructor() {
         super();
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
@@ -142,11 +160,4 @@ export default class Kopnik extends AbstractSync {
     async isMessagesFromGroupAllowed() {
         return await this.constructor.api('isMessagesFromGroupAllowed')
     }
-}
-
-Kopnik.Status = {
-    NEW: 0,
-    PENDING: 1,
-    CONFIRMED: 2,
-    DECLINED: 3,
 }

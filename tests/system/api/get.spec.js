@@ -8,7 +8,7 @@ import {AbstractSync, Kopnik} from "../../../src/models";
  * @param id
  * @returns {Promise<*|undefined>}
  */
-function login(id) {
+function login(id) { 
     return api('test/login/' + id)
 }
 

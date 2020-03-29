@@ -94,7 +94,7 @@
                             <v-radio :value="eachRoleIndex+1" :label="eachRole.title" color="success"></v-radio>
                             <ul v-show="value.role===eachRoleIndex+1" class="mb-4" style="font-size: smaller;">
                                 <li v-for="eachCriteria of eachRole.criteria" class="criteria">
-                                    <v-icon color="success">mdi-checkbox-marked</v-icon>
+                                    <v-icon color="">mdi-checkbox-marked</v-icon>
                                     {{ eachCriteria }}
                                 </li>
                             </ul>
