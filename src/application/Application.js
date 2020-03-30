@@ -163,6 +163,7 @@ export default class Application {
         try {
             let userAsPlain = (await Kopnik.api('get?ids='))[0]
             this.user = await Kopnik.get(userAsPlain.id)
+            container.localeManager.currentLocale= this.user.locale
             this.logger.info('user authenticated', this.user)
         } catch (err) {
             if ((err instanceof KopnikApiError) && err.message.match(/no.+aut/i)) {

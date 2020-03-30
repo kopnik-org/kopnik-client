@@ -34,6 +34,7 @@
     import TenVue from './KTen'
     import touchDetector from "./mixin/touch-detecter";
     import AlertVue from "./AlertVue";
+    import {localize} from "vee-validate";
 
     export default {
         mixins: [touchDetector, logger],
@@ -56,12 +57,17 @@
                 center: [47.413220, -1.219482],
                 zoom: 14,
                 drawer: false,
-
             }
         },
         watch: {
+            'application.user.locale': async function (current, old) {
+                if (current) {
+                    this.followUserLocale()
+                }
+            },
             'application.user': async function (current, old) {
                 if (current) {
+                    // this.followUserLocale()
                     switch (current.status) {
                         case Kopnik.Status.NEW:
                         case Kopnik.Status.DECLINED:
@@ -94,6 +100,15 @@
             },
         },
         methods: {
+            async followUserLocale() {
+                const locale = this.application.user.locale
+                // vue-i18n меняем сообщения в разметке страниц
+                this.$options.i18n.locale = locale.name
+                // vuetify меняем сообщения в разметке vuetify
+                this.$vuetify.lang.current = locale.name
+                // vee-valiedate меняем сообщения об ошибках валидации
+                localize(locale.name)
+            },
             this_escclick(event) {
                 if (this.application.squadAnalyzer.isAnalyzing()) {
                     this.application.squadAnalyzer.reset()

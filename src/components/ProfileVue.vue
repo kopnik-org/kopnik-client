@@ -38,7 +38,6 @@
 <script>
     import {
         ValidationObserver,
-        localize
     } from "vee-validate"
 
     import {Kopnik} from "../models"
@@ -81,7 +80,7 @@
             },
             /**
              *
-             * @param {{text:string, value:string}}event
+             * @param {Local} event
              * @returns {Promise<void>}
              */
             async locale_change(event) {
@@ -90,11 +89,11 @@
                 // задаем текущую локаль приложению
                 container.localeManager.currentLocale= event
                 // меняем сообщения в разметке страниц
-                this.$root.$options.i18n.locale = event.name
+                // this.$root.$options.i18n.locale = event.name
                 // меняем сообщения в разметке vuetify
-                this.$vuetify.lang.current = event.name
+                // this.$vuetify.lang.current = event.name
                 // меняем сообщения об ошибках валидации
-                localize(event.name)
+                // localize(event.name)
                 // сохраняем на сервере
                 // await this.application.user.patchLocale()
             }

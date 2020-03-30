@@ -183,6 +183,13 @@ let thanks = [
                 date: new Date(2019, 11, 30),
                 link: 'kopnik.org',
             },
+            {
+                project: 'Удаление разделов о подрядчике сайта kopnik.org',
+                role: 'Веб-мастер',
+                description: null,
+                date: new Date(2020, 2, 24),
+                link: 'kopnik.org',
+            },
         ]
     },
     // Вячеслав
@@ -255,6 +262,13 @@ let thanks = [
                 description: null,
                 date: new Date(2019, 5, 17),
                 link: 'https://www.youtube.com/watch?v=TIwkKSxNHOs&list=PL8t968Ip0ARlFShkBMnbuc7ZcSj-dGAci&index=3',
+            },
+            {
+                project: 'Электронное Копное право - Наглядный пример. ',
+                role: 'Автор',
+                description: null,
+                date: new Date(2020, 2, 24),
+                link: 'https://www.youtube.com/watch?v=58DfysctJ50',
             },
         ]
     },

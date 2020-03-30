@@ -70,7 +70,7 @@
     "logout": "Logout"
   },
   "errors": {
-    "underConstruction": "This functional is under construction by now. Will be able soon in v0.2.0"
+    "underConstruction": "This functional is under construction by now. Will be available soon in v0.2.0"
   },
   "details": {
     "toChat": "Talk",
