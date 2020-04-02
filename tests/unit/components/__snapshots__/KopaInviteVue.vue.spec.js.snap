@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`unit components KopaInviteVue.vue render 1`] = `
 <div
@@ -31,6 +31,6 @@ exports[`unit components KopaInviteVue.vue render 1`] = `
       </span>
     </span>
   </span>
-   
+
 </div>
 `;

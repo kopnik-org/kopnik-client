@@ -12,6 +12,7 @@ __Ошибки__
 |1000+510    |Invalid Foreman            
 |1000+511    |Invalid Ten Request       
 |1000+512    |Invalid User In Ten        
+|1000+513    |Not In Ten        
 
 ## POST api/bodyError
 

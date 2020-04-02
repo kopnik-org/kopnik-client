@@ -89,7 +89,7 @@ describe('unit components Profile', () => {
     })
 
     // какого черта это не работает??? @change на v-select не срабатывает
-    it.skip('locale', async () => {
+    it('locale', async () => {
         const en= container.localeManager.getLocaleByShortName('en')
 
         await login(2)
@@ -98,9 +98,12 @@ describe('unit components Profile', () => {
             ...vuePlugins,
         })
         await flushPromises()
+        const kopnikWrapper= wrapper.find(KopnikVue)
+        const locale_changeSpy= spyOn(kopnikWrapper.vm, 'locale_change')
         const localeWrapper = wrapper.find(".v-select")
         localeWrapper.trigger('change', en)
         await flushPromises()
+        expect(locale_changeSpy).toBeCalled()
         expect(container.localeManager.currentLocale).toBe(en)
         expect(container.application.user.locale).toBe(en)
     })

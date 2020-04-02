@@ -13,7 +13,6 @@
         <v-list-item v-if="locale">
             <v-list-item-content>
                 <v-select ref="locale"
-                          :id="'locale'+this.value.id"
                           item-text="languageName"
                           item-value="name"
                             :readonly="readonly"
@@ -23,7 +22,7 @@
                             :items="locales"
                             :auto-select-first="true"
                             label="Язык / Language"
-                            @change="$emit('locale_change', $event)"
+                            @change="locale_change"
                 >
                 </v-select>
             </v-list-item-content>
@@ -217,6 +216,9 @@
         computed: {},
         watch: {},
         methods: {
+            locale_change($event){
+                this.$emit('locale_change', $event)
+            },
             role_click(value) {
                 this.value.role = value
             },

@@ -55,6 +55,7 @@
     "husky": "^4.0.3",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^24.9.0",
+    "jest-mock": "^25.2.3",
     "jest-serializer-vue": "^2.0.2",
     "jest-snapshot": "^24.9.0",
     "sass": "^1.24.0",

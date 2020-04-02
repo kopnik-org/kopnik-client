@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`unit components Kopnik render short 1`] = `
 <div
@@ -37,7 +37,7 @@ exports[`unit components Kopnik render short 1`] = `
       </span>
     </span>
   </div>
-   
+
   <div
     class="v-list-item theme--light"
     role="listitem"
@@ -53,22 +53,22 @@ exports[`unit components Kopnik render short 1`] = `
       </div>
     </div>
   </div>
-   
+
   <!---->
-   
+
   <!---->
-   
+
   <!---->
-   
+
   <!---->
-   
+
   <!---->
-   
+
   <!---->
-   
+
   <!---->
-   
+
   <!---->
-   
+
 </div>
 `;
