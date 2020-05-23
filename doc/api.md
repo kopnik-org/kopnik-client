@@ -26,6 +26,7 @@ __Ответ__
         "locale": "ru",
         "role": 1,
         "witness_id": 1234,
+        "foremanRequest_id": 5678,
         "foreman_id": null,
 
         "ten": "undefined"
@@ -41,7 +42,7 @@ __Ответ__
 
 Поле ```role``` имеет следующие значения: ```KOPNIK= 1;  DANILOV_KOPNIK= 2; FUTURE_KOPNIK= 3; WOMEN= 4;```
 
-Часть полей передаются только для своего копника и заверителя: ```passport```, ```locale```, ```witness_id```, ```witnessChatInviteLink```
+Часть полей передаются только для своего копника и заверителя: ```passport```, ```locale```, ```witness_id```, ```witnessChatInviteLink```, ```foremanRequest_id```
 
 ## GET api/users/getTopInsideSquare(x1, y1, x2, y2, count)
 Получить ```count``` самых старших пользователей в заданном квадрате в порядке убывания ранга (только заверенные пользователи)
