@@ -6,6 +6,7 @@ import isomorphicFetch from 'isomorphic-fetch'
 // import '../src/register-error-handlers'
 
 global.isomorphicFetch = isomorphicFetch
+import expect from 'expect'
 import Vue from 'vue'
 import '../src/plugins/vue-the-mask'
 import i18n from '../src/plugins/i18n'
@@ -13,7 +14,7 @@ import '../src/plugins/vee-validate'
 import mapi from "../src/mapi";
 import '../src/plugins/className'
 import routerFactory from "../src/plugins/vue-router"
-
+import toBeKopnikError from './toBeKopnikError'
 global.mapi = mapi
 
 // Vuetify внутри тестов импортируется по-иному чем в основной программе
@@ -41,3 +42,8 @@ global.login = function login(id) {
 const vuePlugins = {i18n, vuetify}
 export default vuePlugins
 export {i18n, vuetify, routerFactory}
+
+
+expect.extend({
+    toBeKopnikError
+})

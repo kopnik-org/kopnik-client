@@ -3,6 +3,7 @@ import AbstractSync from "./AbstractSync";
 import {KopnikError} from '../KopnikError'
 import Locale from "../locales/Locale";
 import {container} from "../bottle/bottle";
+import api from "../api";
 
 
 export default class Kopnik extends AbstractSync {
@@ -29,10 +30,11 @@ export default class Kopnik extends AbstractSync {
     @scalar role
 
     @object foreman = undefined
+    @object foremanRequest = undefined
     @object witness = undefined
 
     @collection ten
-    @collection tenRequests
+    @collection foremanRequests
     @collection witnessRequests
 
     static get Status (){
@@ -51,6 +53,52 @@ export default class Kopnik extends AbstractSync {
             Female: 4,
             Stranger: 5,
         }
+    }
+
+
+    /**
+     * Create user in test DB
+     * for test purposes only
+     *
+     * @param {object?} fields
+     * @param {string|Date|number?} prefix
+     *
+     * @returns {Promise<Kopnik>}
+     */
+    static async create(fields, prefix) {
+        const now = new Date()
+
+        if (prefix === undefined) {
+            prefix = now.toLocaleTimeString()
+        }
+        const uniq= now.getTime()*1000+now.getMilliseconds()
+        const realFields= Object.assign({
+            lastName: prefix,
+            firstName: prefix,
+            patronymic: prefix,
+            nickname: prefix,
+            birthyear: 2020,
+            passport: "0123",
+            location: {
+                lat: 30,
+                lng: 50,
+            },
+            photo: 'photo/' + prefix,
+            smallPhoto: 'smallPhoto/' + prefix,
+            status: Kopnik.Status.CONFIRMED,
+            locale: container.localeManager.currentLocale.name,
+            role: Kopnik.Role.Kopnik,
+            identifier: uniq,
+            email: uniq+'@kopnik.ru',
+            access_token: 'access_token'+uniq,
+        }, fields)
+
+        realFields.id= await container.api('test/createUser', {
+            method: 'POST',
+            body: realFields,
+        })
+        const result= Kopnik.merge(realFields, true)
+        return result
     }
 
     constructor() {
@@ -80,6 +128,22 @@ export default class Kopnik extends AbstractSync {
     }
 
     /**
+     * login for test purpose
+     * @returns {Promise<void>}
+     */
+    async login(){
+        await api('test/login/' + this.id)
+    }
+    /**
+     * login for test purpose
+     * @returns {Promise<void>}
+     */
+    async logout(){
+        await api('logout')
+    }
+
+
+    /**
      * @param id
      * @returns {Kopnik}
      */
@@ -87,7 +151,7 @@ export default class Kopnik extends AbstractSync {
         return super.getReference(id)
     }
 
-    async merge(what) {
+    merge(what) {
         super.merge(what)
         if (!this.rank) {
             this.rank = 1
@@ -109,25 +173,31 @@ export default class Kopnik extends AbstractSync {
     /**
      * Подать заявку на заверение себя
      *
-     * @param data
+     * @param profileJSON
      * @return {Promise<void>}
      */
-    async update(data) {
-        if (!data.passport) {
+    async updateProfile(profileJSON) {
+        if (!profileJSON.passport) {
             throw new KopnikError('Passport required')
         }
-        if (!data.location.lat || !data.location.lng) {
+        if (!profileJSON.location.lat || !profileJSON.location.lng) {
             throw new KopnikError('House location required')
         }
-        this.merge({locale: data.locale})
-        await this.constructor.api("update", {
+        this.merge({locale: profileJSON.locale})
+        await this.constructor.api("updateProfile", {
             method: 'POST',
-            body: data
+            body: profileJSON
         })
-        this.merge(data)
+        this.merge(profileJSON)
         this.status = Kopnik.Status.PENDING
     }
 
+    /**
+     * Confirm or reject foreign witness request
+     *
+     * @param witnessRequest
+     * @returns {Promise<*>}
+     */
     async updateWitnessRequestStatus(witnessRequest) {
         let result = await this.constructor.api('pending/update', {
             method: 'post',
@@ -150,7 +220,7 @@ export default class Kopnik extends AbstractSync {
 
     /**
      *
-     * @param {Locale} value
+     * @param {Locale | {name: string, languageName: string?}} value
      * @returns {Promise<void>}
      */
     async setLocale(value) {
@@ -166,4 +236,22 @@ export default class Kopnik extends AbstractSync {
     async isMessagesFromGroupAllowed() {
         return await this.constructor.api('isMessagesFromGroupAllowed')
     }
+
+    /**
+     * @param {Kopnik} foreman
+     */
+    async putForemanRequest(foreman){
+        await this.constructor.api('putForemanRequest', {
+            method: "POST",
+            body: foreman.id
+        })
+    }
+
+    /**
+     * @param {number} foreman_id
+     */
+    async reloadForemanRequests(){
+        this.foremanRequests= await this.constructor.api('getForemanRequests')
+    }
+
 }

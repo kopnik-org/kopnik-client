@@ -7,12 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
-    "test": "npm run test:system && npm run test:unit",
-    "test:unit": "vue-cli-service test:unit --test-match '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)'",
-    "test:unit:watch": "vue-cli-service test:unit --test-match '<rootDir>/tests/unit/**/*.spec.(js|jsx|ts|tsx)' --watchAll",
-    "test:system": "jest --test-match '<rootDir>/tests/system/**/*.spec.(js|jsx|ts|tsx)'",
-    "test:system:watch": "jest --test-match '<rootDir>/tests/system/**/*.spec.(js|jsx|ts|tsx)' --watchAll",
-    "port": "sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 8080"
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "async-lock": "^1.2.2",
@@ -103,7 +98,7 @@
       "/node_modules/(?!vee-validate/dist/rules|vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol|vue2-leaflet-geosearch)"
     ],
     "testMatch": [
-      "<rootDir>/(tests/**/*.spec.(js|jsx|ts|tsx))"
+      "<rootDir>/src/**/*.spec.js"
     ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/jest-serializer-vue",

@@ -1,6 +1,6 @@
-import {bottle, container} from "../../src/bottle/bottle";
-import {Kopnik} from "../../src/models";
-import Application from "../../src/application/Application";
+import {bottle, container} from "../bottle/bottle";
+import {Kopnik} from "../models";
+import Application from "./Application";
 import {LatLng, LatLngBounds} from "leaflet";
 import flushPromises from "flush-promises";
 

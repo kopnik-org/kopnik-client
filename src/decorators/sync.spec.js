@@ -1,4 +1,4 @@
-import {sync, collection, scalar} from '../../src/decorators/sync'
+import {sync, collection, scalar} from './sync'
 
 @sync
 class Kopnik {

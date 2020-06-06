@@ -1,5 +1,5 @@
-import {bottle, container} from "../../../src/bottle/bottle";
-import Locale from "../../../src/locales/Locale";
+import {bottle, container} from "../bottle/bottle";
+import Locale from "./Locale";
 
 describe('unit locales LocaleManager', () => {
     let localeManager

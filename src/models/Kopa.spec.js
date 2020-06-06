@@ -1,6 +1,6 @@
-import {Kopnik, Kopa} from "../../../src/models";
-import {bottle, container} from "../../../src/bottle/bottle";
-import {KopnikApiError} from "../../../src/KopnikError";
+import {Kopnik, Kopa} from "./index";
+import {bottle, container} from "../bottle/bottle";
+import {KopnikApiError} from "../KopnikError";
 
 describe('unit models Kopa', () => {
     describe('add', () => {

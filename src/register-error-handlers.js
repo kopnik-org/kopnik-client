@@ -12,4 +12,3 @@ Vue.config.errorHandler = (err, vm, info) => {
     err.info= info
     container.application.onerror(err)
 }
-

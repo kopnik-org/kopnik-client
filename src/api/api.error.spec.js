@@ -1,7 +1,7 @@
-import {KopnikApiError} from "../../../src/KopnikError";
-import {bottle, container} from "../../../src/bottle/bottle";
+import {KopnikApiError} from "../KopnikError";
+import {bottle, container} from "../bottle/bottle";
 
-import api from "../../../src/api";
+import api from "./index";
 
 describe('system errors', ()=>{
     it.skip('/api/error', async () => {

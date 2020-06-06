@@ -20,5 +20,19 @@ npm run build
 npm run lint
 ```
 
+### Run tests
+
+```
+npm test
+```
+
+Перед запуском тестов убедитесь, что запущен тестовая сборка (сервер приложений + база данных)
+
+```
+cd <server-project-folder>
+make test-up
+```
+
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

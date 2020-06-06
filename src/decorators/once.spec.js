@@ -1,4 +1,4 @@
-import once from "../../src/decorators/once";
+import once from "./once";
 
 class Test {
     @once

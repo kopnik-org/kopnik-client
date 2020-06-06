@@ -189,7 +189,7 @@ export default class AbstractSync {
      * @param {Boolean} isLoaded установить флаг isLoaded после мержа
      * @returns {*}
      */
-    static merge(what, isLoaded= undefined) {
+    static merge(what, isLoaded) {
         let result
         result = this.getReference(what.id)
         result.merge(what)
@@ -212,7 +212,7 @@ export default class AbstractSync {
      * @returns {Promise.<AbstractSync>}
      */
     async reload() {
-        let json = await this.constructor.api(`get?ids=${this.id}`)
+        let json = await this.constructor.api(`get?ids=${this.id===undefined?'':this.id}`)
         this.merge(json[0])
         this.isLoaded = true
         return this;

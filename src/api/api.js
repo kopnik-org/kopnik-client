@@ -23,6 +23,7 @@ export default async function api(url, options = {}) {
 
     //3. execute fetch
     try {
+        // console.log(fullUrl, options)
         response = await fetch(fullUrl, Object.assign({api: true}, options))
     } catch (err) {
         // abort getTopInsideSquare for example
