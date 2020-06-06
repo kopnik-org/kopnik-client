@@ -11,11 +11,11 @@ container.config.di.fetch = true
 describe('models User get pending', () => {
     let main
     beforeEach(async () => {
+        AbstractSync.clearCache()
         main = await Kopnik.create({
             status: Kopnik.Status.PENDING,
         })
         await main.login()
-        AbstractSync.clearCache()
     })
 
     it('get(self)', async () => {

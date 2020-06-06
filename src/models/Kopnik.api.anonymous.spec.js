@@ -13,9 +13,9 @@ describe('models User api anonymous', () => {
     let main
 
     beforeEach(async () => {
+        AbstractSync.clearCache()
         main = await Kopnik.create({
         }, 'main')
-        AbstractSync.clearCache()
     })
 
     it('get(self)', async () => {

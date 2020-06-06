@@ -11,11 +11,11 @@ container.config.di.fetch = true
 describe('models User get new', () => {
     let main
     beforeEach(async () => {
+        AbstractSync.clearCache()
         main = await Kopnik.create({
             status: Kopnik.Status.NEW,
         })
         await main.login()
-        AbstractSync.clearCache()
     })
 
     it('get(self)', async () => {

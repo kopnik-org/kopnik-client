@@ -12,6 +12,7 @@ describe('models User', () => {
     it('create()', async () => {
         const user= await Kopnik.create()
         expect(user.id).toBeTruthy()
+        expect(user).toBe(Kopnik.getReference(user.id))
         await user.login()
         await user.reload()
         expect(user.status).toBe(Kopnik.Status.CONFIRMED)

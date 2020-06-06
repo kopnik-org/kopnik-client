@@ -13,12 +13,12 @@ describe('models User get confirmed witness', () => {
     let main
 
     beforeEach(async () => {
+        AbstractSync.clearCache()
         main = await Kopnik.create({
             status: Kopnik.Status.CONFIRMED,
             isWitness: true,
         }, 'witness')
         await main.login()
-        AbstractSync.clearCache()
     })
 
     it('reloadWitnessRequests()', async () => {

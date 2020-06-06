@@ -37,7 +37,7 @@ export default class Kopnik extends AbstractSync {
     @collection foremanRequests
     @collection witnessRequests
 
-    static get Status (){
+    static get Status() {
         return {
             NEW: 0,
             PENDING: 1,
@@ -45,7 +45,8 @@ export default class Kopnik extends AbstractSync {
             DECLINED: 3,
         }
     }
-    static get Role () {
+
+    static get Role() {
         return {
             Kopnik: 1,
             DanilovKopnik: 2,
@@ -71,8 +72,8 @@ export default class Kopnik extends AbstractSync {
         if (prefix === undefined) {
             prefix = now.toLocaleTimeString()
         }
-        const uniq= now.getTime()*1000+now.getMilliseconds()
-        const realFields= Object.assign({
+        const uniq = now.getTime() * 1000 + now.getMilliseconds()
+        const realFields = Object.assign({
             lastName: prefix,
             firstName: prefix,
             patronymic: prefix,
@@ -89,15 +90,15 @@ export default class Kopnik extends AbstractSync {
             locale: container.localeManager.currentLocale.name,
             role: Kopnik.Role.Kopnik,
             identifier: uniq,
-            email: uniq+'@kopnik.ru',
-            access_token: 'access_token'+uniq,
+            email: uniq + '@kopnik.ru',
+            access_token: 'access_token' + uniq,
         }, fields)
 
-        realFields.id= await container.api('test/createUser', {
+        realFields.id = await container.api('test/createUser', {
             method: 'POST',
             body: realFields,
         })
-        const result= Kopnik.merge(realFields, true)
+        const result = Kopnik.merge(realFields, true)
         return result
     }
 
@@ -131,14 +132,15 @@ export default class Kopnik extends AbstractSync {
      * login for test purpose
      * @returns {Promise<void>}
      */
-    async login(){
+    async login() {
         await api('test/login/' + this.id)
     }
+
     /**
      * login for test purpose
      * @returns {Promise<void>}
      */
-    async logout(){
+    async logout() {
         await api('logout')
     }
 
@@ -230,7 +232,7 @@ export default class Kopnik extends AbstractSync {
                 locale: value.name
             }
         })
-        this.locale=value
+        this.locale = value
     }
 
     async isMessagesFromGroupAllowed() {
@@ -240,18 +242,44 @@ export default class Kopnik extends AbstractSync {
     /**
      * @param {Kopnik} foreman
      */
-    async putForemanRequest(foreman){
+    async putForemanRequest(foreman) {
         await this.constructor.api('putForemanRequest', {
             method: "POST",
-            body: foreman.id
+            body: {
+                id: foreman.id,
+            }
         })
     }
 
     /**
      * @param {number} foreman_id
      */
-    async reloadForemanRequests(){
-        this.foremanRequests= await this.constructor.api('getForemanRequests')
+    async reloadForemanRequests() {
+        this.foremanRequests = (await this.constructor.api('getForemanRequests'))
+            .map(eachUserPlain=>Kopnik.merge(eachUserPlain, true))
+    }
+
+    /**
+     * @param {Kopnik} requester
+     */
+    async confirmForemanRequest(requester) {
+        const result = await this.constructor.api('confirmForemanRequest', {
+            method: 'POST',
+            body: {
+                id: requester.id,
+            },
+        })
+    }
+    /**
+     * @param {Kopnik} requester
+     */
+    async declineForemanRequest(requester) {
+        const result = await this.constructor.api('declineForemanRequest', {
+            method: 'POST',
+            body: {
+                id: requester.id,
+            },
+        })
     }
 
 }

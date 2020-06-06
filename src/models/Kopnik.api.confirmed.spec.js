@@ -11,11 +11,11 @@ container.config.di.fetch = true
 describe('models User get confirmed', () => {
     let main
     beforeEach(async () => {
+        AbstractSync.clearCache()
         main = await Kopnik.create({
             status: Kopnik.Status.CONFIRMED,
         }, 'main')
         await main.login()
-        AbstractSync.clearCache()
     })
 
     it('get(self)', async () => {
@@ -95,7 +95,7 @@ describe('models User get confirmed', () => {
                     role: Kopnik.Role.Female
                 }, 'female')
                 try {
-                    await main.putForemanRequest(woman.id)
+                    await main.putForemanRequest(woman)
                     throw new Error("should not be hire")
                 } catch (err) {
                     expect(err).toBeKopnikError(1000 + 510)
@@ -109,7 +109,7 @@ describe('models User get confirmed', () => {
             await main.reloadForemanRequests()
             expect(main.foremanRequests).toBeInstanceOf(Array)
             expect(main.foremanRequests).toHaveLength(1)
-            expect(main.foremanRequests).toContain(main.id)
+            expect(main.foremanRequests[0].id).toBe(requester.id)
         })
         describe('confirmForemanRequest()', () => {
             it('success', async () => {
@@ -117,16 +117,17 @@ describe('models User get confirmed', () => {
                     status: Kopnik.Status.PENDING,
                     foremanRequest_id: main.id,
                 }, 'requester')
-                await main.confirmForemanRequest(requester.id)
+                await main.confirmForemanRequest(requester)
 
+                await main.reloadForemanRequests()
                 expect(main.foremanRequests).toBeInstanceOf(Array)
-                expect(main.foremanRequests).toHaveLength(1)
-                expect(main.foremanRequests).toContain(main.id)
+                expect(main.foremanRequests).toHaveLength(0)
 
                 await main.logout()
                 await requester.login()
                 await requester.reload()
                 expect(requester.foremanRequest).toBeNull()
+                expect(requester.foreman).toBe(main)
             })
             it('not found', async () => {
                 const foreman = await Kopnik.create({
@@ -138,21 +139,22 @@ describe('models User get confirmed', () => {
                 }, 'somebody')
 
                 try {
-                    await main.confirmForemanRequest(somebody.id)
+                    await main.confirmForemanRequest(somebody)
                     throw new Error("should not be hire")
                 } catch (err) {
-                    expect(err).toBeKopnikError(1000 + 510)
+                    expect(err).toBeKopnikError(1000 + 511)
                 }
             })
         })
         describe('declineForemanRequest()', () => {
-            it('success', async () => {
+            it.only('success', async () => {
                 const requester = await Kopnik.create({
                     status: Kopnik.Status.PENDING,
                     foremanRequest_id: main.id,
                 }, 'requester')
-                await main.declineForemanRequest(requester.id)
+                await main.declineForemanRequest(requester)
 
+                await main.reloadForemanRequests()
                 expect(main.foremanRequests).toBeInstanceOf(Array)
                 expect(main.foremanRequests).toHaveLength(0)
 
@@ -160,6 +162,7 @@ describe('models User get confirmed', () => {
                 await requester.login()
                 await requester.reload()
                 expect(requester.foremanRequest).toBeNull()
+                expect(requester.foreman).toBeNull()
             })
             it('not found', async () => {
                 const foreman = await Kopnik.create({
@@ -174,7 +177,7 @@ describe('models User get confirmed', () => {
                     await main.declineForemanRequest(somebody.id)
                     throw new Error("should not be hire")
                 } catch (err) {
-                    expect(err).toBeKopnikError(1000 + 510)
+                    expect(err).toBeKopnikError(1000 + 511)
                 }
             })
         })
