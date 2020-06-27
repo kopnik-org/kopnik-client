@@ -1,4 +1,4 @@
-import {container} from './bottle'
+import {container} from './index'
 import _ from 'lodash'
 import jsonToFormData from 'json-form-data'
 import {KopnikApiError} from "../KopnikError";
@@ -12,15 +12,15 @@ export default async function fetchApi(url, options = {}) {
                 'Content-Type': 'text/plain',
             }
         },
-        cookieOptions = (container.config.di.cookie && container.cookieService.cookie) ? {headers: {Cookie: container.cookieService.cookie}} : null
+        cookieOptions = (container.constants.di.cookie && container.cookieService.cookie) ? {headers: {Cookie: container.cookieService.cookie}} : null
 
     options = _.merge({}, defaultOptions, cookieOptions, options)
     if (options.body) {
         options.body = JSON.stringify(options.body)
     }
     // container.logger.warn(options)
-    // console.log(container.config.api.path)
-    let fullUrl = `${container.config.api.path}/${url}`.replace(/\w+\/\.\.\//, '')
+    // console.log(container.constants.api.path)
+    let fullUrl = `${container.constants.api.path}/${url}`.replace(/\w+\/\.\.\//, '')
 
     try {
         // console.log(url, options)
@@ -35,7 +35,7 @@ export default async function fetchApi(url, options = {}) {
     }
 
     let cookie = response.headers.get('set-cookie')
-    if (container.config.di.cookie && cookie) {
+    if (container.constants.di.cookie && cookie) {
         cookie = cookie.match(/(\w+=(\w|\d)+)/)[0]
         container.cookieService.cookie = cookie
     }

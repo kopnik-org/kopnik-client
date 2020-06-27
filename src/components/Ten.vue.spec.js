@@ -1,10 +1,10 @@
 import flushPromises from "flush-promises";
 import Vue from 'vue'
 
-import vuePlugins from "../../test-setup";
-import KTen from "../../../src/components/KTen";
-import {bottle, container} from "../../../src/bottle/bottle";
-import {Kopnik} from "../../../src/models";
+import vuePlugins from "../../tests/test-setup";
+import KTen from "./KTen";
+import {bottle, container} from "../bottle";
+import {Kopnik} from "../models";
 
 describe('unit components Ten', () => {
     beforeAll(async () => {

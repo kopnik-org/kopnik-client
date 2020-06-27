@@ -2,10 +2,10 @@ import flushPromises from "flush-promises";
 import Vue from 'vue'
 import { mount } from '@vue/test-utils'
 
-import vuePlugins from "../../test-setup";
-import {container} from "../../../src/bottle/bottle";
-import {Kopnik} from "../../../src/models";
-import WitnessVue from "../../../src/components/WitnessVue";
+import vuePlugins from "../../tests/test-setup";
+import {container} from "../bottle";
+import {Kopnik} from "../models";
+import WitnessVue from "./WitnessVue";
 
 describe('unit components Witness', () => {
     beforeAll(async () => {

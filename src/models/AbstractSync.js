@@ -8,7 +8,7 @@ import _ from "lodash"
 
 import * as models from "."
 import once from "../decorators/once";
-import {container} from "../bottle/bottle";
+import {container} from "../bottle";
 
 /**
  * Общий принцип работы следующий
@@ -211,6 +211,7 @@ export default class AbstractSync {
      * загружает все поля в томи числе скалярные и ссылки на другие объеты
      * @returns {Promise.<AbstractSync>}
      */
+    @once
     async reload() {
         let json = await this.constructor.api(`get?ids=${this.id===undefined?'':this.id}`)
         this.merge(json[0])

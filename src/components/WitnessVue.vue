@@ -18,7 +18,7 @@
 <script>
     import KopnikView from "./KopnikVue"
     import {Kopnik} from "../models"
-    import {container} from "../bottle/bottle";
+    import {container} from "../bottle";
     import logger from "./mixin/logger";
 
     export default {

@@ -7,7 +7,7 @@
     "language": "Language",
     "birthyear": "Birthyear",
     "firstName": "Name",
-    "passport": "Last for number of passport",
+    "passport": "Last four number of passport",
     "patronymic": "Patronymic",
     "nickname": "Nickname",
     "lastName": "Last name",
@@ -76,6 +76,13 @@
     "toChat": "Talk",
     "toKopa": "To Kopa",
     "notToKopa": "Don't invite",
-    "toForeman": "To foreman"
+    "toForeman": "To foreman",
+    "toForemanInfo": "The request was sended. Wait for the foreman's answer."
+  },
+  "ten": {
+    "confirmForemanRequest": "Confirm",
+    "confirmForemanRequestInfo": "Confirmed",
+    "declineForemanRequest": "Decline",
+    "declineForemanRequestInfo": "Declined"
   }
 }

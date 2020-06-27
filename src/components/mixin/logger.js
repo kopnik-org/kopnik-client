@@ -1,7 +1,7 @@
 /**
  * Created by alexey2baranov on 07.02.17.
  */
-import {container} from "../../bottle/bottle";
+import {container} from "../../bottle";
 
 const logger={
   created(){

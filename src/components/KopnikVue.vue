@@ -139,7 +139,7 @@
     import MapVue from "./MapVue";
     import AvatarVue from "./AvatarVue";
     import logger from "./mixin/logger"
-    import {container} from "../bottle/bottle";
+    import {container} from "../bottle";
     import {
         ValidationProvider,
     } from "vee-validate"

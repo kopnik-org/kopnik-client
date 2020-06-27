@@ -21,7 +21,7 @@ global.mapi = mapi
 import Vuetify from 'vuetify';
 import ru from 'vuetify/es5/locale/ru'
 import en from 'vuetify/es5/locale/en'
-import {container} from "../src/bottle/bottle";
+import {container} from "../src/bottle";
 
 Vue.use(Vuetify)
 let vuetify = new Vuetify({

@@ -41,7 +41,7 @@
     } from "vee-validate"
 
     import {Kopnik} from "../models"
-    import {container} from "../bottle/bottle";
+    import {container} from "../bottle";
     import logger from "./mixin/logger";
     import KopnikVue from "./KopnikVue";
     import api from "../api";
@@ -74,13 +74,13 @@
             },
             async submit_click() {
                 this.request.birthyear = parseInt(this.request.birthyear)
-                await this.application.user.update(this.request.plain)
+                await this.application.user.updateProfile(this.request.plain)
                 this.application.infos.push(this.$t('profile.successMessage'))
                 await this.application.setSection(container.application.constructor.Section.Main)
             },
             /**
              *
-             * @param {Local} event
+             * @param {Locale} event
              * @returns {Promise<void>}
              */
             async locale_change(event) {

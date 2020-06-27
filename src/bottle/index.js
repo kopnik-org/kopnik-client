@@ -4,7 +4,7 @@ import 'json-form-data'
 import * as loglevel from "loglevel";
 
 import Application from "../application/Application"
-import config from '../../config'
+import constants from './constants'
 import api from "../api";
 import CookieService from "./CookieService"
 import MK from "../mk/mk";
@@ -21,7 +21,7 @@ bottle.factory('logger', function loggerFactory() {
     // LoglevelPluginPrefix.apply(loglevel, {template: "%t [%l] %n: "})
     loglevel.setLevel(loglevel.levels.DEBUG)
     if (process.env.NODE_ENV == "test") {
-        loglevel.setLevel(loglevel.levels.WARN)
+        loglevel.setLevel(loglevel.levels.DEBUG)
         // LoglevelPluginToString.apply(loglevel, {})
     }
 // Be sure to call setLevel method in order to apply plugin
@@ -42,20 +42,20 @@ bottle.service('localeManager', function localeManager() {
     localeManager.currentLocale = 'ru'//container.env === 'development' ? 'en' : 'ru'
     return localeManager
 })
-bottle.service('cookieService', CookieService, 'config')
+bottle.service('cookieService', CookieService, 'constants')
 bottle.factory('api', function apiFactory(container) {
-    return container.config.di.fetch ? api : global.mapi
+    return container.constants.di.fetch ? api : global.mapi
 })
 bottle.factory('VK', function vkFactory(container) {
     return process.env.NODE_ENV === 'test' ? MK : global.VK
 })
-bottle.factory('config', function configFactory() {
+bottle.factory('constants', function constantsFactory() {
     if (!process.env.NODE_ENV) {
         throw new Error("NODE_ENV is not defined")
     }
 
     let local = {}//require("./local.js")
-    let result = _.merge({}, config, local)[process.env.NODE_ENV]
+    let result = _.merge({}, constants, local)[process.env.NODE_ENV]
 
     return result
 })
@@ -78,15 +78,15 @@ bottle.service('application', Application, 'logger')
  * @property {fetch} api
  * @property {MK.class} VK
  * @property {CookieService} cookieService
- * @property {Object} config
- * @property {Object} config.api
- * @property {String} config.api.path
- * @property {Object} config.di
- * @property {Boolean} config.di.fetch
- * @property {Number} config.di.cookie
- * @property {Number} config.messenger.clientId
- * @property {String} config.messenger.loginUrl
- * @property {String} config.messenger.redirectUrl
+ * @property {Object} constants
+ * @property {Object} constants.api
+ * @property {String} constants.api.path
+ * @property {Object} constants.di
+ * @property {Boolean} constants.di.fetch
+ * @property {Number} constants.di.cookie
+ * @property {Number} constants.messenger.clientId
+ * @property {String} constants.messenger.loginUrl
+ * @property {String} constants.messenger.redirectUrl
  * @property {LocaleManager} localeManager
  * @property {string} env
  * @property {{ru, en}} messages

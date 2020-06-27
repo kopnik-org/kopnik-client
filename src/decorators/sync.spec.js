@@ -54,18 +54,18 @@ describe('sync', () => {
     })
   })
   describe('remote collection', () => {
-    it('collection create loadName method',  () => {
+    it.skip('collection create loadName method',  () => {
       let kopnik= new Kopnik(1)
 
       expect(kopnik).toHaveProperty("getTen")
     })
-    it('collection getInstance data',  async () => {
+    it.skip('collection getInstance data',  async () => {
       let kopnik= new Kopnik(1)
       let ten= await kopnik.getTen()
       expect(ten).toBeInstanceOf(Array)
     })
 
-    it('collection create loadedName property',  () => {
+    it.skip('collection create loadedName property',  () => {
       let kopnik= new Kopnik(1)
       expect(kopnik).toHaveProperty("loadedTen")
     })

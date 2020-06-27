@@ -31,7 +31,7 @@
 <script>
     import _ from 'lodash'
     import Kopnik from "../models/Kopnik"
-    import {container} from "../bottle/bottle";
+    import {container} from "../bottle";
     import i18n from "../plugins/i18n";
     import logger from "./mixin/logger";
 
@@ -51,7 +51,7 @@
         watch: {},
         methods: {
             login_click() {
-                location.href=container.config.messenger.loginUrl
+                location.href=container.constants.messenger.loginUrl
             },
             vk_login_click() {
                 VK.Auth.login((...args) => {
@@ -59,7 +59,7 @@
                 }, 2 + 1024 + 65536 + 262144 + 4194304)
             },
             href_login_click() {
-                location.href = container.config.messenger.loginUrl
+                location.href = container.constants.messenger.loginUrl
             },
         },
         async created() {

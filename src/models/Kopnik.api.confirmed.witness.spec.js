@@ -1,12 +1,12 @@
 import api from "../api";
-import {bottle, container} from "../bottle/bottle";
+import {bottle, container} from "../bottle";
 import {KopnikApiError} from "../KopnikError";
 import {AbstractSync, Kopnik} from "./index";
 import {collection, object, scalar} from "../decorators/sync";
 import reset from "../../tests/utils/reset";
 
 // real fetch
-container.config.di.fetch = true
+container.constants.di.fetch = true
 
 describe('models User get confirmed witness', () => {
     /** @type {Kopnik} */

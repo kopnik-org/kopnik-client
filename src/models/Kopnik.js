@@ -2,9 +2,9 @@ import {sync, collection, scalar, object} from '../decorators/sync'
 import AbstractSync from "./AbstractSync";
 import {KopnikError} from '../KopnikError'
 import Locale from "../locales/Locale";
-import {container} from "../bottle/bottle";
+import {container} from "../bottle";
 import api from "../api";
-
+import once from '../decorators/once'
 
 export default class Kopnik extends AbstractSync {
     @scalar uid = undefined
@@ -33,7 +33,7 @@ export default class Kopnik extends AbstractSync {
     @object foremanRequest = undefined
     @object witness = undefined
 
-    @collection ten
+    @collection subordinates
     @collection foremanRequests
     @collection witnessRequests
 
@@ -197,27 +197,27 @@ export default class Kopnik extends AbstractSync {
     /**
      * Confirm or reject foreign witness request
      *
-     * @param witnessRequest
+     * @param request
      * @returns {Promise<*>}
      */
-    async updateWitnessRequestStatus(witnessRequest) {
+    async updateWitnessRequestStatus(request) {
         let result = await this.constructor.api('pending/update', {
             method: 'post',
             body: {
-                id: witnessRequest.id,
-                status: witnessRequest.status,
+                id: request.id,
+                status: request.status,
             },
         })
+        if (this.witnessRequests){
+            this.witnessRequests.splice(this.witnessRequests.indexOf(request),1)
+        }
         return result
     }
 
+    @once
     async reloadWitnessRequests() {
         let result = await this.constructor.api('pending')
         this.witnessRequests = result.map(eachKopnikAsJson => Kopnik.merge(eachKopnikAsJson, true))
-    }
-
-    async reloadTen() {
-        this.ten = []
     }
 
     /**
@@ -235,8 +235,10 @@ export default class Kopnik extends AbstractSync {
         this.locale = value
     }
 
+    @once
     async isMessagesFromGroupAllowed() {
-        return await this.constructor.api('isMessagesFromGroupAllowed')
+        const result= await this.constructor.api('isMessagesFromGroupAllowed')
+        return result
     }
 
     /**
@@ -249,6 +251,10 @@ export default class Kopnik extends AbstractSync {
                 id: foreman.id,
             }
         })
+        this.foremanRequest= foreman
+        if (this.foreman && this.foreman.foremanRequests){
+            this.foreman.foremanRequests.push(this)
+        }
     }
 
     /**
@@ -256,7 +262,7 @@ export default class Kopnik extends AbstractSync {
      */
     async reloadForemanRequests() {
         this.foremanRequests = (await this.constructor.api('getForemanRequests'))
-            .map(eachUserPlain=>Kopnik.merge(eachUserPlain, true))
+            .map(eachUserPlain => Kopnik.merge(eachUserPlain, true))
     }
 
     /**
@@ -269,7 +275,16 @@ export default class Kopnik extends AbstractSync {
                 id: requester.id,
             },
         })
+        if (this.foremanRequests) {
+            this.foremanRequests.splice(this.foremanRequests.indexOf(requester), 1)
+        }
+        if (this.subordinates) {
+            this.subordinates.push(requester)
+        }
+        requester.foremanRequest = null
+        requester.foreman = this
     }
+
     /**
      * @param {Kopnik} requester
      */
@@ -280,6 +295,65 @@ export default class Kopnik extends AbstractSync {
                 id: requester.id,
             },
         })
+        if (this.foremanRequests) {
+            this.foremanRequests.splice(this.foremanRequests.indexOf(requester), 1)
+        }
+        requester.foremanRequest = null
     }
 
+    /**
+     * @returns {Promise<Kopnik[]>}
+     */
+    async getSubordinates() {
+        let subordinatesAsJson = await this.constructor.api('getSubordinates?id=' + this.id)
+        const result = subordinatesAsJson.map(eachSubordinateAsJson => Kopnik.merge(eachSubordinateAsJson, true))
+        return result
+    }
+
+    async reloadSubordinates() {
+        this.subordinates = await this.getSubordinates()
+    }
+
+    /**
+     * @returns {Promise<Kopnik[]>}
+     */
+    @once
+    async loadedSubordinates() {
+        if (!this.subordinates) {
+            await this.reloadSubordinates()
+        }
+        return this.subordinates
+    }
+
+    /**
+     * @returns {Promise<void>}
+     */
+    @once
+    async resetForeman() {
+        await this.constructor.api('resetForeman', {
+            method: 'POST',
+        })
+        if (this.foreman && this.foreman.subordinates) {
+            this.foreman.subordinates.splice(this.foreman.subordinates.indexOf(this), 1)
+        }
+        this.foreman = null
+    }
+
+    /**
+     * @param {Kopnik} subordinate для какого Пользователя перестать быть старшиной
+     * @returns {Promise<void>}
+     */
+    @once
+    async removeFromSubordinates(subordinate) {
+        await this.constructor.api('resetForeman', {
+            method: 'POST',
+            body: {
+                id: subordinate.id,
+            },
+        })
+        if (this.subordinates) {
+            this.subordinates.splice(this.subordinates.indexOf(subordinate), 1)
+        }
+        subordinate.foreman = null
+    }
 }

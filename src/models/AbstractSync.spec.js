@@ -1,5 +1,5 @@
 import {Kopnik} from "./index";
-import {bottle, container} from "../bottle/bottle";
+import {bottle, container} from "../bottle";
 import {KopnikApiError} from "../KopnikError";
 import Locale from "../locales/Locale";
 
@@ -69,7 +69,7 @@ describe('models Kopnik', () => {
             main.firstName = "Ярослав"
             main.witness = Kopnik.getReference(2)
             main.locale = container.localeManager.currentLocale
-            main.ten = [Kopnik.getReference(3), Kopnik.getReference(4)]
+            main.subordinates = [Kopnik.getReference(3), Kopnik.getReference(4)]
 
             expect(main.plain).toMatchObject({
                 id: 1,
@@ -77,9 +77,9 @@ describe('models Kopnik', () => {
                 witness_id: 2,
                 locale: 'ru',
             })
-            expect(main.plain.ten).toBeInstanceOf(Array)
-            expect(main.plain.ten.length).toBe(2)
-            expect(main.plain.ten[0]).toBe(3)
+            expect(main.plain.subordinates).toBeInstanceOf(Array)
+            expect(main.plain.subordinates.length).toBe(2)
+            expect(main.plain.subordinates[0]).toBe(3)
         })
     })
 })

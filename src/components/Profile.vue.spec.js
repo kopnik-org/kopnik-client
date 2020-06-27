@@ -1,72 +1,83 @@
 import flushPromises from "flush-promises";
 import {mount} from '@vue/test-utils'
 
-import vuePlugins from "../../test-setup";
-import {bottle, container} from "../../../src/bottle/bottle";
-import {Kopnik} from "../../../src/models";
-import ProfileVue from "../../../src/components/ProfileVue";
-import Application from "../../../src/application/Application";
-import KopnikVue from "../../../src/components/KopnikVue";
+import vuePlugins from "../../tests/test-setup";
+import {bottle, container} from "../bottle";
+import {AbstractSync, Kopnik} from "../models";
+import ProfileVue from "./ProfileVue";
+import Application from "../application/Application";
+import KopnikVue from "./KopnikVue";
+import Vue from 'vue'
+
+// real fetch
+container.constants.di.fetch = true
 
 describe('unit components Profile', () => {
+    /** @type {Kopnik} */
+    let user
+    /** @type {Application} */
+    let application
+
     beforeAll(async () => {
     })
 
-    beforeEach(() => {
-        bottle.resetProviders(['application'])
+    beforeEach(async () => {
+        bottle.resetProviders(['application', 'cookieService'])
+        AbstractSync.clearCache()
+        user = await Kopnik.create({
+            status: Kopnik.Status.NEW,
+        }, 'user')
+        await user.login()
+        // вызывается в mounted() компонента
+        user.isMessagesFromGroupAllowed= jest.fn(()=>true)
+        application= container.application
+        await application.authenticate()
     })
 
-    it('draw new', async () => {
-        await login(2)
-        const kopnik = Kopnik.getReference(2)
-        await container.application.authenticate()
+    it('draw', async () => {
         const wrapper = mount(ProfileVue, {
             ...vuePlugins,
         })
         await flushPromises()
-        // expect(wrapper.vm.$el).toMatchSnapshot()
     })
 
-    it('submit disabled', async () => {
-        await login(2)
-        const kopnik = Kopnik.getReference(2)
-        await container.application.authenticate()
-        kopnik.patronymic = null
+    it('submit disabled by fio', async () => {
+        user.patronymic = null
         const wrapper = mount(ProfileVue, {
             ...vuePlugins,
         })
         await flushPromises()
         const submitBtn = wrapper.find('#submit')
+        expect(submitBtn.attributes('disabled')).toBe('disabled')
+    })
+
+    it('submit disabled by messages not allowed', async () => {
+        user.isMessagesFromGroupAllowed= jest.fn(()=>false)
+        const wrapper = mount(ProfileVue, {
+            ...vuePlugins,
+        })
         await flushPromises()
+        const submitBtn = wrapper.find('#submit')
         expect(submitBtn.attributes('disabled')).toBe('disabled')
     })
 
     it('submit enabled', async () => {
-        await login(2)
-        const kopnik = await Kopnik.get(2)
-        kopnik.role = 1
-        await container.application.authenticate()
-        kopnik.patronymic = 'qwertyujhgfdjklxc'
-        const wrapper = mount(ProfileVue, {
+        const wrapper = await mount(ProfileVue, {
             ...vuePlugins,
         })
         await flushPromises()
         const submitBtn = wrapper.find('#submit')
-        await flushPromises()
+
         expect(submitBtn.attributes('disabled')).toBeUndefined()
     })
 
-
-    it('submit', async () => {
-        await login(2)
-        const kopnik = Kopnik.getReference(2)
-        await container.application.authenticate()
+    it.only('submit', async () => {
         const wrapper = mount(ProfileVue, {
             ...vuePlugins,
         })
         await flushPromises()
         const submitBtn = wrapper.find('#submit')
-        submitBtn.trigger('click')
+        await submitBtn.trigger('click')
         await flushPromises()
         expect(container.application.section).toBe(Application.Section.Main)
         expect(container.application.infos.length).toBe(1)

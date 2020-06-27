@@ -5,9 +5,9 @@ import AsyncLock from 'async-lock'
 import {AbstractSync, Kopnik, Kopa} from "../models";
 import {KopnikApiError, KopnikError} from "../KopnikError";
 import once from "../decorators/once";
-import SquadAnalyzer from "../SquadAnalyzer";
+import TenAnalyzer from "../TenAnalyzer";
 import fetchIntercept from 'fetch-intercept'
-import {container} from "../bottle/bottle";
+import {container} from "../bottle";
 import {LatLng, LatLngBounds} from 'leaflet'
 import Main from "./Main";
 import messages from "../locales";
@@ -57,24 +57,97 @@ export default class Application {
     }
 
     async onerror(err) {
+        var classifyRE = /(?:^|[-_])(\w)/g;
+        var classify = function (str) {
+            return str
+                .replace(classifyRE, function (c) {
+                    return c.toUpperCase();
+                })
+                .replace(/[-_]/g, '');
+        };
+
+        const formatComponentName = function (vm, includeFile) {
+            if (vm.$root === vm) {
+                return '<Root>'
+            }
+            var options = typeof vm === 'function' && vm.cid != null
+                ? vm.options
+                : vm._isVue
+                    ? vm.$options || vm.constructor.options
+                    : vm;
+            var name = options.name || options._componentTag;
+            var file = options.__file;
+            if (!name && file) {
+                var match = file.match(/([^/\\]+)\.vue$/);
+                name = match && match[1];
+            }
+
+            return (
+                (name ? ("<" + (classify(name)) + ">") : "<Anonymous>") +
+                (file && includeFile !== false ? (" at " + file) : '')
+            )
+        };
+
+        var repeat = function (str, n) {
+            var res = '';
+            while (n) {
+                if (n % 2 === 1) {
+                    res += str;
+                }
+                if (n > 1) {
+                    str += str;
+                }
+                n >>= 1;
+            }
+            return res
+        };
+
+        const generateComponentTrace = function (vm) {
+            if (vm._isVue && vm.$parent) {
+                var tree = [];
+                var currentRecursiveSequence = 0;
+                while (vm) {
+                    if (tree.length > 0) {
+                        var last = tree[tree.length - 1];
+                        if (last.constructor === vm.constructor) {
+                            currentRecursiveSequence++;
+                            vm = vm.$parent;
+                            continue
+                        } else if (currentRecursiveSequence > 0) {
+                            tree[tree.length - 1] = [last, currentRecursiveSequence];
+                            currentRecursiveSequence = 0;
+                        }
+                    }
+                    tree.push(vm);
+                    vm = vm.$parent;
+                }
+                return '\n\nfound in\n\n' + tree
+                    .map(function (vm, i) {
+                        return ("" + (i === 0 ? '---> ' : repeat(' ', 5 + i * 2)) + (Array.isArray(vm)
+                            ? ((formatComponentName(vm[0])) + "... (" + (vm[1]) + " recursive calls)")
+                            : formatComponentName(vm)));
+                    })
+                    .join('\n')
+            } else {
+                return ("\n\n(found in " + (formatComponentName(vm)) + ")")
+            }
+        };
+
         if (err.code === 401) {
             await container.application.lockSection(async () => {
                 await application.setSection(Application.Section.Main)
             })
-            this.user= null
+            this.user = null
             console.info('prevent 401 error', err)
         } else {
-            this.logger.error(err)
-            if (err instanceof KopnikApiError){
-                this.logger.info(err.url)
-            }
+            this.logger.error(...[err, err.info, err.vm ? generateComponentTrace(err.vm) : null, err.url].filter(item => item))
             this.errors.push(err)
             // throw err
         }
     }
 
     getMessage(message) {
-        for(const eachLocaleName of [container.localeManager.currentLocale.name, 'ru']) {
+        for (const eachLocaleName of [container.localeManager.currentLocale.name, 'ru']) {
             if (has(container.messages[eachLocaleName], message)) {
                 const result = get(container.messages[eachLocaleName], message)
                 return result
@@ -161,13 +234,15 @@ export default class Application {
     @once
     async authenticate() {
         try {
-            let userAsPlain = (await Kopnik.api('get?ids='))[0]
-            this.user = await Kopnik.get(userAsPlain.id)
-            container.localeManager.currentLocale= this.user.locale
-            this.logger.info('user authenticated', this.user)
+            const user = new Kopnik()
+            await user.reload()
+            this.user= Kopnik.merge(user.plain, true)
+            container.localeManager.currentLocale = user.locale
+            this.logger.info('user authenticated', this.user.plain)
         } catch (err) {
             if ((err instanceof KopnikApiError) && err.message.match(/no.+aut/i)) {
-                 this.user = null
+                // назначаем null вместо текущего undefined
+                this.user= null
                 this.logger.info('user not authenticated')
             } else {
                 throw err
@@ -185,7 +260,7 @@ export default class Application {
         await this.lockSection(() => {
             this.setSection(Application.Section.Main)
         })
-        this.sections.main.selected= null
+        this.sections.main.selected = null
         await container.api('logout')
         this.user = null
     }

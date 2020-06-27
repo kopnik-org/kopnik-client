@@ -1,20 +1,20 @@
 /**
  * Created by alexey2baranov on 8/20/16.
  */
-let config = {
+let constants = {
     "development": {
         messenger: {
             // идентификатор нашего приложения ВК
             // clientId: 7210289,
             // страница, на которую нужно перейти для аутентификации
             // loginUrl:'https://dev.kopnik.org/connect/vkontakte',
-            // loginUrl: 'http://localhost:8081/connect/vkontakte',
-            loginUrl: 'http://localhost:8082/connect/vkontakte'
+            loginUrl: 'http://localhost:8081/connect/vkontakte',
+            // loginUrl: 'http://localhost:8082/connect/vkontakte'
         },
         api: {
             // path: "https://dev.kopnik.org/api"
-            // path: "http://localhost:8081/api"
-            path: "http://localhost:8082/api"
+            path: "http://localhost:8081/api"
+            // path: "http://localhost:8082/api"
         },
         di: {
             fetch: true,
@@ -52,11 +52,10 @@ let config = {
 }
 
 if (!process.env.NODE_ENV) {
-    throw new Error("NODE_ENV is not defined");
+    throw new Error("NODE_ENV is not defined")
 }
 
-let privateConfig = {}//require("./private")
-let mergedConfig = require("lodash").merge({}, config, privateConfig)[process.env.NODE_ENV]
+let privateConstants = {}//require("./private")
+let mergedConstants = require("lodash").merge({}, constants, privateConstants)[process.env.NODE_ENV]
 
-
-export default config;
+export default constants

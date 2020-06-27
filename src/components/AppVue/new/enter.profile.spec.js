@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import {i18n, vuetify, routerFactory} from "../../../../test-setup";
-import AppVue from "../../../../../src/components/AppVue";
-import {bottle, container} from "../../../../../src/bottle/bottle";
+import {i18n, vuetify, routerFactory} from "../../../../tests/test-setup";
+import AppVue from "../../AppVue";
+import {bottle, container} from "../../../bottle";
 import flushPromises from "flush-promises";
-import Application from "../../../../../src/application/Application";
+import Application from "../../../application/Application";
 
 describe('unit components AppVue', () => {
     let vm,

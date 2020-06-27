@@ -1,12 +1,12 @@
 import flushPromises from "flush-promises";
 import Vue from 'vue'
 
-import KopnikVue from '../../../src/components/KopnikVue'
-import {Kopnik} from "../../../src/models";
-import vuePlugins from "../../test-setup";
-import {container} from "../../../src/bottle/bottle";
+import KopnikVue from './KopnikVue'
+import {Kopnik} from "../models";
+import vuePlugins from "../../tests/test-setup";
+import {container} from "../bottle";
 import {mount} from "@vue/test-utils";
-import ProfileVue from "../../../src/components/ProfileVue";
+import ProfileVue from "./ProfileVue";
 
 describe('unit components Kopnik', () => {
     beforeAll(async () => {

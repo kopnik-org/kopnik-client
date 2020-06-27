@@ -1,5 +1,5 @@
 import {mount} from '@vue/test-utils'
-import Demo from '../../../src/components/test/Demo'
+import Demo from './test/Demo'
 import flushPromises from "flush-promises";
 import Vue from 'vue'
 import Vuetify from "vuetify";

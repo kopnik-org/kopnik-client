@@ -1,12 +1,12 @@
 import api from "../api";
-import {bottle, container} from "../bottle/bottle";
+import {bottle, container} from "../bottle";
 import {KopnikApiError} from "../KopnikError";
 import {AbstractSync, Kopnik} from "./index";
 import {collection, object, scalar} from "../decorators/sync";
 import reset from "../../tests/utils/reset";
 
 // real fetch
-container.config.di.fetch = true
+container.constants.di.fetch = true
 
 describe('models User get new', () => {
     let main
@@ -78,5 +78,18 @@ describe('models User get new', () => {
         } catch (err) {
             expect(err.code).toBe(403)
         }
+    })
+    describe('tree', () => {
+        describe('putForemanRequest()', () => {
+            it('success', async () => {
+                const foreman = await Kopnik.create({}, 'foreman')
+                try {
+                    await main.putForemanRequest(foreman)
+                    throw new Error("should not be hire")
+                } catch (err) {
+                    expect(err).toBeKopnikError(1000+403)
+                }
+            })
+        })
     })
 })

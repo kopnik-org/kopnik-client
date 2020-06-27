@@ -1,9 +1,9 @@
 import flushPromises from "flush-promises";
 import { mount } from '@vue/test-utils'
 
-import vuePlugins from "../../test-setup";
-import {container} from "../../../src/bottle/bottle";
-import MainVue from "../../../src/components/MainVue";
+import vuePlugins from "../../tests/test-setup";
+import {container} from "../bottle";
+import MainVue from "./MainVue";
 
 describe('unit components Witness', () => {
     beforeAll(async () => {

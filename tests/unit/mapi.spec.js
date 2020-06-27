@@ -1,5 +1,5 @@
 import mapi from "../../src/mapi";
-import {bottle, container} from "../../src/bottle/bottle";
+import {bottle, container} from "../../src/bottle";
 import {getData} from "../../src/mapi/mapi";
 
 

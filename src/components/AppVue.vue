@@ -25,7 +25,7 @@
     import ThanksVue from './ThanksVue'
     import ProfileVue from "./ProfileVue";
     import WitnessVue from "./WitnessVue";
-    import {container} from "../bottle/bottle";
+    import {container} from "../bottle";
     import DrawerVue from "./DrawerVue";
     import logger from './mixin/logger'
     import Application from "../application/Application";

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 
-import KopaInviteVue from '../../../src/components/KopaInviteVue'
-import {Kopnik, Kopa} from "../../../src/models";
+import KopaInviteVue from './KopaInviteVue'
+import {Kopnik, Kopa} from "../models";
 import flushPromises from "flush-promises";
-import vuePlugins from "../../test-setup";
+import vuePlugins from "../../tests/test-setup";
 
 describe('unit components KopaInviteVue.vue',  () => {
     let vm,

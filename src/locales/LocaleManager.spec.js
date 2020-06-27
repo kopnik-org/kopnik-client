@@ -1,4 +1,4 @@
-import {bottle, container} from "../bottle/bottle";
+import {bottle, container} from "../bottle";
 import Locale from "./Locale";
 
 describe('unit locales LocaleManager', () => {

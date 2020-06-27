@@ -1,12 +1,12 @@
 import api from "../api";
-import {bottle, container} from "../bottle/bottle";
+import {bottle, container} from "../bottle";
 import {KopnikApiError} from "../KopnikError";
 import {AbstractSync, Kopnik} from "./index";
 import {collection, object, scalar} from "../decorators/sync";
 import reset from "../../tests/utils/reset";
 
 // real fetch
-container.config.di.fetch = true
+container.constants.di.fetch = true
 
 describe('models User get confirmed', () => {
     let main
@@ -147,7 +147,7 @@ describe('models User get confirmed', () => {
             })
         })
         describe('declineForemanRequest()', () => {
-            it.only('success', async () => {
+            it('success', async () => {
                 const requester = await Kopnik.create({
                     status: Kopnik.Status.PENDING,
                     foremanRequest_id: main.id,
@@ -174,7 +174,7 @@ describe('models User get confirmed', () => {
                 }, 'somebody')
 
                 try {
-                    await main.declineForemanRequest(somebody.id)
+                    await main.declineForemanRequest(somebody)
                     throw new Error("should not be hire")
                 } catch (err) {
                     expect(err).toBeKopnikError(1000 + 511)
@@ -185,10 +185,10 @@ describe('models User get confirmed', () => {
             const subordinate = await Kopnik.create({
                 foreman_id: main.id,
             }, 'subordinate')
-            const foreman = await subordinate.getForeman()
-            expect(foreman).toBe(main)
+            await subordinate.reload()
+            expect(subordinate.foreman).toBe(main)
         })
-        it('getAllForemans()', async () => {
+        it.skip('getAllForemans()', async () => {
             const subordinate = await Kopnik.create({
                 foreman_id: main.id,
             }, 'subordinate')
@@ -199,15 +199,41 @@ describe('models User get confirmed', () => {
             expect(foremans[o]).toBe(subordinate)
             expect(foremans[0]).toBe(main)
         })
-        it('getSubordinates()', async () => {
+        it('loadedSubordinates()', async () => {
             const subordinate = await Kopnik.create({
                 foreman_id: main.id,
             }, 'subordinate')
 
-            const subordinated= await main.getSubordinates()
+            const subordinated= await main.loadedSubordinates()
             expect(subordinated).toBeInstanceOf(Array)
             expect(subordinated).toHaveLength(1)
-            expect(subordinated).toContain(subordinate.id)
+            expect(subordinated[0]).toBe(subordinate)
+        })
+        describe('removeFromSubordinates()', () => {
+            it('success', async () => {
+                const subordinate = await Kopnik.create({
+                    foreman_id: main.id,
+                }, 'subordinate')
+                await main.removeFromSubordinates(subordinate)
+                await main.reloadSubordinates()
+                expect(main.subordinates).toHaveLength(0)
+
+                await subordinate.reload()
+                expect(subordinate.foreman).toBeNull()
+            })
+            it('not found', async () => {
+                const foreman = await Kopnik.create({}, 'foreman')
+                const somebody = await Kopnik.create({
+                    foreman_id: foreman.id,
+                }, 'somebody')
+
+                try {
+                    await main.removeFromSubordinates(somebody)
+                    throw new Error("should not be hire")
+                } catch (err) {
+                    expect(err).toBeKopnikError(1000 + 512)
+                }
+            })
         })
         describe('resetForeman()', () => {
             it('self reset success', async () => {
@@ -223,31 +249,8 @@ describe('models User get confirmed', () => {
             })
             it('self reset when foreman not setted', async () => {
                 await main.resetForeman()
+                await main.reload()
                 expect(main.foreman).toBeNull()
-            })
-            it('exclude subordinate', async () => {
-                const subordinate = await Kopnik.create({
-                    foreman_id: main.id,
-                }, 'subordinate')
-                await main.resetForemanOf(subordinate)
-                await main.reloadSubordinates()
-                expect(main.subordinated).toHaveLength(0)
-
-                await subordinate.reload()
-                expect(subordinate.foreman).toBeNull()
-            })
-            it('exclude subordinate not found', async () => {
-                const foreman = await Kopnik.create({}, 'foreman')
-                const somebody = await Kopnik.create({
-                    foreman_id: foreman.id,
-                }, 'somebody')
-
-                try {
-                    await main.resetForemanOf(somebody.id)
-                    throw new Error("should not be hire")
-                } catch (err) {
-                    expect(err).toBeKopnikError(1000 + 512)
-                }
             })
         })
     })

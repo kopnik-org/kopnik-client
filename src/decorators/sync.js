@@ -1,5 +1,5 @@
 import once from './once'
-import config from "../../config";
+import config from "../bottle";
 import * as models from "../models";
 
 export function sync(constructor) {
@@ -58,6 +58,7 @@ export function collection(target, name, descriptor) {
     target.constructor.collections.push(name)
 
     let capitalizedName = name[0].toUpperCase() + name.slice(1)
+    /*
     Object.defineProperty(
         target,
         "get" + capitalizedName,
@@ -69,7 +70,7 @@ export function collection(target, name, descriptor) {
         }
     )
 
-/* conflicts with reloadWitnessRequests
+conflicts with reloadWitnessRequests
     Object.defineProperty(
         target,
         "reload" + capitalizedName,
@@ -81,8 +82,8 @@ export function collection(target, name, descriptor) {
             })
         }
     )
-*/
 
+ // ненадежная шляпа. будет конфликтовать с loadedSubordinates() если разкомитить
     Object.defineProperty(
         target,
         "loaded" + capitalizedName,
@@ -96,4 +97,5 @@ export function collection(target, name, descriptor) {
             })
         }
     )
+    */
 }

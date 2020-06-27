@@ -1,13 +1,13 @@
 import Vue from "vue";
 
 import VueI18n from 'vue-i18n'
-import i18n from "../../../src/plugins/i18n";
+import i18n from "../plugins/i18n";
 
 Vue.use(VueI18n)
 const vueI18n = new VueI18n()
 import {mount} from '@vue/test-utils'
 
-import I18n from '../../../src/components/I18n'
+import I18n from './I18n'
 
 it('vue-i18n test', async () => {
     const wrapper = mount({

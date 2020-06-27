@@ -1,9 +1,9 @@
 import flushPromises from "flush-promises";
 import Vue from 'vue'
 
-import vuePlugins from "../../test-setup";
-import ThanksVue from "../../../src/components/ThanksVue";
-import {bottle, container} from "../../../src/bottle/bottle";
+import vuePlugins from "../../tests/test-setup";
+import ThanksVue from "./ThanksVue";
+import {bottle, container} from "../bottle";
 
 describe('unit components Thanks', () => {
     beforeAll(async () => {

@@ -2,9 +2,9 @@ import AsyncLock from 'async-lock'
 import {AbstractSync, Kopnik, Kopa} from "../models";
 import {KopnikApiError, KopnikError} from "../KopnikError";
 import once from "../decorators/once";
-import SquadAnalyzer from "../SquadAnalyzer";
+import TenAnalyzer from "../TenAnalyzer";
 import fetchIntercept from 'fetch-intercept'
-import {container} from "../bottle/bottle";
+import {container} from "../bottle";
 import {LatLng, LatLngBounds} from 'leaflet'
 
 export default class Main {
@@ -35,7 +35,7 @@ export default class Main {
         this.info = null
         /** @type {Kopnik[]} старшие 20 копников на карте  */
         this.top20 = []
-        this.squadAnalyzer = new SquadAnalyzer
+        this.squadAnalyzer = new TenAnalyzer
         // копа, которая созывается
         this.kopa = new Kopa
         this._loadTop20AbortController = new AbortController()
@@ -74,7 +74,7 @@ export default class Main {
      * @returns {Promise<void>}
      */
     async analyzeSquad(kopnik) {
-        await this.squadAnalyzer.analyze(kopnik)
+        await this.squadAnalyzer.analyzeAround(kopnik)
     }
 
     /**
@@ -82,7 +82,7 @@ export default class Main {
      * @param {LatLng} value
      */
     setMapCenter(value) {
-        this.map.center= value.wrap()
+        this.map.center = value.wrap()
         this.storeMapState()
     }
 
@@ -91,9 +91,17 @@ export default class Main {
         this.storeMapState()
     }
 
-    async setMapBounds(value) {
+    /**
+     * Не дожидается окончания загрузки loadTop20()
+     *
+     * @param {LatLngBounds} value
+     * @returns {void}
+     */
+    setMapBounds(value) {
         this.map.bounds = value
-        await this.loadTop20()
+        if (container.application.user) {
+            this.loadTop20()
+        }
     }
 
     /**
@@ -107,7 +115,7 @@ export default class Main {
             return
         }
 
-        this._loadTop20AbortController.abort()
+        this.abortLoadTop20()
         this._loadTop20AbortController = new AbortController()
         const bounds = this.map.bounds
         try {
@@ -131,7 +139,7 @@ export default class Main {
             // Kopnik.getReference(4).ten = []
         } catch (err) {
             if (err.name === 'AbortError') {
-                return; // Continuation logic has already been skipped, so return normally
+                return
             } else {
                 throw err
             }

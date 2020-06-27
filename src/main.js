@@ -18,7 +18,7 @@ Icon.Default.mergeOptions({
 })
 
 import AppVue from './components/AppVue.vue'
-import {container} from "./bottle/bottle"
+import {container} from "./bottle"
 import './plugins/className'
 
 Vue.config.productionTip = false

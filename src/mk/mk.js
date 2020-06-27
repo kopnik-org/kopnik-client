@@ -1,4 +1,4 @@
-import {container} from "../bottle/bottle"
+import {container} from "../bottle"
 
 /**
  * Mock VK for tests

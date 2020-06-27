@@ -1,5 +1,5 @@
 import Locale from './Locale'
-import {container} from "../bottle/bottle";
+import {container} from "../bottle";
 
 export default class LocaleManger {
     constructor() {
@@ -18,6 +18,11 @@ export default class LocaleManger {
     get currentLocale(){
         return this._currentLocale
     }
+
+    /**
+     *
+     * @param {Locale} value
+     */
     set currentLocale(value) {
         const name= (typeof value === 'object')?value.name:value
         this._currentLocale= this.getLocaleByShortName(name)

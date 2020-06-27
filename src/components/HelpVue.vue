@@ -9,7 +9,7 @@
 
     import KopnikView from './KopnikVue'
     import logger from "./mixin/logger";
-    import {container} from "../bottle/bottle";
+    import {container} from "../bottle";
 
     export default {
         name: "Thanks",

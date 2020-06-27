@@ -37,7 +37,7 @@
                     <v-list-item-title>{{ $t('drawer.tenChat') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
-            <v-list-item link 
+            <v-list-item link
                          @click="throwUnderConstructionError"
                          :disabled="!application.user || application.user.status !== KopnikStatus.CONFIRMED"
             >
@@ -92,7 +92,7 @@
 <script>
 
     import KopnikVue from "./KopnikVue";
-    import {container} from "../bottle/bottle";
+    import {container} from "../bottle";
     import logger from "./mixin/logger";
     import Kopnik from "../models/Kopnik";
 

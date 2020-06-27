@@ -1,12 +1,12 @@
 import api from "../api";
-import {bottle, container} from "../bottle/bottle";
+import {bottle, container} from "../bottle";
 import {KopnikApiError} from "../KopnikError";
 import {AbstractSync, Kopnik} from "./index";
 import {collection, object, scalar} from "../decorators/sync";
 import reset from "../../tests/utils/reset";
 
 // real fetch
-container.config.di.fetch = true
+container.constants.di.fetch = true
 
 describe('models User api anonymous', () => {
     /** @type {Kopnik} */
@@ -24,17 +24,17 @@ describe('models User api anonymous', () => {
             await user.reload()
             throw new Error('should not be hire')
         } catch (err) {
-            expect(err.code).toBe(401)
+            expect(err).toBeKopnikError(401)
         }
     })
 
     it('get(somebody)', async () => {
         try {
-            const somebody = await Kopnik.create()
-            const user = await Kopnik.get(somebody.id)
+            // const somebody = await Kopnik.create()
+            const user = await Kopnik.get(-1)
             throw new Error('should not be hire')
         } catch (err) {
-            expect(err.code).toBe(401)
+            expect(err).toBeKopnikError(401)
         }
     })
     it('users/pending', async () => {
@@ -42,7 +42,7 @@ describe('models User api anonymous', () => {
             await main.reloadWitnessRequests()
             throw new Error('should not be hire')
         } catch (err) {
-            expect(err.code).toBe(401)
+            expect(err).toBeKopnikError(401)
         }
     })
     it('users/isMessagesFromGroupAllowed', async () => {
@@ -50,7 +50,7 @@ describe('models User api anonymous', () => {
             let result = await main.isMessagesFromGroupAllowed()
             throw new Error('should not be hire')
         } catch (err) {
-            expect(err.code).toBe(401)
+            expect(err).toBeKopnikError(401)
         }
     })
     it('setLocale()', async () => {
@@ -58,12 +58,12 @@ describe('models User api anonymous', () => {
             await main.setLocale('en')
             throw new Error("should not be hire")
         } catch (err) {
-            expect(err.code).toBe(401)
+            expect(err).toBeKopnikError(401)
         }
     })
     it('updateProfile()', async () => {
         try {
-            await main.update({
+            await main.updateProfile({
                 id: 2,
                 status: 2,
                 passport: '1234',
@@ -74,7 +74,7 @@ describe('models User api anonymous', () => {
             })
             throw new Error("should not be hire")
         } catch (err) {
-            expect(err.code).toBe(401)
+            expect(err).toBeKopnikError(401)
         }
     })
     it('updateWitnessRequestStatus()', async () => {
@@ -85,8 +85,18 @@ describe('models User api anonymous', () => {
             })
             throw new Error("should not be hire")
         } catch (err) {
-            expect(err.code).toBe(401)
+            expect(err).toBeKopnikError(401)
         }
+    })
+    describe('tree', () => {
+        it('removeFromSubordinates()', async () => {
+            try {
+                await main.removeFromSubordinates(Kopnik.getReference(1))
+                throw new Error("should not be hire")
+            } catch (err) {
+                expect(err).toBeKopnikError(401)
+            }
+        })
     })
 })
 

@@ -1,5 +1,5 @@
 import {KopnikApiError} from "../KopnikError";
-import {bottle, container} from "../bottle/bottle";
+import {bottle, container} from "../bottle";
 
 import api from "./index";
 

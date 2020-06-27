@@ -1,10 +1,10 @@
 import flushPromises from "flush-promises";
 import {mount} from '@vue/test-utils'
 
-import vuePlugins, {routerFactory} from "../../test-setup";
-import {bottle, container} from "../../../src/bottle/bottle";
-import {Kopnik} from "../../../src/models";
-import DrawerVue from "../../../src/components/DrawerVue";
+import vuePlugins, {routerFactory} from "../../tests/test-setup";
+import {bottle, container} from "../bottle";
+import {Kopnik} from "../models";
+import DrawerVue from "./DrawerVue";
 
 describe('unit components Drawer', () => {
     let application

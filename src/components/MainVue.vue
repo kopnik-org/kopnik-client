@@ -17,12 +17,11 @@
                 @update:bounds="map_updateBounds"
 
                 style="z-index: 0"
-
-
         >
             <!--            скрыть копные связи-->
             <l-control position="topright">
-                <div v-if="value.squadAnalyzer.isAnalyzing() && value.squadAnalyzer.members.length>1" class="d-flex flex-column align-center">
+                <div v-if="value.squadAnalyzer.isAnalyzing() && value.squadAnalyzer.analyzed.length>1"
+                     class="d-flex flex-column align-center">
                     <v-btn fab small
                            title="Скрыть копные связи"
                            @click="this_keydown_esc"
@@ -104,15 +103,18 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-card-actions class="flex-nowrap">
+                <v-card-actions v-if="value.selected" class="flex-nowrap">
                     <v-btn text :disabled="application.user===value.selected" class="flex" @click="talk_click">
                         {{ $t('details.toChat') }}
                     </v-btn>
                     <v-btn text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
-                      {{ value.kopa.isAdded(value.selected)? $t('details.notToKopa'):$t('details.toKopa') }}
+                        {{ value.kopa.isAdded(value.selected)? $t('details.notToKopa'):$t('details.toKopa') }}
                     </v-btn>
-                    <v-btn text :disabled="application.user===value.selected" class="flex" @click="setForeman_click">
-                        {{ $t('details.toForeman') }}
+                    <v-btn text :disabled="application.user===value.selected" class="flex"
+                           @click="foreman_click">
+                        {{
+                        application.user.foreman===value.selected?$t('details.resetForeman'):application.user.foremanRequest===value.selected?$t('details.cancelForemanRequest'):$t('details.toForeman')
+                        }}
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -130,7 +132,7 @@
     } from 'vue2-leaflet'
     import {Kopnik} from "../models"
     import MapVue from "./MapVue";
-    import {container} from "../bottle/bottle";
+    import {container} from "../bottle";
     import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator'
     import touchDetector from "./mixin/touch-detecter";
     import logger from "./mixin/logger";
@@ -178,8 +180,8 @@
             }
         },
         computed: {
-            visibleKopniks(){
-                const result= new Set([...this.value.top20, ...this.value.squadAnalyzer.members])
+            visibleKopniks() {
+                const result = new Set([...this.value.top20, ...this.value.squadAnalyzer.analyzed])
                 if (this.application.user) {
                     result.add(this.application.user)
                 }
@@ -210,40 +212,40 @@
                 return result
             },
             arrows() {
-                const squadAnalyzer = this.value.squadAnalyzer,
-                    result = squadAnalyzer.members
-                        // стрелки идкт если старшина в исследованной части
-                        .filter(eachMember => squadAnalyzer.members.indexOf(eachMember.foreman) !== -1)
-                        // стрелка идет от младшего к старшему
-                        .map(eachMember => {
-                            let color = (eachMember === squadAnalyzer.starter || squadAnalyzer.foremans.includes(eachMember)) && squadAnalyzer.foremans.includes(eachMember.foreman) ? 'red' : 'blue',
-                                width = Math.max(1, Math.round(ARROW_WIDTH * Math.pow(eachMember.rank, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom))),
-                                eachArrow = {
-                                    color,
-                                    weight: width,
-                                    tooltipWidth: TOOLTIP_ARROW_WITH,
-                                    from: eachMember,
-                                    to: eachMember.foreman,
-                                    tooltip: eachMember.rankName + ' ⇨ ' + eachMember.foreman.rankName,
-                                    patterns: [
-                                        // defines a pattern of 10px-wide dashes, repeated every 20px on the line
-                                        {
-                                            offset: '100%',
-                                            repeat: 0,
-                                            symbol: L.Symbol.arrowHead({
-                                                pixelSize: width * 2,
-                                                polygon: true,
-                                                pathOptions: {
-                                                    color,
-                                                    stroke: true,
-                                                    fillOpacity: 1,
-                                                }
-                                            })
-                                        },
-                                    ]
-                                }
-                            return eachArrow
-                        })
+                const squadAnalyzer = this.value.squadAnalyzer
+                const result = squadAnalyzer.analyzed
+                    // оставляем только копников у которые старшины проанализирован
+                    .filter(eachAnalyzed => eachAnalyzed.foreman && squadAnalyzer.isAnalyzed(eachAnalyzed.foreman))
+                    // стрелка идет от младшего к старшему
+                    .map(eachMember => {
+                        const color = eachMember === value.selected ? 'red' : 'blue'
+                        const width = Math.max(1, Math.round(ARROW_WIDTH * Math.pow(eachMember.rank, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom)))
+                        const eachArrow = {
+                            color,
+                            weight: width,
+                            tooltipWidth: TOOLTIP_ARROW_WITH,
+                            from: eachMember,
+                            to: eachMember.foreman,
+                            tooltip: eachMember.rankName + ' ⇨ ' + eachMember.foreman.rankName,
+                            patterns: [
+                                // defines a pattern of 10px-wide dashes, repeated every 20px on the line
+                                {
+                                    offset: '100%',
+                                    repeat: 0,
+                                    symbol: L.Symbol.arrowHead({
+                                        pixelSize: width * 2,
+                                        polygon: true,
+                                        pathOptions: {
+                                            color,
+                                            stroke: true,
+                                            fillOpacity: 1,
+                                        }
+                                    })
+                                },
+                            ]
+                        }
+                        return eachArrow
+                    })
                 return result
             }
         },
@@ -270,10 +272,29 @@
                 this.application.errors.push(this.application.getMessage('errors.underConstruction'))
             },
             /**
-             * Выбрать копника старшиной
+             * Подать заявку на выбор копника своим старшиной
+             * или отменить такую заявку
+             * или выйти из подчинения старшины
              */
-            setForeman_click() {
-                this.application.errors.push(this.application.getMessage('errors.underConstruction'))
+            async foreman_click() {
+                const application = container.application
+                const user = application.user
+
+                // снять старшину
+                if (user.foreman === this.value.selected) {
+                    await user.resetForeman()
+                    application.infos.push(application.getMessage("details.resetForemanInfo"))
+                }
+                // отменить заявку
+                else if (user.foremanRequest === this.value.selected) {
+                    await user.putForemanRequest(null)
+                    application.infos.push(application.getMessage("details.cancelForemanRequestInfo"))
+                }
+                // оставить заявку
+                else {
+                    await user.putForemanRequest(this.value.selected)
+                    application.infos.push(application.getMessage("details.toForemanInfo"))
+                }
             },
             /**
              * @param {Kopnik} event
