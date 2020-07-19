@@ -1,5 +1,5 @@
 import api from "../api";
-import {bottle, container} from "../bottle";
+import {bottle, container} from "../bottle/bottle";
 import {KopnikApiError} from "../KopnikError";
 import {AbstractSync, Kopnik} from "./index";
 import {collection, object, scalar} from "../decorators/sync";

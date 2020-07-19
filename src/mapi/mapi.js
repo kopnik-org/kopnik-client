@@ -1,4 +1,4 @@
-import {container} from '../bottle'
+import {container} from '../bottle/bottle'
 import handlers from './handlers'
 import getData from "./data";
 

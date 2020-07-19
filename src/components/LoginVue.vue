@@ -31,7 +31,7 @@
 <script>
     import _ from 'lodash'
     import Kopnik from "../models/Kopnik"
-    import {container} from "../bottle";
+    import {container} from "../bottle/bottle";
     import i18n from "../plugins/i18n";
     import logger from "./mixin/logger";
 

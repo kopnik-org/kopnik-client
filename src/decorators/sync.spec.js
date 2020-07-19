@@ -3,7 +3,7 @@ import {sync, collection, scalar} from './sync'
 @sync
 class Kopnik {
 
-  @scalar firstname
+  @scalar firstName
   @collection ten= undefined
 
   constructor(id){

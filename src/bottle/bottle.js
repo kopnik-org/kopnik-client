@@ -1,6 +1,6 @@
 import Bottle from "bottlejs"
 import _ from "lodash"
-import 'json-form-data'
+// import 'json-form-data'
 import * as loglevel from "loglevel";
 
 import Application from "../application/Application"
@@ -44,7 +44,10 @@ bottle.service('localeManager', function localeManager() {
 })
 bottle.service('cookieService', CookieService, 'constants')
 bottle.factory('api', function apiFactory(container) {
-    return container.constants.di.fetch ? api : global.mapi
+    if (!container.constants.di.fetch){
+        throw new Error('not supported')
+    }
+    return api
 })
 bottle.factory('VK', function vkFactory(container) {
     return process.env.NODE_ENV === 'test' ? MK : global.VK

@@ -1,14 +1,14 @@
 import Locale from './Locale'
-import {container} from "../bottle";
+import {container} from "../bottle/bottle";
 
 export default class LocaleManger {
     constructor() {
         this.locales = []
 
-        Object.keys(container.messages).forEach(eachLocaleShortName => {
+        Object.keys(container.messages).forEach(eachLocaleName => {
             const eachLocale = new Locale()
-            eachLocale.name = eachLocaleShortName
-            eachLocale.languageName = container.messages[eachLocaleShortName].languageName
+            eachLocale.name = eachLocaleName
+            eachLocale.languageName = container.messages[eachLocaleName].languageName
             this.locales.push(eachLocale)
         })
 

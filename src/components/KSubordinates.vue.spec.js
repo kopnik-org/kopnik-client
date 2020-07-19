@@ -1,21 +1,19 @@
 import flushPromises from "flush-promises";
-import Vue from 'vue'
-import { mount } from '@vue/test-utils'
 
+import {AbstractSync, Kopnik} from "../models";
 import vuePlugins from "../../tests/test-setup";
 import {container} from "../bottle/bottle";
-import {AbstractSync, Kopnik} from "../models";
-import WitnessVue from "./WitnessVue";
-import KSubordinates from "./KSubordinates";
+import {mount} from "@vue/test-utils";
 import waitForExpect from "wait-for-expect";
-
+import KSubordinates from "./KSubordinates";
+import KopnikVue from "./KopnikVue";
 
 // real fetch
 container.constants.di.fetch = true
 
-describe('components Witness', () => {
+describe('components KSubordinates', () => {
     /** @type {Kopnik} */
-    let witness
+    let foreman
 
     beforeEach(async () => {
         AbstractSync.clearCache()
@@ -23,35 +21,36 @@ describe('components Witness', () => {
 
     it('draw', async () => {
         // старшина
-        witness = await Kopnik.create({}, 'witness')
-        await witness.login()
+        foreman = await Kopnik.create({}, 'foreman')
+        foreman.isLoaded = false
+        await foreman.login()
 
         // подчиненный
         await Kopnik.create({
-            foreman_id: witness.id,
+            foreman_id: foreman.id,
         }, 'subordinate')
 
         // подал заявку
         await Kopnik.create({
-            foremanRequest_id: witness.id,
+            foremanRequest_id: foreman.id,
         }, 'requester')
 
         let wrapper = mount(KSubordinates, {
             ...vuePlugins,
             propsData: {
-                value: witness,
+                value: foreman,
             }
         })
 
         await waitForExpect(() => {
-            expect(witness.subordinates).toHaveLength(1)
-            expect(witness.foremanRequests).toHaveLength(1)
+            expect(foreman.subordinates).toHaveLength(1)
+            expect(foreman.foremanRequests).toHaveLength(1)
         })
 
         wrapper = mount(KSubordinates, {
             ...vuePlugins,
             propsData: {
-                value: witness,
+                value: foreman,
             }
         })
         await flushPromises()
@@ -59,4 +58,5 @@ describe('components Witness', () => {
         expect(wrapper.findAll({ref: 'foremanRequests'}).wrappers).toHaveLength(1)
     })
 })
+
 

@@ -124,7 +124,7 @@
                 <MapVue :center="value.location" :zoom="14"
                         :zoom-control="true" :layers-control="false" :locate-control="true"
                         @update:center="$emit('map_updateCenter', $event)"
-                        @move="$emit('map_move', $event)"
+                        @move="map_move"
                         class="" style="z-index: 0; height: 50vh;">
                     <l-marker :lat-lng="value.location"></l-marker>
                 </MapVue>
@@ -139,7 +139,7 @@
     import MapVue from "./MapVue";
     import AvatarVue from "./AvatarVue";
     import logger from "./mixin/logger"
-    import {container} from "../bottle";
+    import {container} from "../bottle/bottle";
     import {
         ValidationProvider,
     } from "vee-validate"
@@ -216,8 +216,13 @@
         computed: {},
         watch: {},
         methods: {
-            locale_change($event){
-                this.$emit('locale_change', $event)
+            map_move(event) {
+                this.value.location = event.target.getCenter()
+                // console.log(event.target.getCenter())
+            },
+            locale_change(event){
+                this.value.locale= event
+                this.$emit('locale_change', event)
             },
             role_click(value) {
                 this.value.role = value

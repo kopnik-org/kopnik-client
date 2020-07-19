@@ -2,65 +2,67 @@ import flushPromises from "flush-promises";
 import Vue from 'vue'
 
 import KopnikVue from './KopnikVue'
-import {Kopnik} from "../models";
+import {AbstractSync,Kopnik} from "../models";
 import vuePlugins from "../../tests/test-setup";
-import {container} from "../bottle";
+import {container} from "../bottle/bottle";
 import {mount} from "@vue/test-utils";
-import ProfileVue from "./ProfileVue";
+import waitForExpect from "wait-for-expect";
+import AvatarVue from "./AvatarVue";
+
+// real fetch
+container.constants.di.fetch = true
 
 describe('unit components Kopnik', () => {
-    beforeAll(async () => {
-        await login(1)
-    })
+    /** @type {Kopnik} */
+    let user
 
     beforeEach(async () => {
+        AbstractSync.clearCache()
+        user = await Kopnik.create({
+            status: Kopnik.Status.NEW,
+        }, 'user')
+        await user.login()
     })
 
     it('render', async () => {
-        const kopnik = Kopnik.getReference(1)
-        await kopnik.loaded()
-        const vm = new Vue({
-            ...KopnikVue,
+        const wrapper = mount(KopnikVue,{
             ...vuePlugins,
             propsData: {
-                value: kopnik,
+                value: user,
                 fio: true,
                 birthyear: true,
                 passport: true,
                 location: true,
             }
         })
-        vm.$mount()
         await flushPromises()
-        expect(vm.$el.innerHTML).toContain('avatar')
+        expect(wrapper.find(AvatarVue)).toBeTruthy()
         // expect(vm.$el).toMatchSnapshot() // input.v-text-field--is-booted present on run debug, but not on console run
     })
     it('render short', async () => {
-        const kopnik = Kopnik.getReference(1)
-        const vm = new Vue({
-            ...KopnikVue,
+        const wrapper = mount(KopnikVue,{
+
             ...vuePlugins,
             propsData: {
-                value: kopnik,
+                value: user,
             }
         })
-        vm.$mount()
         await flushPromises()
-        expect(vm.$el).toMatchSnapshot()
+        expect(wrapper.find(AvatarVue)).toBeTruthy()
     })
 
-    // какого черта это не работает??? @change на v-select не срабатывает
+    // ??? @change на v-select не срабатывает
     it.skip('locale', async () => {
-        const en= container.localeManager.getLocaleByShortName('en')
+        const en = container.localeManager.getLocaleByShortName('en')
         const wrapper = mount(KopnikVue, {
             ...vuePlugins,
-            propsData:{
+            propsData: {
                 value: await Kopnik.get(1),
                 locale: true
             }
         })
         await flushPromises()
-        const locale_changeSpy= spyOn(wrapper.vm, 'locale_change')
+        const locale_changeSpy = spyOn(wrapper.vm, 'locale_change')
         const localeWrapper = wrapper.find(".v-select")
         localeWrapper.trigger('change', en)
         expect(locale_changeSpy).toBeCalled()

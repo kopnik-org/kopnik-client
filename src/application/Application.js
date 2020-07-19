@@ -5,12 +5,8 @@ import AsyncLock from 'async-lock'
 import {AbstractSync, Kopnik, Kopa} from "../models";
 import {KopnikApiError, KopnikError} from "../KopnikError";
 import once from "../decorators/once";
-import TenAnalyzer from "../TenAnalyzer";
-import fetchIntercept from 'fetch-intercept'
-import {container} from "../bottle";
-import {LatLng, LatLngBounds} from 'leaflet'
+import {container} from "../bottle/bottle";
 import Main from "./Main";
-import messages from "../locales";
 
 export default class Application {
     constructor(logger) {
@@ -184,7 +180,11 @@ export default class Application {
                 if (await this.resolveUser()) {
                     if (section === Application.Section.Profile || this.user.status === Kopnik.Status.CONFIRMED) {
                         result = section
-                    } else {
+                    }
+                    else if (this.user.status===Kopnik.Status.NEW || this.user.status===Kopnik.Status.DECLINED){
+                        result= await this.setSection(Application.Section.Profile)
+                    }
+                    else {
                         result = await this.setSection(Application.Section.Main)
                     }
                 } else {

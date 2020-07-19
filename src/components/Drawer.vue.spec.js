@@ -2,40 +2,48 @@ import flushPromises from "flush-promises";
 import {mount} from '@vue/test-utils'
 
 import vuePlugins, {routerFactory} from "../../tests/test-setup";
-import {bottle, container} from "../bottle";
-import {Kopnik} from "../models";
+import {bottle, container} from "../bottle/bottle";
+import {AbstractSync, Kopnik} from "../models";
 import DrawerVue from "./DrawerVue";
+import waitForExpect from "wait-for-expect";
 
-describe('unit components Drawer', () => {
-    let application
-    beforeAll(async () => {
-    })
+// real fetch
+container.constants.di.fetch = true
 
-    beforeEach(() => {
-        bottle.resetProviders(['application'])
+describe('components Drawer', () => {
+    let application, user
+
+    beforeEach(async () => {
+        bottle.resetProviders(['application', 'cookieService'])
+        AbstractSync.clearCache()
+        user = await Kopnik.create({
+            status: Kopnik.Status.NEW,
+        }, 'user')
+        await user.login()
         application = container.application
+        await application.authenticate()
     })
 
     it('logout', async () => {
-        await login(2)
-        const kopnik = await Kopnik.get(2)
-        await application.authenticate()
         const wrapper = mount(DrawerVue, {
             ...vuePlugins,
             router: routerFactory()
         })
         await flushPromises()
+        // подготовка
         await application.lockSection(async () => {
             await application.setSection(application.constructor.Section.Profile)
         })
         await flushPromises()
-        await new Promise(res=>setTimeout(res, 1000))
+        await new Promise(res => setTimeout(res, 1000))
         expect(application.section).toBe(application.constructor.Section.Profile)
         // expect(wrapper.vm.$route.name).toBe(application.constructor.Section.Profile) watcher (application.section) внутри теста не работает
 
+        // тест
         wrapper.find('[logout]').trigger('click')
-        await flushPromises()
-        expect(application.section).toBe(application.constructor.Section.Main)
-        expect(application.user).toBeNull()
+        await waitForExpect(()=>{
+            expect(application.section).toBe(application.constructor.Section.Main)
+            expect(application.user).toBeNull()
+        })
     })
 })

@@ -18,7 +18,7 @@
 <script>
     import KopnikView from "./KopnikVue"
     import {Kopnik} from "../models"
-    import {container} from "../bottle";
+    import {container} from "../bottle/bottle";
     import logger from "./mixin/logger";
 
     export default {
@@ -46,7 +46,6 @@
             async updateRequestStatus_click(request, status) {
                 request.status = status
                 await this.application.user.updateWitnessRequestStatus(request)
-                this.application.user.witnessRequests.splice(application.user.witnessRequests.indexOf(request), 1)
             },
         },
         async created() {

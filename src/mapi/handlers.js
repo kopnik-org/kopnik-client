@@ -1,6 +1,6 @@
 import getData from './data'
 import {KopnikApiError} from "../KopnikError"
-import {container} from "../bottle"
+import {container} from "../bottle/bottle"
 
 const mapiData = getData()
 const handlers = new Map()

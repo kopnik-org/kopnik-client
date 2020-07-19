@@ -1,6 +1,6 @@
 import {sync, collection, scalar, object} from '../decorators/sync'
 import AbstractSync from "./AbstractSync";
-import {container} from "../bottle";
+import {container} from "../bottle/bottle";
 
 
 export default class Kopa extends AbstractSync {

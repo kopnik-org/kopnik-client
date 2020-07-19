@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {container} from "./bottle";
+import {container} from "./bottle/bottle";
 
 global.addEventListener("error", function (event) {
     container.application.onerror(event.error)

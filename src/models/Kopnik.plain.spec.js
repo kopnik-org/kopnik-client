@@ -1,5 +1,5 @@
 import {Kopnik} from "./index";
-import {bottle, container} from "../bottle";
+import {bottle, container} from "../bottle/bottle";
 import {KopnikApiError} from "../KopnikError";
 import Locale from "../locales/Locale";
 

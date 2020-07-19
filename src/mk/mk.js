@@ -1,17 +1,17 @@
-import {container} from "../bottle"
+import {container} from "../bottle/bottle"
 
 /**
  * Mock VK for tests
  */
 export default class MK {
     static get logger() {
-        container.logger.getLogger('MK')
+        return container.logger.getLogger('MK')
     }
 
     static get Widgets() {
         return {
             AllowMessagesFromCommunity() {
-                this.logger.debug('AllowMessagesFromCommunity', arguments)
+                MK.logger.debug('AllowMessagesFromCommunity', arguments)
             },
         }
     }
@@ -19,10 +19,10 @@ export default class MK {
     static get Observer() {
         return {
             subscribe() {
-                this.logger.debug('subscribe', arguments)
+                MK.logger.debug('subscribe', arguments)
             },
             unsubscribe() {
-                this.logger.debug('unsubscribe', arguments)
+                MK.logger.debug('unsubscribe', arguments)
             },
         }
     }

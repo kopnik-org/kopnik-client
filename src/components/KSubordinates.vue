@@ -1,19 +1,16 @@
 <template>
-    <v-container fluid class="fill-height k-ten flex-column align-center">
+    <v-container fluid class="fill-height k-subordinates flex-column align-center">
         <v-card elevation="12" class="mb-10" width="100%" max-width="350px">
-            <!--            <v-card-title>
-                            Моя десятка
-                        </v-card-title>-->
             <div class="d-flex flex-wrap mt-2 justify-space-around">
                 <template v-for="(eachSubordinate, eachSubordinateIndex) of extendedSubordinates">
-                    <v-badge v-if="eachSubordinate" :key="eachSubordinate.id" :title="eachSubordinate.name"
+                    <v-badge v-if="eachSubordinate" ref="subordinates" :key="eachSubordinate.id" :title="eachSubordinate.name"
                              class='k-badge-event-handler' color="red" :offset-x="(64/64)*7+14" :offset-y="(64/64)*7+14"
                     >
                         <!--крестик-->
                         <div slot="badge"
-                             :title="$t('ten.removeFromSubordinates')" style="cursor: pointer"
+                             :title="$t('subordinates.removeFromSubordinates')" style="cursor: pointer"
                              @click="removeFromSubordinates_click(eachSubordinate)"
-                             >
+                        >
                             x
                         </div>
                         <!--аватарка-->
@@ -29,21 +26,21 @@
             </div>
         </v-card>
 
-        <transition-group v-if="application.user.foremanRequests && application.user.foremanRequests.length"
+        <transition-group v-if="value.foremanRequests && value.foremanRequests.length"
                           name="list-complete" tag="div" class="mx-auto"
                           style="width: 100%; max-width:350px; position: relative;">
-            <v-card v-for="eachRequest in value.foremanRequests" :key="eachRequest.id"
+            <v-card  ref="foremanRequests" v-for="eachRequest in value.foremanRequests" :key="eachRequest.id"
                     elevation="12" class="mb-10 list-complete-item" style="width: 100%;">
                 <kopnik-view :value="eachRequest" location></kopnik-view>
                 <v-divider></v-divider>
                 <v-card-actions>
                     <v-btn color="success" class="flex"
                            @click="confirmForemanRequest_click(eachRequest)">
-                        {{ $t('ten.confirmForemanRequest') }}
+                        {{ $t('subordinates.confirmForemanRequest') }}
                     </v-btn>
                     <v-btn color="error" class="flex"
                            @click="declineForemanRequest_click(eachRequest)">
-                        {{ $t('ten.rejectForemanRequest') }}
+                        {{ $t('subordinates.rejectForemanRequest') }}
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -60,10 +57,10 @@
     import KopnikView from './KopnikVue'
     import AvatarVue from "./AvatarVue";
     import logger from "./mixin/logger";
-    import {container} from "../bottle";
+    import {container} from "../bottle/bottle";
 
     export default {
-        name: "Ten",
+        name: "Subordinates",
         mixins: [logger],
         components: {
             KopnikView,
@@ -72,7 +69,6 @@
         data: () => {
             return {
                 application: container.application,
-                // items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
             }
         },
         props: {
@@ -83,42 +79,31 @@
         },
         computed: {
             extendedSubordinates() {
-                const result = [],
-                    ten = this.application.user.ten
-                for (let length = 0; length < 10; length++) {
-                    result.push((ten !== undefined && ten.length >= length) ? ten[length] : null)
-                }
+                const result = this.value.subordinates || []
+                result.length = 9
                 return result
             }
         },
         methods: {
-            // shuffle: function () {
-            //     this.items.splice(0, 1)
-            //     // this.items = _.shuffle(this.items)
-            // },
             // принять подчиненного в десятку
             async confirmForemanRequest_click(request) {
                 await container.application.user.confirmForemanRequest(request)
-                container.application.infos.push(container.application.getMessage('ten.confirmForemanRequestInfo'))
+                container.application.infos.push(container.application.getMessage('subordinates.confirmForemanRequestInfo'))
             },
             // отказать войти в десятку
             async declineForemanRequest_click(request) {
                 await container.application.user.declineForemanRequest(request)
-                container.application.infos.push(container.application.getMessage('ten.declineForemanRequestInfo'))
+                container.application.infos.push(container.application.getMessage('subordinates.declineForemanRequestInfo'))
             },
             // удалить подчиненного из десятки
             async removeFromSubordinates_click(user) {
                 await container.application.user.removeFromSubordinates(user)
-                container.application.infos.push(container.application.getMessage('ten.RemoveFromSubordinatesInfo'))
+                container.application.infos.push(container.application.getMessage('subordinates.RemoveFromSubordinatesInfo'))
             }
         },
         async created() {
-            // this.application.user.ten = [Kopnik.getReference(1), Kopnik.getReference(3), Kopnik.getReference(4)]
-            // if (this.application.user.id === 2) {
-            //     this.application.user.foremanRequests = [
-            //         Kopnik.getReference(1), Kopnik.getReference(3), Kopnik.getReference(4),
-            //     ]
-            // }
+            await this.value.loadedSubordinates()
+            await this.value.loadedForemanRequests()
         },
     }
 </script>

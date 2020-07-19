@@ -1,4 +1,4 @@
-import {container} from "../bottle";
+import {container} from "../bottle/bottle";
 import {KopnikApiError} from "../KopnikError";
 import _ from "lodash";
 

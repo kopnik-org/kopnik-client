@@ -2,7 +2,7 @@ import {sync, collection, scalar, object} from '../decorators/sync'
 import AbstractSync from "./AbstractSync";
 import {KopnikError} from '../KopnikError'
 import Locale from "../locales/Locale";
-import {container} from "../bottle";
+import {container} from "../bottle/bottle";
 import api from "../api";
 import once from '../decorators/once'
 
@@ -61,7 +61,7 @@ export default class Kopnik extends AbstractSync {
      * Create user in test DB
      * for test purposes only
      *
-     * @param {object?} fields
+     * @param {{status:string?, role: string?, foreman_id: number?, foremanRequest_id: number?, witness_id:number?}?} fields
      * @param {string|Date|number?} prefix
      *
      * @returns {Promise<Kopnik>}
@@ -257,12 +257,34 @@ export default class Kopnik extends AbstractSync {
         }
     }
 
+
+    //
     /**
-     * @param {number} foreman_id
+     * @returns {Promise<Kopnik[]>}
+     */
+    async getForemanRequests() {
+        let resultAsJson = await this.constructor.api('getForemanRequests')
+        const result = resultAsJson.map(eachResultAsJson => Kopnik.merge(eachResultAsJson, true))
+        return result
+    }
+
+    /**
+     *
+     * @returns {Promise<void>}
      */
     async reloadForemanRequests() {
-        this.foremanRequests = (await this.constructor.api('getForemanRequests'))
-            .map(eachUserPlain => Kopnik.merge(eachUserPlain, true))
+        this.foremanRequests = await this.getForemanRequests()
+    }
+
+    /**
+     * @returns {Promise<Kopnik[]>}
+     */
+    @once
+    async loadedForemanRequests() {
+        if (!this.foremanRequests) {
+            await this.reloadForemanRequests()
+        }
+        return this.foremanRequests
     }
 
     /**
@@ -343,7 +365,6 @@ export default class Kopnik extends AbstractSync {
      * @param {Kopnik} subordinate для какого Пользователя перестать быть старшиной
      * @returns {Promise<void>}
      */
-    @once
     async removeFromSubordinates(subordinate) {
         await this.constructor.api('resetForeman', {
             method: 'POST',

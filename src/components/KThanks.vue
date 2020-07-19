@@ -46,7 +46,7 @@
 
     import KopnikView from './KopnikVue'
     import logger from "./mixin/logger";
-    import {container} from "../bottle";
+    import {container} from "../bottle/bottle";
 
     export default {
         name: "Thanks",

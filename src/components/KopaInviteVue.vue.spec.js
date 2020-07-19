@@ -1,35 +1,45 @@
 import Vue from 'vue'
+import {mount} from '@vue/test-utils'
 
+import vuePlugins, {routerFactory} from "../../tests/test-setup";
 import KopaInviteVue from './KopaInviteVue'
-import {Kopnik, Kopa} from "../models";
+import {Kopnik, Kopa, AbstractSync} from "../models";
 import flushPromises from "flush-promises";
-import vuePlugins from "../../tests/test-setup";
+import {bottle, container} from "../bottle/bottle";
 
-describe('unit components KopaInviteVue.vue',  () => {
-    let vm,
-        kopa
+// real fetch
+container.constants.di.fetch = true
 
-    beforeAll(async ()=>{
-        await login(1)
-    })
+describe('components KopaInviteVue.vue',  () => {
+    /** @type {Kopnik} */
+    let user
+    /** @type {Kopa} */
+    let kopa
+    /** @type {Application} */
+    let application
 
     beforeEach(async () => {
-        kopa = new Kopa
-        vm = new Vue({
-            ...KopaInviteVue,
+        bottle.resetProviders(['application', 'cookieService'])
+        AbstractSync.clearCache()
+        user = await Kopnik.create({
+            status: Kopnik.Status.NEW,
+        }, 'user')
+        await user.login()
+        application = container.application
+        await application.authenticate()
+        kopa= new Kopa()
+    })
+
+    it('render', async () => {
+        const kopnik2 = Kopnik.getReference(2)
+        kopnik2.isLoaded=true
+        kopa.add(kopnik2)
+        const wrapper= mount(KopaInviteVue, {
             ...vuePlugins,
             propsData: {
                 value: kopa
             }
         })
-    })
-
-    it('render', async () => {
-        const kopnik2 = Kopnik.getReference(2)
-
-        kopa.add(kopnik2)
-        vm.$mount()
         await flushPromises()
-        expect(vm.$el).toMatchSnapshot()
     })
 })

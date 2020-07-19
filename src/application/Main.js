@@ -3,8 +3,8 @@ import {AbstractSync, Kopnik, Kopa} from "../models";
 import {KopnikApiError, KopnikError} from "../KopnikError";
 import once from "../decorators/once";
 import TenAnalyzer from "../TenAnalyzer";
-import fetchIntercept from 'fetch-intercept'
-import {container} from "../bottle";
+// import fetchIntercept from 'fetch-intercept'
+import {container} from "../bottle/bottle";
 import {LatLng, LatLngBounds} from 'leaflet'
 
 export default class Main {

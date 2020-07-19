@@ -1,13 +1,13 @@
 <template>
     <div>
-        <v-snackbar v-if="hasError" v-model="errorVisible" :timeout="0" multi-line top color="error">
+        <v-snackbar v-if="hasError" v-model="errorVisible" :timeout="-1" multi-line top color="error">
             {{currentError.message}}
             <template v-if="currentError.code"> ({{ currentError.code }})</template>
             <v-btn text xcolor="error" @click="errorVisible = false">
                 Закрыть
             </v-btn>
         </v-snackbar>
-        <v-snackbar v-if="hasInfos" v-model="infoVisible" :timeout="0" multi-line bottom color="info">
+        <v-snackbar v-if="hasInfos" v-model="infoVisible" :timeout="-1" multi-line bottom color="info">
             {{ currentInfo }}
             <v-btn text xcolor="error" @click="infoVisible = false">
                 Закрыть
@@ -21,16 +21,16 @@
 
     import LoginVue from './LoginVue'
     import MainVue from './MainVue'
-    import ThanksVue from './ThanksVue'
+    import ThanksVue from './KThanks'
     import ProfileVue from "./ProfileVue";
     import WitnessVue from "./WitnessVue";
-    import {container} from "../bottle";
+    import {container} from "../bottle/bottle";
     import DrawerVue from "./DrawerVue";
     import logger from './mixin/logger'
     import Application from "../application/Application";
     import {Kopnik} from '../models'
     import flushPromises from "flush-promises";
-    import TenVue from './KTen'
+    import TenVue from './KSubordinates'
     import touchDetector from "./mixin/touch-detecter";
 
     export default {

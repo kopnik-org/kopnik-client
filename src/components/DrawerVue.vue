@@ -92,7 +92,7 @@
 <script>
 
     import KopnikVue from "./KopnikVue";
-    import {container} from "../bottle";
+    import {container} from "../bottle/bottle";
     import logger from "./mixin/logger";
     import Kopnik from "../models/Kopnik";
 

@@ -132,7 +132,7 @@
     } from 'vue2-leaflet'
     import {Kopnik} from "../models"
     import MapVue from "./MapVue";
-    import {container} from "../bottle";
+    import {container} from "../bottle/bottle";
     import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator'
     import touchDetector from "./mixin/touch-detecter";
     import logger from "./mixin/logger";

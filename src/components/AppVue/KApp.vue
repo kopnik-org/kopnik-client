@@ -6,34 +6,34 @@
             <v-toolbar-title>kopnik.org v{{ packageVersion }}</v-toolbar-title>
         </v-app-bar>
         <DrawerVue v-if="application.user" v-model="drawer" style="z-index: 700;"></DrawerVue>
-        <v-content>
+        <v-main>
             <LoginVue v-if="!application.user && application.section!=='Thanks'"></LoginVue>
             <!--            <keep-alive :exclude="[Main]">-->
             <!--                <transition :name="contentTransitionName">-->
             <component class="k-content" v-bind:is="application.section+'Vue'" :value="application.user"></component>
             <!--                </transition>-->
             <!--            </keep-alive>-->
-        </v-content>
+        </v-main>
     </v-app>
 </template>
 
 <script>
     import Vue from 'vue'
 
-    import LoginVue from './LoginVue'
-    import MainVue from './MainVue'
-    import ThanksVue from './ThanksVue'
-    import ProfileVue from "./ProfileVue";
-    import WitnessVue from "./WitnessVue";
-    import {container} from "../bottle";
-    import DrawerVue from "./DrawerVue";
-    import logger from './mixin/logger'
-    import Application from "../application/Application";
-    import {Kopnik} from '../models'
+    import LoginVue from '../LoginVue'
+    import MainVue from '../MainVue'
+    import ThanksVue from '../KThanks'
+    import ProfileVue from "../ProfileVue";
+    import WitnessVue from "../WitnessVue";
+    import {container} from "../../bottle/bottle";
+    import DrawerVue from "../DrawerVue";
+    import logger from '../mixin/logger'
+    import Application from "../../application/Application";
+    import {Kopnik} from '../../models'
     import flushPromises from "flush-promises";
-    import TenVue from './KTen'
-    import touchDetector from "./mixin/touch-detecter";
-    import AlertVue from "./AlertVue";
+    import TenVue from '../KSubordinates'
+    import touchDetector from "../mixin/touch-detecter";
+    import AlertVue from "../AlertVue";
     import {localize} from "vee-validate";
 
     export default {
@@ -77,7 +77,7 @@
                             })
                             break
                         case Kopnik.Status.PENDING:
-                            this.application.infos.push(this.application.getMessage('profile.successMessage'))
+                            this.application.infos.push(this.application.getMessage('profile.submitMessage'))
                             break
                     }
                 }
@@ -102,12 +102,15 @@
         methods: {
             async followUserLocale() {
                 const locale = this.application.user.locale
+                // задаем текущую локаль приложению
+                container.localeManager.currentLocale= locale
                 // vue-i18n меняем сообщения в разметке страниц
                 this.$options.i18n.locale = locale.name
                 // vuetify меняем сообщения в разметке vuetify
                 this.$vuetify.lang.current = locale.name
                 // vee-valiedate меняем сообщения об ошибках валидации
                 localize(locale.name)
+
             },
             this_escclick(event) {
                 if (this.application.squadAnalyzer.isAnalyzing()) {

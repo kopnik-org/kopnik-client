@@ -2,12 +2,13 @@ import flushPromises from "flush-promises";
 import {mount} from '@vue/test-utils'
 
 import vuePlugins from "../../tests/test-setup";
-import {bottle, container} from "../bottle";
+import {bottle, container} from "../bottle/bottle";
 import {AbstractSync, Kopnik} from "../models";
 import ProfileVue from "./ProfileVue";
 import Application from "../application/Application";
 import KopnikVue from "./KopnikVue";
 import Vue from 'vue'
+import waitForExpect from "wait-for-expect";
 
 // real fetch
 container.constants.di.fetch = true
@@ -18,9 +19,6 @@ describe('unit components Profile', () => {
     /** @type {Application} */
     let application
 
-    beforeAll(async () => {
-    })
-
     beforeEach(async () => {
         bottle.resetProviders(['application', 'cookieService'])
         AbstractSync.clearCache()
@@ -29,8 +27,8 @@ describe('unit components Profile', () => {
         }, 'user')
         await user.login()
         // вызывается в mounted() компонента
-        user.isMessagesFromGroupAllowed= jest.fn(()=>true)
-        application= container.application
+        user.isMessagesFromGroupAllowed = jest.fn(() => true)
+        application = container.application
         await application.authenticate()
     })
 
@@ -42,17 +40,21 @@ describe('unit components Profile', () => {
     })
 
     it('submit disabled by fio', async () => {
+        // application.user.isMessagesFromGroupAllowed = jest.fn(() => true)
+        user.firstName = ''
         user.patronymic = null
         const wrapper = mount(ProfileVue, {
             ...vuePlugins,
         })
         await flushPromises()
-        const submitBtn = wrapper.find('#submit')
-        expect(submitBtn.attributes('disabled')).toBe('disabled')
+        await waitForExpect(() => { // почему без этого не работает??
+            const submitBtn = wrapper.find('#submit')
+            expect(submitBtn.attributes('disabled')).toBe('disabled')
+        })
     })
 
     it('submit disabled by messages not allowed', async () => {
-        user.isMessagesFromGroupAllowed= jest.fn(()=>false)
+        user.isMessagesFromGroupAllowed = jest.fn(() => false)
         const wrapper = mount(ProfileVue, {
             ...vuePlugins,
         })
@@ -71,56 +73,36 @@ describe('unit components Profile', () => {
         expect(submitBtn.attributes('disabled')).toBeUndefined()
     })
 
-    it.only('submit', async () => {
+    it('submit', async () => {
         const wrapper = mount(ProfileVue, {
             ...vuePlugins,
         })
         await flushPromises()
         const submitBtn = wrapper.find('#submit')
         await submitBtn.trigger('click')
-        await flushPromises()
-        expect(container.application.section).toBe(Application.Section.Main)
-        expect(container.application.infos.length).toBe(1)
-    })
-
-    it('submit self-witness', async () => {
-        await login(2)
-        const kopnik = await Kopnik.get(2)
-        kopnik.witness= kopnik
-        await container.application.authenticate()
-        const wrapper = mount(ProfileVue, {
-            ...vuePlugins,
+        // await flushPromises()
+        await waitForExpect(() => {
+            expect(container.application.section).toBe(Application.Section.Main)
+            expect(container.application.infos.length).toBe(1)
         })
-        await flushPromises()
-        const submitBtn = wrapper.find('#submit')
-        submitBtn.trigger('click')
-        await flushPromises()
-        expect(container.application.section).toBe(Application.Section.Main)
-        expect(container.application.infos.length).toBe(1)
     })
 
-    // какого черта это не работает??? @change на v-select не срабатывает
     it('locale', async () => {
-        const en= container.localeManager.getLocaleByShortName('en')
-
-        await login(2)
-        await container.application.authenticate()
         const wrapper = mount(ProfileVue, {
             ...vuePlugins,
         })
         await flushPromises()
-        const kopnikWrapper= wrapper.find(KopnikVue)
-        const locale_changeSpy= spyOn(kopnikWrapper.vm, 'locale_change')
-        const localeWrapper = wrapper.find(".v-select")
-        localeWrapper.trigger('change', en)
-        await flushPromises()
-        expect(locale_changeSpy).toBeCalled()
-        expect(container.localeManager.currentLocale).toBe(en)
-        expect(container.application.user.locale).toBe(en)
+        const kopnikWrapper = wrapper.find(KopnikVue)
+        const en = container.localeManager.getLocaleByShortName('en')
+        kopnikWrapper.vm.locale_change(en)
+        await waitForExpect(() => {
+            expect(container.application.user.locale).toBe(en)
+            // expect(container.localeManager.currentLocale).toBe(en)
+        })
     })
     // какого черта это не работает??? @locale_change на KopnikVue не срабатывает
     it.skip('locale change_locale', async (done) => {
-        const en= container.localeManager.getLocaleByShortName('en')
+        const en = container.localeManager.getLocaleByShortName('en')
 
         await login(2)
         await container.application.authenticate()

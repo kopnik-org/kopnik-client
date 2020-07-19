@@ -9,7 +9,6 @@
                         <kopnik-vue :value="request"
                                     locale fio birthyear passport role location
                                     @locale_change="locale_change"
-                                    @map_move="map_move"
                         ></kopnik-vue>
                         <v-list v-if="isMessagesFromGroupAllowed===false">
                             <v-list-item>
@@ -41,14 +40,14 @@
     } from "vee-validate"
 
     import {Kopnik} from "../models"
-    import {container} from "../bottle";
+    import {container} from "../bottle/bottle";
     import logger from "./mixin/logger";
     import KopnikVue from "./KopnikVue";
     import api from "../api";
 
     export default {
         mixins: [logger],
-        name: "Profile2",
+        name: "Profile",
         components: {
             ValidationObserver,
             KopnikVue,
@@ -68,14 +67,10 @@
         computed: {},
         watch: {},
         methods: {
-            map_move(event) {
-                this.request.location = event.target.getCenter()
-                // console.log(event.target.getCenter())
-            },
             async submit_click() {
                 this.request.birthyear = parseInt(this.request.birthyear)
                 await this.application.user.updateProfile(this.request.plain)
-                this.application.infos.push(this.$t('profile.successMessage'))
+                this.application.infos.push(this.$t('profile.submitMessage'))
                 await this.application.setSection(container.application.constructor.Section.Main)
             },
             /**
@@ -86,23 +81,14 @@
             async locale_change(event) {
                 // задаем локаль текущему пользователю
                 await this.application.user.setLocale(event)
-                // задаем текущую локаль приложению
-                container.localeManager.currentLocale= event
-                // меняем сообщения в разметке страниц
-                // this.$root.$options.i18n.locale = event.name
-                // меняем сообщения в разметке vuetify
-                // this.$vuetify.lang.current = event.name
-                // меняем сообщения об ошибках валидации
-                // localize(event.name)
-                // сохраняем на сервере
-                // await this.application.user.patchLocale()
             }
         },
         async created() {
             let user = await this.application.resolveUser()
 
             this.request = new Kopnik
-            this.request.merge(this.application.user)
+            this.request.merge(this.application.user.plain)
+            // console.log(this.request.plain)
             if (!this.request.location || !this.request.location.lat) {
                 this.request.location = {lat: 55.753215, lng: 37.622504}
             }

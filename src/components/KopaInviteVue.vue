@@ -12,7 +12,7 @@
 </template>
 <script>
     import _ from 'lodash'
-    import {bottle, container} from "../bottle";
+    import {bottle, container} from "../bottle/bottle";
     import i18n from "../plugins/i18n";
     import logger from "./mixin/logger";
     import {Kopa, Kopnik} from "../models";

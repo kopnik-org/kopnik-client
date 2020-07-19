@@ -17,8 +17,8 @@ Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 })
 
-import AppVue from './components/AppVue.vue'
-import {container} from "./bottle"
+import AppVue from './components/AppVue/KApp.vue'
+import {container} from "./bottle/bottle"
 import './plugins/className'
 
 Vue.config.productionTip = false

@@ -1,5 +1,5 @@
 import once from './once'
-import config from "../bottle";
+import config from "../bottle/bottle";
 import * as models from "../models";
 
 export function sync(constructor) {

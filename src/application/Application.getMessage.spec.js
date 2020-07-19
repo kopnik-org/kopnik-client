@@ -1,4 +1,4 @@
-import {container} from "../bottle"
+import {container} from "../bottle/bottle"
 
 describe('Application', () => {
     it('getMessage', () => {

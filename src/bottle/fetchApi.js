@@ -1,6 +1,5 @@
-import {container} from './index'
+import {container} from './bottle'
 import _ from 'lodash'
-import jsonToFormData from 'json-form-data'
 import {KopnikApiError} from "../KopnikError";
 
 
