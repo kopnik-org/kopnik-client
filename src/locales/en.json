@@ -18,9 +18,7 @@
       "allowed": "Turned on!"
     },
     "rolesTitle": "My role in the Kopa's community (press to see criteria)",
-    "roles": {
-
-      "trueKopnik": {
+    "roles": [{
         "title": "Original Kopnik",
         "criteria": [
           "Have a family",
@@ -30,7 +28,7 @@
           "There is a farm (own business / work)"
         ]
       },
-      "danilovKopnik": {
+      {
         "title": "Kopnik (simplified requirements proposed by S. Danilov",
         "criteria": [
           "Have a family",
@@ -40,16 +38,16 @@
           "There is a farm (own business / work)"
         ]
       },
-      "futureKopnik": {
+      {
         "title": "I strive to become a Kopnik",
         "criteria": [
           "The man"
         ]
       },
-      "women": {
+      {
         "title": "I am a woman"
       }
-    },
+    ],
     "location": "Place of permanent residence, accurate to home"
   },
   "witness": {
@@ -79,8 +77,8 @@
     "toForeman": "To foreman",
     "toForemanInfo": "The request was sended. Wait for the foreman's answer."
   },
-  "ten": {
-    "confirmForemanRequest": "Confirm",
+  "subordinates": {
+    "confirmForemanRequest": "Get in",
     "confirmForemanRequestInfo": "Confirmed",
     "declineForemanRequest": "Decline",
     "declineForemanRequestInfo": "Declined"

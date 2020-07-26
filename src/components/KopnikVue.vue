@@ -15,14 +15,14 @@
                 <v-select ref="locale"
                           item-text="languageName"
                           item-value="name"
-                            :readonly="readonly"
-                            :return-object="true"
-                            :allow-overflow="false"
-                            v-model="value.locale"
-                            :items="locales"
-                            :auto-select-first="true"
-                            label="Язык / Language"
-                            @change="locale_change"
+                          :readonly="readonly"
+                          :return-object="true"
+                          :allow-overflow="false"
+                          v-model="value.locale"
+                          :items="locales"
+                          :auto-select-first="true"
+                          label="Язык / Language"
+                          @change="locale_change"
                 >
                 </v-select>
             </v-list-item-content>
@@ -85,7 +85,7 @@
         <v-list-item v-if="role">
             <v-list-item-content>
                 <ValidationProvider name="role" rules="required" v-slot="{ errors, valid }">
-                    <v-radio-group v-model="value.role">
+                    <v-radio-group v-model="value.role" :readonly="readonly">
                         <template v-slot:label>
                             <div>{{ $t('profile.rolesTitle')}}</div>
                         </template>
@@ -217,11 +217,13 @@
         watch: {},
         methods: {
             map_move(event) {
-                this.value.location = event.target.getCenter()
+                if (!this.readonly) {
+                    this.value.location = event.target.getCenter()
+                }
                 // console.log(event.target.getCenter())
             },
-            locale_change(event){
-                this.value.locale= event
+            locale_change(event) {
+                this.value.locale = event
                 this.$emit('locale_change', event)
             },
             role_click(value) {

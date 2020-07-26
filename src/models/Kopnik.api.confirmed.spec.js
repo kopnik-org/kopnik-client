@@ -84,10 +84,23 @@ describe('models User get confirmed', () => {
         describe('putForemanRequest()', () => {
             it('success', async () => {
                 const foreman = await Kopnik.create({}, 'foreman')
+                foreman.foremanRequests=[]
 
                 await main.putForemanRequest(foreman)
                 await main.reload()
                 expect(main.foremanRequest).toBe(foreman)
+                expect(foreman.foremanRequests).toHaveLength(1)
+                expect(foreman.foremanRequests[0]).toBe(main)
+            })
+            it('success reset', async () => {
+                const foreman = await Kopnik.create({}, 'foreman')
+                foreman.foremanRequests=[]
+
+                await main.putForemanRequest(foreman)
+                await main.putForemanRequest(null)
+                await main.reload()
+                expect(main.foremanRequest).toBeNull()
+                expect(foreman.foremanRequests).toHaveLength(0)
             })
 
             it('woman', async () => {

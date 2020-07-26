@@ -18,6 +18,8 @@ export default class Kopnik extends AbstractSync {
     //строка, т.к. может начинаться на "0"
     @scalar passport = undefined
     @scalar location = undefined
+
+    @scalar isWitness= undefined
     /**
      *
      * @type {String}
@@ -242,19 +244,27 @@ export default class Kopnik extends AbstractSync {
     }
 
     /**
-     * @param {Kopnik} foreman
+     * @param {Kopnik|null} foremanRequest
      */
-    async putForemanRequest(foreman) {
+    async putForemanRequest(foremanRequest) {
         await this.constructor.api('putForemanRequest', {
             method: "POST",
             body: {
-                id: foreman.id,
+                id: foremanRequest?foremanRequest.id:null,
             }
         })
-        this.foremanRequest= foreman
-        if (this.foreman && this.foreman.foremanRequests){
-            this.foreman.foremanRequests.push(this)
+        // убираем себя из заявок старого потенциального старшины
+        if (this.foremanRequest){
+            this.foremanRequest.foremanRequests.splice(this.foremanRequest.foremanRequests.find(this),1)
         }
+        // назначаем нового потенциального старшину
+        this.foremanRequest= foremanRequest
+
+        // добавляем в заявки новому потенциальному старшине
+        if (this.foremanRequest && this.foremanRequest.foremanRequests){
+            this.foremanRequest.foremanRequests.push(this)
+        }
+
     }
 
 

@@ -49,6 +49,7 @@
                 </v-list-item-content>
             </v-list-item>
             <v-list-item link to="/Witness"
+                         v-if="application.user.isWitness"
                          :disabled="!application.user || application.user.status !== KopnikStatus.CONFIRMED">
                 <v-list-item-action>
                     <v-icon>mdi-human-greeting</v-icon>

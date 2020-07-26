@@ -1,7 +1,7 @@
 {
   "languageName": "Русский",
   "application": {
-    "goToProfile": "Доброго здравия, Брат! Для начала тебе необходимо представься, заполнив данную форму. После того, как твои данные подтвердит один из Заверителей, тебе станут доступны все возможности kopnik.org. Удачи!"
+    "goToProfile": "Доброго здравия, Брат! Для начала тебе необходимо представься, заполнив данную форму. После этого тебе станут доступны все возможности kopnik.org. Удачи!"
   },
   "profile": {
     "language": "Язык",
@@ -101,10 +101,10 @@
     "cancelForemanRequest": "Отменить заявку",
     "cancelForemanRequestInfo": "Заявка отменена"
   },
-  "ten": {
+  "subordinates": {
     "confirmForemanRequest": "Принять в десятку",
     "confirmForemanRequestInfo": "Принят в десятку",
-    "declineForemanRequest": "Отказать в приеме",
+    "declineForemanRequest": "Отказать",
     "declineForemanRequestInfo": "Сообщение об отказе отправлено",
     "RemoveFromSubordinates": "Исключить из десятки",
     "RemoveFromSubordinatesInfo": "Исключен из десятки"

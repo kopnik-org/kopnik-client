@@ -8,10 +8,14 @@
             </v-btn>
         </v-snackbar>
         <v-snackbar v-if="hasInfos" v-model="infoVisible" :timeout="-1" multi-line bottom color="info">
-            {{ currentInfo }}
-            <v-btn text xcolor="error" @click="infoVisible = false">
-                Закрыть
-            </v-btn>
+            <div class="flex">
+                <div>
+                    {{ currentInfo }}
+                </div>
+                <v-btn text xcolor="error" @click="infoVisible = false">
+                    Закрыть
+                </v-btn>
+            </div>
         </v-snackbar>
     </div>
 </template>
@@ -44,10 +48,10 @@
             }
         },
         computed: {
-            hasError(){
+            hasError() {
                 return this.application.errors.length
             },
-            hasInfos(){
+            hasInfos() {
                 return this.application.infos.length
             },
             currentError() {
@@ -65,7 +69,7 @@
                 return null
             },
         },
-        watch:{
+        watch: {
             async 'application.infos.length'(current, old) {
                 this.infoVisible = false
                 await Vue.nextTick()

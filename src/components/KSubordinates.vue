@@ -31,7 +31,7 @@
                           style="width: 100%; max-width:350px; position: relative;">
             <v-card  ref="foremanRequests" v-for="eachRequest in value.foremanRequests" :key="eachRequest.id"
                     elevation="12" class="mb-10 list-complete-item" style="width: 100%;">
-                <kopnik-view :value="eachRequest" location></kopnik-view>
+                <kopnik-view :value="eachRequest" location birthyear role readonly></kopnik-view>
                 <v-divider></v-divider>
                 <v-card-actions>
                     <v-btn color="success" class="flex"
@@ -40,7 +40,7 @@
                     </v-btn>
                     <v-btn color="error" class="flex"
                            @click="declineForemanRequest_click(eachRequest)">
-                        {{ $t('subordinates.rejectForemanRequest') }}
+                        {{ $t('subordinates.declineForemanRequest') }}
                     </v-btn>
                 </v-card-actions>
             </v-card>
