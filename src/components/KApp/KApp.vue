@@ -86,12 +86,18 @@
              * меняем роут вслед за изменением раздела в моделе
              */
             'application.section': async function (current, prev) {
-                await this.application.lockSection(async () => {
-                    if (this.application.section !== this.$route.name) {
-                        // вызывается асинхронно, чтобы предотвратить рекурсивный lockSection
-                        this.$router.push({name: this.application.section})
-                    }
-                })
+                // ожидаем выполнения промисов внктри application.setSection()
+                await flushPromises()
+                // нет смысла в локаньи секции, т.к. она тупо следует уже установленной секции
+                // await this.application.lockSection(async () => {
+
+                console.log(this.application.section, this.$route.name)
+                if (this.application.section !== this.$route.name) {
+                    // -- вызывается асинхронно, чтобы предотвратить рекурсивный lockSection
+                    // вызываем синхронно чтобы
+                    // await this.$router.push({name: this.application.section})
+                }
+                // })
             },
         },
         computed: {
@@ -103,7 +109,7 @@
             async followUserLocale() {
                 const locale = this.application.user.locale
                 // задаем текущую локаль приложению
-                container.localeManager.currentLocale= locale
+                container.localeManager.currentLocale = locale
                 // vue-i18n меняем сообщения в разметке страниц
                 this.$options.i18n.locale = locale.name
                 // vuetify меняем сообщения в разметке vuetify

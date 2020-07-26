@@ -17,96 +17,22 @@ const routes = [
     {
         path: '/' + Application.Section.Profile.toLowerCase(),
         name: Application.Section.Profile,
-        beforeEnter: async (to, from, next) => {
-            const application = container.application
-            await application.lockSection(async () => {
-                    await application.setSection(Application.Section.Profile)
-                    if (application.section === Application.Section.Profile) {
-                        next()
-                    } else if (application.section === from.name) {
-                        next(false)
-                    } else {
-                        next({name: application.section})
-                    }
-                }
-            )
-        }
     },
     {
         path: '/' + Application.Section.Witness.toLowerCase(),
-        name:
-        Application.Section.Witness,
-        beforeEnter:
-            async (to, from, next) => {
-                const application = container.application
-                await application.lockSection(async () => {
-                    await application.setSection(Application.Section.Witness)
-                    if (application.section === Application.Section.Witness) {
-                        next()
-                    } else if (application.section === from.name) {
-                        next(false)
-                    } else {
-                        next({name: application.section})
-                    }
-                })
-            }
+        name: Application.Section.Witness,
     },
     {
         path: '/' + Application.Section.Ten.toLowerCase(),
         name: Application.Section.Ten,
-        beforeEnter:
-            async (to, from, next) => {
-                const application = container.application
-                await application.lockSection(async () => {
-                    await application.setSection(Application.Section.Ten)
-                    if (application.section === Application.Section.Ten) {
-                        next()
-                    } else if (application.section === from.name) {
-                        next(false)
-                    } else {
-                        next({name: application.section})
-                    }
-                })
-            }
     },
     {
         path: '/' + Application.Section.Thanks.toLowerCase(),
-        name:
-        Application.Section.Thanks,
-        beforeEnter:
-            async (to, from, next) => {
-                const application = container.application
-                await application.lockSection(async () => {
-                    await application.setSection(Application.Section.Thanks)
-                    if (application.section === Application.Section.Thanks) {
-                        next()
-                    } else if (application.section === from.name) {
-                        next(false)
-                    } else {
-                        next({name: application.section})
-                    }
-                })
-            }
-    }
-    ,
+        name: Application.Section.Thanks,
+    },
     {
         path: '/',
-        name:
-        Application.Section.Main,
-        beforeEnter:
-            async (to, from, next) => {
-                const application = container.application
-                await application.lockSection(async () => {
-                    await application.setSection(Application.Section.Main)
-                    if (application.section === Application.Section.Main) {
-                        next()
-                    } else if (application.section === from.name) {
-                        next(false)
-                    } else {
-                        next({name: application.section})
-                    }
-                })
-            }
+        name: Application.Section.Main,
     },
 ]
 
@@ -118,10 +44,41 @@ const routes = [
  * @returns {VueRouter}
  */
 function routerFactory() {
-    return new VueRouter({
+    const result = new VueRouter({
         mode: 'history',
-        routes
+        routes,
     })
+    result.beforeEach(async (to, from, next) => {
+
+        if (to.name===Application.Section.Help) {
+            next()
+            return
+        }
+
+        const application = container.application
+        // секция на уровне логики уже сменилась, и KApp перехватив это в watcher'е редиректит на этот роут
+        if (application.section === to.name) {
+            next()
+        }
+        // приложение открыли с этим роутом в адресной строке
+        // может произойти и в результате клика по <router-link>, но от этого паттерна везде ушел
+        else {
+            await application.lockSection(async () => {
+                await application.setSection(to.name)
+                // откуда уходим, туда и приходим
+                if (from.name === application.section) {
+                    next(false)
+                }
+                // переход на другой роут
+                else {
+                    console.log('next', application.section)
+                    next({name: Application.Section.Help})
+                    // next({name: application.section})
+                }
+            })
+        }
+    })
+    return result
 }
 
 export default routerFactory
