@@ -16,19 +16,19 @@
     "keypather": "^3.1.0",
     "leaflet": "^1.6.0",
     "leaflet-geosearch": "^2.7.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "loglevel": "^1.6.8",
     "npm-check-updates": "^4.1.2",
     "vee-validate": "^3.3.7",
     "vue": "^2.6.11",
-    "vue-i18n": "^8.18.2",
+    "vue-i18n": "^8.19.0",
     "vue-router": "^3.3.4",
     "vue-the-mask": "^0.11.1",
     "vue2-leaflet": "^2.5.2",
     "vue2-leaflet-geosearch": "^1.0.6",
     "vue2-leaflet-locatecontrol": "^1.0.1",
     "vue2-leaflet-polylinedecorator": "^2.0.1",
-    "vuetify": "^2.3.3"
+    "vuetify": "^2.3.6"
   },
   "devDependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",
@@ -48,12 +48,12 @@
     "jest-mock": "^25.5.0",
     "jest-serializer-vue": "^2.0.2",
     "jest-snapshot": "^24.9.0",
-    "sass": "^1.26.9",
+    "sass": "^1.26.10",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-i18n": "^0.6.1",
-    "vue-cli-plugin-vuetify": "^2.0.6",
+    "vue-cli-plugin-vuetify": "^2.0.7",
     "vue-template-compiler": "^2.6.11",
-    "vuetify-loader": "^1.5.0",
+    "vuetify-loader": "^1.6.0",
     "wait-for-expect": "^3.0.2"
   },
   "eslintConfig": {
