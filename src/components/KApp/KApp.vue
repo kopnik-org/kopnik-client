@@ -95,7 +95,7 @@
                 if (this.application.section !== this.$route.name) {
                     // -- вызывается асинхронно, чтобы предотвратить рекурсивный lockSection
                     // вызываем синхронно чтобы
-                    // await this.$router.push({name: this.application.section})
+                    await this.$router.push({name: this.application.section})
                 }
                 // })
             },

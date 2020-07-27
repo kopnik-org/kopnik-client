@@ -54,9 +54,7 @@ describe('components AppVue Declined', () => {
                 await wrapper.vm.$router.push({name: Application.Section.Witness})
                 throw new Error('should not be hire')
             } catch (err) {
-                if (!err.type) {
-                    throw err
-                }
+                expect(err.type).toBe(1)
                 expect(application.section).toBe(Application.Section.Profile)
                 await flushPromises()
                 expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)

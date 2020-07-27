@@ -50,12 +50,11 @@ function routerFactory() {
     })
     result.beforeEach(async (to, from, next) => {
         const application = container.application
-        // секция на уровне логики уже сменилась, и KApp перехватив это в watcher'е редиректит на этот роут
+        // на уровне логики секция уже сменилась, и KApp перехватив это в watcher'е редиректит на этот роут
         if (application.section === to.name) {
             next()
         }
-        // приложение открыли с этим роутом в адресной строке
-        // может произойти и в результате клика по <router-link>, но от этого паттерна везде ушел
+        // сюда проходим только при открытии приложения в браузерею с непусктой роутом в адресной стороке
         else {
             await application.lockSection(async () => {
                 await application.setSection(to.name)

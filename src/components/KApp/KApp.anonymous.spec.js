@@ -46,28 +46,24 @@ describe('components AppVue', () => {
                     await wrapper.vm.$router.push({name: Application.Section.Profile})
                     throw new Error('should not be hire')
                 } catch (err) {
-                    if (err.type!==2){
-                        throw err
-                    }
-                    expect(application.section).toBe(Application.Section.Main)
-                    expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Main)
-                    await flushPromises()
-                    expect(wrapper.text()).toContain('Войти через ВКонтакте')
+                    expect(err.type).toBe(1)
                 }
+                expect(application.section).toBe(Application.Section.Main)
+                expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Main)
+                await flushPromises()
+                expect(wrapper.text()).toContain('Войти через ВКонтакте')
             })
             it('/witness', async () => {
                 try {
                     await wrapper.vm.$router.push({name: Application.Section.Witness})
                     throw new Error('should not be hire')
                 } catch (err) {
-                    if (err.type!==2){
-                        throw err
-                    }
-                    expect(application.section).toBe(Application.Section.Main)
-                    expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Main)
-                    await flushPromises()
-                    expect(wrapper.text()).toContain('Войти через ВКонтакте')
+                    expect(err.type).toBe(1)
                 }
+                expect(application.section).toBe(Application.Section.Main)
+                expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Main)
+                await flushPromises()
+                expect(wrapper.text()).toContain('Войти через ВКонтакте')
             })
         })
     })

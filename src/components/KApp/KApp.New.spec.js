@@ -5,12 +5,13 @@ import flushPromises from "flush-promises";
 import Application from "../../application/Application";
 import {mount} from "@vue/test-utils";
 import {Kopnik} from "../../models";
+import waitForExpect from "wait-for-expect";
 
 
 // real fetch
 container.constants.di.fetch = true
 
-describe('components AppVue New', () => {
+describe('components KApp New', () => {
     let wrapper,
         application,
         user
@@ -34,11 +35,12 @@ describe('components AppVue New', () => {
     describe('enter', () => {
         it('/', async () => {
             await application.resolveUser()
-            await flushPromises()
-            expect(application.section).toBe(Application.Section.Profile)
-            expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
-            expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
-            expect(application.infos).toHaveLength(1)
+            await waitForExpect(()=>{
+                expect(application.section).toBe(Application.Section.Profile)
+                expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
+                expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
+                expect(application.infos).toHaveLength(1)
+            })
         })
         it('/profile', async () => {
             await wrapper.vm.$router.push({name: Application.Section.Profile})
@@ -54,15 +56,13 @@ describe('components AppVue New', () => {
                 await wrapper.vm.$router.push({name: Application.Section.Witness})
                 throw new Error('should not be hire')
             } catch (err) {
-                if (!err.type) {
-                    throw err
-                }
-                expect(application.section).toBe(Application.Section.Profile)
-                await flushPromises()
-                expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
-                expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
-                expect(application.infos).toHaveLength(1)
+                expect(err.type).toBe(1)
             }
+            expect(application.section).toBe(Application.Section.Profile)
+            await flushPromises()
+            expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
+            expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
+            expect(application.infos).toHaveLength(1)
         })
     })
 })
