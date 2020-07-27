@@ -41,13 +41,7 @@ describe('components AppVue Pending', () => {
             expect(application.infos).toHaveLength(1)
         })
         it('/profile', async () => {
-            // await new Promise(res=>setTimeout(res, 5000))
-            try {
-                await wrapper.vm.$router.push({name: Application.Section.Profile})
-            }
-            catch(err){
-                expect(err.code).toBe(1)
-            }
+            await wrapper.vm.$router.push({name: Application.Section.Profile})
             await flushPromises()
             expect(application.section).toBe(Application.Section.Profile)
             expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
@@ -60,15 +54,13 @@ describe('components AppVue Pending', () => {
                 await wrapper.vm.$router.push({name: Application.Section.Witness})
                 throw new Error('should not be hire')
             } catch (err) {
-                if (!err.type) {
-                    throw err
-                }
-                expect(application.section).toBe(Application.Section.Main)
-                await flushPromises()
-                expect(wrapper.vm.$route.name).toBe(Application.Section.Main)
-                expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
-                expect(application.infos).toHaveLength(1)
+                expect(err.type).toBe(1)
             }
+            expect(application.section).toBe(Application.Section.Main)
+            await flushPromises()
+            expect(wrapper.vm.$route.name).toBe(Application.Section.Main)
+            expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
+            expect(application.infos).toHaveLength(1)
         })
     })
 })

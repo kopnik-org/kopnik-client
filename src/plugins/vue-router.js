@@ -49,12 +49,6 @@ function routerFactory() {
         routes,
     })
     result.beforeEach(async (to, from, next) => {
-
-        if (to.name===Application.Section.Help) {
-            next()
-            return
-        }
-
         const application = container.application
         // секция на уровне логики уже сменилась, и KApp перехватив это в watcher'е редиректит на этот роут
         if (application.section === to.name) {
@@ -65,15 +59,19 @@ function routerFactory() {
         else {
             await application.lockSection(async () => {
                 await application.setSection(to.name)
-                // откуда уходим, туда и приходим
-                if (from.name === application.section) {
-                    next(false)
+                // переход по плану
+                if (application.section === to.name) {
+                    next()
                 }
+/*                // откуда уходим, туда и приходим
+                else if (application.section===from.name) {
+                    next(false)
+                }*/
                 // переход на другой роут
                 else {
-                    console.log('next', application.section)
-                    next({name: Application.Section.Help})
-                    // next({name: application.section})
+                    // console.log('next', application.section)
+                    // next({name: Application.Section.Help})
+                    next({name: application.section})
                 }
             })
         }
