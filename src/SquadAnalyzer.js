@@ -1,6 +1,6 @@
 import {Kopnik} from "./models";
 
-export default class TenAnalyzer {
+export default class SquadAnalyzer {
     /**
      * Исследованные участники десяток
      * @type {Kopnik[]}

@@ -13,6 +13,7 @@ export default class Kopnik extends AbstractSync {
     @scalar firstName = undefined
     @scalar patronymic = undefined
     @scalar nickname = undefined
+    @scalar rank=undefined
 
     @scalar birthyear = undefined
     //строка, т.к. может начинаться на "0"
@@ -254,7 +255,7 @@ export default class Kopnik extends AbstractSync {
             }
         })
         // убираем себя из заявок старого потенциального старшины
-        if (this.foremanRequest){
+        if (this.foremanRequest && this.foremanRequest.foremanRequests){
             this.foremanRequest.foremanRequests.splice(this.foremanRequest.foremanRequests.find(this),1)
         }
         // назначаем нового потенциального старшину

@@ -2,7 +2,7 @@ import AsyncLock from 'async-lock'
 import {AbstractSync, Kopnik, Kopa} from "../models";
 import {KopnikApiError, KopnikError} from "../KopnikError";
 import once from "../decorators/once";
-import TenAnalyzer from "../TenAnalyzer";
+import SquadAnalyzer from "../SquadAnalyzer";
 // import fetchIntercept from 'fetch-intercept'
 import {container} from "../bottle/bottle";
 import {LatLng, LatLngBounds} from 'leaflet'
@@ -35,7 +35,7 @@ export default class Main {
         this.info = null
         /** @type {Kopnik[]} старшие 20 копников на карте  */
         this.top20 = []
-        this.squadAnalyzer = new TenAnalyzer
+        this.squadAnalyzer = new SquadAnalyzer
         // копа, которая созывается
         this.kopa = new Kopa
         this._loadTop20AbortController = new AbortController()
@@ -66,15 +66,6 @@ export default class Main {
             map.zoom = storedData.zoom
             map.center = new LatLng(storedData.center.lat, storedData.center.lng)
         }
-    }
-
-    /**
-     * Исследует дружину
-     * @param {Kopnik} kopnik
-     * @returns {Promise<void>}
-     */
-    async analyzeSquad(kopnik) {
-        await this.squadAnalyzer.analyzeAround(kopnik)
     }
 
     /**

@@ -7,7 +7,7 @@
                 Закрыть
             </v-btn>
         </v-snackbar>
-        <v-snackbar v-if="hasInfos" v-model="infoVisible" :timeout="-1" multi-line bottom color="info">
+        <v-snackbar v-if="hasInfos" v-model="infoVisible" :timeout="-1" multi-line top color="info">
             <div class="flex">
                 <div>
                     {{ currentInfo }}

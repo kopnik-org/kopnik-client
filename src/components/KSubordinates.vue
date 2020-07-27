@@ -79,7 +79,7 @@
         },
         computed: {
             extendedSubordinates() {
-                const result = this.value.subordinates || []
+                const result = [...(this.value.subordinates || [])]
                 result.length = 9
                 return result
             }

@@ -88,12 +88,11 @@
             </v-btn>
         </kopa-invite>
 
-        <!--       детали копник внизу-->
+        <!--детали копник внизу-->
         <v-bottom-sheet :value="value.selected" :attach="$refs.main"
                         persistent hide-overlay no-click-animation :retain-focus="false" :inset="true"
-                        @input="details_input"
         >
-            <v-card>
+            <v-card class="text-center" height="180px">
                 <v-list-item v-if="value.selected">
                     <avatar-vue :value="value.selected" :size="80" class="ma-3 ml-0"
                                 @dblclick="avatar_dblclick(value.selected)">
@@ -112,9 +111,7 @@
                     </v-btn>
                     <v-btn text :disabled="application.user===value.selected" class="flex"
                            @click="foreman_click">
-                        {{
-                        application.user.foreman===value.selected?$t('details.resetForeman'):application.user.foremanRequest===value.selected?$t('details.cancelForemanRequest'):$t('details.toForeman')
-                        }}
+                        {{ application.user.foreman===value.selected?$t('details.resetForeman'):application.user.foremanRequest===value.selected?$t('details.cancelForemanRequest'):$t('details.toForeman')}}
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -162,6 +159,7 @@
         },
         data() {
             return {
+                sheet: false,
                 application: container.application,
                 /**
                  * @type {Main}
@@ -218,7 +216,7 @@
                     .filter(eachAnalyzed => eachAnalyzed.foreman && squadAnalyzer.isAnalyzed(eachAnalyzed.foreman))
                     // стрелка идет от младшего к старшему
                     .map(eachMember => {
-                        const color = eachMember === value.selected ? 'red' : 'blue'
+                        const color = eachMember === this.value.selected ? 'red' : 'blue'
                         const width = Math.max(1, Math.round(ARROW_WIDTH * Math.pow(eachMember.rank, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom)))
                         const eachArrow = {
                             color,
@@ -342,7 +340,7 @@
                 return false
             },
             marker_dblclick(kopnik) {
-                this.value.analyzeSquad(kopnik)
+                this.value.squadAnalyzer.analyzeAround(kopnik)
                 return false
             },
             async map_updateCenter(event) {

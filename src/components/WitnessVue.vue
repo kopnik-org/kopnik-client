@@ -2,7 +2,7 @@
     <v-container fluid class="fill-height k-witness flex-column align-center">
         <v-card v-for="(eachRequest, index) in application.user.witnessRequests" :key="eachRequest.id"
                 elevation="12" class="mb-10" width="100%" max-width="350px">
-            <kopnik-view :value="eachRequest" locale fio birth-year passport role location></kopnik-view>
+            <kopnik-view :value="eachRequest" locale fio birth-year passport role location readonly></kopnik-view>
             <v-card-actions>
                 <v-btn  color="success" @click="updateRequestStatus_click(eachRequest, Status.CONFIRMED)" class="flex-grow-1">
                     {{$t('witness.confirm')}}

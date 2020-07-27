@@ -13,12 +13,16 @@ describe('models Kopnik', () => {
     })
     describe('merge', () => {
         it('merge locale', async () => {
-            main.merge({locale: 'ru'})
+            main.merge({locale: 'ru', rank: 2})
             expect(main.locale).toBeInstanceOf(Locale)
         })
         it('merge locale', async () => {
             main.merge({locale: LocaleManager.currentLocale})
             expect(main.locale).toBeInstanceOf(Locale)
+        })
+        it('merge rank', async () => {
+            main.merge({rank:2})
+            expect(main.rank).toBe(2)
         })
     })
 })

@@ -86,6 +86,14 @@
                     <v-list-item-title>{{ $t('drawer.logout') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
+            <v-list-item v-if="application.user || application.user.id===1" @click="snow_click">
+                <v-list-item-action>
+                    <v-icon>mdi-location-snow</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                    <v-list-item-title> Снежинка </v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
         </v-list>
     </v-navigation-drawer>
 </template>
@@ -96,6 +104,7 @@
     import {container} from "../bottle/bottle";
     import logger from "./mixin/logger";
     import Kopnik from "../models/Kopnik";
+    import generate from "../utils/snow/generate";
 
     export default {
         mixins: [logger],
@@ -123,6 +132,19 @@
             },
             async logout_click() {
                 await this.application.logout()
+            },
+            async snow_click(){
+                const tsar= await Kopnik.create({
+                    firstName: 'Гора',
+                    lastName: 'Мира',
+                    patronymic: 'Рука',
+                    location: {
+                        lat: 58.1996,
+                        lng: 68.256,
+                    },
+                    // identifier: 261824271
+                })
+                await generate(tsar, 30)
             }
         },
         async created() {

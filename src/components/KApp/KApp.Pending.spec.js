@@ -42,8 +42,13 @@ describe('components AppVue Pending', () => {
         })
         it('/profile', async () => {
             // await new Promise(res=>setTimeout(res, 5000))
-            await wrapper.vm.$router.push({name: Application.Section.Profile})
-            await flushPromises() 
+            try {
+                await wrapper.vm.$router.push({name: Application.Section.Profile})
+            }
+            catch(err){
+                expect(err.code).toBe(1)
+            }
+            await flushPromises()
             expect(application.section).toBe(Application.Section.Profile)
             expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
             expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
