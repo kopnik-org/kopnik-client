@@ -17,9 +17,7 @@
                     <v-list-item-title>{{ $t('drawer.map') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
-            <v-list-item link to="/ten"
-                         :disabled="!application.user || application.user.status !== KopnikStatus.CONFIRMED"
-            >
+            <v-list-item subordinates :disabled="!application.user" @click="subordinates_click">
                 <v-list-item-action>
                     <v-icon>mdi-account-multiple</v-icon>
                 </v-list-item-action>
@@ -27,7 +25,7 @@
                     <v-list-item-title>{{ $t('drawer.myTen') }}</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
-            <v-list-item link :disabled="!application.user || application.user.status !== KopnikStatus.CONFIRMED"
+            <v-list-item link :disabled="!application.user"
                          @click="throwUnderConstructionError"
             >
                 <v-list-item-action>
@@ -39,7 +37,7 @@
             </v-list-item>
             <v-list-item link
                          @click="throwUnderConstructionError"
-                         :disabled="!application.user || application.user.status !== KopnikStatus.CONFIRMED"
+                         :disabled="!application.user"
             >
                 <v-list-item-action>
                     <v-icon>mdi-chat</v-icon>
@@ -50,7 +48,7 @@
             </v-list-item>
             <v-list-item link to="/Witness"
                          v-if="application.user.isWitness"
-                         :disabled="!application.user || application.user.status !== KopnikStatus.CONFIRMED">
+                         :disabled="!application.user">
                 <v-list-item-action>
                     <v-icon>mdi-human-greeting</v-icon>
                 </v-list-item-action>
@@ -91,7 +89,7 @@
                     <v-icon>mdi-location-snow</v-icon>
                 </v-list-item-action>
                 <v-list-item-content>
-                    <v-list-item-title> Снежинка </v-list-item-title>
+                    <v-list-item-title> Снежинка</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
         </v-list>
@@ -123,6 +121,14 @@
             }
         },
         methods: {
+            async subordinates_click() {
+                if (await this.application.forwardUserToBeConfirmed()){
+                    return
+                }
+                await this.application.lockSection(async ()=>{
+                    await this.application.setSection(Application.Section.Ten)
+                })
+            },
             throwUnderConstructionError() {
                 throw new Error(this.$t(this.application.getMessage('errors.underConstruction')))
             },
@@ -133,8 +139,8 @@
             async logout_click() {
                 await this.application.logout()
             },
-            async snow_click(){
-                const tsar= await Kopnik.create({
+            async snow_click() {
+                const tsar = await Kopnik.create({
                     firstName: 'Гора',
                     lastName: 'Мира',
                     patronymic: 'Рука',

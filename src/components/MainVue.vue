@@ -3,7 +3,7 @@
                  fluid class="fill-height pa-0"
                  @keyup.esc="this_keydown_esc">
         <!-- zoom-control передается дальшее в options LMap, а они не реактиные, поэтому сразу нужно ставить true-->
-        <MapVue ref="map" :center.sync="value.map.center" :zoom.sync="value.map.zoom"
+        <MapVue ref="map" :center.sync="value.map.center" :zoom.sync="value.map.zoom" :bounds.sync="value.map.bounds"
                 :layers-control="application.user"
                 :locate-control="application.user"
                 :scale-control="application.user"
@@ -51,12 +51,12 @@
                             :color="eachArrow.color">
                 </l-polyline>
                 <!-- невидимая линия большой ширины, которая ловит mouseover -->
-                <l-polyline :key="'hoverHandler'+eachArrow.from.id"
-                            :lat-lngs="[eachArrow.from.location, eachArrow.to.location]"
-                            :weight="10"
-                            :opacity="0">
-                    <l-tooltip :options="{sticky:true}">{{eachArrow.tooltip}}</l-tooltip>
-                </l-polyline>
+                <!--                <l-polyline v-if="eachArrow.weight<10" :key="'hoverHandler'+eachArrow.from.id"
+                                            :lat-lngs="[eachArrow.from.location, eachArrow.to.location]"
+                                            :weight="10"
+                                            :opacity="0">
+                                    <l-tooltip :options="{sticky:true}">{{eachArrow.tooltip}}</l-tooltip>
+                                </l-polyline>-->
             </template>
             <!--            копники-->
             <l-marker v-for="(eachMarker) of markers" :key="'marker'+eachMarker.value.id"
@@ -71,7 +71,10 @@
                         :class-name="eachMarker.className"
                         :icon-url="eachMarker.value.smallPhoto">
                 </l-icon>
-                <l-tooltip v-if="!isTouchDevice" :options="{}">{{eachMarker.value.rankName}}</l-tooltip>
+                <l-tooltip v-if="!isTouchDevice" :options="{}">
+                    <template v-if="env==='development'">{{eachMarker.value.id}} [{{eachMarker.size}}px]</template>
+                    {{eachMarker.value.rankName}}
+                </l-tooltip>
             </l-marker>
         </MapVue>
 
@@ -89,7 +92,7 @@
         </kopa-invite>
 
         <!--детали копник внизу-->
-        <v-bottom-sheet :value="value.selected" :attach="$refs.main"
+        <v-bottom-sheet v-if="application.user" :value="value.selected" :attach="$refs.main"
                         persistent hide-overlay no-click-animation :retain-focus="false" :inset="true"
         >
             <v-card class="text-center" height="180px">
@@ -102,7 +105,7 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-card-actions v-if="value.selected" class="flex-nowrap">
+                <v-card-actions class="flex-nowrap">
                     <v-btn text :disabled="application.user===value.selected" class="flex" @click="talk_click">
                         {{ $t('details.toChat') }}
                     </v-btn>
@@ -111,7 +114,8 @@
                     </v-btn>
                     <v-btn text :disabled="application.user===value.selected" class="flex"
                            @click="foreman_click">
-                        {{ application.user.foreman===value.selected?$t('details.resetForeman'):application.user.foremanRequest===value.selected?$t('details.cancelForemanRequest'):$t('details.toForeman')}}
+                        {{
+                        application.user.foreman===value.selected?$t('details.resetForeman'):application.user.foremanRequest===value.selected?$t('details.cancelForemanRequest'):$t('details.toForeman')}}
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -139,10 +143,35 @@
 
 
     // На 18-ом увеличении
-    const ARROW_WIDTH = 10,
-        TOOLTIP_ARROW_WITH = 15,
-        MARKER_SIZE = 48,
-        MIN_MARKER_SIZE = 36
+    const
+        TSAR_RANK = 1192,
+        TOOLTIP_ARROW_WITH = 10,
+        // размер маркера на последнем 18 приближении
+        // MARKER_SIZE_18 = 48,
+        MARKER_SIZE_18 = 64,
+        MIN_MARKER_SIZE = 16,
+        // размер, после которого маркер скрывается
+        MAX_MARKER_SIZE = 128,
+        ARROW_WIDTH_18 = MARKER_SIZE_18 / 4,
+        MIN_ARROW_WITH = MIN_MARKER_SIZE / 4,
+        /*
+         * коэффициент недонаполненности сети (рассчитывается таким образом: царь на первом масштабе занимает MARKER_SIZE_18 пикселей)
+         * size = Math.pow(K, 18 - this.value.map.zoom) * MARKER_SIZE_18 * Math.pow(TSAR_RANK, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom)
+         * MARKER_SIZE_18 = Math.pow(K, 17) * MARKER_SIZE_18 * Math.pow(TSAR_RANK, 1 / 3) / Math.pow(2, 17)
+         * Math.pow(K, 17) = Math.pow(2, 17) / Math.pow(TSAR_RANK, 1 / 3)
+         * K= Math.pow (131072 / Math.pow(TSAR_RANK, 1 / 3) ,0.0588235294118)
+         */
+        // K = 6500
+        K = Math.pow(131072 / Math.pow(TSAR_RANK, 1 / 3), 0.0588235294118),
+
+        /**
+         * Максимальный ранг копника, видимого на карте в данном приближении
+         * size = Math.pow(K, 18 - this.value.map.zoom) * MARKER_SIZE * Math.pow(TSAR_RANK, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom)
+         * MAX_MARKER_SIZE = Math.pow(K, 18 - zoom) * MARKER_SIZE * Math.pow(MAX_RANK, 1 / 3) / Math.pow(2, 18 - zoom)
+         * Math.pow(MAX_RANK, 1 / 3) = MAX_MARKER_SIZE / Math.pow(K, 18 - zoom) / MARKER_SIZE * Math.pow(2, 18 - zoom)
+         * MAX_RANK = Math.pow(MAX_MARKER_SIZE / Math.pow(K, 18 - zoom) / MARKER_SIZE * Math.pow(2, 18 - zoom), 3)
+         */
+        getMaxRank = (zoom) => Math.floor(Math.pow(MAX_MARKER_SIZE / Math.pow(K, 18 - zoom) / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3))
 
     export default {
         mixins: [touchDetector, logger],
@@ -159,7 +188,7 @@
         },
         data() {
             return {
-                sheet: false,
+                env: container.env,
                 application: container.application,
                 /**
                  * @type {Main}
@@ -197,15 +226,20 @@
             },
             markers() {
                 const result = this.visibleKopniks
-                    .map(eachTop => {
+                    .map(eachVisibleKopnik => {
+                        const size = Math.max(MIN_MARKER_SIZE, Math.round(Math.pow(K, 18 - this.value.map.zoom) * MARKER_SIZE_18 * Math.pow(eachVisibleKopnik.rank, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom)))
+                        const isVisible = size < MAX_MARKER_SIZE
                         return {
-                            value: eachTop,
-                            // size: Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE * Math.pow(eachTop.rank, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom))),
-                            size: MIN_MARKER_SIZE,
-                            className: 'map_avatar' + (this.application.user === eachTop ? ' map_avatar-user' : '') + (this.value.selected === eachTop ? ' map_avatar-selected' : ''),
-                            zIndex: this.value.selected === eachTop ? Number.MAX_SAFE_INTEGER : eachTop.rank * 1000,
+                            value: eachVisibleKopnik,
+                            // size: MIN_MARKER_SIZE,
+                            size,
+                            className: 'map_avatar' + (this.application.user === eachVisibleKopnik ? ' map_avatar-user' : '') + (this.value.selected === eachVisibleKopnik ? ' map_avatar-selected' : '') + (isVisible ? '' : ' map_avatar-oversized'),
+                            zIndex: this.value.selected === eachVisibleKopnik ? Number.MAX_SAFE_INTEGER : eachVisibleKopnik.rank * 1000,
+                            isVisible,
                         }
                     })
+                // не делаем чтобы превышающие размер маркеры CSS-растворялись за то время пока завершится fetch новых маркеров, в котором их уже не будет
+                // .filter(by MARKER_MAX_SIZE)
                 // console.log(result)
                 return result
             },
@@ -214,10 +248,12 @@
                 const result = squadAnalyzer.analyzed
                     // оставляем только копников у которые старшины проанализирован
                     .filter(eachAnalyzed => eachAnalyzed.foreman && squadAnalyzer.isAnalyzed(eachAnalyzed.foreman))
+                    // оставляем только копников у которых маркеры есть и
+                    .filter(eachAnalyzed => eachAnalyzed.foreman && squadAnalyzer.isAnalyzed(eachAnalyzed.foreman))
                     // стрелка идет от младшего к старшему
                     .map(eachMember => {
                         const color = eachMember === this.value.selected ? 'red' : 'blue'
-                        const width = Math.max(1, Math.round(ARROW_WIDTH * Math.pow(eachMember.rank, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom)))
+                        const width = Math.max(MIN_ARROW_WITH, Math.round(Math.pow(K, 18 - this.value.map.zoom) * ARROW_WIDTH_18 * Math.pow(eachMember.rank, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom)))
                         const eachArrow = {
                             color,
                             weight: width,
@@ -248,11 +284,11 @@
             }
         },
         watch: {
-            'application.user': async function (current) {
-                if (current) {
-                    await this.value.loadTop20()
-                }
-            },
+            /*            'application.user': async function (current) {
+                            if (current && current.status !== Kopnik.Status.NEW) {
+                                await this.value.loadTop20(getMaxRank(this.value.map.zoom))
+                            }
+                        },*/
             /**
              *
              * @param {Kopnik} current
@@ -277,6 +313,10 @@
             async foreman_click() {
                 const application = container.application
                 const user = application.user
+
+                if (await this.application.forwardUserToBeConfirmed()) {
+                    return
+                }
 
                 // снять старшину
                 if (user.foreman === this.value.selected) {
@@ -339,12 +379,12 @@
                 this.value.selected = kopnik
                 return false
             },
-            marker_dblclick(kopnik) {
-                this.value.squadAnalyzer.analyzeAround(kopnik)
+            async marker_dblclick(kopnik) {
+                if (await this.application.forwardUserToBeConfirmed()) {
+                    return false
+                }
+                await this.value.squadAnalyzer.analyzeAround(kopnik)
                 return false
-            },
-            async map_updateCenter(event) {
-                this.value.setMapCenter(event)
             },
             /**
              *
@@ -352,13 +392,16 @@
              * @returns {Promise<void>}
              */
             async map_ready(event) {
-                await this.value.setMapBounds(event.getBounds())
+                // await this.value.loadTop20()
+            },
+            async map_updateCenter(event) {
+                this.value.setMapCenter(event)
             },
             async map_updateZoom(event) {
                 this.value.setMapZoom(event)
             },
             async map_updateBounds(event) {
-                await this.value.setMapBounds(event)
+                await this.value.loadTop20(getMaxRank(this.value.map.zoom))
             },
         },
         created() {
@@ -393,5 +436,11 @@
 
     .map_avatar-selected {
         border-color: blue;
+    }
+
+    .map_avatar-oversized {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 500ms, visibility 0ms linear 500ms;
     }
 </style>

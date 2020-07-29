@@ -1,5 +1,5 @@
 <template>
-    <LMap ref="map" :center="center" :zoom="zoom" :options="{zoomControl: zoomControl}"
+    <LMap ref="map" :center="center" :zoom="zoom" :bounds="bounds" :options="{zoomControl: zoomControl}"
           @click="lmap_click"
           @ready="lmap_ready"
           @zoomstart="lmap_zoomstart"
@@ -27,7 +27,7 @@
         <v-locatecontrol v-if="locateControl" :options="locateOptions"></v-locatecontrol>
         <l-control position="bottomleft">
             <v-text-field v-if="env==='development'"
-                          :value="centerText"></v-text-field>
+                          :value="debugData" style="width: 275px;"></v-text-field>
         </l-control>
         <slot></slot>
     </LMap>
@@ -110,6 +110,9 @@
             center: {
                 type: [Array, Object],
             },
+            bounds: {
+                type: LatLngBounds,
+            },
             zoom: {
                 type: Number,
                 // default: 14
@@ -146,10 +149,11 @@
             env() {
                 return container.env
             },
-            centerText() {
+            debugData() {
                 return JSON.stringify({
                     lat: Math.round(this.center.lat * 1000) / 1000,
                     lng: Math.round(this.center.lng * 1000) / 1000,
+                    zoom: this.zoom,
                 })
             },
             tileProviders() {
@@ -161,6 +165,8 @@
                 alert(event)
             },
             lmap_ready(event) {
+                // фиксим баг? leaflet, что это событие вызывается до того как проставятся границы
+                this.lmap_updateBounds(event.getBounds())
                 this.$emit('ready', event)
             },
             lmap_click(event) {

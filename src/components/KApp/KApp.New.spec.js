@@ -36,10 +36,9 @@ describe('components KApp New', () => {
         it('/', async () => {
             await application.resolveUser()
             await waitForExpect(()=>{
-                expect(application.section).toBe(Application.Section.Profile)
-                expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
+                expect(application.section).toBe(Application.Section.Main)
+                expect(wrapper.vm.$route.name).toBe(Application.Section.Main)
                 expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
-                expect(application.infos).toHaveLength(1)
             })
         })
         it('/profile', async () => {
@@ -48,7 +47,6 @@ describe('components KApp New', () => {
             expect(application.section).toBe(Application.Section.Profile)
             expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
             expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
-            expect(application.infos).toHaveLength(1)
             expect(wrapper.text()).toContain('Язык')
         })
         it('/witness', async () => {
@@ -58,11 +56,10 @@ describe('components KApp New', () => {
             } catch (err) {
                 expect(err.type).toBe(1)
             }
-            expect(application.section).toBe(Application.Section.Profile)
+            expect(application.section).toBe(Application.Section.Main)
             await flushPromises()
-            expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
+            expect(wrapper.vm.$route.name).toBe(Application.Section.Main)
             expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
-            expect(application.infos).toHaveLength(1)
         })
     })
 })

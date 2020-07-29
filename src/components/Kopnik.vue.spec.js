@@ -36,7 +36,7 @@ describe('unit components Kopnik', () => {
             }
         })
         await flushPromises()
-        expect(wrapper.find(AvatarVue)).toBeTruthy()
+        expect(wrapper.findComponent(AvatarVue)).toBeTruthy()
         // expect(vm.$el).toMatchSnapshot() // input.v-text-field--is-booted present on run debug, but not on console run
     })
     it('render short', async () => {

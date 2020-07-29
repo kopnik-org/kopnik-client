@@ -16,6 +16,7 @@ describe('unit components Thanks', () => {
     })
 
     it('offline', async () => {
+        container.application.authenticate= jest.fn(()=>null)
         const wrapper = mount(ThanksVue, {
             ...vuePlugins,
         })

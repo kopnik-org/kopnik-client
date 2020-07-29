@@ -35,18 +35,16 @@ describe('components AppVue Declined', () => {
         it('/', async () => {
             await application.resolveUser()
             await flushPromises()
+            expect(application.section).toBe(Application.Section.Main)
+            expect(wrapper.vm.$route.name).toBe(Application.Section.Main)
+            expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
+        })
+        it('/profile', async () => {
+            await wrapper.vm.$router.push({name: Application.Section.Profile})
+            await flushPromises()
             expect(application.section).toBe(Application.Section.Profile)
             expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
             expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
-            expect(application.infos).toHaveLength(1)
-        })
-        it('/profile', async () => {
-                await wrapper.vm.$router.push({name: Application.Section.Profile})
-            await flushPromises()
-                expect(application.section).toBe(Application.Section.Profile)
-                expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
-                expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
-                expect(application.infos).toHaveLength(1)
             expect(wrapper.text()).toContain('Язык')
         })
         it('/witness', async () => {
@@ -55,12 +53,11 @@ describe('components AppVue Declined', () => {
                 throw new Error('should not be hire')
             } catch (err) {
                 expect(err.type).toBe(1)
-                expect(application.section).toBe(Application.Section.Profile)
-                await flushPromises()
-                expect(wrapper.vm.$route.name).toBe(Application.Section.Profile)
-                expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
-                expect(application.infos).toHaveLength(1)
             }
+            expect(application.section).toBe(Application.Section.Main)
+            await flushPromises()
+            expect(wrapper.vm.$route.name).toBe(Application.Section.Main)
+            expect(wrapper.text()).not.toContain('Войти через ВКонтакте')
         })
     })
 })

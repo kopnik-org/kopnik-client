@@ -65,39 +65,15 @@
                     this.followUserLocale()
                 }
             },
-            'application.user': async function (current, old) {
-                if (current) {
-                    // this.followUserLocale()
-                    switch (current.status) {
-                        case Kopnik.Status.NEW:
-                        case Kopnik.Status.DECLINED:
-                            await this.application.lockSection(async () => {
-                                this.application.infos.push(this.application.getMessage('application.goToProfile'))
-                                await this.application.setSection(Application.Section.Profile)
-                            })
-                            break
-                        case Kopnik.Status.PENDING:
-                            this.application.infos.push(this.application.getMessage('profile.submitMessage'))
-                            break
-                    }
-                }
-            },
             /**
              * меняем роут вслед за изменением раздела в моделе
              */
             'application.section': async function (current, prev) {
                 // ожидаем выполнения промисов внктри application.setSection()
                 await flushPromises()
-                // нет смысла в локаньи секции, т.к. она тупо следует уже установленной секции
-                // await this.application.lockSection(async () => {
-
-                console.log(this.application.section, this.$route.name)
                 if (this.application.section !== this.$route.name) {
-                    // -- вызывается асинхронно, чтобы предотвратить рекурсивный lockSection
-                    // вызываем синхронно чтобы
                     await this.$router.push({name: this.application.section})
                 }
-                // })
             },
         },
         computed: {

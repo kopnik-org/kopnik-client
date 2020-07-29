@@ -46,4 +46,18 @@ describe('components Drawer', () => {
             expect(application.user).toBeNull()
         })
     })
+
+    it('subordinates forbidden', async () => {
+        const wrapper = mount(DrawerVue, {
+            ...vuePlugins,
+            router: routerFactory()
+        })
+
+        // тест
+        wrapper.find('[subordinates]').trigger('click')
+        await waitForExpect(()=>{
+            expect(application.section).toBe(application.constructor.Section.Profile)
+            expect(application.infos).toHaveLength(1)
+        })
+    })
 })
