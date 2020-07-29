@@ -12,12 +12,14 @@ container.constants.di.fetch = true
 describe('Application confirmed', () => {
     /** @type {Application} */
     let application
+    /** @type {Kopnik} */
+    let user
 
     beforeAll(async () => {
         // сбросить cookieService, потому что кука тоже устанавливается
         bottle.resetProviders(['cookieService'])
 
-        const user = await Kopnik.create({
+        user = await Kopnik.create({
             status: Kopnik.Status.CONFIRMED,
         }, 'confirmed')
         await user.login()
@@ -29,12 +31,19 @@ describe('Application confirmed', () => {
         application = container.application
     })
 
+    it('forwardUserToBeConfirmed()', async () => {
+        application.user= user
+        const result= await application.forwardUserToBeConfirmed()
+        expect(result).toBeFalsy()
+        expect(application.section).toBe(Application.Section.Main)
+        expect(application.infos).toHaveLength(0)
+    })
     it('authenticate()', async () => {
         await application.authenticate()
         expect(application.user).toBeInstanceOf(Kopnik)
     })
     it('loadTop20()', async () => {
-        application.sections.main.setMapBounds(new LatLngBounds(new LatLng(-90,-180), new LatLng(90, 180)))
+        application.sections.main.map.bounds=new LatLngBounds(new LatLng(-90,-180), new LatLng(90, 180))
         await application.sections.main.loadTop20()
         expect(application.sections.main.top20).toBeInstanceOf(Array)
     })

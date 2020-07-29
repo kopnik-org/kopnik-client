@@ -31,6 +31,13 @@ describe('Application pending', () => {
         application = container.application
     })
 
+    it('forwardUserToBeConfirmed()', async () => {
+        application.user= user
+        const result= await application.forwardUserToBeConfirmed()
+        expect(result).toBeTruthy()
+        expect(application.section).toBe(Application.Section.Main)
+        expect(application.infos).toHaveLength(1)
+    })
     it('authenticate()', async () => {
         await application.authenticate()
         expect(application.user).toBeInstanceOf(Kopnik)
@@ -41,7 +48,7 @@ describe('Application pending', () => {
     })
     it('loadTop20()', async () => {
         application.user= user
-        application.sections.main.setMapBounds(new LatLngBounds(new LatLng(-90,-180), new LatLng(90, 180)))
+        application.sections.main.map.bounds=new LatLngBounds(new LatLng(-90,-180), new LatLng(90, 180))
         await application.sections.main.loadTop20()
         expect(application.sections.main.top20).toBeInstanceOf(Array)
     })

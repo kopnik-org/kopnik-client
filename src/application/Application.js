@@ -52,6 +52,49 @@ export default class Application {
         }
     }
 
+    /**
+     * Перенаправляет пользователя на страницу регистрации и просит зарегисться
+     * @returns {Promise<void>}
+     */
+    async forwardUserToRegister() {
+        await this.lockSection(async () => {
+            this.setSection(Application.Section.Profile)
+            this.infos.push(this.getMessage('application.youHaveToRegister'))
+        })
+    }
+
+    /**
+     * Сообщает пользователю что он должен подтвердить данные
+     * @returns {Promise<void>}
+     */
+    forwardUserToWitnessHisData() {
+        this.infos.push(this.getMessage('application.youHaveToWitnessYourData'))
+    }
+
+    /**
+     * Направляет пользователя
+     * @returns {Promise<boolean>}
+     */
+    async forwardUserToBeConfirmed() {
+        if (!this.user) {
+            return true
+        } else {
+            switch (this.user.status) {
+                case Kopnik.Status.NEW:
+                    await this.forwardUserToRegister()
+                    return true
+                case Kopnik.Status.PENDING:
+                    await this.forwardUserToWitnessHisData()
+                    return true
+                case Kopnik.Status.DECLINED:
+                    await this.forwardUserToRegister()
+                    return true
+                case Kopnik.Status.CONFIRMED:
+                    return false
+            }
+        }
+    }
+
     async onerror(err) {
         var classifyRE = /(?:^|[-_])(\w)/g;
         var classify = function (str) {
@@ -110,7 +153,7 @@ export default class Application {
                             vm = vm.$parent;
                             continue
                         } else if (currentRecursiveSequence > 0) {
-                            tree[tree.length - 1] = [last, currentRecursiveSequence];
+                            tree[tree.lengthyouHaveToRegister - 1] = [last, currentRecursiveSequence];
                             currentRecursiveSequence = 0;
                         }
                     }
@@ -177,16 +220,8 @@ export default class Application {
             case Application.Section.Profile:
             case Application.Section.Witness:
             case Application.Section.Ten:
-                if (await this.resolveUser()) {
-                    if (section === Application.Section.Profile || this.user.status === Kopnik.Status.CONFIRMED) {
-                        result = section
-                    }
-                    else if (this.user.status===Kopnik.Status.NEW || this.user.status===Kopnik.Status.DECLINED){
-                        result= await this.setSection(Application.Section.Profile)
-                    }
-                    else {
-                        result = await this.setSection(Application.Section.Main)
-                    }
+                if (await this.resolveUser() && (this.user.status === Kopnik.Status.CONFIRMED || section === Application.Section.Profile)) {
+                    result = section
                 } else {
                     result = await this.setSection(Application.Section.Main)
                 }
@@ -236,13 +271,13 @@ export default class Application {
         try {
             const user = new Kopnik()
             await user.reload()
-            this.user= Kopnik.merge(user.plain, true)
+            this.user = Kopnik.merge(user.plain, true)
             container.localeManager.currentLocale = user.locale
             this.logger.info('user authenticated', this.user.plain)
         } catch (err) {
             if ((err instanceof KopnikApiError) && err.message.match(/no.+aut/i)) {
                 // назначаем null вместо текущего undefined
-                this.user= null
+                this.user = null
                 this.logger.info('user not authenticated')
             } else {
                 throw err

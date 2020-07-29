@@ -88,46 +88,27 @@ export default class Main {
      * @param {LatLngBounds} value
      * @returns {void}
      */
-    setMapBounds(value) {
+/*    setMapBounds(value) {
         this.map.bounds = value
         if (container.application.user) {
             this.loadTop20()
         }
-    }
+    }*/
 
     /**
      * Каждый следующий запрос fetch отменяет предыдущий, который еще не завершился.
      * Только последний вызов fetch внутри этой функции вернет ответ.
      * @returns {Promise<void>}
      */
-    async loadTop20() {
-        // временно не выводим копников до регистрации
-        if(!container.application.user){
-            return
-        }
-
+    async loadTop20(maxRank=300000000) {
         this.abortLoadTop20()
         this._loadTop20AbortController = new AbortController()
         const bounds = this.map.bounds
         try {
-            let top20AsJson = await container.api(`users/getTopInsideSquare?x1=${bounds.getWest()}&y1=${bounds.getSouth()}&x2=${bounds.getEast()}&y2=${bounds.getNorth()}&count=20`, {
+            let top20AsJson = await container.api(`users/getTopInsideSquare?x1=${bounds.getWest()}&y1=${bounds.getSouth()}&x2=${bounds.getEast()}&y2=${bounds.getNorth()}&count=10&maxRank=${maxRank}`, {
                 signal: this._loadTop20AbortController.signal
             })
             this.top20 = top20AsJson.map(eachTopAsJson => Kopnik.merge(eachTopAsJson, true))
-
-            // this.logger.info('manual set foremans')
-            // Kopnik.getReference(1).rank = 1
-            // Kopnik.getReference(1).foreman = Kopnik.getReference(3)
-            // Kopnik.getReference(2).rank = 4
-            // Kopnik.getReference(3).foreman = Kopnik.getReference(2)
-            // Kopnik.getReference(3).rank = 3
-            // Kopnik.getReference(4).foreman = Kopnik.getReference(3)
-            // Kopnik.getReference(4).rank = 1
-            //
-            // Kopnik.getReference(1).ten = []
-            // Kopnik.getReference(2).ten = [Kopnik.getReference(3)]
-            // Kopnik.getReference(3).ten = [Kopnik.getReference(1), Kopnik.getReference(4)]
-            // Kopnik.getReference(4).ten = []
         } catch (err) {
             if (err.name === 'AbortError') {
                 return

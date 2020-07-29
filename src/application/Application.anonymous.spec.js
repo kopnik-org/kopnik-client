@@ -19,12 +19,17 @@ describe('Application anonymous', () => {
         application = container.application
     })
 
+    it('forwardUserToBeConfirmed()', async () => {
+        const result= await application.forwardUserToBeConfirmed()
+        expect(result).toBeTruthy()
+        expect(application.section).toBe(Application.Section.Main)
+    })
     it('authenticate()', async () => {
         await application.authenticate()
         expect(application.user).toBe(null)
     })
     it('loadTop20()', async () => {
-        application.sections.main.setMapBounds(new LatLngBounds(new LatLng(-90, -180), new LatLng(90, 180)))
+        application.sections.main.map.bounds= new LatLngBounds(new LatLng(-90, -180), new LatLng(90, 180))
         try {
             await application.sections.main.loadTop20()
             throw new Error('Should not be hire')
