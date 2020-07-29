@@ -256,7 +256,7 @@ export default class Kopnik extends AbstractSync {
         })
         // убираем себя из заявок старого потенциального старшины
         if (this.foremanRequest && this.foremanRequest.foremanRequests){
-            this.foremanRequest.foremanRequests.splice(this.foremanRequest.foremanRequests.find(this),1)
+            this.foremanRequest.foremanRequests.splice(this.foremanRequest.foremanRequests.indexOf(this),1)
         }
         // назначаем нового потенциального старшину
         this.foremanRequest= foremanRequest
