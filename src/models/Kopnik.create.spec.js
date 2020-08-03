@@ -18,7 +18,7 @@ describe('models User', () => {
         expect(user.status).toBe(Kopnik.Status.CONFIRMED)
     })
 
-    it.skip('create with witness_id', async () => {
+    it('create with witness_id', async () => {
         const witness= await Kopnik.create({
             isWitness: true,
         }, 'witness')
@@ -32,5 +32,14 @@ describe('models User', () => {
 
         await pending.reload()
         expect(pending.witness_id).toBe(witness.id)
+    })
+
+    it.only('create with smallPhoto', async () => {
+        const user= await Kopnik.create({
+            photo:'1234'
+        })
+        await user.login()
+        await user.reload()
+        expect(user.smallPhoto).toBe('1234')
     })
 })

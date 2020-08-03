@@ -9,7 +9,7 @@
                 :scale-control="application.user"
                 :zoom-control="true"
                 @ready="map_ready"
-                @click="value.selected=null"
+                @click="map_click"
                 @zoomstart="value.abortLoadTop20()"
                 @movestart="value.abortLoadTop20()"
                 @update:center="map_updateCenter"
@@ -59,25 +59,34 @@
                                 </l-polyline>-->
             </template>
             <!--            копники-->
+
+            <!-- bubblingMouseEvents прекращает пропагацию событий на карту, также см  https://leafletjs.com/reference-1.6.0.html#domevent-stoppropagation -->
+<!--            <l-circle
+                    v-for="(eachMarker) of markers" :key="'marker'+eachMarker.value.id"
+                    :bubblingMouseEvents="false"
+                    :radius="eachMarker.value.rank*100"
+                    color="red"
+                    :lat-lng="eachMarker.value.location"
+                    :zIndexOffset="eachMarker.zIndex"
+                    @click="marker_click($event, eachMarker.value)"
+                    @dblclick="marker_dblclick($event, eachMarker.value, )"
+            >
+                <img :src="eachMarker.icon.iconUrl"/>
+            </l-circle>-->
             <l-marker v-for="(eachMarker) of markers" :key="'marker'+eachMarker.value.id"
                       :lat-lng="eachMarker.value.location"
                       :zIndexOffset="eachMarker.zIndex"
-                      @dblclick="marker_dblclick(eachMarker.value, $event)"
-                      @click="marker_click(eachMarker.value, $event)"
+                      @dblclick="marker_dblclick(eachMarker.value)"
+                      @click="marker_click(eachMarker.value)"
+                      :icon="eachMarker.icon"
             >
-                <l-icon
-                        :icon-size="[eachMarker.size, eachMarker.size]"
-                        :icon-anchor="[eachMarker.size/2, eachMarker.size/2]"
-                        :class-name="eachMarker.className"
-                        :icon-url="eachMarker.value.smallPhoto">
-                </l-icon>
                 <l-tooltip v-if="!isTouchDevice" :options="{}">
-                    <template v-if="env==='development'">{{eachMarker.value.id}} [{{eachMarker.size}}px]</template>
+                    <template v-if="env==='development'">{{eachMarker.value.id}} [{{eachMarker.iconSize}}px]</template>
                     {{eachMarker.value.rankName}}
                 </l-tooltip>
             </l-marker>
         </MapVue>
-
+`
         <!--        копники на копу-->
         <kopa-invite v-if="value.kopa.parts.length" :value="value.kopa"
                      style="position: fixed; left: 50%; transform: translateX(-50%); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"
@@ -95,7 +104,7 @@
         <v-bottom-sheet v-if="application.user" :value="value.selected" :attach="$refs.main"
                         persistent hide-overlay no-click-animation :retain-focus="false" :inset="true"
         >
-            <v-card class="text-center" height="180px">
+            <v-card class="text-center" height="150px">
                 <v-list-item v-if="value.selected">
                     <avatar-vue :value="value.selected" :size="80" class="ma-3 ml-0"
                                 @dblclick="avatar_dblclick(value.selected)">
@@ -129,7 +138,8 @@
         LTooltip,
         LIcon,
         LMarker,
-        LControl
+        LControl,
+        LCircle,
     } from 'vue2-leaflet'
     import {Kopnik} from "../models"
     import MapVue from "./MapVue";
@@ -176,6 +186,7 @@
     export default {
         mixins: [touchDetector, logger],
         components: {
+            LCircle,
             AvatarVue,
             KopaInvite,
             Vue2LeafletPolylineDecorator,
@@ -188,6 +199,12 @@
         },
         data() {
             return {
+                icon: L.icon({
+                    iconUrl: 'https://sun9-56.userapi.com/c639321/v639321874/53f61/8HqRXdrg-BM.jpg?ava=1',
+                    iconSize: [32, 37],
+                    iconAnchor: [16, 37]
+                }),
+                iconSize: 64,
                 env: container.env,
                 application: container.application,
                 /**
@@ -197,6 +214,12 @@
             }
         },
         props: {
+            dynamicSize() {
+                return [this.iconSize, this.iconSize * 1.15];
+            },
+            dynamicAnchor() {
+                return [this.iconSize / 2, this.iconSize * 1.15];
+            },
             /**
              * Автокомплит в разделе <template> не работает :(
              * По этой причине это свойство перенесено в свойство data
@@ -231,9 +254,14 @@
                         const isVisible = size < MAX_MARKER_SIZE
                         return {
                             value: eachVisibleKopnik,
+                            iconSize: size,
                             // size: MIN_MARKER_SIZE,
-                            size,
-                            className: 'map_avatar' + (this.application.user === eachVisibleKopnik ? ' map_avatar-user' : '') + (this.value.selected === eachVisibleKopnik ? ' map_avatar-selected' : '') + (isVisible ? '' : ' map_avatar-oversized'),
+                            icon: L.icon({
+                                iconUrl: eachVisibleKopnik.smallPhoto,
+                                iconSize: [size, size],
+                                iconAnchor: [size / 2, size / 2],
+                                className: 'map_avatar' + (this.application.user === eachVisibleKopnik ? ' map_avatar-user' : '') + (this.value.selected === eachVisibleKopnik ? ' map_avatar-selected' : '') + (isVisible ? '' : ' map_avatar-oversized'),
+                            }),
                             zIndex: this.value.selected === eachVisibleKopnik ? Number.MAX_SAFE_INTEGER : eachVisibleKopnik.rank * 1000,
                             isVisible,
                         }
@@ -359,11 +387,6 @@
                 this.value.kopa.inviteAll()
                 // this.application.infos.push('Приглашение на Копу отправлено')
             },
-            details_input(event) {
-                if (!event) {
-                    this.value.selected = null
-                }
-            },
             toggle_click() {
                 // this.value.kopa.stupidAdd(this.value.selected)
                 this.value.kopa.toggle(this.value.selected)
@@ -371,15 +394,15 @@
             this_keydown_esc(event) {
                 if (this.value.squadAnalyzer.isAnalyzing()) {
                     this.value.squadAnalyzer.reset()
-                    event.stopPropagation()
-                    event.preventDefault()
                 }
             },
-            marker_click(kopnik) {
-                this.value.selected = kopnik
-                return false
+            map_click() {
+                this.value.selected = null
             },
-            async marker_dblclick(kopnik) {
+            marker_click(kopnik,) {
+                this.value.selected = kopnik
+            },
+            async marker_dblclick(kopnik,) {
                 if (await this.application.forwardUserToBeConfirmed()) {
                     return false
                 }

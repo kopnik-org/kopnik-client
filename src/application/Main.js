@@ -73,7 +73,7 @@ export default class Main {
      * @param {LatLng} value
      */
     setMapCenter(value) {
-        this.map.center = value.wrap()
+        // this.map.center = value.wrap()
         this.storeMapState()
     }
 
