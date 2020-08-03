@@ -159,20 +159,24 @@
         // размер маркера на последнем 18 приближении
         // MARKER_SIZE_18 = 48,
         MARKER_SIZE_18 = 64,
-        MIN_MARKER_SIZE = 16,
+        MIN_MARKER_SIZE = 4,
         // размер, после которого маркер скрывается
         MAX_MARKER_SIZE = 128,
         ARROW_WIDTH_18 = MARKER_SIZE_18 / 4,
         MIN_ARROW_WITH = MIN_MARKER_SIZE / 4,
         /*
          * коэффициент недонаполненности сети (рассчитывается таким образом: царь на первом масштабе занимает MARKER_SIZE_18 пикселей)
-         * size = Math.pow(K, 18 - this.value.map.zoom) * MARKER_SIZE_18 * Math.pow(TSAR_RANK, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom)
-         * MARKER_SIZE_18 = Math.pow(K, 17) * MARKER_SIZE_18 * Math.pow(TSAR_RANK, 1 / 3) / Math.pow(2, 17)
-         * Math.pow(K, 17) = Math.pow(2, 17) / Math.pow(TSAR_RANK, 1 / 3)
-         * K= Math.pow (131072 / Math.pow(TSAR_RANK, 1 / 3) ,0.0588235294118)
+         * size = MARKER_SIZE_18 * Math.pow(TSAR_RANK, 1 / 3 * K) / Math.pow(2, 18 - this.value.map.zoom)
+         * MARKER_SIZE_18 = MARKER_SIZE_18 * Math.pow(TSAR_RANK, K / 3) / Math.pow(2, 17)
+         * Math.pow(2, 17) = Math.pow(TSAR_RANK, K / 3)
+         * Math.pow(2, 51) = Math.pow(TSAR_RANK, K)
+         * K = log _TSAR_RANK_ Math.pow(2, 51)
          */
         // K = 6500
-        K = Math.pow(131072 / Math.pow(TSAR_RANK, 1 / 3), 0.0588235294118),
+        getBaseLog = (base, arg) => {
+            return Math.log(arg) / Math.log(base)
+        },
+        K = getBaseLog(TSAR_RANK, Math.pow(2, 51)),
 
         /**
          * Максимальный ранг копника, видимого на карте в данном приближении
@@ -181,7 +185,7 @@
          * Math.pow(MAX_RANK, 1 / 3) = MAX_MARKER_SIZE / Math.pow(K, 18 - zoom) / MARKER_SIZE * Math.pow(2, 18 - zoom)
          * MAX_RANK = Math.pow(MAX_MARKER_SIZE / Math.pow(K, 18 - zoom) / MARKER_SIZE * Math.pow(2, 18 - zoom), 3)
          */
-        getMaxRank = (zoom) => Math.floor(Math.pow(MAX_MARKER_SIZE / Math.pow(K, 18 - zoom) / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3))
+        getMaxRank = (zoom) => /*1000000*/ Math.floor(Math.pow(MAX_MARKER_SIZE / Math.pow(K, 18 - zoom) / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3))
 
     export default {
         mixins: [touchDetector, logger],
@@ -250,7 +254,7 @@
             markers() {
                 const result = this.visibleKopniks
                     .map(eachVisibleKopnik => {
-                        const size = Math.max(MIN_MARKER_SIZE, Math.round(Math.pow(K, 18 - this.value.map.zoom) * MARKER_SIZE_18 * Math.pow(eachVisibleKopnik.rank, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom)))
+                        const size = Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE_18 * Math.pow(eachVisibleKopnik.rank, 1 / 3 * K) / Math.pow(2, 18 - this.value.map.zoom)))
                         const isVisible = size < MAX_MARKER_SIZE
                         return {
                             value: eachVisibleKopnik,
@@ -281,7 +285,7 @@
                     // стрелка идет от младшего к старшему
                     .map(eachMember => {
                         const color = eachMember === this.value.selected ? 'red' : 'blue'
-                        const width = Math.max(MIN_ARROW_WITH, Math.round(Math.pow(K, 18 - this.value.map.zoom) * ARROW_WIDTH_18 * Math.pow(eachMember.rank, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom)))
+                        const width = Math.max(MIN_ARROW_WITH, Math.round(ARROW_WIDTH_18 * Math.pow(eachMember.rank, 1 / 3 *K) / Math.pow(2, 18 - this.value.map.zoom)))
                         const eachArrow = {
                             color,
                             weight: width,
