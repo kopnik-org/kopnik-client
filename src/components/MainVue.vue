@@ -176,16 +176,17 @@
         getBaseLog = (base, arg) => {
             return Math.log(arg) / Math.log(base)
         },
-        K = getBaseLog(TSAR_RANK, Math.pow(2, 51)),
+        K = Math.min(1.5, getBaseLog(TSAR_RANK, Math.pow(2, 51))),
 
         /**
          * Максимальный ранг копника, видимого на карте в данном приближении
-         * size = Math.pow(K, 18 - this.value.map.zoom) * MARKER_SIZE * Math.pow(TSAR_RANK, 1 / 3) / Math.pow(2, 18 - this.value.map.zoom)
-         * MAX_MARKER_SIZE = Math.pow(K, 18 - zoom) * MARKER_SIZE * Math.pow(MAX_RANK, 1 / 3) / Math.pow(2, 18 - zoom)
-         * Math.pow(MAX_RANK, 1 / 3) = MAX_MARKER_SIZE / Math.pow(K, 18 - zoom) / MARKER_SIZE * Math.pow(2, 18 - zoom)
-         * MAX_RANK = Math.pow(MAX_MARKER_SIZE / Math.pow(K, 18 - zoom) / MARKER_SIZE * Math.pow(2, 18 - zoom), 3)
+         * size = MARKER_SIZE_18 * Math.pow(rank, 1 / 3 * K) / Math.pow(2, 18 - this.value.map.zoom)
+         * MAX_MARKER_SIZE = MARKER_SIZE_18 * Math.pow(MAX_RANK, K / 3) / Math.pow(2, 18 - zoom)
+         * Math.pow(MAX_RANK, K / 3) = MAX_MARKER_SIZE / MARKER_SIZE_18 * Math.pow(2, 18 - zoom)
+         * MAX_RANK = Math.pow(MAX_MARKER_SIZE / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3 / K)
          */
-        getMaxRank = (zoom) => /*1000000*/ Math.floor(Math.pow(MAX_MARKER_SIZE / Math.pow(K, 18 - zoom) / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3))
+        getMaxRank = (zoom) => Math.pow(MAX_MARKER_SIZE / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3 / K)
+
 
     export default {
         mixins: [touchDetector, logger],
@@ -309,6 +310,9 @@
                                     })
                                 },
                             ]
+                        }
+                        if (eachMember.rank>1200){
+                            console.log(eachArrow.weight)
                         }
                         return eachArrow
                     })
@@ -437,6 +441,8 @@
             await this.$nextTick()
             this.lmap = this.$refs.map.$refs.map.mapObject
             await this.application.resolveUser()
+
+            console.log("Коэффициент недонаполненности сети К", K)
         }
     }
 </script>

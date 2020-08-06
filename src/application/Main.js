@@ -101,6 +101,10 @@ export default class Main {
      * @returns {Promise<void>}
      */
     async loadTop20(maxRank=300000000) {
+        // временная заглушка до поры пока Артем не сделает getTopInsideSquare публичным с ограничением
+        if (!application.user){
+            return
+        }
         this.abortLoadTop20()
         this._loadTop20AbortController = new AbortController()
         const bounds = this.map.bounds

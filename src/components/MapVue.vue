@@ -198,6 +198,8 @@
                 this._prevCenter = event
             },
             lmap_updateZoom(event) {
+                console.log('zoom', event)
+
                 // фиксим ошибку vue-leaflet, который выбрасывает два события подряд
                 if (this._prevZoom && _.isEqual(this._prevZoom, event)) {
                     return
