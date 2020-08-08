@@ -38,17 +38,21 @@
                 </div>
             </l-control>
             <!--            копные связи-->
-            <template v-for="eachArrow of arrows">
-                <!--                стрелка на конце-->
-                <vue2-leaflet-polyline-decorator :key="'arrow'+eachArrow.from.id"
-                                                 :paths="[eachArrow.from.location, eachArrow.to.location]"
-                                                 :patterns="eachArrow.patterns">
-                </vue2-leaflet-polyline-decorator>
+            <!--                стрелка на конце-->
+
+            <template v-for="eachArrow of arrows" v-if="eachArrow.isVisible">
+<!--                <vue2-leaflet-polyline-decorator
+                        :paths="[eachArrow.from, eachArrow.to]"
+                        :patterns="eachArrow.patterns">
+                </vue2-leaflet-polyline-decorator>-->
                 <!--                видимая линия-->
-                <l-polyline :key="'stroke'+eachArrow.from.id"
-                            :lat-lngs="[eachArrow.from.location, eachArrow.to.location]"
+                <l-polyline :key="'polyline'+eachArrow.key"
+                            :lat-lngs="[eachArrow.from, eachArrow.to]"
                             :weight="eachArrow.weight"
-                            :color="eachArrow.color">
+                            :color="eachArrow.color"
+                            :className="'arrow '+eachArrow.className"
+                            :opacity="0.5"
+                >
                 </l-polyline>
                 <!-- невидимая линия большой ширины, которая ловит mouseover -->
                 <!--                <l-polyline v-if="eachArrow.weight<10" :key="'hoverHandler'+eachArrow.from.id"
@@ -61,18 +65,18 @@
             <!--            копники-->
 
             <!-- bubblingMouseEvents прекращает пропагацию событий на карту, также см  https://leafletjs.com/reference-1.6.0.html#domevent-stoppropagation -->
-<!--            <l-circle
-                    v-for="(eachMarker) of markers" :key="'marker'+eachMarker.value.id"
-                    :bubblingMouseEvents="false"
-                    :radius="eachMarker.value.rank*100"
-                    color="red"
-                    :lat-lng="eachMarker.value.location"
-                    :zIndexOffset="eachMarker.zIndex"
-                    @click="marker_click($event, eachMarker.value)"
-                    @dblclick="marker_dblclick($event, eachMarker.value, )"
-            >
-                <img :src="eachMarker.icon.iconUrl"/>
-            </l-circle>-->
+            <!--            <l-circle
+                                v-for="(eachMarker) of markers" :key="'marker'+eachMarker.value.id"
+                                :bubblingMouseEvents="false"
+                                :radius="eachMarker.value.rank*100"
+                                color="red"
+                                :lat-lng="eachMarker.value.location"
+                                :zIndexOffset="eachMarker.zIndex"
+                                @click="marker_click($event, eachMarker.value)"
+                                @dblclick="marker_dblclick($event, eachMarker.value, )"
+                        >
+                            <img :src="eachMarker.icon.iconUrl"/>
+                        </l-circle>-->
             <l-marker v-for="(eachMarker) of markers" :key="'marker'+eachMarker.value.id"
                       :lat-lng="eachMarker.value.location"
                       :zIndexOffset="eachMarker.zIndex"
@@ -86,7 +90,7 @@
                 </l-tooltip>
             </l-marker>
         </MapVue>
-`
+        `
         <!--        копники на копу-->
         <kopa-invite v-if="value.kopa.parts.length" :value="value.kopa"
                      style="position: fixed; left: 50%; transform: translateX(-50%); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"
@@ -154,18 +158,18 @@
 
     // На 18-ом увеличении
     const
-        TSAR_RANK = 1192,
+        TSAR_RANK = 5170,
         TOOLTIP_ARROW_WITH = 10,
         // размер маркера на последнем 18 приближении
         // MARKER_SIZE_18 = 48,
         MARKER_SIZE_18 = 64,
-        MIN_MARKER_SIZE = 4,
+        MIN_MARKER_SIZE = 8,
         // размер, после которого маркер скрывается
         MAX_MARKER_SIZE = 128,
-        ARROW_WIDTH_18 = MARKER_SIZE_18 / 4,
-        MIN_ARROW_WITH = MIN_MARKER_SIZE / 4,
+        ARROW_WEIGHT_18 = MARKER_SIZE_18 / 4,
+        MIN_ARROW_WEIGHT = MIN_MARKER_SIZE / 4,
         /*
-         * коэффициент недонаполненности сети (рассчитывается таким образом: царь на первом масштабе занимает MARKER_SIZE_18 пикселей)
+         * коэффициент недонаполненности сети 1.0 < K < 1.5 (рассчитывается таким образом: царь на первом масштабе занимает MARKER_SIZE_18 пикселей)
          * size = MARKER_SIZE_18 * Math.pow(TSAR_RANK, 1 / 3 * K) / Math.pow(2, 18 - this.value.map.zoom)
          * MARKER_SIZE_18 = MARKER_SIZE_18 * Math.pow(TSAR_RANK, K / 3) / Math.pow(2, 17)
          * Math.pow(2, 17) = Math.pow(TSAR_RANK, K / 3)
@@ -185,7 +189,7 @@
          * Math.pow(MAX_RANK, K / 3) = MAX_MARKER_SIZE / MARKER_SIZE_18 * Math.pow(2, 18 - zoom)
          * MAX_RANK = Math.pow(MAX_MARKER_SIZE / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3 / K)
          */
-        getMaxRank = (zoom) => Math.pow(MAX_MARKER_SIZE / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3 / K)
+        getMaxKopnikRank = (zoom) => Math.min(300000000, Math.pow(MAX_MARKER_SIZE / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3 / K))
 
 
     export default {
@@ -259,8 +263,9 @@
                         const isVisible = size < MAX_MARKER_SIZE
                         return {
                             value: eachVisibleKopnik,
-                            iconSize: size,
+                            size,
                             // size: MIN_MARKER_SIZE,
+                            // icon: L.divIcon({
                             icon: L.icon({
                                 iconUrl: eachVisibleKopnik.smallPhoto,
                                 iconSize: [size, size],
@@ -268,7 +273,7 @@
                                 className: 'map_avatar' + (this.application.user === eachVisibleKopnik ? ' map_avatar-user' : '') + (this.value.selected === eachVisibleKopnik ? ' map_avatar-selected' : '') + (isVisible ? '' : ' map_avatar-oversized'),
                             }),
                             zIndex: this.value.selected === eachVisibleKopnik ? Number.MAX_SAFE_INTEGER : eachVisibleKopnik.rank * 1000,
-                            isVisible,
+                            isVisible, // это свойство используется внутри computed.arrows()
                         }
                     })
                 // не делаем чтобы превышающие размер маркеры CSS-растворялись за то время пока завершится fetch новых маркеров, в котором их уже не будет
@@ -277,42 +282,47 @@
                 return result
             },
             arrows() {
+                const zoom = this.value.map.zoom
                 const squadAnalyzer = this.value.squadAnalyzer
                 const result = squadAnalyzer.analyzed
                     // оставляем только копников у которые старшины проанализирован
                     .filter(eachAnalyzed => eachAnalyzed.foreman && squadAnalyzer.isAnalyzed(eachAnalyzed.foreman))
-                    // оставляем только копников у которых маркеры есть и
-                    .filter(eachAnalyzed => eachAnalyzed.foreman && squadAnalyzer.isAnalyzed(eachAnalyzed.foreman))
                     // стрелка идет от младшего к старшему
                     .map(eachMember => {
+                        const markerFrom = this.markers.find(eachMarker => eachMarker.value === eachMember)
+                        const markerTo = this.markers.find(eachMarker => eachMarker.value === eachMember.foreman)
+                        const isVisible = markerFrom.isVisible
                         const color = eachMember === this.value.selected ? 'red' : 'blue'
-                        const width = Math.max(MIN_ARROW_WITH, Math.round(ARROW_WIDTH_18 * Math.pow(eachMember.rank, 1 / 3 *K) / Math.pow(2, 18 - this.value.map.zoom)))
+                        const weight = Math.max(MIN_ARROW_WEIGHT, Math.round(ARROW_WEIGHT_18 * Math.pow(eachMember.rank, 1 / 3 * K) / Math.pow(2, 18 - zoom)))
                         const eachArrow = {
+                            key: eachMember.id,
                             color,
-                            weight: width,
+                            weight,
+                            visible: isVisible,
                             tooltipWidth: TOOLTIP_ARROW_WITH,
-                            from: eachMember,
-                            to: eachMember.foreman,
+                            from: new L.latLng(eachMember.location),
+                            to: new L.latLng(eachMember.foreman.location),
                             tooltip: eachMember.rankName + ' ⇨ ' + eachMember.foreman.rankName,
+                            className: isVisible ? '' : ' map_avatar-oversized',
                             patterns: [
                                 // defines a pattern of 10px-wide dashes, repeated every 20px on the line
                                 {
-                                    offset: '100%',
-                                    repeat: 0,
+                                    offset: Math.round(markerFrom.size / 2),
+                                    endOffset: Math.round(markerTo.size / 2),
+                                    repeat: weight*4,
+                                    // repeat: (weight * 1) + 'px',
+                                    // repeat: '100%',
                                     symbol: L.Symbol.arrowHead({
-                                        pixelSize: width * 2,
+                                        pixelSize: weight,
                                         polygon: true,
                                         pathOptions: {
                                             color,
-                                            stroke: true,
+                                            stroke: false,
                                             fillOpacity: 1,
                                         }
                                     })
                                 },
                             ]
-                        }
-                        if (eachMember.rank>1200){
-                            console.log(eachArrow.weight)
                         }
                         return eachArrow
                     })
@@ -335,6 +345,15 @@
             },
         },
         methods: {
+            // вызывается раньше чем зумм:апдейт. пробую здесь стоит начать перерисовку ширин стрелок
+            map_zoomend(event) {
+                /*                // задержка
+                                for (let x = 0; x < 50000000; x++) {
+                                    const y = Math.log2(Math.random())
+                                }*/
+                this.value.map.earlyZoom = event.target.getZoom()
+                console.log('earlyZoom', this.value.map.earlyZoom)
+            },
             /**
              * Позвать копника в беседу
              */
@@ -432,7 +451,7 @@
                 this.value.setMapZoom(event)
             },
             async map_updateBounds(event) {
-                await this.value.loadTop20(getMaxRank(this.value.map.zoom))
+                await this.value.loadTop20(getMaxKopnikRank(this.value.map.zoom))
             },
         },
         created() {

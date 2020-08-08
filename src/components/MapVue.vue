@@ -8,7 +8,7 @@
           @update:bounds="lmap_updateBounds"
           @update:center="lmap_updateCenter"
           @update:zoom="lmap_updateZoom"
-
+          @zoomend="lmap_zoomend"
           style="z-index: 0">
 
         <!--                <l-control-zoom position="left"  ></l-control-zoom>-->
@@ -175,6 +175,15 @@
             lmap_zoomstart(event) {
                 this.$emit('zoomstart', event)
             },
+            lmap_zoomend(event){
+                // фиксим ошибку vue-leaflet, который выбрасывает два события подряд
+                if (this._prevZoom && _.isEqual(this._prevZoom, event.target.getZoom())) {
+                    return
+                }
+                this.$emit('update:zoom', event.target.getZoom())
+                this.$emit('zoomend', event)
+                this._prevZoom = event
+            },
             lmap_movestart(event) {
                 this.$emit('movestart', event)
             },
@@ -198,8 +207,6 @@
                 this._prevCenter = event
             },
             lmap_updateZoom(event) {
-                console.log('zoom', event)
-
                 // фиксим ошибку vue-leaflet, который выбрасывает два события подряд
                 if (this._prevZoom && _.isEqual(this._prevZoom, event)) {
                     return

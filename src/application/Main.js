@@ -13,6 +13,8 @@ export default class Main {
         this.map = {
             // сохраняется между сессиями
             zoom: 2,
+
+            earlyZoom: 2,
             /** type {LatLng} центр карты. Сохраняется между сессиями */
             center: new LatLng(55.753215, 37.622504),
             /** @type {LatLngBounds} не сохраняется между сессиями */

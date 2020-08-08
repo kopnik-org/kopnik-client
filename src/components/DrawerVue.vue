@@ -102,7 +102,7 @@
     import {container} from "../bottle/bottle";
     import logger from "./mixin/logger";
     import Kopnik from "../models/Kopnik";
-    import generate from "../utils/snow/generate";
+    import createSubordinates from "../utils/snow/createSubordinates";
 
     export default {
         mixins: [logger],
@@ -150,7 +150,7 @@
                     },
                     // identifier: 261824271
                 })
-                await generate(tsar, 30)
+                await createSubordinates(tsar, 30)
             }
         },
         async created() {
