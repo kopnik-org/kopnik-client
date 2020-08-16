@@ -1,58 +1,72 @@
 /**
  * Created by alexey2baranov on 8/20/16.
+ *
+ * домены и редикт урлы
+ * https://vk.com/apps?act=manage
+ * дебаг на телефоне
+ * https://developers.google.com/web/tools/chrome-devtools/remote-debugging?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3
  */
 let constants = {
-    "development": {
-        messenger: {
-            // идентификатор нашего приложения ВК
-            // clientId: 7210289,
-            // страница, на которую нужно перейти для аутентификации
-            // loginUrl:'https://dev.kopnik.org/connect/vkontakte',
-            loginUrl: 'http://localhost:8081/connect/vkontakte',
-            // loginUrl: 'http://localhost:8082/connect/vkontakte'
-        },
-        api: {
-            // path: "https://dev.kopnik.org/api"
-            path: "http://localhost:8081/api"
-            // path: "http://localhost:8082/api"
-        },
-        di: {
-            fetch: true,
-            cookie: false
-        }
+  "development": {
+    sw: {
+      delay: 5000,
     },
-    "test": {
-        messenger: {
-            // clientId: 7210289,
-            loginUrl: 'http://localhost:8082/connect/vkontakte',
-            // redirectUrl: 'http://localhost:8082/login/check-vk'
-        },
-        api: {
-            path: "http://localhost:8082/api"
-        },
-        di: {
-            fetch: false,
-            cookie: true
-        }
+    messenger: {
+      // идентификатор нашего приложения ВК
+      // clientId: 7210289,
+      // страница, на которую нужно перейти для аутентификации
+      // loginUrl: 'http://localhost:8081/connect/vkontakte',
+      // с мобилки
+      loginUrl: 'http://192.168.43.84:8081/connect/vkontakte'
     },
-    "production": {
-        messenger: {
-            loginUrl: 'https://dev.kopnik.org/connect/vkontakte',
-            // clientId: 7210289,
-            // redirectUrl: 'https://dev.kopnik.org/login/check-vk'
-        },
-        api: {
-            path: "api"
-        },
-        di: {
-            fetch: true,
-            cookie: false
-        }
+    api: {
+      // path: "http://localhost:8081/api"
+      // с мобилки
+      path: "http://192.168.43.84:8081/api"
+    },
+    di: {
+      fetch: true,
+      cookie: false
     }
+  },
+  "test": {
+    sw: {
+      delay: Number.MAX_SAFE_INTEGER,
+    },
+    messenger: {
+      // clientId: 7210289,
+      loginUrl: 'http://localhost:8082/connect/vkontakte',
+      // redirectUrl: 'http://localhost:8082/login/check-vk'
+    },
+    api: {
+      path: "http://localhost:8082/api"
+    },
+    di: {
+      fetch: false,
+      cookie: true
+    }
+  },
+  "production": {
+    sw: {
+      delay: 60000,
+    },
+    messenger: {
+      loginUrl: 'https://dev.kopnik.org/connect/vkontakte',
+      // clientId: 7210289,
+      // redirectUrl: 'https://dev.kopnik.org/login/check-vk'
+    },
+    api: {
+      path: "api"
+    },
+    di: {
+      fetch: true,
+      cookie: false
+    }
+  }
 }
 
 if (!process.env.NODE_ENV) {
-    throw new Error("NODE_ENV is not defined")
+  throw new Error("NODE_ENV is not defined")
 }
 
 let privateConstants = {}//require("./private")

@@ -1,4 +1,4 @@
-// import './register-error-handlers'
+import './register-error-handlers'
 import Vue from 'vue'
 import './plugins/vue-the-mask'
 import vuetify from './plugins/vuetify'
@@ -20,7 +20,7 @@ Icon.Default.mergeOptions({
 import AppVue from './components/KApp/KApp.vue'
 import {container} from "./bottle/bottle"
 import './plugins/className'
-
+import './sw'
 Vue.config.productionTip = false
 
 global.application = container.application

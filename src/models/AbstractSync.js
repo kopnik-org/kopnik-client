@@ -186,7 +186,7 @@ export default class AbstractSync {
      * Мержит плоский объект или модель в кэш моделей
      *
      * @param {Object | AbstractAsync} what
-     * @param {Boolean} isLoaded установить флаг isLoaded после мержа
+     * @param {Boolean?} isLoaded установить флаг isLoaded после мержа
      * @returns {*}
      */
     static merge(what, isLoaded) {

@@ -44,7 +44,7 @@ bottle.service('localeManager', function localeManager() {
 })
 bottle.service('cookieService', CookieService, 'constants')
 bottle.factory('api', function apiFactory(container) {
-    if (!container.constants.di.fetch){
+    if (!container.constants.di.fetch) {
         throw new Error('not supported')
     }
     return api
@@ -90,6 +90,8 @@ bottle.service('application', Application, 'logger')
  * @property {Number} constants.messenger.clientId
  * @property {String} constants.messenger.loginUrl
  * @property {String} constants.messenger.redirectUrl
+ * @property {String} constants.sw
+ * @property {String} constants.sw.delay
  * @property {LocaleManager} localeManager
  * @property {string} env
  * @property {{ru, en}} messages
