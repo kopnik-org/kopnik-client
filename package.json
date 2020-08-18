@@ -9,7 +9,7 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
     "test": "jest --watchAll",
     "snow": "babel-node ./src/utils/snow",
-    "dev2master": "npm version $1 && git checkout master && git merge dev && git push --tags && git checkout dev"
+    "dev2master": "run(){ npm version $1 && git checkout master && git merge dev && git push --tags && git checkout dev; }; run"
   },
   "dependencies": {
     "async-lock": "^1.2.4",
