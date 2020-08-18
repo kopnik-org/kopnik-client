@@ -8,5 +8,5 @@ import randomize from "./randomize";
  * @param {number} angle
  */
 export default function (center, distance, angle) {
-    return new LatLng(center.lat + distance * Math.cos(angle), center.lng + distance * Math.sin(angle))
+    return new LatLng(center.lat + distance * Math.cos(angle)/2, center.lng + distance * Math.sin(angle))
 }

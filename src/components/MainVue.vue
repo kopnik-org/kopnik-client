@@ -3,7 +3,8 @@
                fluid class="fill-height pa-0"
                @keyup.esc="this_keydown_esc">
     <!-- zoom-control передается дальшее в options LMap, а они не реактиные, поэтому сразу нужно ставить true-->
-    <MapVue ref="map" :center.sync="value.map.center" :zoom.sync="value.map.zoom" :bounds.sync="value.map.bounds"
+    <MapVue ref="map" key="main_map"
+            :center.sync="value.map.center" :zoom.sync="value.map.zoom" :bounds.sync="value.map.bounds"
             :layers-control="application.user"
             :locate-control="application.user"
             :scale-control="application.user"
@@ -174,7 +175,7 @@ const
   // коэффициент уменьшения связи относительно личной силы
   K_SVAZI = 1,
   // максимальный ранг системы (заполнить для расчета коэффициента недонаполненности сети)
-  TSAR_RANK = 5170,
+  TSAR_RANK = 8059,
   TOOLTIP_ARROW_WITH = 10,
   // размер маркера на последнем 18 приближении
   // MARKER_SIZE_18 = 48,
@@ -227,7 +228,7 @@ export default {
   },
   data() {
     return {
-      antPath: !isTouchDevice(),
+      antPath: false, // !isTouchDevice(),
       icon: L.icon({
         iconUrl: 'https://sun9-56.userapi.com/c639321/v639321874/53f61/8HqRXdrg-BM.jpg?ava=1',
         iconSize: [32, 37],
@@ -351,7 +352,7 @@ export default {
               weight: weight,
               hardwareAccelerated: true,
               dashArray: [weight * 1.5, weight * 5],
-              // paused: container.env!=='production'
+              paused: container.env!=='production'
             }
           }
           return eachArrow

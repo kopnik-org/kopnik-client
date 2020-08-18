@@ -46,9 +46,10 @@
           <v-list-item-title>{{ $t('drawer.foremanChat') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link to="/Witness"
-                   v-if="application.user.isWitness"
-                   :disabled="!application.user">
+      <v-list-item v-if="application.user.isWitness"
+                   :disabled="!application.user"
+                   @click="witness_click"
+      >
         <v-list-item-action>
           <v-icon>mdi-human-greeting</v-icon>
         </v-list-item-action>
@@ -102,8 +103,12 @@ import KopnikVue from "./KopnikVue";
 import {container} from "../bottle/bottle";
 import logger from "./mixin/logger";
 import Kopnik from "../models/Kopnik";
+import Application from "@/application/Application";
 import createSubordinates from "../utils/snow/createSubordinates";
-
+import snow from '../utils/snow'
+/**
+ * @property {Application} application
+ */
 export default {
   mixins: [logger],
   components: {
@@ -121,6 +126,15 @@ export default {
     }
   },
   methods: {
+
+    async witness_click() {
+      if (await this.application.forwardUserToBeConfirmed()) {
+        return
+      }
+      await this.application.lockSection(async () => {
+        await this.application.setSection(Application.Section.Witness)
+      })
+    },
     async subordinates_click() {
       if (await this.application.forwardUserToBeConfirmed()) {
         return
@@ -140,18 +154,7 @@ export default {
       await this.application.logout()
     },
     async snow_click() {
-      /*                const tsar = await Kopnik.create({
-                          firstName: 'Гора',
-                          lastName: 'Мира',
-                          patronymic: 'Рука',
-                          location: {
-                              lat: 58.1996,
-                              lng: 68.256,
-                          },
-                          // identifier: 261824271
-                      })*/
-      const tsar = await Kopnik.get(1)
-      await createSubordinates(tsar, 30)
+      await snow()
     }
   },
   async created() {

@@ -95,10 +95,10 @@
     "toChat": "Беседовать",
     "toKopa": "На Копу",
     "notToKopa": "Не звать",
-    "toForeman": "В старшины",
+    "toForeman": "Выбрать",
     "toForemanInfo": "Заявка отправлена. Ожадай ответа старшины.",
     "resetForeman": "Не старшина",
-    "resetForemanInfo": "Этот копник для тебя теперь не старшина",
+    "resetForemanInfo": "Этот копник для тебя больше не старшина",
     "cancelForemanRequest": "Отменить заявку",
     "cancelForemanRequestInfo": "Заявка отменена"
   },
@@ -107,7 +107,7 @@
     "confirmForemanRequestInfo": "Принят в десятку",
     "declineForemanRequest": "Отказать",
     "declineForemanRequestInfo": "Сообщение об отказе отправлено",
-    "RemoveFromSubordinates": "Исключить из десятки",
-    "RemoveFromSubordinatesInfo": "Исключен из десятки"
+    "removeFromSubordinates": "Исключить из десятки",
+    "removeFromSubordinatesInfo": "Исключен из десятки"
   }
 }

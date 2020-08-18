@@ -98,12 +98,12 @@
             // удалить подчиненного из десятки
             async removeFromSubordinates_click(user) {
                 await container.application.user.removeFromSubordinates(user)
-                container.application.infos.push(container.application.getMessage('subordinates.RemoveFromSubordinatesInfo'))
+                container.application.infos.push(container.application.getMessage('subordinates.removeFromSubordinatesInfo'))
             }
         },
         async created() {
-            await this.value.loadedSubordinates()
-            await this.value.loadedForemanRequests()
+            await this.value.reloadSubordinates()
+            await this.value.reloadForemanRequests()
         },
     }
 </script>

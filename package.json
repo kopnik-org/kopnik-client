@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "snow": "babel-node ./src/utils/snow"
   },
   "dependencies": {
     "async-lock": "^1.2.4",
@@ -49,6 +50,7 @@
     "jest-mock": "^25.5.0",
     "jest-serializer-vue": "^2.0.2",
     "jest-snapshot": "^24.9.0",
+    "npm-version": "^1.1.0",
     "sass": "^1.26.10",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-i18n": "^0.6.1",
