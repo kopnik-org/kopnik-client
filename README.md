@@ -30,10 +30,25 @@ npm test
 
 ```
 cd <server-project-folder>
-make test-up
+make test-full-up
 ```
 
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+##Docker
+
+### Выложить образ на DockerHub
+
+```bash
+# собрать образ
+docker build -f .docker/staging/nodejs/Dockerfile -t kopnikorg/kopnik-client-staging:latest .
+
+# выложить образ на DockerHub
+docker push kopnikorg/kopnik-client-staging:latest
+```
+
+### Запустить staging-сборку на порту :8050
+
+```
+docker-compose  -f docker-compose.staging.yml up --build
+```
 

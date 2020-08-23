@@ -54,7 +54,7 @@ describe('Application new', () => {
         })
         it('Witness', async () => {
             await application.setSection(Application.Section.Witness)
-            expect(application.section).toBe(Application.Section.Profile)
+            expect(application.section).toBe(Application.Section.Main)
         })
         it('thanks', async () => {
             await application.setSection(Application.Section.Thanks)

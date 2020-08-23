@@ -21,6 +21,7 @@ export default async function snow () {
     iterations: 6,
     foreman: Kopnik.getReference(1),
   })
+  // return; 8h-
 
   const middle = await snowflake({
     location: {

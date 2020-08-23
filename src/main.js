@@ -21,6 +21,7 @@ import AppVue from './components/KApp/KApp.vue'
 import {container} from "./bottle/bottle"
 import './plugins/className'
 import './sw'
+console.log('NODE_ENV',process.env.NODE_ENV)
 Vue.config.productionTip = false
 
 global.application = container.application

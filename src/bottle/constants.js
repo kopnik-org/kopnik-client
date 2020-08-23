@@ -46,17 +46,17 @@ let constants = {
       cookie: true
     }
   },
-  "production": {
+  "staging": {
     sw: {
       delay: 15000,
     },
     messenger: {
-      loginUrl: 'https://dev.kopnik.org/connect/vkontakte',
+      loginUrl: 'https://staging.kopnik.org/connect/vkontakte',
       // clientId: 7210289,
-      // redirectUrl: 'https://dev.kopnik.org/login/check-vk'
+      // redirectUrl: 'https://staging.kopnik.org/login/check-vk'
     },
     api: {
-      path: "api"
+      path: "https://staging.kopnik.org/api"
     },
     di: {
       fetch: true,
