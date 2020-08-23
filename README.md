@@ -52,3 +52,15 @@ docker push kopnikorg/kopnik-client-staging:latest
 docker-compose  -f docker-compose.staging.yml up --build
 ```
 
+## Развернуть на сервере
+
+```
+# Склонировать репозиторий в любую папку 
+git clone https://github.com/kopnik-org/kopnik-client
+
+# перейти в папку 
+cd kopnik-client
+
+# запустить Docker-сборку 
+docker-compose  -f docker-compose.staging.yml up --build
+``` 
