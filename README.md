@@ -46,12 +46,6 @@ docker build -f .docker/staging/nodejs/Dockerfile -t kopnikorg/kopnik-client-sta
 docker push kopnikorg/kopnik-client-staging:latest
 ```
 
-### Запустить staging-сборку на порту :8050
-
-```
-docker-compose  -f docker-compose.staging.yml up --build
-```
-
 ## Развернуть на сервере
 
 ```
@@ -61,6 +55,11 @@ git clone https://github.com/kopnik-org/kopnik-client
 # перейти в папку 
 cd kopnik-client
 
-# запустить Docker-сборку 
-docker-compose  -f docker-compose.staging.yml up --build
+# запустить Docker-сборку на порту :8050
+docker-compose  -f docker-compose.staging.yml up --build -d
+
+# если нужно скачать последние версии образов, до запуска сборки выполнить
+docker-compose -f docker-compose.staging.yml stop
+docker-compose -f docker-compose.staging.yml rm -f
+docker-compose -f docker-compose.staging.yml pull   
 ``` 
