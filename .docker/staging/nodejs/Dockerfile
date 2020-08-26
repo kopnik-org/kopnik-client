@@ -1,4 +1,4 @@
-FROM node:14.8.0-buster
+FROM node:14.8.0-alpine
 
 # создание директории приложения
 WORKDIR /usr/src/app
@@ -21,4 +21,4 @@ RUN npm run build:staging
 # удаляем папку с зависимостями
 RUN rm -R ./node_modules
 
-CMD [ "/bin/bash" ]
+CMD [ "/bin/sh" ]
