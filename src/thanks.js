@@ -2,6 +2,23 @@ const today = new Date();
 today.setHours(0, 0, 0, 0);
 
 let thanks = [
+  // Palo
+  {
+    who: {
+      // id: 1,
+      uid: null,
+      photo: 'https://sun1-93.userapi.com/tvpmiLDOH0x85TWF3KktOksi7C0lmarbnu6XTQ/V26eVKeaST8.jpg',
+      name: 'Palo (Slovakia)',
+    },
+    deals: [
+      {
+      project: 'Перевод на словакский язык',
+      role: 'Переводчик',
+      description: null,
+      date: new Date(2020, 3, 13),
+    },
+    ]
+  },
   // Артем
   {
     who: {

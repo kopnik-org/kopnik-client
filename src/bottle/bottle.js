@@ -9,61 +9,57 @@ import api from "../api";
 import CookieService from "./CookieService"
 import MK from "../mk/mk";
 import LocaleManager from "../locales/LocaleManager";
-import ru from '../locales/ru'
-import en from '../locales/en'
+import messages from "@/locales";
 
 Bottle.config.strict = true
 const bottle = new Bottle()
 
 bottle.factory('logger', function loggerFactory() {
-    //все плагины ломают стектрейс консоли. то есть невозможно увидеть из какого файла и какой строки был вызван лог!
-    // LoglevelPluginPrefix.reg(loglevel)
-    // LoglevelPluginPrefix.apply(loglevel, {template: "%t [%l] %n: "})
+  //все плагины ломают стектрейс консоли. то есть невозможно увидеть из какого файла и какой строки был вызван лог!
+  // LoglevelPluginPrefix.reg(loglevel)
+  // LoglevelPluginPrefix.apply(loglevel, {template: "%t [%l] %n: "})
+  loglevel.setLevel(loglevel.levels.DEBUG)
+  if (process.env.NODE_ENV == "test") {
     loglevel.setLevel(loglevel.levels.DEBUG)
-    if (process.env.NODE_ENV == "test") {
-        loglevel.setLevel(loglevel.levels.DEBUG)
-        // LoglevelPluginToString.apply(loglevel, {})
-    }
+    // LoglevelPluginToString.apply(loglevel, {})
+  }
 // Be sure to call setLevel method in order to apply plugin
 // loglevel.getLogger("StateManager").setLevel("info")
-    return loglevel
+  return loglevel
 })
 
-bottle.constant('messages', {
-    ru,
-    en,
-})
+bottle.constant('messages', messages)
 
 bottle.factory('env', function env() {
-    return process.env.NODE_ENV || 'development'
+  return process.env.NODE_ENV || 'development'
 })
 bottle.service('localeManager', function localeManager() {
-    const localeManager = new LocaleManager()
-    localeManager.currentLocale = 'ru'//container.env === 'development' ? 'en' : 'ru'
-    return localeManager
+  const localeManager = new LocaleManager()
+  localeManager.currentLocale = 'ru'//container.env === 'development' ? 'en' : 'ru'
+  return localeManager
 })
 bottle.service('cookieService', CookieService, 'constants')
 bottle.factory('api', function apiFactory(container) {
-    if (!container.constants.di.fetch) {
-        throw new Error('not supported')
-    }
-    return api
+  if (!container.constants.di.fetch) {
+    throw new Error('not supported')
+  }
+  return api
 })
 bottle.factory('VK', function vkFactory(container) {
-    return process.env.NODE_ENV === 'test' ? MK : global.VK
+  return process.env.NODE_ENV === 'test' ? MK : global.VK
 })
 bottle.factory('constants', function constantsFactory() {
-    if (!process.env.NODE_ENV) {
-        throw new Error("NODE_ENV is not defined")
-    }
+  if (!process.env.NODE_ENV) {
+    throw new Error("NODE_ENV is not defined")
+  }
 
-    let local = {}//require("./local.js")
-    let result = _.merge({}, constants, local)[process.env.NODE_ENV]
+  let local = {}//require("./local.js")
+  let result = _.merge({}, constants, local)[process.env.NODE_ENV]
 
-    return result
+  return result
 })
 if (!Application) {
-    throw new Error("Application is undefined in bottle")
+  throw new Error("Application is undefined in bottle")
 }
 bottle.service('application', Application, 'logger')
 
@@ -94,7 +90,7 @@ bottle.service('application', Application, 'logger')
  * @property {String} constants.sw.delay
  * @property {LocaleManager} localeManager
  * @property {string} env
- * @property {{ru, en}} messages
+ * @property {{ru, en, sk}} messages
  */
 const container = bottle.container
 export {bottle, container}
