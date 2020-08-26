@@ -48,6 +48,8 @@ docker push kopnikorg/kopnik-client-staging:latest
 
 ## Развернуть на сервере
 
+https://hub.docker.com/repository/docker/kopnikorg/kopnik-client-staging
+
 ```
 # Склонировать репозиторий в любую папку 
 git clone https://github.com/kopnik-org/kopnik-client
