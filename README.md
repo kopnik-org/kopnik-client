@@ -57,11 +57,9 @@ git clone https://github.com/kopnik-org/kopnik-client
 # перейти в папку 
 cd kopnik-client
 
-# запустить Docker-сборку на порту :8050
-docker-compose  -f docker-compose.staging.yml up --build -d
+# запустить клиента на порту :8050
+make up
 
-# если нужно скачать последние версии образов, до запуска сборки выполнить
-docker-compose -f docker-compose.staging.yml stop
-docker-compose -f docker-compose.staging.yml rm -f
-docker-compose -f docker-compose.staging.yml pull   
+# погасить клиента
+make down
 ``` 
