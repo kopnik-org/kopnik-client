@@ -40,10 +40,10 @@ make test-full-up
 
 ```bash
 # собрать образ
-docker build -f .docker/staging/nodejs/Dockerfile -t kopnikorg/kopnik-client-staging:latest .
+npm run docker:build
 
 # выложить образ на DockerHub
-docker push kopnikorg/kopnik-client-staging:latest
+npm run docker:push
 ```
 
 ## Развернуть на сервере
