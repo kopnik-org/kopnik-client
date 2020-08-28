@@ -69,7 +69,7 @@
     </v-list-item>
     <v-list-item v-if="birthyear">
       <v-list-item-content>
-        <ValidationProvider name="birthyear" rules="required|numeric|length:4"
+        <ValidationProvider name="birthyear" rules="required|numeric|length:4|min_value:1900|max_value:2020"
                             v-slot="{ errors, valid }">
           <v-text-field
             v-model="value.birthyear"

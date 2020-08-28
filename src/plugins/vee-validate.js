@@ -1,4 +1,4 @@
-import { required, email, max , min, size, numeric, length, digits, } from "vee-validate/dist/rules";
+import {required, email, max, min, size, numeric, length, digits, min_value, max_value,} from "vee-validate/dist/rules";
 import { extend } from "vee-validate";
 
 import i18n from "./i18n"
@@ -9,6 +9,12 @@ extend("required", {
 
 extend("max", {
     ...max,
+});
+extend("min_value", {
+    ...min_value,
+});
+extend("max_value", {
+    ...max_value,
 });
 
 extend("email", {
