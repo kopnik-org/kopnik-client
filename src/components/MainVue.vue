@@ -136,7 +136,9 @@
             {{ value.kopa.isAdded(value.selected) ? $t('details.notToKopa') : $t('details.toKopa') }}
           </v-btn>
           <v-btn text :disabled="application.user===value.selected" class="flex"
-                 @click="foreman_click">
+                 @click="foreman_click"
+                 v-promise-btn
+          >
             {{
               application.user.foreman === value.selected ? $t('details.resetForeman') : application.user.foremanRequest === value.selected ? $t('details.cancelForemanRequest') : $t('details.toForeman')
             }}
@@ -352,7 +354,7 @@ export default {
               weight: weight,
               hardwareAccelerated: true,
               dashArray: [weight * 1.5, weight * 5],
-              paused: container.env!=='production'
+              paused: container.env !== 'production'
             }
           }
           return eachArrow

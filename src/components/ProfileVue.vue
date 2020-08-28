@@ -25,6 +25,7 @@
                         <v-btn id='submit' color="primary" block
                                :disabled="invalid || !isMessagesFromGroupAllowed || !request.location.lat"
                                @click="submit_click"
+                               v-promise-btn
                         >
                             {{$t('profile.submit')}}
                         </v-btn>

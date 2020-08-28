@@ -4,10 +4,14 @@
                 elevation="12" class="mb-10" width="100%" max-width="350px">
             <kopnik-view :value="eachRequest" locale fio birth-year passport role location readonly></kopnik-view>
             <v-card-actions>
-                <v-btn  color="success" @click="updateRequestStatus_click(eachRequest, Status.CONFIRMED)" class="flex-grow-1">
+                <v-btn  color="success" @click="updateRequestStatus_click(eachRequest, Status.CONFIRMED)" class="flex-grow-1"
+                        v-promise-btn
+                >
                     {{$t('witness.confirm')}}
                 </v-btn>
-                <v-btn color="error"  @click="updateRequestStatus_click(eachRequest, Status.DECLINED)" class="flex-grow-1">
+                <v-btn color="error"  @click="updateRequestStatus_click(eachRequest, Status.DECLINED)" class="flex-grow-1"
+                       v-promise-btn
+                >
                     {{$t('witness.decline')}}
                 </v-btn>
             </v-card-actions>
