@@ -10,34 +10,65 @@
                :title="value.foreman.name"
                class='k-badge-event-handler' color="red" :offset-x="(64/64)*7+14" :offset-y="(64/64)*7+14"
       >
-        <!--крестик-->
-        <div slot="badge" ref="remove"
+        <div slot="badge" ref="remove" id="ten_foreman"
              :title="$t('details.resetForeman')" style="cursor: pointer"
-             @click="resetForeman_click"
+             @click="resetForemanAsk_click"
         >
           x
         </div>
-        <!--аватарка-->
+        <!--аватарка старшины-->
         <AvatarVue :value="value.foreman"
                    :size="64" class="mb-2">
         </AvatarVue>
       </v-badge>
+
+      <!--      сбросить старшину-->
+      <v-dialog
+        v-model="resetForemanDialog"
+        :max-width="450"
+      >
+        <v-card>
+          <v-card-title>
+            <avatar-vue v-if="value.foreman" :value="value.foreman" :size="128" class="mr-7"></avatar-vue>
+            {{ $t('details.resetForemanQuestion') }}
+          </v-card-title>
+          <v-card-text>
+            {{ $t('definitions.foreman') }}
+          </v-card-text>
+          <v-card-actions>
+            <v-btn text color="primary" @click="resetForeman_click" class="flex-grow-1"
+                   v-promise-btn
+            >
+              {{ $t('dialog.yes') }}
+            </v-btn>
+            <v-btn text color="secondary" @click="resetForemanDialog=false" class="flex-grow-1"
+                   v-promise-btn
+            >
+              {{ $t('dialog.no') }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <!--      стрелка к старшине-->
       <v-icon v-if="value.foreman" :color="value.foreman?'red':'#CCC'" size="250"
               style="margin-top: -40px; margin-bottom: -80px">
         mdi-arrow-up-bold
       </v-icon>
+
       <!--      пользователь -->
       <AvatarVue :value="value"
                  :size="64" class="mb-2">
       </AvatarVue>
+
       <!--      стрелка к пользователю-->
       <v-icon :color="(value.subordinates && value.subordinates.length)?'blue':'#CCC'"
               :size="(((value.rank===1?2:value.rank)-1)/value.rank)*250"
               style="margin-top: -40px; margin-bottom: -80px">
         mdi-arrow-up-bold
       </v-icon>
-      <!--      десятка пользователя -->
+
+      <!--      подчиненные пользователя -->
       <div class="d-flex flex-wrap mt-2 justify-space-around">
         <template v-for="(eachSubordinate, eachSubordinateIndex) of extendedSubordinates">
           <v-badge v-if="eachSubordinate"
@@ -49,7 +80,7 @@
             <!--крестик-->
             <div slot="badge" ref="remove"
                  :title="$t('subordinates.removeFromSubordinates')" style="cursor: pointer"
-                 @click="removeFromSubordinates_click(eachSubordinate)"
+                 @click="removeFromSubordinatesAsk_click(eachSubordinate)"
             >
               x
             </div>
@@ -64,10 +95,37 @@
           </v-avatar>
         </template>
       </div>
+
+      <!--      исключить из подчиненных-->
+      <v-dialog
+        v-model="removeFromSubordinatesDialog"
+        :max-width="450"
+      >
+        <v-card>
+          <v-card-title>
+            <avatar-vue v-if="removeFromSubordinatesCandidate" :value="removeFromSubordinatesCandidate" :size="128" class="mr-7"></avatar-vue>
+            {{ $t('subordinates.removeFromSubordinatesQuestion') }}
+          </v-card-title>
+          <v-card-text>
+            {{ $t('definitions.subordinate') }}
+          </v-card-text>
+          <v-card-actions>
+            <v-btn text color="primary" @click="removeFromSubordinates_click" class="flex-grow-1"
+                   v-promise-btn
+            >
+              {{ $t('dialog.yes') }}
+            </v-btn>
+            <v-btn text color="secondary" @click="removeFromSubordinatesDialog=false" class="flex-grow-1"
+                   v-promise-btn
+            >
+              {{ $t('dialog.no') }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-card>
-<!--    <div class="text-h5" style="max-width: 350px">
-      Заявки на вступление в десятку
-    </div>-->
+
+<!--    заявки в десятку-->
     <template v-if="value.foremanRequests && value.foremanRequests.length">
 
       <transition-group
@@ -75,6 +133,8 @@
         style="width: 100%; max-width:350px; position: relative;">
         <v-card ref="foremanRequests" v-for="eachRequest in value.foremanRequests" :key="eachRequest.id"
                 elevation="12" class="mb-10 list-complete-item" style="width: 100%;">
+          <v-card-title>Заявка на вступление в десятку</v-card-title>
+          <v-divider></v-divider>
           <kopnik-view :value="eachRequest" location birthyear role readonly></kopnik-view>
           <v-divider></v-divider>
           <v-card-actions>
@@ -119,6 +179,9 @@ export default {
   },
   data: () => {
     return {
+      resetForemanDialog: false,
+      removeFromSubordinatesDialog: false,
+      removeFromSubordinatesCandidate: false,
       application: container.application,
     }
   },
@@ -146,17 +209,34 @@ export default {
       await container.application.user.declineForemanRequest(request)
       container.application.infos.push(container.application.getMessage('subordinates.declineForemanRequestInfo'))
     },
+    // спросить удалить подчиненного из десятки
+    async removeFromSubordinatesAsk_click(user) {
+      this.removeFromSubordinatesCandidate= user
+      this.removeFromSubordinatesDialog=true
+    },
     // удалить подчиненного из десятки
-    async removeFromSubordinates_click(user) {
-      await container.application.user.removeFromSubordinates(user)
-      container.application.infos.push(container.application.getMessage('subordinates.removeFromSubordinatesInfo'))
+    async removeFromSubordinates_click() {
+      try {
+        await container.application.user.removeFromSubordinates(this.removeFromSubordinatesCandidate)
+        container.application.infos.push(container.application.getMessage('subordinates.removeFromSubordinatesInfo'))
+      }
+      finally {
+        this.removeFromSubordinatesDialog=false
+      }
+    },
+    // спросить удалить старшину
+    async resetForemanAsk_click() {
+        this.resetForemanDialog = true
     },
     // удалить старшину
     async resetForeman_click() {
-      await container.application.user.resetForeman()
-      container.application.infos.push(container.application.getMessage('details.resetForemanInfo'))
+      try {
+        await container.application.user.resetForeman()
+        container.application.infos.push(container.application.getMessage('details.resetForemanInfo'))
+      } finally {
+        this.resetForemanDialog = false
+      }
     },
-
   },
   async created() {
     await this.value.reloadSubordinates()

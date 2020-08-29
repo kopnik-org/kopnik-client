@@ -249,4 +249,8 @@ export default {
 li.criteria {
   list-style-type: none;
 }
+
+.v-input legend.v-label {
+  height: auto;
+}
 </style>

@@ -128,21 +128,60 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-card-actions class="flex-nowrap">
+        <v-card-actions
+          v-if="value.selected"
+          class="flex-nowrap"
+        >
           <v-btn text :disabled="application.user===value.selected" class="flex" @click="talk_click">
             {{ $t('details.toChat') }}
           </v-btn>
           <v-btn text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
             {{ value.kopa.isAdded(value.selected) ? $t('details.notToKopa') : $t('details.toKopa') }}
           </v-btn>
-          <v-btn text :disabled="application.user===value.selected" class="flex"
-                 @click="foreman_click"
-                 v-promise-btn
+          <!--         диалоги старшин-->
+          <v-dialog
+
+            v-model="putForemanRequestDialog"
+            :max-width="450"
           >
-            {{
-              application.user.foreman === value.selected ? $t('details.resetForeman') : application.user.foremanRequest === value.selected ? $t('details.cancelForemanRequest') : $t('details.toForeman')
-            }}
-          </v-btn>
+            <!--         кнопка-активатор-->
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn text :disabled="application.user===value.selected" class="flex"
+                     v-bind="attrs"
+                     v-on="on"
+                     v-promise-btn
+              >
+                {{
+                  application.user.foreman === value.selected ? $t('details.resetForeman') : application.user.foremanRequest === value.selected ? $t('details.cancelForemanRequest') : $t('details.toForeman')
+                }}
+              </v-btn>
+            </template>
+
+            <!--         Больше не старшина -->
+            <v-card>
+              <v-card-title>
+                <avatar-vue :value="value.selected" :size="128" class="mr-7"></avatar-vue>
+                {{
+                  application.user.foreman === value.selected ? $t('details.resetForemanQuestion') : application.user.foremanRequest === value.selected ? $t('details.cancelForemanRequestQuestion') : $t('details.toForemanQuestion')
+                }}
+              </v-card-title>
+              <v-card-text>
+                {{ $t('definitions.foreman') }}
+              </v-card-text>
+              <v-card-actions>
+                <v-btn text color="primary" @click="foreman_click" class="flex-grow-1"
+                       v-promise-btn
+                >
+                  {{ $t('dialog.yes') }}
+                </v-btn>
+                <v-btn text color="secondary" @click="putForemanRequestDialog=false" class="flex-grow-1"
+                       v-promise-btn
+                >
+                  {{ $t('dialog.no') }}
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-card-actions>
       </v-card>
     </v-bottom-sheet>
@@ -170,6 +209,7 @@ import AvatarVue from "./AvatarVue";
 import Main from "../application/Main";
 import Vue2AntPath from "@/components/Vue2AntPath";
 import isTouchDevice from "@/components/isTouchDevice";
+import KopnikVue from "@/components/KopnikVue";
 
 
 // На 18-ом увеличении
@@ -216,6 +256,7 @@ const
 export default {
   mixins: [touchDetector, logger],
   components: {
+    KopnikVue,
     Vue2AntPath,
     LCircle,
     AvatarVue,
@@ -230,6 +271,7 @@ export default {
   },
   data() {
     return {
+      putForemanRequestDialog: false,
       antPath: false, // !isTouchDevice(),
       icon: L.icon({
         iconUrl: 'https://sun9-56.userapi.com/c639321/v639321874/53f61/8HqRXdrg-BM.jpg?ava=1',
@@ -397,27 +439,31 @@ export default {
      * или выйти из подчинения старшины
      */
     async foreman_click() {
-      const application = container.application
-      const user = application.user
+      try {
+        const application = container.application
+        const user = application.user
 
-      if (await this.application.forwardUserToBeConfirmed()) {
-        return
-      }
+        if (await this.application.forwardUserToBeConfirmed()) {
+          return
+        }
 
-      // снять старшину
-      if (user.foreman === this.value.selected) {
-        await user.resetForeman()
-        application.infos.push(application.getMessage("details.resetForemanInfo"))
-      }
-      // отменить заявку
-      else if (user.foremanRequest === this.value.selected) {
-        await user.putForemanRequest(null)
-        application.infos.push(application.getMessage("details.cancelForemanRequestInfo"))
-      }
-      // оставить заявку
-      else {
-        await user.putForemanRequest(this.value.selected)
-        application.infos.push(application.getMessage("details.toForemanInfo"))
+        // снять старшину
+        if (user.foreman === this.value.selected) {
+          await user.resetForeman()
+          application.infos.push(application.getMessage("details.resetForemanInfo"))
+        }
+        // отменить заявку
+        else if (user.foremanRequest === this.value.selected) {
+          await user.putForemanRequest(null)
+          application.infos.push(application.getMessage("details.cancelForemanRequestInfo"))
+        }
+        // оставить заявку
+        else {
+          await user.putForemanRequest(this.value.selected)
+          application.infos.push(application.getMessage("details.toForemanInfo"))
+        }
+      } finally {
+        this.putForemanRequestDialog = false
       }
     },
     /**
