@@ -1,23 +1,53 @@
 import {container} from '../bottle/bottle'
-import handlers from './handlers'
-import getData from "./data";
+import api from "@/api";
+
+/**
+ * @typedef {string|RegExp|Function} Matcher
+ */
+
+/**
+ * @callback Handler
+ * @param {string} url
+ * @param {object} options
+ */
+/**
+ * @callback Mockk
+ * @param {Matcher} matcher
+ * @param {Handler} handler
+ */
+/**
+ * @type {{matcher:Matcher, handler: Handler}[]}
+ */
+const mocks = []
 
 async function mapi(url, options = {}) {
-    options.method = (options.method || 'get').toLowerCase()
-    if (options.body){
-        JSON.stringify(options.body)
+  // нахожу мок обработчик
+  const mock = mocks.find(({matcher, handler}) => {
+    if (typeof matcher === 'function') {
+      return matcher(url, options)
+    } else if (typeof matcher === 'string') {
+      return url.includes(matcher)
+    } else if (matcher && matcher instanceof RegExp) {
+      return url.match(matcher)
     }
-    const user = container.cookieService.cookie || 'anonymous',
-        key = `system api ${options.method} ${user} ${url} 1`
-    // console.log('cookie', container.cookieService.cookie)
+  })
 
+  let result
+  if (mock) {
+    result = await mock.handler(url, options)
+  } else {
+    result = await api(url, options)
+  }
+  return result
+}
 
-    for (let [eachPattern, eachHandler] of handlers) {
-        if (url.match(eachPattern)) {
-            return eachHandler(url, options, user, key, options.method)
-        }
-    }
+/**
+ *
+ * @param {Matcher} matcher
+ * @param {Handler} handler
+ */
+mapi.mock = function (matcher, handler) {
+  mocks.unshift({matcher, handler})
 }
 
 export default mapi
-export {getData}
