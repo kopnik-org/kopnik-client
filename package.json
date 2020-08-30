@@ -50,8 +50,8 @@
     "eslint-plugin-vue": "^5.0.0",
     "flush-promises": "^1.0.2",
     "husky": "^4.2.5",
-    "isomorphic-fetch": "^2.2.1",
     "jest": "^26.1.0",
+    "jest-fetch-mock": "^3.0.3",
     "jest-mock": "^25.5.0",
     "jest-serializer-vue": "^2.0.2",
     "jest-snapshot": "^24.9.0",
@@ -97,9 +97,10 @@
     "doc/view"
   ],
   "jest": {
+    "automock": false,
     "preset": "@vue/cli-plugin-unit-jest",
     "transformIgnorePatterns": [
-      "/node_modules/(?!vee-validate/dist/rules|vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol|vue2-leaflet-geosearch)"
+      "/node_modules/(?!vee-validate/dist/rules|vue2-leaflet-locatecontrol/Vue2LeafletLocatecontrol|vue2-leaflet-geosearch|vue-promise-btn/dist)"
     ],
     "testMatch": [
       "<rootDir>/src/**/*.spec.js"

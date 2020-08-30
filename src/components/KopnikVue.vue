@@ -223,9 +223,14 @@ export default {
       }
       // console.log(event.target.getCenter())
     },
+    /**
+     * Здесь локаль не сохраняется на сервере, потому что этот компонент может отображать любого постороннего копника,
+     * а api/users/setLocale() работает только для текущего пользователя
+     * @param event
+     */
     locale_change(event) {
       this.value.locale = event
-      this.$emit('locale_change', event)
+      this.$emit('locale_change',  event)
     },
     role_click(value) {
       this.value.role = value

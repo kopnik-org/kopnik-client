@@ -115,7 +115,7 @@
     </kopa-invite>
 
     <!--детали копник внизу-->
-    <v-bottom-sheet v-if="application.user" :value="value.selected" :attach="$refs.main"
+    <v-bottom-sheet v-if="application.user" ref="details" :value="value.selected" :attach="$refs.main"
                     persistent hide-overlay no-click-animation :retain-focus="false" :inset="true"
     >
       <v-card class="text-center" height="150px">
@@ -132,21 +132,21 @@
           v-if="value.selected"
           class="flex-nowrap"
         >
-          <v-btn text :disabled="application.user===value.selected" class="flex" @click="talk_click">
+          <v-btn ref="talk" text :disabled="application.user===value.selected" class="flex" @click="talk_click">
             {{ $t('details.toChat') }}
           </v-btn>
-          <v-btn text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
+          <v-btn ref="toggle" text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
             {{ value.kopa.isAdded(value.selected) ? $t('details.notToKopa') : $t('details.toKopa') }}
           </v-btn>
           <!--         диалоги старшин-->
-          <v-dialog
+          <v-dialog ref="foremanDialog"
 
             v-model="putForemanRequestDialog"
             :max-width="450"
           >
             <!--         кнопка-активатор-->
             <template v-slot:activator="{ on, attrs }">
-              <v-btn text :disabled="application.user===value.selected" class="flex"
+              <v-btn ref="foremanAsk" text :disabled="application.user===value.selected" class="flex"
                      v-bind="attrs"
                      v-on="on"
                      v-promise-btn
@@ -169,12 +169,12 @@
                 {{ $t('definitions.foreman') }}
               </v-card-text>
               <v-card-actions>
-                <v-btn text color="primary" @click="foreman_click" class="flex-grow-1"
+                <v-btn ref="foremanConfirm" text color="primary" @click="foreman_click" class="flex-grow-1"
                        v-promise-btn
                 >
                   {{ $t('dialog.yes') }}
                 </v-btn>
-                <v-btn text color="secondary" @click="putForemanRequestDialog=false" class="flex-grow-1"
+                <v-btn ref="foremanDecline" text color="secondary" @click="putForemanRequestDialog=false" class="flex-grow-1"
                        v-promise-btn
                 >
                   {{ $t('dialog.no') }}
@@ -406,7 +406,7 @@ export default {
   },
   watch: {
     'application.user': async function (current) {
-      if (current && current.status !== Kopnik.Status.NEW) {
+      if (current && this.value.map.bounds) {
         await this.value.loadTop20(getMaxKopnikRank(this.value.map.zoom))
       }
     },

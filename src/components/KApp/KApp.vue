@@ -10,7 +10,7 @@
             <LoginVue v-if="!application.user && application.section!=='Thanks'"></LoginVue>
             <!--            <keep-alive :exclude="[Main]">-->
             <!--                <transition :name="contentTransitionName">-->
-            <component class="k-content" v-bind:is="application.section+'Vue'" :value="application.user"></component>
+            <component ref="section" class="k-content" v-bind:is="application.section+'Vue'" :value="application.user"></component>
             <!--                </transition>-->
             <!--            </keep-alive>-->
         </v-main>

@@ -75,6 +75,8 @@
                 await this.application.setSection(container.application.constructor.Section.Main)
             },
             /**
+             * Здесь локаль сохраняется потому что этот компонент отображает только текущего пользователя,
+             * который может вызвать api/users/setLocale()
              *
              * @param {Locale} event
              * @returns {Promise<void>}

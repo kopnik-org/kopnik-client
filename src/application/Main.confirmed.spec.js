@@ -1,8 +1,8 @@
 import {bottle, container} from "../bottle/bottle";
 import {AbstractSync, Kopnik} from "../models";
 import {LatLng, LatLngBounds} from "leaflet";
-import flushPromises from "flush-promises/index";
 import fetchMock from "jest-fetch-mock";
+import flushPromises from "flush-promises/index";
 
 
 describe('application Main api confirmed', () => {
@@ -20,28 +20,20 @@ describe('application Main api confirmed', () => {
       },
       'user'
     )
-    fetch.resetMocks()
-    // fetch.mockIfExx(/ids=$/, [user.plain])
-    // fetch.mockIfExx(/idsssss$/, [user.plain])
-    fetchMock.mockIf(/ids=$/, async ()=>{
-      return JSON.stringify([user.plain])
-    })
-    fetchMock.mockIf(/getTopInsideSquare/, async ()=>{
-      return JSON.stringify([user.plain])
-    })
-    // fetch.mockIfExx( /getTopInsideSquare/, [user.plain])
-    await application.authenticate()
+    application.user= user
+    fetch.mockIfEx(/ids=$/, [user.plain])
+    fetch.mockIfEx( /getTopInsideSquare/, [user.plain])
     await flushPromises()
   })
 
-  it('loadTop20 cancel', async () => {
-    let canceledTop20
+  // вернуть когда AbortController заработает в Jest
+  it('loadTop20 CancelSignal', async () => {
+    let canceledTop20=43234
 
-    main.top20=[]
+    main.map.bounds= new LatLngBounds(new LatLng(0,0), new LatLng(1,1))
+    // expect.assertions(1);
     main.loadTop20()
-      .then(response=>{
-        canceledTop20= JSON.parse(JSON.stringify(main.top20))
-      })
+      .then(response=>canceledTop20= JSON.parse(JSON.stringify(main.top20)))
     await main.loadTop20()
     expect(canceledTop20).toEqual([])
     expect(main.top20).toEqual([user])

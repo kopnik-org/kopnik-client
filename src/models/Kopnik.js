@@ -64,7 +64,7 @@ export default class Kopnik extends AbstractSync {
    * Create user in test DB
    * for test purposes only
    *
-   * @param {{status:string?, role: string?, foreman_id: number?, foremanRequest_id: number?, witness_id:number?}?} fields
+   * @param {{id: number?, isLoaded:boolean?, status:number?, role: string?, foreman_id: number?, foremanRequest_id: number?, witness_id:number?}?} fields
    * @param {string|Date|number?} prefix
    *
    * @returns {Promise<Kopnik>}
@@ -97,10 +97,15 @@ export default class Kopnik extends AbstractSync {
       access_token: 'access_token' + uniq,
     }, fields)
 
-    realFields.id = await container.api('test/createUser', {
-      method: 'POST',
-      body: realFields,
-    })
+    if (!fields || !fields.isLoaded) {
+      realFields.id = await container.api('test/createUser', {
+        method: 'POST',
+        body: realFields,
+      })
+    }
+    else if (!realFields.id){
+      realFields.id= new Date().getTime()
+    }
     const result = Kopnik.merge(realFields, true)
     return result
   }

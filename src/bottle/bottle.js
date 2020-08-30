@@ -40,9 +40,9 @@ bottle.service('localeManager', function localeManager() {
 })
 bottle.service('cookieService', CookieService, 'constants')
 bottle.factory('api', function apiFactory(container) {
-  if (!container.constants.di.fetch) {
-    throw new Error('not supported')
-  }
+  // if (!container.constants.di.fetch) {
+    // return mapi
+  // }
   return api
 })
 bottle.factory('VK', function vkFactory(container) {
@@ -70,11 +70,10 @@ bottle.service('application', Application, 'logger')
  */
 /**
  * @type {Object}
- *
  * @property {loglevel} logger
  * @property {Application} application
  * @property {Location} Location
- * @property {fetch} api
+ * @property {Function} api
  * @property {MK.class} VK
  * @property {CookieService} cookieService
  * @property {Object} constants
