@@ -117,7 +117,7 @@ describe('components KMain confirmed details', () => {
     expect(wrapper.vm.$refs.foremanDialog.$data.isActive).toBeFalsy()
   })
 
-  it.only('reset foreman', async () => {
+  it('reset foreman', async () => {
     user.foreman = main.selected = other
     await flushPromises()
 
