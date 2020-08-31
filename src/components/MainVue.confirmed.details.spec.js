@@ -65,7 +65,7 @@ describe('components KMain confirmed details', () => {
     expect(wrapper.vm.$refs.details.$data.isActive).toBeTruthy()
   })
 
-  it.only('put foreman request', async () => {
+  it('put foreman request', async () => {
     main.selected = other
     await flushPromises()
 
@@ -73,7 +73,7 @@ describe('components KMain confirmed details', () => {
     wrapper.findComponent({ref: 'foremanAsk'}).trigger('click')
     await flushPromises()
 
-    // проверяю что открылся диалог выбора старшины
+    // проверяю что открылся диалог старшины
     expect(wrapper.vm.$refs.foremanDialog.$data.isActive).toBeTruthy()
     // expect(wrapper.vm.$refs.foremanDialog.$el.textContent).toContain(messages.ru.details.toForemanQuestion)
     expect(appWrapper.html()).toContain(messages.ru.details.toForemanQuestion)
@@ -87,6 +87,58 @@ describe('components KMain confirmed details', () => {
     expect(user.foremanRequest).toBe(other)
 
     expect(appWrapper.html()).toContain(messages.ru.details.toForemanInfo)
+
+    expect(wrapper.vm.$refs.foremanDialog.$data.isActive).toBeFalsy()
+  })
+
+  it('reset foreman request', async () => {
+    user.foremanRequest = main.selected = other
+    await flushPromises()
+
+    // нажимаю на правую нижнюю кнопку
+    wrapper.findComponent({ref: 'foremanAsk'}).trigger('click')
+    await flushPromises()
+
+    // проверяю что открылся диалог старшины
+    expect(wrapper.vm.$refs.foremanDialog.$data.isActive).toBeTruthy()
+    // expect(wrapper.vm.$refs.foremanDialog.$el.textContent).toContain(messages.ru.details.toForemanQuestion)
+    expect(appWrapper.html()).toContain(messages.ru.details.cancelForemanRequestQuestion)
+
+    // нажимаю подтвердить
+    fetch.mockIfEx(/putForemanRequest/, 'OK')
+    wrapper.findComponent({ref: 'foremanConfirm'}).trigger('click')
+    await flushPromises()
+
+    // проверяю что заявка обработалась, сообщение отобразилось и диалог скрылся
+    expect(user.foremanRequest).toBeNull()
+
+    expect(appWrapper.html()).toContain(messages.ru.details.cancelForemanRequestInfo)
+
+    expect(wrapper.vm.$refs.foremanDialog.$data.isActive).toBeFalsy()
+  })
+
+  it.only('reset foreman', async () => {
+    user.foreman = main.selected = other
+    await flushPromises()
+
+    // нажимаю на правую нижнюю кнопку
+    wrapper.findComponent({ref: 'foremanAsk'}).trigger('click')
+    await flushPromises()
+
+    // проверяю что открылся диалог старшины
+    expect(wrapper.vm.$refs.foremanDialog.$data.isActive).toBeTruthy()
+    // expect(wrapper.vm.$refs.foremanDialog.$el.textContent).toContain(messages.ru.details.toForemanQuestion)
+    expect(appWrapper.html()).toContain(messages.ru.details.resetForemanQuestion)
+
+    // нажимаю подтвердить
+    fetch.mockIfEx(/resetForeman/, 'OK')
+    wrapper.findComponent({ref: 'foremanConfirm'}).trigger('click')
+    await flushPromises()
+
+    // проверяю что заявка обработалась, сообщение отобразилось и диалог скрылся
+    expect(user.foreman).toBeNull()
+
+    expect(appWrapper.html()).toContain(messages.ru.details.resetForemanInfo)
 
     expect(wrapper.vm.$refs.foremanDialog.$data.isActive).toBeFalsy()
   })
