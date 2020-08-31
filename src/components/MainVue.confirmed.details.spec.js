@@ -57,6 +57,9 @@ describe('components KMain confirmed details', () => {
     await flushPromises()
     wrapper = appWrapper.findComponent({ref: 'section'})
   })
+  afterEach(()=>{
+    appWrapper.destroy()
+  })
 
   it('show on select', async () => {
     main.selected = other
