@@ -34,7 +34,7 @@
     import Application from "../application/Application";
     import {Kopnik} from '../models'
     import flushPromises from "flush-promises";
-    import TenVue from './KSubordinates'
+    import TenVue from './KTen'
     import touchDetector from "./mixin/touch-detecter";
 
     export default {

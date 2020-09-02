@@ -1,12 +1,9 @@
 import flushPromises from "flush-promises";
-import Vue from "vue";
 
 import {AbstractSync, Kopnik} from "../models";
 import vuePlugins from "../../tests/test-setup";
 import {bottle, container} from "../bottle/bottle";
 import {mount} from "@vue/test-utils";
-import waitForExpect from "wait-for-expect";
-import KSubordinates from "./KTen";
 import KApp from "@/components/KApp/KApp";
 import Application from "@/application/Application";
 import messages from "@/locales";
@@ -14,7 +11,7 @@ import messages from "@/locales";
 // real fetch
 container.constants.di.fetch = true
 
-describe('components KSubordinates', () => {
+describe('components KTen', () => {
   let /** @type {Application} */ application,
     /** @typeof {Application.sections.main} */ ten,
     /** @type {Kopnik} */ user,
@@ -54,13 +51,13 @@ describe('components KSubordinates', () => {
       'requester'
     )
     application = container.application
-    application.section= Application.Section.Ten
+    application.section = Application.Section.Ten
     application.user = user
 
     fetch.resetMocks()
-    fetch.mockIfEx(/get.ids=/, async (req)=>{
-      const id= Number.parseInt(req.url.match(/(-?\d+)$/)[1])
-      const kopnik= await Kopnik.get(id)
+    fetch.mockIfEx(/get.ids=/, async (req) => {
+      const id = Number.parseInt(req.url.match(/(-?\d+)$/)[1])
+      const kopnik = await Kopnik.get(id)
       return [kopnik.plain]
     })
     fetch.mockIfEx(/getSubordinates/, [subordinate.plain])
@@ -79,7 +76,7 @@ describe('components KSubordinates', () => {
     await flushPromises()
     wrapper = appWrapper.findComponent({ref: 'section'})
   })
-  afterEach(()=>{
+  afterEach(() => {
     appWrapper.destroy()
   })
 
@@ -103,7 +100,7 @@ describe('components KSubordinates', () => {
 
   it('reset foreman', async () => {
     // нажимаю на крестик
-    wrapper.findComponent({ref:'resetForemanAsk'}).trigger('click')
+    wrapper.findComponent({ref: 'resetForemanAsk'}).trigger('click')
     await flushPromises()
 
     // проверяю что открылся диалог снять старшину
@@ -123,7 +120,7 @@ describe('components KSubordinates', () => {
 
   it('remove from subordinates', async () => {
     // нажимаю на крестик
-    wrapper.findComponent({ref:'removeFromSubordinatesAsk'}).trigger('click')
+    wrapper.findComponent({ref: 'removeFromSubordinatesAsk'}).trigger('click')
     await flushPromises()
 
     // проверяю что открылся диалог исключить из подчиненных
@@ -144,7 +141,7 @@ describe('components KSubordinates', () => {
   it('confirm foreman request', async () => {
     // нажимаю на ПРИНяТЬ
     fetch.mockIfEx(/confirmForemanRequest/, 'OK')
-    wrapper.findAllComponents({ref:'confirmForemanRequest'}).wrappers[0].trigger('click')
+    wrapper.findAllComponents({ref: 'confirmForemanRequest'}).wrappers[0].trigger('click')
     await flushPromises()
 
     // проверяю что заявка обработалась, сообщение отобразилось и диалог скрылся
@@ -156,7 +153,7 @@ describe('components KSubordinates', () => {
   it('decline foreman request', async () => {
     // нажимаю на ПРИНяТЬ
     fetch.mockIfEx(/declineForemanRequest/, 'OK')
-    wrapper.findAllComponents({ref:'declineForemanRequest'}).wrappers[0].trigger('click')
+    wrapper.findAllComponents({ref: 'declineForemanRequest'}).wrappers[0].trigger('click')
     await flushPromises()
 
     // проверяю что заявка обработалась, сообщение отобразилось и диалог скрылся

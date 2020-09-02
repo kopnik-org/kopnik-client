@@ -6,7 +6,7 @@ import vuePlugins from "../../tests/test-setup";
 import {container} from "../bottle/bottle";
 import {AbstractSync, Kopnik} from "../models";
 import WitnessVue from "./WitnessVue";
-import KSubordinates from "./KSubordinates";
+import KSubordinates from "./KTen";
 import waitForExpect from "wait-for-expect";
 
 

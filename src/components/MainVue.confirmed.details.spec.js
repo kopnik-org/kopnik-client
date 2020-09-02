@@ -130,7 +130,6 @@ describe('components KMain confirmed details', () => {
     // проверяю что открылся диалог старшины
     expect(wrapper.vm.$refs.foremanDialog.$data.isActive).toBeTruthy()
     expect(appWrapper.html()).toContain(messages.ru.details.resetForemanQuestion)
-    // })
 
     // нажимаю подтвердить
     fetch.mockIfEx(/resetForeman/, 'OK')
