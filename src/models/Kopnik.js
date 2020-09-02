@@ -6,6 +6,9 @@ import {container} from "../bottle/bottle";
 import api from "../api";
 import once from '../decorators/once'
 
+
+let TEST_ID = -1
+
 export default class Kopnik extends AbstractSync {
   @scalar uid = undefined
 
@@ -102,9 +105,8 @@ export default class Kopnik extends AbstractSync {
         method: 'POST',
         body: realFields,
       })
-    }
-    else if (!realFields.id){
-      realFields.id= new Date().getTime()
+    } else if (!realFields.id) {
+      realFields.id = TEST_ID--
     }
     const result = Kopnik.merge(realFields, true)
     return result
