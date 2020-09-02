@@ -69,15 +69,15 @@ export default class AbstractSync {
     }
 
     for (let eachScalarName of this.constructor.scalars.concat("id")) {
-      result[eachScalarName] = this[eachScalarName] === undefined ? null : this[eachScalarName]
+      result[eachScalarName] = this[eachScalarName]
     }
     for (let eachObjectName of this.constructor.objects) {
-      result[eachObjectName + "_id"] = (this[eachObjectName] instanceof AbstractSync) ? this[eachObjectName].id : null
+      result[eachObjectName + "_id"] = (this[eachObjectName] instanceof AbstractSync) ? this[eachObjectName].id : this[eachObjectName]
     }
     for (let eachCollectionName of this.constructor.collections) {
       result[eachCollectionName] = (this[eachCollectionName] instanceof Array) ? this[eachCollectionName].map(eachItem => {
         return eachItem.id
-      }) : null
+      }) : this[eachCollectionName]
     }
     return result;
   }
@@ -239,13 +239,13 @@ export default class AbstractSync {
       this.isLoaded = plain.isLoaded
     }
     for (let eachScalarName of this.constructor.scalars.concat("id")) {
-      if (plain[eachScalarName] !== undefined) {
+      if (plain.hasOwnProperty(eachScalarName)) {
         this[eachScalarName] = plain[eachScalarName]
       }
     }
     for (let eachObjectName of this.constructor.objects) {
-      if (plain[eachObjectName + "_id"] !== undefined) {
-        this[eachObjectName] = plain[eachObjectName + "_id"] === null ? null : models.Kopnik.getReference(plain[eachObjectName + "_id"])
+      if (plain.hasOwnProperty(eachObjectName + "_id")) {
+        this[eachObjectName] = plain[eachObjectName + "_id"] ? models.Kopnik.getReference(plain[eachObjectName + "_id"]) : plain[eachObjectName + "_id"]
       }
     }
   }

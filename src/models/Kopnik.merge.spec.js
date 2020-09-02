@@ -12,7 +12,7 @@ describe('models Kopnik', () => {
         Kopnik.clearCache()
     })
     describe('merge', () => {
-        it('merge locale', async () => {
+        it.only('merge locale', async () => {
             main.merge({locale: 'ru', rank: 2})
             expect(main.locale).toBeInstanceOf(Locale)
         })

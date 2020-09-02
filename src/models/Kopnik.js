@@ -165,14 +165,8 @@ export default class Kopnik extends AbstractSync {
 
   merge(what) {
     super.merge(what)
-    if (!this.rank) {
-      this.rank = 1
-    }
     if (what.locale !== undefined) {
       this.locale = (what.locale instanceof Locale) ? what.locale : container.localeManager.getLocaleByShortName(what.locale)
-    }
-    if (this.location instanceof Array) {
-      // result.location={lat: result.location[0], lng: result.location[1]}
     }
   }
 
