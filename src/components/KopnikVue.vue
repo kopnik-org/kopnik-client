@@ -31,6 +31,7 @@
       <v-list-item-content>
         <ValidationProvider name="firstName" rules="required" v-slot="{ errors, valid }">
           <v-text-field
+            ref="firstName"
             v-model="value.firstName"
             :label="$t('profile.firstName')"
             :error-messages="errors"

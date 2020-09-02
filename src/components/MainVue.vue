@@ -535,8 +535,10 @@ export default {
   },
   async mounted() {
     await this.$nextTick()
-    this.lmap = this.$refs.map.$refs.map.mapObject
-    await this.application.resolveUser()
+    if (this.$refs.map.$refs.map) {
+      this.lmap = this.$refs.map.$refs.map.mapObject
+      await this.application.resolveUser()
+    }
 
     console.log("Коэффициент недонаполненности сети К", K)
   }
