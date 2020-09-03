@@ -46,7 +46,7 @@ describe('components AppVue', () => {
                     await wrapper.vm.$router.push({name: Application.Section.Profile})
                     throw new Error('should not be hire')
                 } catch (err) {
-                    expect(err.type).toBe(1)
+                    expect(err.type).toBe(2)
                 }
                 expect(application.section).toBe(Application.Section.Main)
                 expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Main)
@@ -58,7 +58,7 @@ describe('components AppVue', () => {
                     await wrapper.vm.$router.push({name: Application.Section.Witness})
                     throw new Error('should not be hire')
                 } catch (err) {
-                    expect(err.type).toBe(1)
+                    expect(err.type).toBe(2)
                 }
                 expect(application.section).toBe(Application.Section.Main)
                 expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Main)

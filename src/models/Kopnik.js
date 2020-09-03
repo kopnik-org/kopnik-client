@@ -95,6 +95,7 @@ export default class Kopnik extends AbstractSync {
       status: Kopnik.Status.CONFIRMED,
       locale: container.localeManager.currentLocale.name,
       role: Kopnik.Role.Kopnik,
+      rank: 1,
       identifier: uniq,
       email: uniq + '@kopnik.ru',
       access_token: 'access_token' + uniq,

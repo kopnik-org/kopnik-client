@@ -4,7 +4,7 @@ import {mount} from '@vue/test-utils'
 import vuePlugins from "../../tests/test-setup";
 import {bottle, container} from "../bottle/bottle";
 import {AbstractSync, Kopnik} from "../models";
-import ProfileVue from "./ProfileVue";
+import ProfileVue from "./KProfile";
 import Application from "../application/Application";
 import KopnikVue from "./KopnikVue";
 import Vue from 'vue'

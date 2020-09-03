@@ -20,20 +20,20 @@
 <script>
     import Vue from 'vue'
 
-    import LoginVue from '../LoginVue'
-    import MainVue from '../MainVue'
+    import LoginVue from '../KLogin'
+    import MainVue from '../KMain'
     import ThanksVue from '../KThanks'
-    import ProfileVue from "../ProfileVue";
-    import WitnessVue from "../WitnessVue";
+    import ProfileVue from "../KProfile";
+    import WitnessVue from "../KWitness";
     import {container} from "../../bottle/bottle";
-    import DrawerVue from "../DrawerVue";
+    import DrawerVue from "../KDrawer";
     import logger from '../mixin/logger'
     import Application from "../../application/Application";
     import {Kopnik} from '../../models'
     import flushPromises from "flush-promises";
     import TenVue from '../KTen'
     import touchDetector from "../mixin/touch-detecter";
-    import AlertVue from "../AlertVue";
+    import AlertVue from "../KAlert";
     import {localize} from "vee-validate";
 
     export default {

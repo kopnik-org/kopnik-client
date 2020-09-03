@@ -4,7 +4,7 @@ import {mount} from '@vue/test-utils'
 import vuePlugins, {routerFactory} from "../../tests/test-setup";
 import {bottle, container} from "../bottle/bottle";
 import {AbstractSync, Kopnik} from "../models";
-import DrawerVue from "./DrawerVue";
+import DrawerVue from "./KDrawer";
 import waitForExpect from "wait-for-expect";
 
 // real fetch
