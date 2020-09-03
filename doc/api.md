@@ -44,6 +44,26 @@ __Ответ__
 
 Часть полей передаются только для своего копника и заверителя: ```passport```, ```locale```, ```witness_id```, ```witnessChatInviteLink```, ```foremanRequest_id```
 
+## GET api/users/getEx
+
+Получить расширенное состояние (вместе с загруженными коллекциями) текущего пользователя.
+
+__Параметры__
+ 
+__Ответ__
+```json
+{
+    "response": {
+        "id": 210700286,
+        "lastName": "...",
+        "...": "все поля из api/users/get ",
+
+        "subordinates": ["ответ из api/users/getSubordinates"]
+        "foremanRequests": ["ответ из api/users/getForemanRequests"]
+    }
+ }
+ ```
+
 ## GET api/users/getTopInsideSquare(x1, y1, x2, y2, count, maxRank)
 Получить ```count``` самых старших пользователей в заданном квадрате в порядке убывания ранга (только заверенные пользователи)
 
