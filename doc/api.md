@@ -58,7 +58,7 @@ __Ответ__
         "lastName": "...",
         "...": "все поля из api/users/get ",
 
-        "subordinates": ["ответ из api/users/getSubordinates"]
+        "subordinates": ["ответ из api/users/getSubordinates"],
         "foremanRequests": ["ответ из api/users/getForemanRequests"]
     }
  }
