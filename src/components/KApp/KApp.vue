@@ -1,16 +1,16 @@
 <template>
     <v-app id="inspire" :class="{'k-touch-device':isTouchDevice}">
-        <alert-vue/>
+        <k-alert/>
         <v-app-bar v-if="application.user" app>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>kopnik.org v{{ packageVersion }}</v-toolbar-title>
         </v-app-bar>
-        <DrawerVue v-if="application.user" v-model="drawer" style="z-index: 700;"></DrawerVue>
+        <k-drawer v-if="application.user" v-model="drawer" style="z-index: 700;"></k-drawer>
         <v-main>
-            <LoginVue v-if="!application.user && application.section!=='Thanks'"></LoginVue>
+            <k-login v-if="!application.user && application.section!=='Thanks'"></k-login>
             <!--            <keep-alive :exclude="[Main]">-->
             <!--                <transition :name="contentTransitionName">-->
-            <component ref="section" class="k-content" v-bind:is="application.section+'Vue'" :value="application.user"></component>
+            <component ref="section" class="k-content" v-bind:is="'k-'+application.section" :value="application.user"></component>
             <!--                </transition>-->
             <!--            </keep-alive>-->
         </v-main>
@@ -18,35 +18,33 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-
-    import LoginVue from '../KLogin'
-    import MainVue from '../KMain'
-    import ThanksVue from '../KThanks'
-    import ProfileVue from "../KProfile";
-    import WitnessVue from "../KWitness";
+    import KLogin from '../KLogin'
+    import KMain from '../KMain'
+    import KThanks from '../KThanks'
+    import KProfile from "../KProfile";
+    import KWitness from "../KWitness";
     import {container} from "../../bottle/bottle";
-    import DrawerVue from "../KDrawer";
+    import KDrawer from "../KDrawer";
     import logger from '../mixin/logger'
     import Application from "../../application/Application";
     import {Kopnik} from '../../models'
     import flushPromises from "flush-promises";
-    import TenVue from '../KTen'
+    import KTen from '../KTen'
     import touchDetector from "../mixin/touch-detecter";
-    import AlertVue from "../KAlert";
+    import KAlert from "../KAlert";
     import {localize} from "vee-validate";
 
     export default {
         mixins: [touchDetector, logger],
         components: {
-            DrawerVue,
-            LoginVue,
-            ProfileVue,
-            MainVue,
-            ThanksVue,
-            WitnessVue,
-            TenVue,
-            AlertVue,
+            KDrawer,
+            KLogin,
+            KProfile,
+            KMain,
+            KThanks,
+            KWitness,
+            KTen,
+            KAlert,
         },
         props: {
             source: String,

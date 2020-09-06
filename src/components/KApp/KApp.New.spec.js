@@ -25,7 +25,6 @@ describe('components KApp New', () => {
   beforeEach(async () => {
     bottle.resetProviders(['application'])
     application = container.application
-    application.authenticate()
     wrapper = mount(AppVue, {
       ...vuePlugins,
       router: routerFactory(),

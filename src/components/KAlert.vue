@@ -23,18 +23,18 @@
 <script>
     import Vue from 'vue'
 
-    import LoginVue from './KLogin'
-    import MainVue from './KMain'
-    import ThanksVue from './KThanks'
-    import ProfileVue from "./KProfile";
-    import WitnessVue from "./KWitness";
+    import KLogin from './KLogin'
+    import KMain from './KMain'
+    import KThanks from './KThanks'
+    import KProfile from "./KProfile";
+    import KWitness from "./KWitness";
     import {container} from "../bottle/bottle";
-    import DrawerVue from "./KDrawer";
+    import KDrawer from "./KDrawer";
     import logger from './mixin/logger'
     import Application from "../application/Application";
     import {Kopnik} from '../models'
     import flushPromises from "flush-promises";
-    import TenVue from './KTen'
+    import KTen from './KTen'
     import touchDetector from "./mixin/touch-detecter";
 
     export default {

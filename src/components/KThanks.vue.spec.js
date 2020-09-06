@@ -11,7 +11,7 @@ container.constants.di.fetch = true
 
 describe('unit components Thanks', () => {
     beforeEach(() => {
-        // удаляем, потому что ThanksVue пообует авторизоваться перед отрисовкой
+        // удаляем, потому что KThanks пообует авторизоваться перед отрисовкой
         bottle.resetProviders(['application', 'cookieService'])
     })
 

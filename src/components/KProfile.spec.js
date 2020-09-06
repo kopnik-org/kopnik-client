@@ -75,7 +75,7 @@ describe('components KProfile', () => {
     */
     await kopnikWrapper.vm.locale_change(en)
     await flushPromises()
-    // ProfileVue работает с копией Пользователя и в компонент KopnikVue передает тоже копию
+    // KProfile работает с копией Пользователя и в компонент KopnikVue передает тоже копию
     // Реальный Копник получит обновление локали только после того, как изменится локаль на сервере
     expect(container.application.user.locale).toBe(en)
     expect(container.localeManager.currentLocale).toBe(en)
