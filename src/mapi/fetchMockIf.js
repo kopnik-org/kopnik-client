@@ -1,5 +1,6 @@
 import fetchMock from "jest-fetch-mock";
 import {container} from "@/bottle/bottle";
+import {KopnikApiError} from "@/KopnikError";
 
 
 /**
@@ -28,23 +29,32 @@ export default function (matcher, bodyOrHandler, delay) {
 
   fetchMock.mockIf(combinedMatcher, async function (request) {
     const matchedMock = mocks.find(eachMock => request.url.match(eachMock.matcher))
-    if (!matchedMock){
+    if (!matchedMock) {
       throw new Error(`can't find matched mock for url ${request.url}`)
     }
 
     logger.log(`mocking by ${matchedMock.matcher.toString()}...`)
-    let response
-    if (typeof matchedMock.bodyOrHandler === 'function')  {
-      response = await matchedMock.bodyOrHandler(request)
+    let body
+    if (typeof matchedMock.bodyOrHandler === 'function') {
+      body = {
+        response: await matchedMock.bodyOrHandler(request)
+      }
+    } else if (typeof bodyOrHandler === 'object' && bodyOrHandler instanceof KopnikApiError) {
+      body = {
+        error: {
+          code: bodyOrHandler.code,
+          message: bodyOrHandler.message
+        }
+      }
     } else {
-      response = matchedMock.bodyOrHandler
+      body = {
+        response: matchedMock.bodyOrHandler
+      }
     }
     if (matchedMock.delay) {
       await new Promise(res => setTimeout(res, delay))
     }
-    const result =JSON.stringify({
-      response
-    })
+    const result = JSON.stringify(body)
     return result
   })
 }

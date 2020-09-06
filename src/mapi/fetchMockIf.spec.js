@@ -1,4 +1,5 @@
 import mockIf from "@/mapi/fetchMockIf";
+import {KopnikApiError} from "@/KopnikError";
 
 describe('mockIf', () => {
   it('mock body', async () => {
@@ -34,6 +35,14 @@ describe('mockIf', () => {
     const response2=await fetch('test_2')
     expect((await response1.json()).response).toBe(1234)
     expect((await response2.json()).response).toBe(5678)
+  })
+  it.only('error', async () => {
+    mockIf(/wrong/, new KopnikApiError('Message',1, 'url'))
+    const response=await fetch('wrong')
+    expect((await response.json()).error).toEqual({
+      code: 1,
+      message: "Message"
+    })
   })
 
 
