@@ -30,6 +30,23 @@ HTTP status code: 200 (как у всех успешных запросов)
     "error": {
         "error_code": 113,
         "error_msg": "Invalid user id",
+        "error_file": "/app/tests/Controller/DefaultController.php",
+        "error_line": 253,
+        "error_trace": [
+        {
+          "file": "/app/vendor/symfony/http-kernel/HttpKernel.php",
+          "line": 157,
+          "function": "bodyError",
+          "class": "App\\Tests\\Controller\\DefaultController",
+          "type": "->",
+          "args": [
+            {
+              "attributes": {},
+              "request": {}
+            }
+          ]
+        }
+        ],
         "request_params": [{
             "key": "oauth",
             "value": "1"
