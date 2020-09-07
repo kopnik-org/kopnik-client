@@ -18,6 +18,30 @@ describe('models User get confirmed', () => {
     await main.login()
   })
 
+  /**
+   * main - это старшина в данном тесте
+   * user - это текущий пользователь
+   */
+  it('getEx', async () => {
+    const user = await Kopnik.create({
+      status: Kopnik.Status.CONFIRMED,
+      foreman_id: main.id,
+    }, 'user')
+
+    const subordinate = await Kopnik.create({
+      status: Kopnik.Status.CONFIRMED,
+      foreman_id: user.id,
+    }, 'subordinate')
+
+    const requester = await Kopnik.create({
+      status: Kopnik.Status.CONFIRMED,
+      foremanRequest_id: user.id,
+    }, 'requester')
+    await user.reloadEx()
+    expect(user.foreman.id).toBe(main.id)
+    expect(user.subordinates[0].id).toBe(subordinate.id)
+    expect(user.foremanRequests[0].id).toBe(requester.id)
+  })
   it('get(self)', async () => {
     const user = new Kopnik()
     await user.reload()

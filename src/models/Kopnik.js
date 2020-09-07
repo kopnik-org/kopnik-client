@@ -403,4 +403,33 @@ export default class Kopnik extends AbstractSync {
     }
     subordinate.foreman = null
   }
+
+  /**
+   * Обновляет не только себя, но и связанные с собой объекты
+   * @returns {Promise<AbstractSync>}
+   */
+  @once
+  async reloadEx() {
+    // текущее состояние
+    const cur = await this.constructor.api(`getEx`)
+
+    // старшина исключил из десятки
+    if (this.foreman && !cur.foreman_id) {
+      // удяляю себя из подчиненных старшины
+      if (this.foreman.subordinates && this.foreman.subordinates.includes(this)) {
+        this.foreman.subordinates.splice(this.foreman.subordinates.indexOf(this), 1)
+      }
+    }
+
+    (this.subordinates || [])
+      // подчиненный вышел
+      .filter(eachSubordinate => !cur.subordinates.includes(eachSubordinate.id))
+      // удаляем себя из его старшин
+      .forEach(eachLeft => eachLeft.foreman === this ? eachLeft.foreman = null : null)
+
+    this.merge(cur)
+    this.isLoaded = true
+
+    return this;
+  }
 }
