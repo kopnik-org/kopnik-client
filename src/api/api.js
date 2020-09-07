@@ -23,7 +23,8 @@ export default async function api(url, options = {}) {
 
   //3. execute fetch
   try {
-    logger.debug(...[fullOptions.method, fullUrl, options.body, fullOptions.headers.Cookie].filter(item => item))
+    logger.info(...[fullOptions.method, fullUrl, options.body, fullOptions.headers.Cookie].filter(item => item))
+    logger.info(fullOptions.method, fullUrl, options.body, fullOptions.headers.Cookie)
     response = await fetch(fullUrl, Object.assign({api: true}, fullOptions))
   } catch (err) {
     // abort getTopInsideSquare for example
@@ -49,22 +50,22 @@ export default async function api(url, options = {}) {
   // 5. parse response body
   const bodyText = await response.text()
 
-  // 6. soft error
-  if (!response.ok) {
-    throw new KopnikApiError(`${response.statusText}. ${bodyText}`, response.status, fullUrl)
-  }
+  // 6. network error
+  // if (!response.ok) {
+  //   throw new KopnikApiError(`${response.statusText}. ${bodyText}`, response.status, fullUrl)
+  // }
 
   // 7. parse response body as JSON
   let body
   try {
     body = JSON.parse(bodyText)
   } catch (err) {
-    throw new KopnikApiError(bodyText, 2000001, fullUrl)
+    throw new KopnikApiError(`${response.statusText}: ${bodyText}`, 1000+response.status, fullUrl)
   }
 
   // 8. check error from server
   if (body.error) {
-    throw new KopnikApiError(body.error.error_msg, body.error.error_code, fullUrl)
+    throw new KopnikApiError(body.error.error_msg, body.error.error_code, body.error.trace, fullUrl)
   } else {
     logger.debug(...[body, response.headers.get('set-cookie')].filter(item => item))
   }
