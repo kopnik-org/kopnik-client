@@ -3,42 +3,34 @@ import {bottle, container} from "../bottle/bottle";
 
 import api from "./index";
 
-describe('system errors', ()=>{
-    it.skip('/api/error', async () => {
-        try {
-            await api('error')
-            throw new Error('should not be hire')
+describe('api bodyError', () => {
+  it('/api/error', async () => {
+    try {
+      await api('bodyError', {
+        method: 'post',
+        body: {
+          number: [1234], // []
+          string: 'qwerty', //[]
+          array: [1, 2, 3], //''
+          object: {a: 1, b: 2},// ''
         }
-        catch(err) {
-            expect(err).toBeInstanceOf(KopnikApiError)
-            expect(err.message).toContain('Я тестовая ошибка')
-            expect(err.code).toContain('100010')
-        }
-    })
-    it('/api/unknown method', async () => {
-        try {
-            await api('unknownMethod')
-            throw new Error('should not be hire')
-        }
-        catch(err) {
-            console.log(err)
-            expect(err).toBeInstanceOf(KopnikApiError)
-            expect(err.message).toContain('unknown')
-        }
-    })
-    it('/api/bodyError', async () => {
-        try {
-            await api('bodyError',{
-                body:{
-                    array:{a:1, b:2}
-                }
-            })
-            throw new Error('should not be hire')
-        }
-        catch(err) {
-            console.log(err)
-            expect(err).toBeInstanceOf(KopnikApiError)
-        }
-    })
+      })
+      throw new Error('should not be hire')
+    } catch (err) {
+      expect(err).toBeKopnikError(1500)
+      // expect(err).toBeKopnikError(500)
+    }
+  })
+
+  it('/api/unknown method', async () => {
+    try {
+      await api('unknownMethod')
+      throw new Error('should not be hire')
+    } catch (err) {
+      console.log(err)
+      expect(err).toBeKopnikError(1404)
+      expect(err.message).toContain('unknown')
+    }
+  })
 })
 
