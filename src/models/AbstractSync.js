@@ -208,7 +208,7 @@ export default class AbstractSync {
 
   /**
    * загружает все поля в томи числе скалярные и ссылки на другие объеты
-   * @returns {Promise.<AbstractSync>}
+   * @returns {Promise<AbstractSync>}
    */
   @once
   async reload() {
@@ -246,6 +246,11 @@ export default class AbstractSync {
     for (let eachObjectName of this.constructor.objects) {
       if (plain.hasOwnProperty(eachObjectName + "_id")) {
         this[eachObjectName] = plain[eachObjectName + "_id"] ? models.Kopnik.getReference(plain[eachObjectName + "_id"]) : plain[eachObjectName + "_id"]
+      }
+    }
+    for (let eachCollectionName of this.constructor.collections) {
+      if (plain.hasOwnProperty(eachCollectionName)) {
+        this[eachCollectionName] = plain[eachCollectionName].map(eachKopnikId=> models.Kopnik.getReference(eachKopnikId))
       }
     }
   }

@@ -61,6 +61,12 @@ describe('models Kopnik', () => {
 
             expect(main.locale).toBeInstanceOf(Locale)
         })
+        it('merge collection', async () => {
+            main.merge({subordinates: [1000]})
+
+            expect(main.subordinates).toHaveLength(1)
+            expect(main.subordinates[0].id).toBe(1000)
+        })
     })
 
     describe('plain', () => {
