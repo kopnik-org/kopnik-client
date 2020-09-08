@@ -37,10 +37,12 @@ describe('models User get confirmed', () => {
       status: Kopnik.Status.CONFIRMED,
       foremanRequest_id: user.id,
     }, 'requester')
+
+    await user.login()
     await user.reloadEx()
-    expect(user.foreman.id).toBe(main.id)
-    expect(user.subordinates[0].id).toBe(subordinate.id)
-    expect(user.foremanRequests[0].id).toBe(requester.id)
+    expect(user.foreman).toBe(main)
+    expect(user.subordinates[0]).toBe(subordinate)
+    expect(user.foremanRequests[0]).toBe(requester)
   })
   it('get(self)', async () => {
     const user = new Kopnik()

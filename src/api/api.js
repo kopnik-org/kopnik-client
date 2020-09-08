@@ -24,7 +24,7 @@ export default async function api(url, options = {}) {
   //3. execute fetch
   try {
     logger.info(...[fullOptions.method, fullUrl, options.body, fullOptions.headers.Cookie].filter(item => item))
-    logger.info(fullOptions.method, fullUrl, options.body, fullOptions.headers.Cookie)
+    // logger.info(fullOptions.method, fullUrl, options.body, fullOptions.headers.Cookie)
     response = await fetch(fullUrl, Object.assign({api: true}, fullOptions))
   } catch (err) {
     // abort getTopInsideSquare for example
