@@ -9,7 +9,7 @@
 let constants = {
   "development": {
     sw: {
-      delay: 15000,
+      delay: 60000,
     },
     messenger: {
       // идентификатор нашего приложения ВК
@@ -48,7 +48,7 @@ let constants = {
   },
   "staging": {
     sw: {
-      delay: 15000,
+      delay: 20000,
     },
     messenger: {
       loginUrl: 'https://staging.kopnik.org/connect/vkontakte',

@@ -92,13 +92,6 @@
                 localize(locale.name)
 
             },
-            this_escclick(event) {
-                if (this.application.squadAnalyzer.isAnalyzing()) {
-                    this.application.squadAnalyzer.reset()
-                    event.stopPropagation()
-                    event.preventDefault()
-                }
-            },
         },
         created() {
 

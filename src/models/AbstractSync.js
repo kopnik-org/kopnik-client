@@ -249,7 +249,7 @@ export default class AbstractSync {
       }
     }
     for (let eachCollectionName of this.constructor.collections) {
-      if (plain.hasOwnProperty(eachCollectionName)) {
+      if (plain.hasOwnProperty(eachCollectionName) && plain[eachCollectionName]) {
         this[eachCollectionName] = plain[eachCollectionName]
           .map(eachKopnik=> typeof eachKopnik === 'object'? models.Kopnik.merge(eachKopnik, true):models.Kopnik.getReference(eachKopnik))
       }

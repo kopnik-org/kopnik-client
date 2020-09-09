@@ -55,7 +55,7 @@
 
       <!--      стрелка к старшине-->
       <v-icon v-if="value.foreman" :color="value.foreman?'red':'#CCC'" size="250"
-              style="margin-top: -40px; margin-bottom: -80px">
+              style="margin-top: -25px; margin-bottom: -80px">
         mdi-arrow-up-bold
       </v-icon>
 
@@ -68,7 +68,7 @@
       <!--      стрелка к пользователю-->
       <v-icon :color="(value.subordinates && value.subordinates.length)?'blue':'#CCC'"
               :size="(((value.rank===1?2:value.rank)-1)/value.rank)*250"
-              style="margin-top: -40px; margin-bottom: -80px">
+              style="margin-top: -25px; margin-bottom: -80px">
         mdi-arrow-up-bold
       </v-icon>
 

@@ -74,8 +74,8 @@
       <l-marker v-for="(eachMarker) of markers" :key="'marker'+eachMarker.value.id"
                 :lat-lng="eachMarker.value.location"
                 :zIndexOffset="eachMarker.zIndex"
-                @dblclick="marker_dblclick(eachMarker.value)"
-                @click="marker_click(eachMarker.value)"
+                @dblclick="marker_dblclick(eachMarker.value, $event)"
+                @click="marker_click(eachMarker.value, $event)"
                 :icon="eachMarker.icon"
                 title="asdfas"
       >
@@ -200,7 +200,7 @@ import {
 } from 'vue2-leaflet'
 import {Kopnik} from "../models"
 import MapVue from "./MapVue";
-import {container} from "../bottle/bottle";
+import {container} from "@/bottle/bottle";
 import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator'
 import touchDetector from "./mixin/touch-detecter";
 import logger from "./mixin/logger";
@@ -503,15 +503,17 @@ export default {
     map_click() {
       this.value.selected = null
     },
-    marker_click(kopnik,) {
+    marker_click(kopnik,event) {
       this.value.selected = kopnik
     },
-    async marker_dblclick(kopnik,) {
+    async marker_dblclick(kopnik,event) {
       if (await this.application.forwardUserToBeConfirmed()) {
         return false
       }
       await this.value.squadAnalyzer.analyzeAround(kopnik)
-      return false
+      DomEvent.stopPropagation(event)
+      // DomEvent.preventDefault(event)
+      // return false
     },
     /**
      *
