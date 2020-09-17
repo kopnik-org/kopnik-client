@@ -43,6 +43,10 @@
       <!--      v-if до тех пор пока не заработает style:hidden на стрелке-->
       <template v-for="eachArrow of arrows" v-if="eachArrow.isVisible">
         <template v-if="antPath!==true">
+          <vue2-leaflet-polyline-decorator :key="'decorator'+eachArrow.key"
+                                           :paths="eachArrow.latLngs"
+                                           :patterns="eachArrow.patterns">
+          </vue2-leaflet-polyline-decorator>
           <l-polyline :key="'polyline'+eachArrow.key"
                       :lat-lngs="eachArrow.latLngs"
                       :weight="eachArrow.weight"
@@ -53,10 +57,6 @@
                       @dblclick="arrow_dblclick(eachArrow, $event)"
           >
           </l-polyline>
-          <vue2-leaflet-polyline-decorator :key="'decorator'+eachArrow.key"
-                                           :paths="eachArrow.latLngs"
-                                           :patterns="eachArrow.patterns">
-          </vue2-leaflet-polyline-decorator>
         </template>
 
         <!--        https://github.com/rubenspgcavalcante/leaflet-ant-path#parameters-->
@@ -272,7 +272,7 @@ export default {
   data() {
     return {
       putForemanRequestDialog: false,
-      antPath: false, // !isTouchDevice(),
+      antPath: true, // !isTouchDevice(),
       icon: L.icon({
         iconUrl: 'https://sun9-56.userapi.com/c639321/v639321874/53f61/8HqRXdrg-BM.jpg?ava=1',
         iconSize: [32, 37],
@@ -396,7 +396,7 @@ export default {
               weight: weight,
               hardwareAccelerated: true,
               dashArray: [weight * 1.5, weight * 5],
-              paused: container.env !== 'production'
+              // paused: container.env !== 'production'
             }
           }
           return eachArrow
