@@ -65,7 +65,7 @@ export default async function api(url, options = {}) {
 
   // 8. check error from server
   if (body.error) {
-    throw new KopnikApiError(body.error.error_msg, body.error.error_code, body.error.trace, fullUrl)
+    throw new KopnikApiError(body.error.error_msg, body.error.error_code, body.error.error_trace, fullUrl)
   } else {
     logger.debug(...[body, response.headers.get('set-cookie')].filter(item => item))
   }
