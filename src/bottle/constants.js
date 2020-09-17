@@ -65,11 +65,4 @@ let constants = {
   }
 }
 
-if (!process.env.NODE_ENV) {
-  throw new Error("NODE_ENV is not defined")
-}
-
-let privateConstants = {}//require("./private")
-let mergedConstants = require("lodash").merge({}, constants, privateConstants)[process.env.NODE_ENV]
-
 export default constants

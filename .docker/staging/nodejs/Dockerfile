@@ -16,7 +16,8 @@ RUN npm install
 COPY . .
 
 # собираем из исходного кода дистрибутив
-RUN npm run build:staging
+RUN ./node_modules/.bin/vue-cli-service build --mode staging
+#RUN ./node_modules/.bin/vue-cli-service build
 
 # удаляем папку с зависимостями
 RUN rm -R ./node_modules

@@ -7,7 +7,6 @@ import i18n from './plugins/i18n'
 import "./plugins/vee-validate"
 import "./plugins/vue-promise-button"
 
-
 import {Icon} from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 // this part resolve an issue where the markers would not appear
@@ -22,7 +21,9 @@ import AppVue from './components/KApp/KApp.vue'
 import {container} from "./bottle/bottle"
 import './plugins/className'
 import './sw'
-console.log('NODE_ENV',process.env.NODE_ENV)
+
+console.log('env',process.env)
+
 Vue.config.productionTip = false
 
 global.application = container.application

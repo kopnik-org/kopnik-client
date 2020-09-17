@@ -54,7 +54,7 @@ bottle.factory('constants', function constantsFactory() {
   }
 
   let local = {}//require("./local.js")
-  let result = _.merge({}, constants, local)[process.env.NODE_ENV]
+  let result = _.merge({}, constants, local)[process.env.VUE_APP_MODE || process.env.NODE_ENV]
 
   return result
 })

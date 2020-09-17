@@ -17,7 +17,7 @@ services:
     image: kopnikorg/kopnik-client-staging:latest
     volumes:
       - app:/usr/src/app
-    environment:
-      NODE_ENV: staging
+#    environment:
+#      NODE_ENV: staging
 volumes:
   app:
