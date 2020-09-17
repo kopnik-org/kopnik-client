@@ -22,7 +22,7 @@ describe('models User api anonymous', () => {
       await main.reloadEx()
       throw new Error('should not be hire')
     } catch (err) {
-      expect(err).toBeKopnikError(401)
+      expect(err).toBeKopnikError(1401)
     }
   })
 
