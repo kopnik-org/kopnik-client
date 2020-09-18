@@ -59,7 +59,8 @@ __Ответ__
         "...": "все поля из api/users/get ",
 
         "subordinates": ["ответ из api/users/getSubordinates"],
-        "foremanRequests": ["ответ из api/users/getForemanRequests"]
+        "foremanRequests": ["ответ из api/users/getForemanRequests"],
+        "witnessRequests": ["ответ из api/users/getPending"]
     }
  }
  ```
