@@ -29,12 +29,8 @@ describe('models User Declined', () => {
         expect(user.id).toBe(somebody.id)
     })
     it('reloadWitnessRequests()', async () => {
-        try {
-            await main.reloadWitnessRequests()
-            throw new Error('should not be hire')
-        } catch (err) {
-            expect(err).toBeKopnikError(403)
-        }
+      await main.reloadWitnessRequests()
+      expect(main.witnessRequests).toEqual([])
     })
     it('isMessagesFromGroupAllowed()', async () => {
         let result = await main.isMessagesFromGroupAllowed()
