@@ -11,6 +11,7 @@ import Main from "./Main";
 export default class Application {
   constructor(logger) {
     this.logger = logger.getLogger('Application')
+    this.logger.info('version', this.ver)
     /**
      * Кэш моделей
      * @type {Array}
@@ -50,6 +51,10 @@ export default class Application {
     this.sections = {
       main: new Main(this)
     }
+  }
+
+  get ver() {
+    return `v${process.env.PACKAGE_VERSION} on ${process.env.VUE_APP_MODE || container.env}`
   }
 
   /**
@@ -183,7 +188,7 @@ export default class Application {
       this.logger.error(err)
       this.logger.info('preventing leaflet bug from user https://github.com/vue-leaflet/Vue2Leaflet/issues/613')
     } else {
-      this.logger.error(...[err, err.info, err.vm ? generateComponentTrace(err.vm) : null, err.url].filter(item => item))
+      this.logger.error(...[err, err.info, err.vm ? generateComponentTrace(err.vm) : null, err.url, err.trace].filter(item => item))
       this.errors.push(err)
       // throw err
     }

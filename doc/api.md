@@ -58,9 +58,9 @@ __Ответ__
         "lastName": "...",
         "...": "все поля из api/users/get ",
 
-        "subordinates": ["ответ из api/users/getSubordinates"],
-        "foremanRequests": ["ответ из api/users/getForemanRequests"],
-        "witnessRequests": ["ответ из api/users/getPending"]
+        "subordinates": "response из api/users/getSubordinates",
+        "foremanRequests": "response из api/users/getForemanRequests",
+        "witnessRequests": "response из api/users/getPending"
     }
  }
  ```
@@ -136,7 +136,7 @@ __Ошибки__
 |Код   |Сообщение   |Описание
 |------|------------|--------
 |401              |Unauthorized | Пользователь не аутентифицирован
-|403              |Forbidden  |Статус пользователя не CONFIRMED или пользователь не является заверителем
+|403              |Forbidden  |Статус пользователя не CONFIRMED
 
 __Ответ__
 

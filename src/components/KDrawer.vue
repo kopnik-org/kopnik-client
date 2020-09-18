@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-if="$router"
+  <v-navigation-drawer v-if="$router && application.user"
                        :value="value"
                        temporary touchless
                        @input="drawer_input"
@@ -11,21 +11,38 @@
     </router-link>
     <v-divider></v-divider>
     <v-list>
-
+      <v-list-item link to="/profile">
+        <v-list-item-action>
+          <v-badge :value="isProfileDirty"
+                   color="red"
+                   dot
+          >
+            <v-icon>mdi-account</v-icon>
+          </v-badge>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('drawer.profile') }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item link to="/">
         <v-list-item-action>
           <v-icon>mdi-home-city</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title>{{ $t('drawer.map') }}</v-list-item-title>
+          <v-list-item-title>{{ $t('drawer.main') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item subordinates :disabled="!application.user" @click="subordinates_click">
         <v-list-item-action>
-          <v-icon>mdi-account-multiple</v-icon>
+          <v-badge :value="isTenDirty"
+                   color="red"
+                   :content="application.user.foremanRequests?application.user.foremanRequests.length:null"
+          >
+            <v-icon>mdi-account-multiple</v-icon>
+          </v-badge>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title>{{ $t('drawer.myTen') }}</v-list-item-title>
+          <v-list-item-title>{{ $t('drawer.ten') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item link :disabled="!application.user"
@@ -54,14 +71,16 @@
                    @click="witness_click"
       >
         <v-list-item-action>
-          <v-icon>mdi-human-greeting</v-icon>
+          <v-badge :value="isWitnessDirty"
+                   color="red"
+                   :content="application.user.witnessRequests?application.user.witnessRequests.length:null"
+          >
+            <v-icon>mdi-human-greeting</v-icon>
+          </v-badge>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title>{{ $t('drawer.witnessRequests') }}</v-list-item-title>
+          <v-list-item-title>{{ $t('drawer.witness') }}</v-list-item-title>
         </v-list-item-content>
-        <v-list-item-action>
-          <v-icon>mdi-account-question</v-icon>
-        </v-list-item-action>
       </v-list-item>
       <v-list-item link to="/thanks">
         <v-list-item-action>
@@ -79,15 +98,6 @@
           <v-list-item-title>{{ $t('drawer.help') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-divider></v-divider>
-      <v-list-item logout link @click="logout_click">
-        <v-list-item-action>
-          <v-icon>mdi-location-exit</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>{{ $t('drawer.logout') }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
       <v-list-item v-if="application.user || application.user.id===1" @click="snow_click">
         <v-list-item-action>
           <v-icon>mdi-location-snow</v-icon>
@@ -97,6 +107,17 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
+    <template v-slot:append>
+      <v-divider/>
+      <v-list-item logout link @click="logout_click">
+        <v-list-item-action>
+          <v-icon>mdi-location-exit</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>{{ $t('drawer.logout') }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </template>
   </v-navigation-drawer>
 </template>
 
@@ -109,6 +130,7 @@ import Kopnik from "../models/Kopnik";
 import Application from "@/application/Application";
 import createSubordinates from "../utils/snow/createSubordinates";
 import snow from '../utils/snow'
+
 /**
  * @property {Application} application
  */
@@ -127,6 +149,17 @@ export default {
     value: {
       type: Boolean
     }
+  },
+  computed: {
+    isProfileDirty() {
+      return this.application.user.status === Kopnik.Status.NEW
+    },
+    isTenDirty() {
+      return !!this.application.user.foremanRequests && this.application.user.foremanRequests.length
+    },
+    isWitnessDirty() {
+      return !!this.application.user.witnessRequests && this.application.user.witnessRequests.length
+    },
   },
   methods: {
 

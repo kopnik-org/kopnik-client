@@ -31,7 +31,7 @@ describe('models Kopnik reloadEx', () => {
     expect(foreman.subordinates).toHaveLength(0)
   })
 
-  it.only('left by subordinate', async () => {
+  it('left by subordinate', async () => {
     const subordinate = await Kopnik.create({
       isLoaded: true
     }, 'subordinate')
@@ -47,5 +47,43 @@ describe('models Kopnik reloadEx', () => {
     await main.reloadEx()
     expect(main.subordinates).toHaveLength(0)
     expect(subordinate.foreman).toBeNull()
+  })
+
+  it.only('left by foreman request', async () => {
+    const requester = await Kopnik.create({
+      isLoaded: true
+    }, 'requester')
+    main.foremanRequests = [requester]
+    requester.foremanRequest = main
+
+    fetch.mockIfEx(/getEx/, {
+      id: main.id,
+      subordinates:[],
+      foremanRequests:[],
+    })
+    await main.reloadEx()
+    expect(main.foremanRequests).toHaveLength(0)
+    expect(requester.foremanRequest).toBeNull()
+  })
+
+  it('error on collection', async () => {
+    const subordinate = await Kopnik.create({
+      isLoaded: true
+    }, 'subordinate')
+    main.subordinates = [subordinate]
+    main.foremanRequests = [subordinate]
+    main.witnessRequests = [subordinate]
+
+    fetch.mockIfEx(/getEx/, {
+      id: main.id,
+      foreman_id: null,
+      subordinates:{},
+      foremanRequests:{},
+      witnessRequests:{},
+    })
+    await main.reloadEx()
+    expect(main.subordinates).toBeUndefined()
+    expect(main.foremanRequests).toBeUndefined()
+    expect(main.witnessRequests).toBeUndefined()
   })
 })

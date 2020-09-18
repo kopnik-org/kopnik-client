@@ -9,20 +9,20 @@
 let constants = {
   "development": {
     sw: {
-      delay: 60000,
+      delay: 15000,
     },
     messenger: {
       // идентификатор нашего приложения ВК
       // clientId: 7210289,
       // страница, на которую нужно перейти для аутентификации
-      loginUrl: 'http://localhost:8081/connect/vkontakte',
+      // loginUrl: 'http://localhost:8081/connect/vkontakte',
       // с мобилки
-      // loginUrl: 'http://192.168.43.84:8081/connect/vkontakte'
+      loginUrl: 'http://192.168.43.84:8081/connect/vkontakte'
     },
     api: {
-      path: "http://localhost:8081/api"
+      // path: "http://localhost:8081/api"
       // с мобилки
-      // path: "http://192.168.43.84:8081/api"
+      path: "http://192.168.43.84:8081/api"
     },
     di: {
       fetch: true,

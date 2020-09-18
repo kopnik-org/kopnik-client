@@ -9,6 +9,7 @@ export default async function api(url, options = {}) {
   // 1. setup options
   const fullOptions = _.merge({}, options, {
     method: (options.method || 'GET').toUpperCase(),
+    // mode: 'no-cors', // *cors, same-origin,
     credentials: 'include',
     headers: {
       Cookie: container.constants.di.cookie ? container.cookieService.cookie : undefined,
@@ -60,12 +61,12 @@ export default async function api(url, options = {}) {
   try {
     body = JSON.parse(bodyText)
   } catch (err) {
-    throw new KopnikApiError(`${response.statusText}: ${bodyText}`, 1000+response.status, fullUrl)
+    throw new KopnikApiError(`${response.statusText}: ${bodyText}`, 1000 + response.status, fullUrl)
   }
 
   // 8. check error from server
   if (body.error) {
-    throw new KopnikApiError(body.error.error_msg, body.error.error_code, body.error.error_trace, fullUrl)
+    throw new KopnikApiError(body.error.error_msg, body.error.error_code, fullUrl, body.error.error_trace,)
   } else {
     logger.debug(...[body, response.headers.get('set-cookie')].filter(item => item))
   }

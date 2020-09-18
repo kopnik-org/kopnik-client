@@ -22,7 +22,7 @@ import {container} from "./bottle/bottle"
 import './plugins/className'
 import './sw'
 
-console.log('env',process.env)
+console.log('process.env',process.env)
 
 Vue.config.productionTip = false
 

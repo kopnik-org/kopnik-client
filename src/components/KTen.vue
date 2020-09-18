@@ -19,10 +19,19 @@
         </div>
         <!--аватарка старшины-->
         <KAvater ref="foreman"
-                   :value="value.foreman"
-                   :size="64" class="mb-2">
+                 :value="value.foreman"
+                 :size="64"
+                 class="mb-2"
+        >
         </KAvater>
       </v-badge>
+      <v-icon v-else
+              size="128"
+              color="red"
+              title="Почему я не выбрал Старшину?"
+      >
+        mdi-help-circle-outline
+      </v-icon>
 
       <!--      снять старшину-->
       <v-dialog ref="resetForemanDialog"
@@ -54,15 +63,15 @@
       </v-dialog>
 
       <!--      стрелка к старшине-->
-      <v-icon v-if="value.foreman" :color="value.foreman?'red':'#CCC'" size="250"
+      <v-icon color="red" size="250"
               style="margin-top: -25px; margin-bottom: -80px">
         mdi-arrow-up-bold
       </v-icon>
 
       <!--      пользователь -->
       <KAvater ref='user'
-                 :value="value"
-                 :size="64" class="mb-2">
+               :value="value"
+               :size="64" class="mb-2">
       </KAvater>
 
       <!--      стрелка к пользователю-->
@@ -89,8 +98,8 @@
             </div>
             <!--аватарка-->
             <KAvater ref='subordinate'
-                       :value="eachSubordinate"
-                       :size="64" class="mb-2">
+                     :value="eachSubordinate"
+                     :size="64" class="mb-2">
             </KAvater>
           </v-badge>
           <v-avatar v-else :key="'empty_'+eachSubordinateIndex"
@@ -108,7 +117,7 @@
         <v-card>
           <v-card-title>
             <k-avater v-if="removeFromSubordinatesCandidate" :value="removeFromSubordinatesCandidate" :size="128"
-                        class="mr-7"></k-avater>
+                      class="mr-7"></k-avater>
             {{ $t('subordinates.removeFromSubordinatesQuestion') }}
           </v-card-title>
           <v-card-text>

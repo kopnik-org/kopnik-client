@@ -61,11 +61,11 @@
     "login": "Prihlásiť sa pomocou VKontakte"
   },
   "drawer": {
-    "map": "mapa",
-    "myTen": "Moja desiatka",
+    "main": "mapa",
+    "ten": "Moja desiatka",
     "tenChat": "Чат десятки",
     "foremanChat": "Чат старшины",
-    "witnessRequests": "Prihlášky na vstup",
+    "witness": "Prihlášky na vstup",
     "thanks": "poďakovanie",
     "help": "nápoveda",
     "logout": "odhlásenie"

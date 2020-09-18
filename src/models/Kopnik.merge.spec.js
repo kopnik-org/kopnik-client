@@ -23,4 +23,14 @@ describe('models Kopnik merge', () => {
     main.merge({rank: 2})
     expect(main.rank).toBe(2)
   })
+  it('merge undefined collection', async () => {
+    main.subordinates=[new Kopnik()]
+    main.merge({subordinates: undefined})
+    expect(main.subordinates).toBeUndefined()
+  })
+  it('merge undefined object', async () => {
+    main.foreman=new Kopnik()
+    main.merge({foreman_id: undefined})
+    expect(main.foreman).toBeUndefined()
+  })
 })

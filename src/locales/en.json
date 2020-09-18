@@ -58,11 +58,12 @@
     "login": "Login with VK"
   },
   "drawer": {
-    "map": "Map",
-    "myTen": "My ten",
+    "profile": "Profile",
+    "main": "Map",
+    "ten": "My ten",
     "tenChat": "Ten's chat",
     "foremanChat": "Foreman's chat",
-    "witnessRequests": "Entrance requests",
+    "witness": "Entrance requests",
     "thanks": "Thanks",
     "help": "Help",
     "logout": "Logout"

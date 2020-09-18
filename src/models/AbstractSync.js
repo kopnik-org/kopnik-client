@@ -249,9 +249,11 @@ export default class AbstractSync {
       }
     }
     for (let eachCollectionName of this.constructor.collections) {
-      if (plain.hasOwnProperty(eachCollectionName) && plain[eachCollectionName]) {
-        this[eachCollectionName] = plain[eachCollectionName]
-          .map(eachKopnik=> typeof eachKopnik === 'object'? models.Kopnik.merge(eachKopnik, true):models.Kopnik.getReference(eachKopnik))
+      if (plain.hasOwnProperty(eachCollectionName)) {
+        this[eachCollectionName] = plain[eachCollectionName] instanceof Array ?
+          plain[eachCollectionName]
+            .map(eachKopnik => typeof eachKopnik === 'object' ? models.Kopnik.merge(eachKopnik, true) : models.Kopnik.getReference(eachKopnik))
+          : plain[eachCollectionName]
       }
     }
   }

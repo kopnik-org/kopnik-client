@@ -39,9 +39,9 @@ export default class Kopnik extends AbstractSync {
   @object foremanRequest = undefined
   @object witness = undefined
 
-  @collection /** @type {Kopnik[]} */subordinates
-  @collection foremanRequests
-  @collection witnessRequests
+  @collection /** @type {Kopnik[]} */ subordinates
+  @collection /** @type {Kopnik[]} */ foremanRequests
+  @collection /** @type {Kopnik[]} */ witnessRequests
 
   static get Status() {
     return {
@@ -121,11 +121,11 @@ export default class Kopnik extends AbstractSync {
   }
 
   get name() {
-    return [this.lastName, this.firstName, this.patronymic].filter(each => each).join(' ')
+    return [this.firstName, this.patronymic, this.lastName, ].filter(each => each).join(' ')
   }
 
   get rankName() {
-    return this.name + (this.rank > 1 ? ` (+${this.rank})` : '')
+    return this.name + ` (+${this.rank})`
   }
 
 
@@ -413,23 +413,36 @@ export default class Kopnik extends AbstractSync {
   @once
   async reloadEx() {
     // текущее состояние
-    const cur = await this.constructor.api(`getEx`)
+    const actual = await this.constructor.api(`getEx`)
+
+    // неопределеним если прилетел json-объект ошибки
+    actual.subordinates = actual.subordinates instanceof Array ? actual.subordinates : undefined
+    actual.foremanRequests = actual.foremanRequests instanceof Array ? actual.foremanRequests : undefined
+    actual.witnessRequests = actual.witnessRequests instanceof Array ? actual.witnessRequests : undefined
 
     // старшина исключил из десятки
-    if (this.foreman && !cur.foreman_id) {
+    if (this.foreman && !actual.foreman_id) {
       // удяляю себя из подчиненных старшины
       if (this.foreman.subordinates && this.foreman.subordinates.includes(this)) {
         this.foreman.subordinates.splice(this.foreman.subordinates.indexOf(this), 1)
       }
     }
 
+    // проверяем покинувших подчинённых
     (this.subordinates || [])
       // подчиненный вышел
-      .filter(eachSubordinate => !cur.subordinates.includes(eachSubordinate.id))
+      .filter(eachSubordinate => !(actual.subordinates || []).includes(eachSubordinate.id))
       // удаляем себя из его старшин
-      .forEach(eachLeft => eachLeft.foreman === this ? eachLeft.foreman = null : null)
+      .forEach(eachLeft => eachLeft.foreman === this ? eachLeft.foreman = null : null);
 
-    this.merge(cur)
+    // проверяем отмененные заявки в старшины
+    (this.foremanRequests || [])
+      // подчиненный вышел
+      .filter(eachForemanRequest => !(actual.foremanRequests || []).includes(eachForemanRequest.id))
+      // удаляем себя из его старшин
+      .forEach(eachLeft => eachLeft.foremanRequest === this ? eachLeft.foremanRequest = null : null);
+
+    this.merge(actual)
     this.isLoaded = true
 
     return this;
