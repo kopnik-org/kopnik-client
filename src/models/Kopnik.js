@@ -321,7 +321,8 @@ export default class Kopnik extends AbstractSync {
       body: {
         id: requester.id,
       },
-    })
+    });
+    [this, ...this.foremans].forEach(eachForeman => eachForeman.rank += requester.rank)
     if (this.foremanRequests) {
       this.foremanRequests.splice(this.foremanRequests.indexOf(requester), 1)
     }
@@ -380,10 +381,10 @@ export default class Kopnik extends AbstractSync {
     await this.constructor.api('resetForeman', {
       method: 'POST',
     })
+    this.foremans.forEach(eachForeman => eachForeman.rank -= this.rank)
     if (this.foreman && this.foreman.subordinates) {
       this.foreman.subordinates.splice(this.foreman.subordinates.indexOf(this), 1)
     }
-    this.foremans.forEach(eachForeman => eachForeman.rank -= this.rank)
     this.foreman = null
   }
 
@@ -397,7 +398,8 @@ export default class Kopnik extends AbstractSync {
       body: {
         id: subordinate.id,
       },
-    })
+    });
+    [this, ...this.foremans].forEach(eachForeman => eachForeman.rank -= subordinate.rank)
     if (this.subordinates) {
       this.subordinates.splice(this.subordinates.indexOf(subordinate), 1)
     }

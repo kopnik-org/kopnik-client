@@ -157,10 +157,18 @@ describe('models User get confirmed', () => {
           foremanRequest_id: main.id,
         }, 'requester')
         await main.confirmForemanRequest(requester)
+        expect(main.rank).toBe(2)
 
         await main.reloadForemanRequests()
         expect(main.foremanRequests).toBeInstanceOf(Array)
         expect(main.foremanRequests).toHaveLength(0)
+
+        await main.reloadSubordinates()
+        expect(main.subordinates).toBeInstanceOf(Array)
+        expect(main.subordinates).toHaveLength(1)
+
+        await main.reload()
+        expect(main.rank).toBe(2)
 
         await main.logout()
         await requester.login()
@@ -253,10 +261,18 @@ describe('models User get confirmed', () => {
         const subordinate = await Kopnik.create({
           foreman_id: main.id,
         }, 'subordinate')
+        await main.reload()
         await main.removeFromSubordinates(subordinate)
+
+        // проверяем уменьшение ранга на клиенте
+        expect(main.rank).toBe(1)
+
         await main.reloadSubordinates()
         expect(main.subordinates).toHaveLength(0)
 
+        // проверяем уменьшение ранга на сервере
+        await main.reload()
+        expect(main.rank).toBe(1)
         await subordinate.reload()
         expect(subordinate.foreman).toBeNull()
       })
@@ -283,10 +299,18 @@ describe('models User get confirmed', () => {
         await main.logout()
         await subordinate.login()
         await subordinate.resetForeman()
-        await subordinate.reload()
 
+        // проверяем изменения на клиенте
+        expect(main.rank).toBe(1)
+        expect(subordinate.foreman).toBeNull()
+
+        // проверяю изменения на сервере
+        await subordinate.reload()
+        await main.reload()
+        await main.reloadSubordinates()
         expect(subordinate.foreman).toBeNull()
         expect(main.rank).toBe(1)
+        expect(main.subordinates).toEqual([])
       })
       it('self reset when foreman not setted', async () => {
         await main.resetForeman()
