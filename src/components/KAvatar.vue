@@ -12,7 +12,7 @@
     import {Kopnik} from "../models";
 
     export default {
-        name: "Avatar",
+        name: "KAvatar",
         mixins: [logger],
         components: {
         },

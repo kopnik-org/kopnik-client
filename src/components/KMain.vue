@@ -120,9 +120,9 @@
     >
       <v-card class="text-center" height="150px">
         <v-list-item v-if="value.selected">
-          <avatar-vue :value="value.selected" :size="80" class="ma-3 ml-0"
+          <k-avater :value="value.selected" :size="80" class="ma-3 ml-0"
                       @dblclick="avatar_dblclick(value.selected)">
-          </avatar-vue>
+          </k-avater>
           <v-list-item-content>
             <v-list-item-subtitle class="text-wrap">{{ value.selected.name }}</v-list-item-subtitle>
           </v-list-item-content>
@@ -160,7 +160,7 @@
             <!--         Больше не старшина -->
             <v-card>
               <v-card-title>
-                <avatar-vue :value="value.selected" :size="128" class="mr-7"></avatar-vue>
+                <k-avater :value="value.selected" :size="128" class="mr-7"></k-avater>
                 {{
                   application.user.foreman === value.selected ? $t('details.resetForemanQuestion') : application.user.foremanRequest === value.selected ? $t('details.cancelForemanRequestQuestion') : $t('details.toForemanQuestion')
                 }}
@@ -205,7 +205,7 @@ import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator'
 import touchDetector from "./mixin/touch-detecter";
 import logger from "./mixin/logger";
 import KopaInvite from "./KopaInviteVue";
-import AvatarVue from "./AvatarVue";
+import KAvater from "./KAvatar";
 import Main from "../application/Main";
 import Vue2AntPath from "@/components/Vue2AntPath";
 import isTouchDevice from "@/components/isTouchDevice";
@@ -259,7 +259,7 @@ export default {
     KopnikVue,
     Vue2AntPath,
     LCircle,
-    AvatarVue,
+    KAvater,
     KopaInvite,
     Vue2LeafletPolylineDecorator,
     LPolyline,

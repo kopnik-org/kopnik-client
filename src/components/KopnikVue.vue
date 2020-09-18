@@ -1,9 +1,9 @@
 <template>
   <v-list v-if="value.isLoaded">
     <v-list-item>
-      <avatar-vue :value="value" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}"
+      <k-avater :value="value" :size="avatarSize" class="{avatarMxAuto: 'mx-auto'}"
                   @click="avatar_click" @dblclick="avatar_dblclick">
-      </avatar-vue>
+      </k-avater>
     </v-list-item>
     <v-list-item v-if="!fio">
       <v-list-item-content>
@@ -139,7 +139,7 @@
 import {LMarker} from 'vue2-leaflet'
 import Kopnik from "../models/Kopnik"
 import MapVue from "./MapVue";
-import AvatarVue from "./AvatarVue";
+import KAvater from "./KAvatar";
 import logger from "./mixin/logger"
 import {container} from "../bottle/bottle";
 import {
@@ -153,7 +153,7 @@ export default {
     MapVue,
     LMarker,
     ValidationProvider,
-    AvatarVue,
+    KAvater,
   },
   data: () => {
     return {

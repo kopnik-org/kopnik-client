@@ -1,12 +1,12 @@
 <template>
     <div class="d-flex flex-wrap justify-start align-center k-kopaInvite"
          :class="{'k-kopaInvite-long': $vuetify.breakpoint.smAndUp}">
-        <avatar-vue v-for="eachAvatar of avatars" :key="eachAvatar.value.id" :value="eachAvatar.value"
+        <k-avater v-for="eachAvatar of avatars" :key="eachAvatar.value.id" :value="eachAvatar.value"
                       :size="48" class="ml-1 mr-1 mb-2" :class="eachAvatar.className"
                       :title="eachAvatar.value.rankName"
                       @click="avatar_click(eachAvatar.value)" @dblclick="avatar_dblclick(eachAvatar.value)"
             >
-        </avatar-vue>
+        </k-avater>
         <slot></slot>
     </div>
 </template>
@@ -16,13 +16,13 @@
     import i18n from "../plugins/i18n";
     import logger from "./mixin/logger";
     import {Kopa, Kopnik} from "../models";
-    import AvatarVue from "./AvatarVue";
+    import KAvater from "./KAvatar";
 
     export default {
         name: "KopaInvite",
         mixins: [logger],
         components: {
-            AvatarVue
+            KAvater
         },
 
         data() {
