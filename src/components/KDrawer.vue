@@ -98,14 +98,14 @@
           <v-list-item-title>{{ $t('drawer.help') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item v-if="application.user || application.user.id===1" @click="snow_click">
+<!--      <v-list-item v-if="application.user || application.user.id===1" @click="snow_click">
         <v-list-item-action>
           <v-icon>mdi-location-snow</v-icon>
         </v-list-item-action>
         <v-list-item-content>
           <v-list-item-title> Снежинка</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item>-->
     </v-list>
     <template v-slot:append>
       <v-divider/>

@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire" :class="{'k-touch-device':isTouchDevice}">
     <k-alert/>
-    <v-app-bar v-if="application.user" app>
+    <v-app-bar v-if="application.user && mode!='presentation'" app>
       <v-badge
         :value="application.user.status===application.user.constructor.Status.NEW || !!application.user.foremanRequests && application.user.foremanRequests.length || !!application.user.witnessRequests && application.user.witnessRequests.length"
         color="red"
@@ -64,7 +64,9 @@ export default {
   },
   data() {
     return {
-      application: container.application,
+      mode:'regular',
+      // mode:'presentation',
+      application:  container.application,
       center: [47.413220, -1.219482],
       zoom: 14,
       drawer: false,
