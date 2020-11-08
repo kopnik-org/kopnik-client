@@ -8,7 +8,7 @@
     "build:staging": "vue-cli-service build --mode staging",
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
-    "test": "jest",
+    "test": "jest --runInBand",
     "snow": "babel-node ./src/utils/snow",
     "release": "run(){ npm version $1 && git checkout master && git merge dev && git push --tags && git checkout dev; }; run",
     "docker:build": "docker build -f .docker/staging/nodejs/Dockerfile -t kopnikorg/kopnik-client-staging:latest .",
