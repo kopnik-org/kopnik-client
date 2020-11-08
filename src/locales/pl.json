@@ -1,0 +1,126 @@
+{
+  "languageName": "Polski",
+  "application": {
+    "youHaveToRegister": "Musisz stać się pełnoprawnym członkiem kopnik.org, aby otworzyć wszystkie możliwości systemu. Aby to zrobić, wypełnij ten formularz i kliknij przycisk \"WYSŁAĆ\".",
+    "youHaveToWitnessYourData": "Musisz zapewnić swoje dane, aby otworzyć wszystkie możliwości systemu. Aby to zrobić, przejdź do Vkontakte i postępuj zgodnie z instrukcjami naszego bota"
+  },
+  "profile": {
+    "language": "Język",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "patronymic": "Imię ojca",
+    "birthyear": "Rok urodzenia",
+    "passport": "Ostatnie 4 cyfry paszportu",
+    "nickname": "Przydomek",
+    "submit": "Wysłać",
+    "submitMessage": "Prawie się zarejestrowałeś. Poczekaj na wiadomość od naszego bota Vkontakte i postępuj zgodnie z jego instrukcjami. Powodzenia!",
+    "messagesFromGroup": {
+      "allow": "Kliknij przycisk poniżej, aby włączyć komunikację w systemie",
+      "allowed": "Komunikacja jest włączona!"
+    },
+    "rolesTitle": "Moja rola w społeczeństwie kopnym (Kliknij aby zobaczyć kryteria)",
+    "roles": [
+      {
+        "title": "Rdzenny Kopny męż",
+        "criteria": [
+          "Ma rodzinę",
+          "Ma Syna, który ma rodzinę",
+          "Ma Syna od Syna",
+          "Ma mieszkanie (dom / mieszkanie / mieszkanie do wynajęcia)",
+          "Ma gospodarstwo (własny biznes / praca)"
+        ]
+      },
+      {
+        "title": "Mąż kopny (złagodzone wymagania zaproponowane przez S. Daniłowa)",
+        "criteria": [
+          "Ma rodzinę",
+          "Ma syna lub córkę",
+          "Ma 30 lat",
+          "Ma mieszkanie (dom / mieszkanie / mieszkanie do wynajęcia)",
+          "Ma gospodarstwo (własny biznes / praca)"
+        ]
+      },
+      {
+        "title": "Pragnę zostać kopnym mężem",
+        "criteria": [
+          "Młodzieniec / mężczyzna"
+        ]
+      },
+      {
+        "title": "Jestem kobietą"
+      },
+      {
+        "title": "Obcy / wyrzutek"
+      }
+    ],
+    "location": "Miejsce stałego pobytu (bez zameldowania), z dokładnością do domu"
+  },
+  "witness": {
+    "confirm": "Poświadczyć",
+    "decline": "Odrzucić"
+  },
+  "login": {
+    "login": "Zaloguj się przez Vkontakte"
+  },
+  "drawer": {
+    "profile": "Personalia",
+    "main": "Mapa",
+    "ten": "Moje dziesiątki",
+    "tenChat": "Czat dziesiątki",
+    "foremanChat": "Czat przywódcę",
+    "witness": "Wnioski o przystąpienie",
+    "thanks": "Wdzięczność",
+    "help": "Podpowiedź",
+    "logout": "Wyjście"
+  },
+  "quotes": [
+    {
+      "value": "Jesteśmy powołani do tworzenia swoje i na swój sposób, rosyjskie po rosyjsku.",
+      "owner": {
+        "position": "Rosyjski filozof",
+        "name": "Iwan Aleksandrowicz Iljin"
+      }
+    },
+    {
+      "value": "Naród, którzy zapomniałem o swojej kulturze, historii, tradycji <...> - skazany na wyginięcie.",
+      "owner": {
+        "position": "Rosyjski pisarz",
+        "name": "Lew Nikołajewicz Tołstoj"
+      }
+    }
+  ],
+  "errors": {
+    "underConstruction": "Ta funkcjonalność będzie dostępna wkrótce w wersji v0.3.0"
+  },
+  "details": {
+    "toChat": "Rozmawiać",
+    "toKopa": "Na Kopu",
+    "notToKopa": "Nie wołać",
+    "toForeman": "Wybrać",
+    "toForemanQuestion": "Wybrać przywódcą?",
+    "toForemanInfo": "Wniosek został wysłany. Poczekaj na odpowiedź przywódcy.",
+    "resetForeman": "Nie przywódca",
+    "resetForemanQuestion": "Już nie przywódca ?",
+    "resetForemanInfo": "Ten człowiek nie jest już dla ciebie przywódca",
+    "cancelForemanRequest": "Anuluj wniosek",
+    "cancelForemanRequestQuestion": "Anuluj wniosek ?",
+    "cancelForemanRequestInfo": "Wniosek odwołany"
+  },
+  "subordinates": {
+    "confirmForemanRequest": "Przyjąć do dziesiątkę",
+    "confirmForemanRequestInfo": "Przyjęty do dziesiątce",
+    "declineForemanRequest": "Odrzucić",
+    "declineForemanRequestInfo": "Wiadomość o odrzuceniu wysłana",
+    "removeFromSubordinates": "Wykluczyć z dziesiątki",
+    "removeFromSubordinatesInfo": "Wykluczony z dziesiątki",
+    "removeFromSubordinatesQuestion": "Wykluczyć z dziesiątki ?"
+  },
+  "definitions": {
+    "foreman": "Przywódca dziesiątki w Kopnym ustawie to kopnik, któremu dziesiątka zaufała reprezentowanie interesów swoich rodzin na kopach, na których spotykają się przedstawiciele różnych dziesiątek. Ustawa Kopy mówi \" co starsi zdecydowali-na tym młodsi będą stać.\"",
+    "subordinate": "Podwładnym w dziesiątce jest kopnik, który po wyborze przywódcy powierzył mu reprezentowanie interesów swojej rodziny na kopach, na których spotykają się przedstawiciele różnych dziesiątek. Ustawa Kopy mówi \" co starsi zdecydowali-na tym młodsi będą stać.\""
+  },
+  "dialog": {
+    "yes": "Tak",
+    "no": "Nie"
+  }
+}
