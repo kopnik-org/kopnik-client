@@ -28,7 +28,7 @@ __Ответ__
         "witness_id": 1234,
         "foremanRequest_id": 5678,
         "foreman_id": null,
-
+        "tenChatUrl": "https://vk.com/........ ссылка для перехода в чат десятки",
         "ten": "undefined"
     },
     {
@@ -43,6 +43,8 @@ __Ответ__
 Поле ```role``` имеет следующие значения: ```KOPNIK= 1;  DANILOV_KOPNIK= 2; FUTURE_KOPNIK= 3; WOMEN= 4;```
 
 Часть полей передаются только для своего копника и заверителя: ```passport```, ```locale```, ```witness_id```, ```witnessChatInviteLink```, ```foremanRequest_id```
+
+Часть полей передаются только для своего копника и старшины: ``tenChatUrl``
 
 ## GET api/users/getEx
 
