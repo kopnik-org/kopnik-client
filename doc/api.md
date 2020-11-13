@@ -28,7 +28,7 @@ __Ответ__
         "witness_id": 1234,
         "foremanRequest_id": 5678,
         "foreman_id": null,
-        "tenChatUrl": "https://vk.com/........ ссылка для перехода в чат десятки",
+        "tenChatInviteLink": "https://vk.com/........ ссылка для перехода в чат десятки",
         "ten": "undefined"
     },
     {
