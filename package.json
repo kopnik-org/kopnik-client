@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint",
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'",
     "test": "jest --runInBand",
+    "test:eg": "npm test -- --testPathPattern 'src/api/api.Vk.spec.js' --testNamePattern 'sendVkMessage'",
     "snow": "babel-node ./src/utils/snow",
     "release": "run(){ npm version $1 && git push --tags; }; run",
     "docker:build": "docker build -f .docker/staging/nodejs/Dockerfile -t kopnikorg/kopnik-client-staging:latest .",
