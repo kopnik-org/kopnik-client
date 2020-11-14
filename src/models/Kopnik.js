@@ -34,6 +34,7 @@ export default class Kopnik extends AbstractSync {
   /** @type {Locale} */
   @scalar locale = container.localeManager.currentLocale
   @scalar role
+  @scalar tenChatInviteLink
 
   @object foreman = undefined
   @object foremanRequest = undefined

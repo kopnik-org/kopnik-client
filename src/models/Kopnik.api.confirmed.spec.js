@@ -88,7 +88,7 @@ describe('models User get confirmed', () => {
         expect(foreman.foremanRequests).toHaveLength(1)
         expect(foreman.foremanRequests[0]).toBe(main)
       })
-      it('success when in other ten', async () => {
+      it('success when in other ten, then reset foreman', async () => {
         const foreman1 = await Kopnik.create({}, 'foreman')
         const foreman2 = await Kopnik.create({}, 'foreman')
 
@@ -160,12 +160,16 @@ describe('models User get confirmed', () => {
 
         await main.reload()
         expect(main.rank).toBe(2)
+        expect(main.tenChatInviteLink).toBeTruthy()
 
         await main.logout()
         await requester.login()
         await requester.reload()
         expect(requester.foremanRequest).toBeNull()
         expect(requester.foreman).toBe(main)
+
+        await main.reload()
+        expect(main.tenChatInviteLink).toBeTruthy()
       })
       it('not found', async () => {
         const foreman = await Kopnik.create({
