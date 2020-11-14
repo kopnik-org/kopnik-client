@@ -88,6 +88,27 @@ describe('models User get confirmed', () => {
         expect(foreman.foremanRequests).toHaveLength(1)
         expect(foreman.foremanRequests[0]).toBe(main)
       })
+      it('success when in other ten', async () => {
+        const foreman1 = await Kopnik.create({}, 'foreman')
+        const foreman2 = await Kopnik.create({}, 'foreman')
+
+        // подал заявку 1
+        await main.putForemanRequest(foreman1)
+        await main.logout()
+
+        // одобряем заявку 1
+        await foreman1.login()
+        await foreman1.confirmForemanRequest(main)
+        await foreman1.logout()
+
+        // подаем заявку 2
+        await main.login()
+        await main.putForemanRequest(foreman2)
+
+        // проверяем что в этом момент старшина 1 отвалился
+        await main.reload()
+        expect(main.foreman).toBeNull()
+      })
       it('success reset', async () => {
         const foreman = await Kopnik.create({}, 'foreman')
         foreman.foremanRequests = []
