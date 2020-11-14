@@ -10,5 +10,7 @@ describe('api/Vk', () => {
     it('/test/createVkChat', async () => {
         await api('test/createVkChat',)
     })
+    it('empty', async () => {
+    })
 })
 

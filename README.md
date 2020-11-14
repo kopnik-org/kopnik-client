@@ -37,13 +37,7 @@ make test-full-up
 ##Docker
 
 ### Выложить образ на DockerHub
-
-```bash
-# собрать образ
-npm run docker:build
-
-# выложить образ на DockerHub
-npm run docker:push
+make release
 ```
 
 ## Развернуть на сервере
@@ -58,7 +52,7 @@ git clone https://github.com/kopnik-org/kopnik-client
 cd kopnik-client
 
 # запустить клиента на порту :8050
-make up
+make full-up
 
 # погасить клиента
 make down
