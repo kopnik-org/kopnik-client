@@ -16,7 +16,9 @@
       <!--            <v-btn @click="href_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
       <v-btn v-if="application.user===null" color="primary" @click="login_click" class="mb-12">Войти через ВКонтакте
       </v-btn>
-<!--      <v-btn v-if="application.user===null && env==='development'" color="primary" @click="snow_click" class="mb-12">snow</v-btn>-->
+      <v-btn v-if="application.user==null" color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте2
+      </v-btn>
+      <!--      <v-btn v-if="application.user===null && env==='development'" color="primary" @click="snow_click" class="mb-12">snow</v-btn>-->
       <!--            <v-btn @click="vk_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
       <!--        <div id="vk_auth" ></div>-->
     </v-col>
@@ -60,6 +62,10 @@ export default {
     login_click() {
       location.href = container.constants.messenger.loginUrl
     },
+    login2_click() {
+      container.vkClient.auth()
+      // return `https://oauth.vk.com/authorize?scope=${0}&client_id=${process.env.VUE_APP_VK_CLIENT_ID}&redirect_uri=${encodeURIComponent(location.href)}&response_type=token&state=1&revoke=0`
+    },
     vk_login_click() {
       VK.Auth.login((...args) => {
         console.log(args)
@@ -75,16 +81,6 @@ export default {
       this.quoteIndex = _.random(i18n.messages.ru.length)
     }, 30000)
   },
-  async mounted() {
-
-    /*            VK.Widgets.Auth('vk_auth', {
-                    onAuth:data=>{
-                        delete data.session
-                        localStorage.setItem("vkUser", JSON.stringify(data))
-                        this.$root.app.setVkUser(data)
-                    }
-                })*/
-  }
 }
 </script>
 <style>

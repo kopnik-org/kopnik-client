@@ -2,6 +2,7 @@ import Bottle from "bottlejs"
 import _ from "lodash"
 // import 'json-form-data'
 import * as loglevel from "loglevel";
+import ClientOAuth2 from "client-oauth2"
 
 import Application from "../application/Application"
 import constants from './constants'
@@ -10,10 +11,24 @@ import CookieService from "./CookieService"
 import MK from "../mk/mk";
 import LocaleManager from "../locales/LocaleManager";
 import messages from "@/locales";
+import VKClient from "@/vk-client/VKClient";
 
 Bottle.config.strict = true
 const bottle = new Bottle()
 
+bottle.factory('vkClient', function () {
+  const result= new VKClient({
+    clientId: process.env.VUE_APP_VK_CLIENT_ID,
+    accessTokenUri: 'https://oauth.vk.com/access_token',
+    authorizationUri: 'https://oauth.vk.com/authorize',
+    redirectUri: location.href,
+    scopes: ['notify', 'friends', /*'messages'*/, 'offline'], //https://vk.com/dev/permissions
+    // query:{
+    //   revoke: 1,
+    // }
+  })
+  return result
+})
 bottle.factory('logger', function loggerFactory() {
   //все плагины ломают стектрейс консоли. то есть невозможно увидеть из какого файла и какой строки был вызван лог!
   // LoglevelPluginPrefix.reg(loglevel)
@@ -70,6 +85,7 @@ bottle.service('application', Application, 'logger')
  */
 /**
  * @type {Object}
+ * @property {VKClient} vkClient
  * @property {loglevel} logger
  * @property {Application} application
  * @property {Location} Location

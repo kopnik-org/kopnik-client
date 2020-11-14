@@ -18,6 +18,7 @@
   "dependencies": {
     "async-lock": "^1.2.4",
     "bottlejs": "^1.7.2",
+    "client-oauth2": "^4.3.3",
     "core-js": "^3.6.5",
     "keypather": "^3.1.0",
     "leaflet": "^1.6.0",
