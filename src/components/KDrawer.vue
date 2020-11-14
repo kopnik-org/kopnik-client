@@ -45,9 +45,7 @@
           <v-list-item-title>{{ $t('drawer.ten') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link :disabled="!application.user"
-                   @click="throwUnderConstructionError"
-      >
+      <v-list-item link v-if="application.user && application.user.tenChatInviteLink" target="_blank" :href="application.user.tenChatInviteLink">
         <v-list-item-action>
           <v-icon>mdi-chat</v-icon>
         </v-list-item-action>
@@ -55,10 +53,7 @@
           <v-list-item-title>{{ $t('drawer.tenChat') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link
-                   @click="throwUnderConstructionError"
-                   :disabled="!application.user"
-      >
+      <v-list-item link v-if="application.user && application.user.foreman" target="_blank" href="application.user.foreman.tenChatInviteLink">
         <v-list-item-action>
           <v-icon>mdi-chat</v-icon>
         </v-list-item-action>
