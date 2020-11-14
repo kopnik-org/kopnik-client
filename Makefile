@@ -1,6 +1,5 @@
-up: docker-pull docker-up
+full-up: docker-down docker-pull docker-up
 down: docker-down
-test: down docker-build docker-up
 release: docker-build docker-push
 
 docker-up:
