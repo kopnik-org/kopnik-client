@@ -102,7 +102,7 @@
     </MapVue>
 
     <!--        копники на копу-->
-    <kopa-invite v-if="value.kopa.parts.length" :value="value.kopa"
+    <kopa-invite v-if="value.kopa.participants.length" :value="value.kopa"
                  style="position: fixed; left: 50%; transform: translateX(-50%); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"
                  :style="{bottom: kopaBottom}"
                  @avatar_click="avatar_click($event)" @avatar_dblclick="avatar_dblclick($event)">
@@ -136,7 +136,7 @@
             {{ $t('details.toChat') }}
           </v-btn>
           <v-btn ref="toggle" text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
-            {{ value.kopa.isAdded(value.selected) ? $t('details.notToKopa') : $t('details.toKopa') }}
+            {{ value.kopa.isParticipantAdded(value.selected) ? $t('details.notToKopa') : $t('details.toKopa') }}
           </v-btn>
           <!--         диалоги старшин-->
           <v-dialog ref="foremanDialog"
@@ -493,7 +493,7 @@ export default {
     },
     toggle_click() {
       // this.value.kopa.stupidAdd(this.value.selected)
-      this.value.kopa.toggle(this.value.selected)
+      this.value.kopa.toggleParticipant(this.value.selected)
     },
     this_keydown_esc(event) {
       if (this.value.squadAnalyzer.isAnalyzing()) {

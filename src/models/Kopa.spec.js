@@ -8,18 +8,18 @@ describe('unit models Kopa', () => {
             let kopnik1 = new Kopnik(),
                 kopa1 = new Kopa()
 
-            kopa1.add(kopnik1)
-            expect(kopa1.parts.indexOf(kopnik1)).toBe(0)
+            kopa1.addParticipant(kopnik1)
+            expect(kopa1.participants.indexOf(kopnik1)).toBe(0)
         })
 
         it('second time', async () => {
             let kopnik1 = new Kopnik(),
                 kopa1 = new Kopa()
 
-            kopa1.add(kopnik1)
-            kopa1.add(kopnik1)
-            expect(kopa1.parts.indexOf(kopnik1)).toBe(0)
-            expect(kopa1.parts.length).toBe(1)
+            kopa1.addParticipant(kopnik1)
+            kopa1.addParticipant(kopnik1)
+            expect(kopa1.participants.indexOf(kopnik1)).toBe(0)
+            expect(kopa1.participants.length).toBe(1)
         })
     })
     describe('remove', () => {
@@ -27,17 +27,17 @@ describe('unit models Kopa', () => {
             let kopnik1 = new Kopnik(),
                 kopa1 = new Kopa()
 
-            kopa1.parts.push(kopnik1)
-            kopa1.remove(kopnik1)
-            expect(kopa1.parts.length).toBe(0)
+            kopa1.participants.push(kopnik1)
+            kopa1.removeParticipant(kopnik1)
+            expect(kopa1.participants.length).toBe(0)
         })
 
         it('absent', async () => {
             let kopnik1 = new Kopnik(),
                 kopa1 = new Kopa()
 
-            kopa1.remove(kopnik1)
-            expect(kopa1.parts.length).toBe(0)
+            kopa1.removeParticipant(kopnik1)
+            expect(kopa1.participants.length).toBe(0)
         })
     })
     describe('isAdded', () => {
@@ -45,15 +45,15 @@ describe('unit models Kopa', () => {
             let kopnik1 = new Kopnik(),
                 kopa1 = new Kopa()
 
-            kopa1.parts.push(kopnik1)
-            expect(kopa1.isAdded(kopnik1)).toBeTruthy()
+            kopa1.participants.push(kopnik1)
+            expect(kopa1.isParticipantAdded(kopnik1)).toBeTruthy()
         })
 
         it('absent', async () => {
             let kopnik1 = new Kopnik(),
                 kopa1 = new Kopa()
 
-            expect(kopa1.isAdded(kopnik1)).toBeFalsy()
+            expect(kopa1.isParticipantAdded(kopnik1)).toBeFalsy()
         })
     })
     describe('toggle', () => {
@@ -61,16 +61,16 @@ describe('unit models Kopa', () => {
             let kopnik1 = new Kopnik(),
                 kopa1 = new Kopa()
 
-            kopa1.parts.push(kopnik1)
-            kopa1.toggle(kopnik1)
-            expect(kopa1.parts.length).toBe(0)
+            kopa1.participants.push(kopnik1)
+            kopa1.toggleParticipant(kopnik1)
+            expect(kopa1.participants.length).toBe(0)
         })
 
         it('absent', async () => {
             let kopnik1 = new Kopnik(),
                 kopa1 = new Kopa()
-            kopa1.toggle(kopnik1)
-            expect(kopa1.parts.length).toBe(1)
+            kopa1.toggleParticipant(kopnik1)
+            expect(kopa1.participants.length).toBe(1)
         })
     })
 })

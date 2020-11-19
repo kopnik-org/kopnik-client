@@ -1,7 +1,7 @@
 import api from "../api";
 import {bottle, container} from "../bottle/bottle";
 import {KopnikApiError} from "../KopnikError";
-import {AbstractSync, Kopnik} from "./index";
+import {AbstractSync, Kopa, Kopnik} from "./index";
 import {collection, object, scalar} from "../decorators/sync";
 import reset from "../../tests/utils/reset";
 
@@ -18,6 +18,13 @@ describe('models User get confirmed', () => {
     await main.login()
   })
 
+  it('inviteKopa', async () => {
+    const kopa = new Kopa()
+    kopa.subject= 'test kopa'
+    kopa.participants=[await Kopnik.create({}, 'participant')]
+    const inviteLink = await main.inviteKopa(kopa)
+    expect(inviteLink).toBeTruthy()
+  })
   it('get(self)', async () => {
     const user = new Kopnik()
     await user.reload()

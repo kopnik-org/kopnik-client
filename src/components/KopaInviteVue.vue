@@ -37,7 +37,7 @@
         },
         computed: {
             avatars() {
-                const result = this.value.parts
+                const result = this.value.participants
                     .map(eachPart => {
                         return {
                             value: eachPart,

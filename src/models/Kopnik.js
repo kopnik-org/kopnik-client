@@ -448,4 +448,20 @@ export default class Kopnik extends AbstractSync {
 
     return this;
   }
+
+  /**
+   * @param {Kopa} kopa
+   * @returns {Promise<{inviteLink}>}
+   */
+  async inviteKopa(kopa) {
+    const result = await this.constructor.api(`inviteKopa`,{
+      method: 'POST',
+      body: {
+        subject: kopa.subject,
+        participants: kopa.participants.map(eachParticipant=>eachParticipant.id),
+      }
+    })
+
+    return result
+  }
 }
