@@ -16,8 +16,7 @@
       <!--            <v-btn @click="href_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
       <v-btn v-if="application.user===null" color="primary" @click="login_click" class="mb-12">Войти через ВКонтакте
       </v-btn>
-      <v-btn v-if="application.user==null" color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте2
-      </v-btn>
+      <v-btn  v-if="application.user===null"  color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте2</v-btn>
       <!--      <v-btn v-if="application.user===null && env==='development'" color="primary" @click="snow_click" class="mb-12">snow</v-btn>-->
       <!--            <v-btn @click="vk_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
       <!--        <div id="vk_auth" ></div>-->
@@ -40,6 +39,7 @@ import {container} from "../bottle/bottle";
 import i18n from "../plugins/i18n";
 import logger from "./mixin/logger";
 import snow from "@/utils/snow";
+import api from "@/api";
 
 export default {
   name: "Login",
@@ -54,7 +54,12 @@ export default {
   },
   props: {},
   computed: {},
-  watch: {},
+  watch: {
+    'application.user': function(cur){
+      if (cur===null){
+      }
+    }
+  },
   methods: {
     snow_click() {
       snow()
@@ -63,13 +68,15 @@ export default {
       location.href = container.constants.messenger.loginUrl
     },
     login2_click() {
-      container.vkClient.auth()
-      // return `https://oauth.vk.com/authorize?scope=${0}&client_id=${process.env.VUE_APP_VK_CLIENT_ID}&redirect_uri=${encodeURIComponent(location.href)}&response_type=token&state=1&revoke=0`
-    },
-    vk_login_click() {
-      VK.Auth.login((...args) => {
-        console.log(args)
-      }, 2 + 1024 + 65536 + 262144 + 4194304)
+      container.VK.Auth.login(async (session, status)=>{
+        container.logger.debug(session,status)
+        if (session.status==='connected'){
+          await api('users/login', {
+            method: "POST",
+            body: session,
+          })
+        }
+      })
     },
     href_login_click() {
       location.href = container.constants.messenger.loginUrl

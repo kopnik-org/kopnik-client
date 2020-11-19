@@ -14,7 +14,8 @@ export default async function api(url, options = {}) {
     headers: {
       Cookie: container.constants.di.cookie ? container.cookieService.cookie : undefined,
       Accept: 'application/json',
-      'Content-Type': options.method === 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
+      // 'Content-Type': options.method === 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
+      'Content-Type': options.method === 'GET' ? 'text/plain' : 'application/json',
     },
     body: options.body ? JSON.stringify(options.body) : undefined,
   })
