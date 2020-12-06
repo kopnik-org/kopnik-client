@@ -13,10 +13,8 @@
     </div>
     <v-col class="d-flex align-end" style="width: inherit">
 
-      <!--            <v-btn @click="href_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
-      <v-btn v-if="application.user===null" color="primary" @click="login_click" class="mb-12">Войти через ВКонтакте
-      </v-btn>
-      <v-btn  v-if="application.user===null"  color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте2</v-btn>
+
+      <v-btn  v-if="!application.user"  color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте2</v-btn>
       <!--      <v-btn v-if="application.user===null && env==='development'" color="primary" @click="snow_click" class="mb-12">snow</v-btn>-->
       <!--            <v-btn @click="vk_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
       <!--        <div id="vk_auth" ></div>-->
@@ -68,15 +66,7 @@ export default {
       location.href = container.constants.messenger.loginUrl
     },
     login2_click() {
-      container.VK.Auth.login(async (session, status)=>{
-        container.logger.debug(session,status)
-        if (session.status==='connected'){
-          await api('users/login', {
-            method: "POST",
-            body: session,
-          })
-        }
-      })
+
     },
     href_login_click() {
       location.href = container.constants.messenger.loginUrl
