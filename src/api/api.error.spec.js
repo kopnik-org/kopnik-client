@@ -6,14 +6,8 @@ import api from "./index";
 describe('api bodyError', () => {
   it('/api/error', async () => {
     try {
-      await api('bodyError', {
-        method: 'post',
-        body: {
-          number: [1234], // []
-          string: 'qwerty', //[]
-          array: [1, 2, 3], //''
-          object: {a: 1, b: 2},// ''
-        }
+      await api('test/error', {
+        method: 'get',
       })
       throw new Error('should not be hire')
     } catch (err) {

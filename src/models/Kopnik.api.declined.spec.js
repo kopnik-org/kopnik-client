@@ -15,7 +15,7 @@ describe('models User Declined', () => {
         main = await Kopnik.create({
             status: Kopnik.Status.DECLINED,
         })
-        await login(main.id)
+        await main.login()
     })
 
     it('get(self)', async () => {
@@ -63,17 +63,6 @@ describe('models User Declined', () => {
         await main.reload()
         expect(main.status).toBe(Kopnik.Status.PENDING)
         expect(main.plain).toMatchObject(state)
-    })
-    it('updateWitnessRequestStatus()', async () => {
-        try {
-            await main.updateWitnessRequestStatus({
-                id: 1,
-                status: 2,
-            })
-            throw new Error("should not be hire")
-        } catch (err) {
-            expect(err).toBeKopnikError(403)
-        }
     })
     describe('tree', () => {
         describe('putForemanRequest()', () => {

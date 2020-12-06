@@ -32,7 +32,7 @@ describe('models User api anonymous', () => {
       await user.reload()
       throw new Error('should not be hire')
     } catch (err) {
-      expect(err).toBeKopnikError(401)
+      expect(err).toBeKopnikError(1401)
     }
   })
 
@@ -42,7 +42,7 @@ describe('models User api anonymous', () => {
       const user = await Kopnik.get(-1)
       throw new Error('should not be hire')
     } catch (err) {
-      expect(err).toBeKopnikError(401)
+      expect(err).toBeKopnikError(1401)
     }
   })
   it('users/pending', async () => {
@@ -50,7 +50,7 @@ describe('models User api anonymous', () => {
       await main.reloadWitnessRequests()
       throw new Error('should not be hire')
     } catch (err) {
-      expect(err).toBeKopnikError(401)
+      expect(err).toBeKopnikError(1401)
     }
   })
   it('users/isMessagesFromGroupAllowed', async () => {
@@ -58,7 +58,7 @@ describe('models User api anonymous', () => {
       let result = await main.isMessagesFromGroupAllowed()
       throw new Error('should not be hire')
     } catch (err) {
-      expect(err).toBeKopnikError(401)
+      expect(err).toBeKopnikError(1401)
     }
   })
   it('setLocale()', async () => {
@@ -66,7 +66,7 @@ describe('models User api anonymous', () => {
       await main.setLocale('en')
       throw new Error("should not be hire")
     } catch (err) {
-      expect(err).toBeKopnikError(401)
+      expect(err).toBeKopnikError(1401)
     }
   })
   it('updateProfile()', async () => {
@@ -82,18 +82,18 @@ describe('models User api anonymous', () => {
       })
       throw new Error("should not be hire")
     } catch (err) {
-      expect(err).toBeKopnikError(401)
+      expect(err).toBeKopnikError(1401)
     }
   })
-  it('updateWitnessRequestStatus()', async () => {
+  it('updateWitnessRequest()', async () => {
     try {
-      await main.updateWitnessRequestStatus({
+      await main.updateWitnessRequest({
         id: 1,
         status: 2,
       })
       throw new Error("should not be hire")
     } catch (err) {
-      expect(err).toBeKopnikError(401)
+      expect(err).toBeKopnikError(1401)
     }
   })
   describe('tree', () => {
@@ -102,7 +102,7 @@ describe('models User api anonymous', () => {
         await main.removeFromSubordinates(Kopnik.getReference(1))
         throw new Error("should not be hire")
       } catch (err) {
-        expect(err).toBeKopnikError(401)
+        expect(err).toBeKopnikError(1401)
       }
     })
   })

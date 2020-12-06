@@ -64,17 +64,6 @@ describe('models User get new', () => {
         expect(main.status).toBe(Kopnik.Status.PENDING)
         expect(main.plain).toMatchObject(state)
     })
-    it('updateWitnessRequestStatus()', async () => {
-        try {
-            await main.updateWitnessRequestStatus({
-                id: 1,
-                status: 2,
-            })
-            throw new Error("should not be hire")
-        } catch (err) {
-            expect(err.code).toBe(403)
-        }
-    })
     describe('tree', () => {
         describe('putForemanRequest()', () => {
             it('success', async () => {

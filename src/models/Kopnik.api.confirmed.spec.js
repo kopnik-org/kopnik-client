@@ -8,7 +8,7 @@ import reset from "../../tests/utils/reset";
 // real fetch
 container.constants.di.fetch = true
 
-describe('models User get confirmed', () => {
+describe('models User confirmed', () => {
   let main
   beforeEach(async () => {
     AbstractSync.clearCache()
@@ -63,17 +63,6 @@ describe('models User get confirmed', () => {
     await main.reload()
     expect(main.status).toBe(Kopnik.Status.PENDING)
     expect(main.plain).toMatchObject(state)
-  })
-  it('updateWitnessRequestStatus()', async () => {
-    try {
-      await main.updateWitnessRequestStatus({
-        id: 666,
-        status: Kopnik.Status.CONFIRMED,
-      })
-      throw new Error("should not be hire")
-    } catch (err) {
-      expect(err).toBeKopnikError(403)
-    }
   })
 
   describe('tree', () => {
@@ -144,7 +133,6 @@ describe('models User get confirmed', () => {
     describe('confirmForemanRequest()', () => {
       it('success', async () => {
         const requester = await Kopnik.create({
-          status: Kopnik.Status.PENDING,
           foremanRequest_id: main.id,
         }, 'requester')
         await main.confirmForemanRequest(requester)
@@ -191,7 +179,7 @@ describe('models User get confirmed', () => {
     describe('declineForemanRequest()', () => {
       it('success', async () => {
         const requester = await Kopnik.create({
-          status: Kopnik.Status.PENDING,
+          status: Kopnik.Status.CONFIRMED,
           foremanRequest_id: main.id,
         }, 'requester')
         await main.declineForemanRequest(requester)

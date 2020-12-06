@@ -30,16 +30,8 @@ describe('models User', () => {
         await witness.reload()
         expect(witness.isWitness).toBeTruthy()
 
+        await pending.login()
         await pending.reload()
-        expect(pending.witness_id).toBe(witness.id)
-    })
-
-    it.only('create with smallPhoto', async () => {
-        const user= await Kopnik.create({
-            photo:'1234'
-        })
-        await user.login()
-        await user.reload()
-        expect(user.smallPhoto).toBe('1234')
+        expect(pending.witness).toBe(witness)
     })
 })
