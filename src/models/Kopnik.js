@@ -145,7 +145,8 @@ export default class Kopnik extends AbstractSync {
    * @returns {Promise<void>}
    */
   async login() {
-    await api('test/login/' + this.id)
+    const session= await api('test/login/' + this.id)
+    container.VK.Auth.session= session
   }
 
   /**
@@ -153,7 +154,7 @@ export default class Kopnik extends AbstractSync {
    * @returns {Promise<void>}
    */
   async logout() {
-    await api('logout')
+    container.VK.Auth.session= undefined
   }
 
 
@@ -218,8 +219,8 @@ export default class Kopnik extends AbstractSync {
    * @param request
    * @returns {Promise<*>}
    */
-  async updateWitnessRequestStatus(request) {
-    let result = await this.constructor.api('pending/update', {
+  async updateWitnessRequest(request) {
+    let result = await this.constructor.api('updateWitnessRequest', {
       method: 'post',
       body: {
         id: request.id,
@@ -234,7 +235,7 @@ export default class Kopnik extends AbstractSync {
 
   @once
   async reloadWitnessRequests() {
-    let result = await this.constructor.api('pending')
+    let result = await this.constructor.api('getWitnessRequests')
     this.witnessRequests = result.map(eachKopnikAsJson => Kopnik.merge(eachKopnikAsJson, true))
   }
 
@@ -317,10 +318,11 @@ export default class Kopnik extends AbstractSync {
    * @param {Kopnik} requester
    */
   async confirmForemanRequest(requester) {
-    const result = await this.constructor.api('confirmForemanRequest', {
+    const result = await this.constructor.api('updateForemanRequest', {
       method: 'POST',
       body: {
         id: requester.id,
+        status: true,
       },
     });
     [this, ...this.foremans].forEach(eachForeman => eachForeman.rank += requester.rank)
@@ -338,10 +340,11 @@ export default class Kopnik extends AbstractSync {
    * @param {Kopnik} requester
    */
   async declineForemanRequest(requester) {
-    const result = await this.constructor.api('declineForemanRequest', {
+    const result = await this.constructor.api('updateForemanRequest', {
       method: 'POST',
       body: {
         id: requester.id,
+        status: false,
       },
     })
     if (this.foremanRequests) {

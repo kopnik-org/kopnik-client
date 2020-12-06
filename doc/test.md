@@ -30,12 +30,31 @@ __Ответ__
 
 __Параметры__
  
-```ids=210700286,7777777``` идентификаторы пользователей (необязательный). 
+```json
+{
+      "lastName": "11:19:27 PM",
+      "firstName": "11:19:27 PM",
+      "patronymic": "11:19:27 PM",
+      "nickname": "11:19:27 PM",
+      "birthyear":"2020",
+      "passport": "0123",
+      "location":{ "lat": 30, "lng": 50 },
+      "photo":"photo/11:19:27 PM",
+      "smallPhoto":"smallPhoto/11:19:27 PM",
+      "status":"0",
+      "locale":"ru",
+      "role":1,
+      "rank":1,
+      "identifier":1607113167778778,
+      "email":"1607113167778778@kopnik.ru",
+      "access_token":"access_token1607113167778778"
+    }
+```
 
 __Ответ__
 ```json
 {
-    "response": [{
+    "response": {
         "id": 210700286,
         "uid": 12454352,
         "lastName": "Stirling",
@@ -56,10 +75,6 @@ __Ответ__
         "foreman_id": null,
 
         "ten": "undefined"
-    },
-    {
-        "id": "7777777",
-        "...": ""
-    }]
+    }
  }
  ```
