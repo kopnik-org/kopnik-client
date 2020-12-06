@@ -7,6 +7,7 @@ import {KopnikApiError, KopnikError} from "../KopnikError";
 import once from "../decorators/once";
 import {container} from "../bottle/bottle";
 import Main from "./Main";
+import api from "@/api";
 
 export default class Application {
   constructor(logger) {
@@ -277,21 +278,23 @@ export default class Application {
    */
   @once
   async authenticate() {
-    try {
-      const user = new Kopnik()
-      await user.reload()
-      this.user = Kopnik.merge(user.plain, true)
-      container.localeManager.currentLocale = user.locale
-      this.logger.info('user authenticated', this.user.plain)
-    } catch (err) {
-      if ((err instanceof KopnikApiError) && err.message.match(/no.+aut/i)) {
-        // назначаем null вместо текущего undefined
-        this.user = null
-        this.logger.info('user not authenticated')
-      } else {
-        throw err
-      }
-    }
+    await new Promise((res, rej)=>{
+      container.VK.Auth.login(async ({session, status})=>{
+        container.logger.debug(session,status)
+        if (status==='connected'){
+          container.VK.Auth.session= session
+          const user = new Kopnik()
+          await user.reload()
+          // такой способ для того, чтобы замержить пользователя в кэш сущностей
+          this.user = Kopnik.merge(user.plain, true)
+          res()
+        }
+        else{
+          this.user= null
+          res()
+        }
+      })
+    })
   }
 
   /**

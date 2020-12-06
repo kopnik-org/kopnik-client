@@ -1,6 +1,7 @@
 import {container} from "../bottle/bottle";
 import {KopnikApiError} from "../KopnikError";
 import _ from "lodash";
+import { Base64 } from 'js-base64';
 
 export default async function api(url, options = {}) {
   const logger = container.logger.getLogger('api')
@@ -12,7 +13,8 @@ export default async function api(url, options = {}) {
     // mode: 'no-cors', // *cors, same-origin,
     credentials: 'include',
     headers: {
-      Cookie: container.constants.di.cookie ? container.cookieService.cookie : undefined,
+      // AuthorizationPlain: JSON.stringify(container.VK.Auth.session),
+      Authorization: container.VK.Auth.session?Base64.encode(JSON.stringify(container.VK.Auth.session)):'',
       Accept: 'application/json',
       // 'Content-Type': options.method === 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
       'Content-Type': options.method === 'GET' ? 'text/plain' : 'application/json',
@@ -67,7 +69,7 @@ export default async function api(url, options = {}) {
 
   // 8. check error from server
   if (body.error) {
-    throw new KopnikApiError(body.error.error_msg, body.error.error_code, fullUrl, body.error.error_trace,)
+    throw new KopnikApiError(body.error.error_msg, body.error.error_code, fullUrl, body.error.error_stack,)
   } else {
     logger.debug(...[body, response.headers.get('set-cookie')].filter(item => item))
   }
