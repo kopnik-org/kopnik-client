@@ -12,15 +12,10 @@ let constants = {
       delay: 15000,
     },
     messenger: {
-      // идентификатор нашего приложения ВК
-      // clientId: 7210289,
-      // страница, на которую нужно перейти для аутентификации
-      loginUrl: 'http://localhost:8081/connect/vkontakte',
-      // с мобилки
-      // loginUrl: 'http://192.168.43.84:8081/connect/vkontakte'
+      svetoslav_id: 573258821
     },
     api: {
-      path: "http://localhost:8081/api"
+      path: "https://localhost:8081/api"
       // с мобилки
       // path: "http://192.168.43.84:8081/api"
     },
@@ -34,9 +29,7 @@ let constants = {
       delay: Number.MAX_SAFE_INTEGER,
     },
     messenger: {
-      // clientId: 7210289,
-      loginUrl: 'http://localhost:8082/connect/vkontakte',
-      // redirectUrl: 'http://localhost:8082/login/check-vk'
+      svetoslav_id: 573258821
     },
     api: {
       path: "http://localhost:8082/api"
@@ -51,9 +44,7 @@ let constants = {
       delay: 20000,
     },
     messenger: {
-      loginUrl: 'https://staging.kopnik.org/connect/vkontakte',
-      // clientId: 7210289,
-      // redirectUrl: 'https://staging.kopnik.org/login/check-vk'
+      svetoslav_id: 573258821
     },
     api: {
       path: "https://staging.kopnik.org/api"

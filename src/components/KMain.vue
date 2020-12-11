@@ -332,7 +332,7 @@ export default {
             // size: MIN_MARKER_SIZE,
             // icon: L.divIcon({
             icon: L.icon({
-              iconUrl: eachVisibleKopnik.smallPhoto,
+              iconUrl: eachVisibleKopnik.photo,
               iconSize: [size, size],
               iconAnchor: [size / 2, size / 2],
               className: 'map_avatar' + (this.application.user === eachVisibleKopnik ? ' map_avatar-user' : '') + (this.value.selected === eachVisibleKopnik ? ' map_avatar-selected' : '') + (isVisible ? '' : ' map_avatar-oversized'),

@@ -68,13 +68,13 @@
         </ValidationProvider>
       </v-list-item-content>
     </v-list-item>
-    <v-list-item v-if="birthyear">
+    <v-list-item v-if="birthYear">
       <v-list-item-content>
-        <ValidationProvider name="birthyear" rules="required|numeric|length:4|min_value:1900|max_value:2020"
+        <ValidationProvider name="birthYear" rules="required|numeric|length:4|min_value:1900|max_value:2020"
                             v-slot="{ errors, valid }">
           <v-text-field
-            v-model="value.birthyear"
-            :label="$t('profile.birthyear')"
+            v-model="value.birthYear"
+            :label="$t('profile.birthYear')"
             v-mask="['####']"
             :error-messages="errors"
             :success="valid"
@@ -186,7 +186,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    birthyear: {
+    birthYear: {
       type: Boolean,
       default: false
     },

@@ -14,7 +14,7 @@ describe('models User get new', () => {
         AbstractSync.clearCache()
         main = await Kopnik.create({
             status: Kopnik.Status.NEW,
-        })
+        }, 'main'  )
         await main.login()
     })
 
@@ -54,7 +54,7 @@ describe('models User get new', () => {
             firstName: '1',
             lastName: '2',
             patronymic: '3',
-            birthyear: 2000,
+            birthYear: 2000,
             locale: 'en',
         }
         await main.updateProfile(state)
@@ -62,6 +62,7 @@ describe('models User get new', () => {
         await main.login()
         await main.reload()
         expect(main.status).toBe(Kopnik.Status.PENDING)
+        expect(main.witnessChatInviteLink).toBeTruthy()
         expect(main.plain).toMatchObject(state)
     })
     describe('tree', () => {

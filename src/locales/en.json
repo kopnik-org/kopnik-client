@@ -5,7 +5,7 @@
   },
   "profile": {
     "language": "Language",
-    "birthyear": "Birthyear",
+    "birthYear": "Birthyear",
     "firstName": "Name",
     "passport": "Last four number of passport",
     "patronymic": "Patronymic",

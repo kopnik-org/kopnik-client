@@ -10,15 +10,13 @@ import once from '../decorators/once'
 let TEST_ID = -1
 
 export default class Kopnik extends AbstractSync {
-  @scalar uid = undefined
-
   @scalar lastName = undefined
   @scalar firstName = undefined
   @scalar patronymic = undefined
   @scalar nickname = undefined
   @scalar rank = undefined
 
-  @scalar birthyear = undefined
+  @scalar birthYear = undefined
   //строка, т.к. может начинаться на "0"
   @scalar passport = undefined
   @scalar location = undefined
@@ -29,12 +27,16 @@ export default class Kopnik extends AbstractSync {
    * @type {String}
    */
   @scalar photo = undefined
-  @scalar smallPhoto = undefined
   @scalar status = undefined
   /** @type {Locale} */
   @scalar locale = container.localeManager.currentLocale
   @scalar role
   @scalar tenChatInviteLink
+  /* @type {string} */
+  @scalar mid
+  @scalar witnessChatInviteLink
+  @scalar tenChatInviteLink
+  @scalar foremanRequestChatInviteLink
 
   @object foreman = undefined
   @object foremanRequest = undefined
@@ -79,27 +81,26 @@ export default class Kopnik extends AbstractSync {
     if (prefix === undefined) {
       prefix = now.toLocaleTimeString()
     }
-    const uniq = now.getTime() * 1000 + now.getMilliseconds()
+    const uniqAsNumber = now.getTime() * 1000 + now.getMilliseconds()
     const realFields = Object.assign({
       lastName: prefix,
       firstName: prefix,
       patronymic: prefix,
       nickname: prefix,
-      birthyear: 2020,
+      birthYear: 2020,
       passport: "0123",
       location: {
         lat: 30,
         lng: 50,
       },
       photo: 'photo/' + prefix,
-      smallPhoto: 'smallPhoto/' + prefix,
       status: Kopnik.Status.CONFIRMED,
       locale: container.localeManager.currentLocale.name,
       role: Kopnik.Role.Kopnik,
       rank: 1,
-      identifier: uniq,
-      email: uniq + '@kopnik.ru',
-      access_token: 'access_token' + uniq,
+      mid: uniqAsNumber,
+      email: uniqAsNumber + '@kopnik.ru',
+      access_token: 'access_token' + uniqAsNumber,
     }, fields)
 
     if (!fields || !fields.isLoaded) {
@@ -145,7 +146,7 @@ export default class Kopnik extends AbstractSync {
    * @returns {Promise<void>}
    */
   async login() {
-    const session= await api('test/login/' + this.id)
+    const session= await api('test/login/' + this.mid)
     container.VK.Auth.session= session
   }
 

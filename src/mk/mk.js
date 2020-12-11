@@ -10,7 +10,19 @@ export default class MK {
 
   static Auth = {
     session: undefined,
-    async login(callback) {
+    login(callback) {
+      callback({
+        session: MK.Auth.session,
+        status: MK.Auth.session?'connected':'unknown'
+      })
+    },
+    logout(callback) {
+      callback({
+        session: MK.Auth.session,
+        status: MK.Auth.session?'connected':'unknown'
+      })
+    },
+    async getLoginStatus(callback) {
       callback({
         session: MK.Auth.session,
         status: MK.Auth.session?'connected':'unknown'
@@ -22,6 +34,9 @@ export default class MK {
     return {
       AllowMessagesFromCommunity() {
         MK.logger.debug('AllowMessagesFromCommunity', arguments)
+      },
+      Subscribe() {
+        MK.logger.debug('Subscribe', arguments)
       },
     }
   }

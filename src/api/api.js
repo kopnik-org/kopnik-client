@@ -64,12 +64,12 @@ export default async function api(url, options = {}) {
   try {
     body = JSON.parse(bodyText)
   } catch (err) {
-    throw new KopnikApiError(`${response.statusText}: ${bodyText}`, 1000 + response.status, fullUrl)
+    throw new KopnikApiError(`API: ${response.statusText}: ${bodyText}`, 1000 + response.status, fullUrl)
   }
 
   // 8. check error from server
   if (body.error) {
-    throw new KopnikApiError(body.error.error_msg, body.error.error_code, fullUrl, body.error.error_stack,)
+    throw new KopnikApiError(`API: ${body.error.error_msg}`, body.error.error_code, fullUrl, body.error.error_stack,)
   } else {
     logger.debug(...[body, response.headers.get('set-cookie')].filter(item => item))
   }

@@ -9,7 +9,7 @@
     "firstName": "Imię",
     "lastName": "Nazwisko",
     "patronymic": "Imię ojca",
-    "birthyear": "Rok urodzenia",
+    "birthYear": "Rok urodzenia",
     "passport": "Ostatnie 4 cyfry paszportu",
     "nickname": "Przydomek",
     "submit": "Wysłać",

@@ -7,7 +7,7 @@
     "language": "jazyk",
     "firstName": "meno",
     "lastName": "priezvisko",
-    "birthyear": "Rok narodenia",
+    "birthYear": "Rok narodenia",
     "passport": "Posledné 4 čísla Občiansky preukaz",
     "nickname": "prezývka",
     "submit": "potvrdiť",

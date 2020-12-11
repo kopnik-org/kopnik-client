@@ -8,17 +8,17 @@
           <v-form>
             <kopnik-vue ref="request"
                         :value="request"
-                        locale fio birthyear passport role location
+                        locale fio birthYear passport role location
                         @locale_change="locale_change"
             ></kopnik-vue>
-            <v-list v-if="isMessagesFromGroupAllowed===false">
+            <v-list v-if="wasMessagesFromGroupAllowed===false">
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title style="white-space: inherit !important;">{{
                       $t('profile.messagesFromGroup.allow')
                     }}
                   </v-list-item-title>
-                  <!-- VK Widget https://vk.com/dev/AllowMessagesFromCommunity https://vk.com/dev/widget_allow_messages_from_community -->
+                  <!--doc: https://vk.com/dev/Subscribe?link=https%3A%2F%2Fvk.com%2Fsvetoslav_igorevich&mode=0&oid=573258821-->
                   <div id="vk_allow_messages_from_community" class="text-center my-3"></div>
                 </v-list-item-content>
               </v-list-item>
@@ -44,7 +44,7 @@ import {
 } from "vee-validate"
 
 import {Kopnik} from "../models"
-import {container} from "../bottle/bottle";
+import {bottle, container} from "../bottle/bottle";
 import logger from "./mixin/logger";
 import KopnikVue from "./KopnikVue";
 import api from "../api";
@@ -72,7 +72,7 @@ export default {
   watch: {},
   methods: {
     async submit_click() {
-      this.request.birthyear = parseInt(this.request.birthyear)
+      this.request.birthYear = parseInt(this.request.birthYear)
       await this.application.user.updateProfile(this.request.plain)
       this.application.infos.push(this.$t('profile.submitMessage'))
       await this.application.setSection(container.application.constructor.Section.Main)
@@ -101,13 +101,13 @@ export default {
   },
   async mounted() {
     this.wasMessagesFromGroupAllowed = this.isMessagesFromGroupAllowed = await this.application.user.isMessagesFromGroupAllowed()
-    // https://vk.com/dev/widget_allow_messages_from_community
+    // doc: https://vk.com/dev/widget_subscribe
     if (!this.isMessagesFromGroupAllowed) {
-      container.VK.Widgets.AllowMessagesFromCommunity("vk_allow_messages_from_community", {height: 30}, 144968351);
-      container.VK.Observer.subscribe("widgets.allowMessagesFromCommunity.allowed", (userId) => {
+      container.VK.Widgets.Subscribe("vk_allow_messages_from_community", {mode: 1, soft:  1,}, container.constants.messenger.svetoslav_id);
+      container.VK.Observer.subscribe("widgets.subscribed", (userId) => {
         this.isMessagesFromGroupAllowed = true
       })
-      container.VK.Observer.subscribe("widgets.allowMessagesFromCommunity.denied", (userId) => {
+      container.VK.Observer.subscribe("widgets.unsubscribed", (userId) => {
         this.isMessagesFromGroupAllowed = false
       })
     }

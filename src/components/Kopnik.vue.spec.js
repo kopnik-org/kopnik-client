@@ -30,7 +30,7 @@ describe('unit components Kopnik', () => {
             propsData: {
                 value: user,
                 fio: true,
-                birthyear: true,
+                birthYear: true,
                 passport: true,
                 location: true,
             }

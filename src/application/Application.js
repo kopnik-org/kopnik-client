@@ -184,8 +184,7 @@ export default class Application {
       })
       this.user = null
       console.info('prevent 401 error', err)
-    }
-    else if (err.message.match(/Cannot read property '_leaflet_pos'/)) {
+    } else if (err.message.match(/Cannot read property '_leaflet_pos'/)) {
       this.logger.error(err)
       this.logger.info('preventing leaflet bug from user https://github.com/vue-leaflet/Vue2Leaflet/issues/613')
     } else {
@@ -272,29 +271,25 @@ export default class Application {
   }
 
   /**
-   * Инициализирует ползователя при запуске приложения
+   * Колбэк для авторизации. Вызывается в двух случаях:
+   * 1. Когда пользователь уже зареген в ВК и приложении и авторизация происходит незаметно для него
+   * 2. Когад он не зареген в ВК или приложении и делает это на странице ВК
+   * @param {{mid: string, secret: string, sid: string, sig: string}} token
+   * @param {string} status
    *
-   * @returns {Promise<void>}
+   * docs: https://vk.com/dev/openapi?f=3.1.%20VK.Auth.login
    */
-  @once
-  async authenticate() {
-    await new Promise((res, rej)=>{
-      container.VK.Auth.login(async ({session, status})=>{
-        container.logger.debug(session,status)
-        if (status==='connected'){
-          container.VK.Auth.session= session
-          const user = new Kopnik()
-          await user.reload()
-          // такой способ для того, чтобы замержить пользователя в кэш сущностей
-          this.user = Kopnik.merge(user.plain, true)
-          res()
-        }
-        else{
-          this.user= null
-          res()
-        }
-      })
-    })
+  async onAuthenticate(session) {
+    container.logger.debug('VK session', session.session, session.status)
+    if (session.status === 'connected') {
+      container.VK.Auth.session = session.session
+      const user = new Kopnik()
+      await user.reload()
+      // такой способ для того, чтобы замержить пользователя в кэш сущностей
+      this.user = Kopnik.merge(user.plain, true)
+    } else {
+      this.user = null
+    }
   }
 
   /**
@@ -303,13 +298,30 @@ export default class Application {
    * @returns {Promise<void>}
    */
   @once
+  async authenticate() {
+    await new Promise((res, rej) => {
+      container.VK.Auth.getLoginStatus(this.onAuthenticate.bind(this))
+    })
+  }
+
+  /**
+   * Инициализирует ползователя при запуске приложения
+   *
+   * @returns {Promise<void>}
+   *
+   * doc: https://vk.com/dev/openapi?f=3.2.%20VK.Auth.logout
+   */
+  @once
   async logout() {
     await this.lockSection(() => {
       this.setSection(Application.Section.Main)
     })
-    this.sections.main.selected = null
-    await container.api('logout')
-    this.user = null
+    container.VK.Auth.logout((session)=>{
+      this.logger.info('logout session', session)
+      this.sections.main.selected = null
+      this.user = null
+    })
+
   }
 }
 

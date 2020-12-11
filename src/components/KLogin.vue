@@ -14,6 +14,7 @@
     <v-col class="d-flex align-end" style="width: inherit">
 
 
+      <div id="vk_auth"></div>
       <v-btn  v-if="!application.user"  color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте2</v-btn>
       <!--      <v-btn v-if="application.user===null && env==='development'" color="primary" @click="snow_click" class="mb-12">snow</v-btn>-->
       <!--            <v-btn @click="vk_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
@@ -66,7 +67,8 @@ export default {
       location.href = container.constants.messenger.loginUrl
     },
     login2_click() {
-
+      // docs: https://vk.com/dev/openapi?f=3.1.%20VK.Auth.login
+      container.VK.Auth.login(this.application.onAuthenticate.bind(this.application))
     },
     href_login_click() {
       location.href = container.constants.messenger.loginUrl
@@ -78,6 +80,11 @@ export default {
       this.quoteIndex = _.random(i18n.messages.ru.length)
     }, 30000)
   },
+  async mounted(){
+    container.VK.Widgets.Auth("vk_auth", {"onAuth":function(data) {
+      alert('user '+data['uid']+' authorized')
+    }});
+  }
 }
 </script>
 <style>
