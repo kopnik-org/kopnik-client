@@ -33,7 +33,7 @@ describe('components KopaInviteVue.vue',  () => {
     it('render', async () => {
         const kopnik2 = Kopnik.getReference(2)
         kopnik2.isLoaded=true
-        kopa.add(kopnik2)
+        kopa.addParticipant(kopnik2)
         const wrapper= mount(KopaInviteVue, {
             ...vuePlugins,
             propsData: {

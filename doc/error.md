@@ -12,6 +12,9 @@ __Ошибки__
 |1000+510    |Invalid Foreman            
 |1000+511    |Invalid Subordinate Request       
 |1000+512    |Invalid Subordinate
+|1000+513    |Not In Ten       
+| Kopa       |       
+|1000+520    |Тема не задана или список пользователей не задан       
 |VK          |
 |1000+601    |User status NotFriend        
 
