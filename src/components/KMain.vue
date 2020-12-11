@@ -102,16 +102,47 @@
     </MapVue>
 
     <!--        копники на копу-->
-    <kopa-invite v-if="value.kopa.participants.length" :value="value.kopa"
+    <kopa-invite v-if="kopa.participants.length" :value="kopa"
                  style="position: fixed; left: 50%; transform: translateX(-50%); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);"
                  :style="{bottom: kopaBottom}"
                  @avatar_click="avatar_click($event)" @avatar_dblclick="avatar_dblclick($event)">
-      <v-btn fab small color="primary"
-             title="Созвать всех на копу..."
-             @click="inviteAll_click"
-             class="ml-auto mr-1 mb-2" width="52" height="52">
-        <v-icon>mdi-handshake</v-icon>
-      </v-btn>
+      <v-dialog ref="kopaDialog"
+                v-model="kopaDialog"
+                :max-width="450"
+      >
+        <!--         кнопка-активатор-->
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn ref="kopaAsk" fab small color="primary"
+                 title="Созвать всех на копу..."
+                 v-on="on"
+                 class="ml-auto mr-1 mb-2" width="52" height="52">
+            <v-icon>mdi-handshake</v-icon>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-title>
+            <v-avatar :size="128" class="mr-7"><img src="img/avatar.png"></v-avatar>
+            {{ $t('kopaDialog.title') }}
+          </v-card-title>
+          <v-card-text>
+            <v-textarea :label="$t('kopaDialog.subject.label')" v-model="kopa.subject"
+            ></v-textarea>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn ref="kopaDialogOK" text color="primary" @click="kopaDialogOK_click" :disabled="!kopa.subject"
+                   class="flex-grow-1"
+                   v-promise-btn
+            >
+              {{ $t('dialog.yes') }}
+            </v-btn>
+            <v-btn ref="kopaDialogCancel" text color="secondary" @click="kopaDialog=false" class="flex-grow-1"
+                   v-promise-btn
+            >
+              {{ $t('dialog.no') }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </kopa-invite>
 
     <!--детали копник внизу-->
@@ -120,9 +151,9 @@
     >
       <v-card class="text-center" height="150px">
         <v-list-item v-if="value.selected">
-          <k-avater :value="value.selected" :size="80" class="ma-3 ml-0"
-                      @dblclick="avatar_dblclick(value.selected)">
-          </k-avater>
+          <k-avatar :value="value.selected" :size="80" class="ma-3 ml-0"
+                    @dblclick="avatar_dblclick(value.selected)">
+          </k-avatar>
           <v-list-item-content>
             <v-list-item-subtitle class="text-wrap">{{ value.selected.name }}</v-list-item-subtitle>
           </v-list-item-content>
@@ -135,14 +166,14 @@
           <v-btn ref="talk" text :disabled="application.user===value.selected" class="flex" @click="talk_click">
             {{ $t('details.toChat') }}
           </v-btn>
-          <v-btn ref="toggle" text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
+          <v-btn ref="toggleParticipant" text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
             {{ value.kopa.isParticipantAdded(value.selected) ? $t('details.notToKopa') : $t('details.toKopa') }}
           </v-btn>
           <!--         диалоги старшин-->
           <v-dialog ref="foremanDialog"
 
-            v-model="putForemanRequestDialog"
-            :max-width="450"
+                    v-model="foremanDialog"
+                    :max-width="450"
           >
             <!--         кнопка-активатор-->
             <template v-slot:activator="{ on, attrs }">
@@ -160,7 +191,7 @@
             <!--         Больше не старшина -->
             <v-card>
               <v-card-title>
-                <k-avater :value="value.selected" :size="128" class="mr-7"></k-avater>
+                <k-avatar :value="value.selected" :size="128" class="mr-7"></k-avatar>
                 {{
                   application.user.foreman === value.selected ? $t('details.resetForemanQuestion') : application.user.foremanRequest === value.selected ? $t('details.cancelForemanRequestQuestion') : $t('details.toForemanQuestion')
                 }}
@@ -174,7 +205,7 @@
                 >
                   {{ $t('dialog.yes') }}
                 </v-btn>
-                <v-btn ref="foremanDecline" text color="secondary" @click="putForemanRequestDialog=false" class="flex-grow-1"
+                <v-btn ref="foremanDecline" text color="secondary" @click="foremanDialog=false" class="flex-grow-1"
                        v-promise-btn
                 >
                   {{ $t('dialog.no') }}
@@ -198,14 +229,14 @@ import {
   LControl,
   LCircle,
 } from 'vue2-leaflet'
-import {Kopnik} from "../models"
+import {Kopa, Kopnik} from "../models"
 import MapVue from "./MapVue";
 import {container} from "@/bottle/bottle";
 import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator'
 import touchDetector from "./mixin/touch-detecter";
 import logger from "./mixin/logger";
 import KopaInvite from "./KopaInviteVue";
-import KAvater from "./KAvatar";
+import KAvatar from "./KAvatar";
 import Main from "../application/Main";
 import Vue2AntPath from "@/components/Vue2AntPath";
 import isTouchDevice from "@/components/isTouchDevice";
@@ -259,7 +290,7 @@ export default {
     KopnikVue,
     Vue2AntPath,
     LCircle,
-    KAvater,
+    KAvatar: KAvatar,
     KopaInvite,
     Vue2LeafletPolylineDecorator,
     LPolyline,
@@ -271,7 +302,8 @@ export default {
   },
   data() {
     return {
-      putForemanRequestDialog: false,
+      foremanDialog: false, // это признак все диалоги старшины. они все внутри одного диалога
+      kopaDialog: false, // это признак диалога копы
       antPath: true, // !isTouchDevice(),
       icon: L.icon({
         iconUrl: 'https://sun9-56.userapi.com/c639321/v639321874/53f61/8HqRXdrg-BM.jpg?ava=1',
@@ -304,6 +336,9 @@ export default {
     }
   },
   computed: {
+    kopa() {
+      return this.application.sections.main.kopa
+    },
     loadedKopniks() {
       const result = new Set([...this.value.top20, ...this.value.squadAnalyzer.analyzed])
       if (this.application.user) {
@@ -420,6 +455,12 @@ export default {
     },
   },
   methods: {
+    kopaDialogOK_click: async function () {
+      await this.application.user.inviteKopa(this.application.sections.main.kopa)
+      this.application.sections.main.kopa = new Kopa()
+      this.kopaDialog = false
+      this.application.infos.push(this.application.getMessage("kopaDialog.afterInfo"))
+    },
     arrow_click(arrow, event) {
       this.value.selected = this.value.selected === arrow.from ? arrow.to : arrow.from
       DomEvent.stopPropagation(event)
@@ -463,7 +504,7 @@ export default {
           application.infos.push(application.getMessage("details.toForemanInfo"))
         }
       } finally {
-        this.putForemanRequestDialog = false
+        this.foremanDialog = false
       }
     },
     /**
@@ -503,10 +544,10 @@ export default {
     map_click() {
       this.value.selected = null
     },
-    marker_click(kopnik,event) {
+    marker_click(kopnik, event) {
       this.value.selected = kopnik
     },
-    async marker_dblclick(kopnik,event) {
+    async marker_dblclick(kopnik, event) {
       if (await this.application.forwardUserToBeConfirmed()) {
         return false
       }

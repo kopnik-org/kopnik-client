@@ -3,7 +3,8 @@
   "version": "0.3.2",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --https",
+    "serve": "vue-cli-service serve",
+    "serve:https": "vue-cli-service serve --https",
     "build": "vue-cli-service build",
     "build:staging": "vue-cli-service build --mode staging",
     "lint": "vue-cli-service lint",

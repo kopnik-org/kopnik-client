@@ -7,7 +7,7 @@ import vuePlugins from "../../tests/test-setup";
 import {container} from "../bottle/bottle";
 import {mount} from "@vue/test-utils";
 import waitForExpect from "wait-for-expect";
-import KAvater from "./KAvatar";
+import KAvatar from "./KAvatar";
 
 // real fetch
 container.constants.di.fetch = true
@@ -36,7 +36,7 @@ describe('unit components Kopnik', () => {
             }
         })
         await flushPromises()
-        expect(wrapper.findComponent(KAvater)).toBeTruthy()
+        expect(wrapper.findComponent(KAvatar)).toBeTruthy()
         // expect(vm.$el).toMatchSnapshot() // input.v-text-field--is-booted present on run debug, but not on console run
     })
     it('render short', async () => {
@@ -48,7 +48,7 @@ describe('unit components Kopnik', () => {
             }
         })
         await flushPromises()
-        expect(wrapper.find(KAvater)).toBeTruthy()
+        expect(wrapper.find(KAvatar)).toBeTruthy()
     })
 
     // ??? @change на v-select не срабатывает

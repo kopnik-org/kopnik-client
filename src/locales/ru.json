@@ -98,13 +98,21 @@
     "notToKopa": "Не звать",
     "toForeman": "Выбрать",
     "toForemanQuestion": "Выбрать старшиной ?",
-    "toForemanInfo": "Заявка отправлена. Ожадай ответа старшины.",
+    "toForemanInfo": "Заявка отправлена. Ожидай ответа старшины.",
     "resetForeman": "Не старшина",
     "resetForemanQuestion": "Больше не старшина ?",
     "resetForemanInfo": "Этот копник для тебя больше не старшина",
     "cancelForemanRequest": "Отменить заявку",
     "cancelForemanRequestQuestion": "Отменить заявку ?",
     "cancelForemanRequestInfo": "Заявка отменена"
+  },
+  "kopaDialog": {
+    "title": "Созвать мужей на копу ?",
+    "subject": {
+      "label": "Тема обсуждения",
+      "hint": "Заполни здесь тему предстоящей копы"
+    },
+    "afterInfo": "Копа созвана."
   },
   "subordinates": {
     "confirmForemanRequest": "Принять в десятку",

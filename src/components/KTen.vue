@@ -18,12 +18,12 @@
           x
         </div>
         <!--аватарка старшины-->
-        <KAvater ref="foreman"
+        <KAvatar ref="foreman"
                  :value="value.foreman"
                  :size="64"
                  class="mb-2"
         >
-        </KAvater>
+        </KAvatar>
       </v-badge>
       <v-icon v-else
               size="128"
@@ -40,7 +40,7 @@
       >
         <v-card>
           <v-card-title>
-            <k-avater v-if="value.foreman" :value="value.foreman" :size="128" class="mr-7"></k-avater>
+            <k-avatar v-if="value.foreman" :value="value.foreman" :size="128" class="mr-7"></k-avatar>
             {{ $t('details.resetForemanQuestion') }}
           </v-card-title>
           <v-card-text>
@@ -69,10 +69,10 @@
       </v-icon>
 
       <!--      пользователь -->
-      <KAvater ref='user'
+      <KAvatar ref='user'
                :value="value"
                :size="64" class="mb-2">
-      </KAvater>
+      </KAvatar>
 
       <!--      стрелка к пользователю-->
       <v-icon :color="(value.subordinates && value.subordinates.length)?'blue':'#CCC'"
@@ -97,10 +97,10 @@
               x
             </div>
             <!--аватарка-->
-            <KAvater ref='subordinate'
+            <KAvatar ref='subordinate'
                      :value="eachSubordinate"
                      :size="64" class="mb-2">
-            </KAvater>
+            </KAvatar>
           </v-badge>
           <v-avatar v-else :key="'empty_'+eachSubordinateIndex"
                     :size="64" class="mb-2">
@@ -116,8 +116,8 @@
       >
         <v-card>
           <v-card-title>
-            <k-avater v-if="removeFromSubordinatesCandidate" :value="removeFromSubordinatesCandidate" :size="128"
-                      class="mr-7"></k-avater>
+            <k-avatar v-if="removeFromSubordinatesCandidate" :value="removeFromSubordinatesCandidate" :size="128"
+                      class="mr-7"></k-avatar>
             {{ $t('subordinates.removeFromSubordinatesQuestion') }}
           </v-card-title>
           <v-card-text>
@@ -188,7 +188,7 @@ import Kopnik from "../models/Kopnik"
 import thanks from "../thanks";
 
 import KopnikView from './KopnikVue'
-import KAvater from "./KAvatar";
+import KAvatar from "./KAvatar";
 import logger from "./mixin/logger";
 import {container} from "../bottle/bottle";
 
@@ -197,7 +197,7 @@ export default {
   mixins: [logger],
   components: {
     KopnikView,
-    KAvater,
+    KAvatar,
   },
   data: () => {
     return {
