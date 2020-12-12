@@ -11,10 +11,7 @@ export default class MK {
   static Auth = {
     session: undefined,
     login(callback) {
-      callback({
-        session: MK.Auth.session,
-        status: MK.Auth.session?'connected':'unknown'
-      })
+      this.getLoginStatus(callback)
     },
     logout(callback) {
       callback({
@@ -22,12 +19,12 @@ export default class MK {
         status: MK.Auth.session?'connected':'unknown'
       })
     },
-    async getLoginStatus(callback) {
+    getLoginStatus(callback) {
       callback({
         session: MK.Auth.session,
         status: MK.Auth.session?'connected':'unknown'
       })
-    }
+    },
   }
 
   static get Widgets() {

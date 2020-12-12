@@ -42,7 +42,7 @@ describe('components Witness', () => {
     application.user = user
 
     fetch.resetMocks()
-    fetch.mockIfEx(/pending$/, [request.plain])
+    fetch.mockIfEx(/getWitnessRequests$/, [request.plain])
 
     const div = document.createElement('div')
     if (document.body) {
@@ -75,7 +75,7 @@ describe('components Witness', () => {
   it('confirm request', async () => {
     const update= jest.fn()
     // нажимаю на ПРИНяТЬ
-    fetch.mockIfEx(/pending.update/, update)
+    fetch.mockIfEx(/updateWitnessRequest/, update)
     wrapper.findAllComponents({ref: 'confirm'}).wrappers[0].trigger('click')
     await flushPromises()
 
@@ -88,7 +88,7 @@ describe('components Witness', () => {
   it('decline request', async () => {
     const update= jest.fn()
     // нажимаю на ОТКЛОНИТЬ
-    fetch.mockIfEx(/pending.update/, update)
+    fetch.mockIfEx(/updateWitnessRequest/, update)
     wrapper.findAllComponents({ref: 'decline'}).wrappers[0].trigger('click')
     await flushPromises()
 

@@ -288,6 +288,7 @@ export default class Application {
       // такой способ для того, чтобы замержить пользователя в кэш сущностей
       this.user = Kopnik.merge(user.plain, true)
     } else {
+      container.VK.Auth.session = null
       this.user = null
     }
   }
@@ -299,8 +300,11 @@ export default class Application {
    */
   @once
   async authenticate() {
-    await new Promise((res, rej) => {
-      container.VK.Auth.getLoginStatus(this.onAuthenticate.bind(this))
+    await new Promise((res, ) => {
+      container.VK.Auth.getLoginStatus(async session=>{
+        await this.onAuthenticate(session)
+        res()
+      })
     })
   }
 

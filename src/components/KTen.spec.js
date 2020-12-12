@@ -140,7 +140,7 @@ describe('components KTen', () => {
 
   it('confirm foreman request', async () => {
     // нажимаю на ПРИНяТЬ
-    fetch.mockIfEx(/confirmForemanRequest/, 'OK')
+    fetch.mockIfEx(/updateForemanRequest/, 'OK')
     wrapper.findAllComponents({ref: 'confirmForemanRequest'}).wrappers[0].trigger('click')
     await flushPromises()
 

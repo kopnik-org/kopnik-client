@@ -29,7 +29,8 @@ describe('components KMain', () => {
     fetch.resetMocks()
     fetch.mockIfEx(/ids=$/, [user.plain])
     fetch.mockIfEx(/getTopInsideSquare/, [user.plain])
-    application.user = user
+    // чтобы авторизоваться
+    container.VK.Auth.session = true
 
 
     await application.authenticate()
@@ -56,6 +57,6 @@ describe('components KMain', () => {
     })
 
     // await new Promise(res=>setInterval(res, 4500))
-  },1000)
+  },100000)
 })
 
