@@ -1,0 +1,57 @@
+name: "ci/cd"
+
+on:
+  push:
+    branches:
+      - main
+      - fix*
+      - feature*
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 15.5.0
+          registry-url: https://registry.npmjs.org
+      - run: |
+        git clone https://github.com/kopnik-org/kopnik-node
+        cd kopnik-node
+        docker-compose up -d app,db
+      - run: npm i
+      - run: npm test
+
+  build:
+    name: build
+    if: github.ref == 'refs/heads/main'
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: docker build --no-cache -t kopnikorg/kopnik-client:latest ./.docker
+      - run: docker login -u alexey2baranov -p ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker push kopnikorg/kopnik-client:latest
+
+  deploy:
+    name: deploy
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: ssh
+        uses: kopnik-org/github-action-ssh@release
+        with:
+          command: |
+            cd ${{ secrets.SSH_PATH }}
+            git pull
+            docker-compose down
+            docker-compose pull --quiet
+            docker-compose up -d
+          host: staging.kopnik.org
+          username: someuser
+          password: ${{ secrets.SSH_PASSWORD }}
