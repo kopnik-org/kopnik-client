@@ -22,6 +22,7 @@ jobs:
       - run: cd kopnik-node
 
       # prepare .env file
+      - run: ls -la
       - run: cp default.env .env
 
       - run: docker-compose up -d app db
