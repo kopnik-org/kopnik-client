@@ -18,14 +18,14 @@ jobs:
           node-version: 15.5.0
           registry-url: https://registry.npmjs.org
       - run: |
-        git clone https://github.com/kopnik-org/kopnik-node
-        cd kopnik-node
+          git clone https://github.com/kopnik-org/kopnik-node
+          cd kopnik-node
 
-        # prepare .env file
-        ls -la
-        cp default.env .env
+          # prepare .env file
+          ls -la
+          cp default.env .env
 
-        docker-compose up -d app db
+          docker-compose up -d app db
       - run: npm i
       - run: npm test
   build:
