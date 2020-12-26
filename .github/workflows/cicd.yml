@@ -17,10 +17,9 @@ jobs:
         with:
           node-version: 15.5.0
           registry-url: https://registry.npmjs.org
-      - run: |
-        git clone https://github.com/kopnik-org/kopnik-node
-        cd kopnik-node
-        docker-compose up -d app,db
+      - run: git clone https://github.com/kopnik-org/kopnik-node
+      - run: cd kopnik-node
+      - run: docker-compose up -d app,db
       - run: npm i
       - run: npm test
 
