@@ -11,4 +11,4 @@ RUN ./node_modules/.bin/vue-cli-service build --mode staging
 # удаляем папку с зависимостями
 RUN rm -R ./node_modules
 
-CMD [ "/bin/sh" ]
+CMD [ "/bin/sh"]
