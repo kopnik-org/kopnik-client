@@ -319,7 +319,7 @@ export default class Kopnik extends AbstractSync {
    * @param {Kopnik} requester
    */
   async confirmForemanRequest(requester) {
-    const result = await this.constructor.api('updateForemanRequest', {
+    const result = await this.constructor.api('resolveForemanRequest', {
       method: 'POST',
       body: {
         id: requester.id,
@@ -341,7 +341,7 @@ export default class Kopnik extends AbstractSync {
    * @param {Kopnik} requester
    */
   async declineForemanRequest(requester) {
-    const result = await this.constructor.api('updateForemanRequest', {
+    const result = await this.constructor.api('resolveForemanRequest', {
       method: 'POST',
       body: {
         id: requester.id,

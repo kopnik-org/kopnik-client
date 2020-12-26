@@ -9,7 +9,7 @@
 let constants = {
   "development": {
     sw: {
-      delay: 15000,
+      delay: 30000,
     },
     messenger: {
       svetoslav_id: 573258821

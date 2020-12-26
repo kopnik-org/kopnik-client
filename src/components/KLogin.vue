@@ -16,7 +16,6 @@
 
       <div id="vk_auth"></div>
       <v-btn  v-if="!application.user"  color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте2</v-btn>
-      <!--      <v-btn v-if="application.user===null && env==='development'" color="primary" @click="snow_click" class="mb-12">snow</v-btn>-->
       <!--            <v-btn @click="vk_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
       <!--        <div id="vk_auth" ></div>-->
     </v-col>
@@ -33,12 +32,9 @@
 </template>
 <script>
 import _ from 'lodash'
-import Kopnik from "../models/Kopnik"
 import {container} from "../bottle/bottle";
 import i18n from "../plugins/i18n";
 import logger from "./mixin/logger";
-import snow from "@/utils/snow";
-import api from "@/api";
 
 export default {
   name: "Login",
@@ -60,9 +56,6 @@ export default {
     }
   },
   methods: {
-    snow_click() {
-      snow()
-    },
     login_click() {
       location.href = container.constants.messenger.loginUrl
     },

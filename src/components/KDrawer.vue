@@ -32,7 +32,7 @@
           <v-list-item-title>{{ $t('drawer.main') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item subordinates :disabled="!application.user" @click="subordinates_click">
+      <v-list-item subordinates :disabled="!application.user" @click="ten_click">
         <v-list-item-action>
           <v-badge :value="isTenDirty"
                    color="red"
@@ -45,7 +45,8 @@
           <v-list-item-title>{{ $t('drawer.ten') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link v-if="application.user && application.user.tenChatInviteLink" target="_blank" :href="application.user.tenChatInviteLink">
+      <v-list-item v-if="application.user && application.user.tenChatInviteLink && application.user.subordinates && application.user.subordinates.length" link target="_blank"
+                   :href="application.user.tenChatInviteLink">
         <v-list-item-action>
           <v-icon>mdi-chat</v-icon>
         </v-list-item-action>
@@ -53,7 +54,8 @@
           <v-list-item-title>{{ $t('drawer.tenChat') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link v-if="application.user && application.user.foreman" target="_blank" href="application.user.foreman.tenChatInviteLink">
+      <v-list-item link v-if="application.user && application.user.foreman && application.user.foreman.tenChatInviteLink" target="_blank"
+                   :href="application.user.foreman.tenChatInviteLink">
         <v-list-item-action>
           <v-icon>mdi-chat</v-icon>
         </v-list-item-action>
@@ -61,9 +63,9 @@
           <v-list-item-title>{{ $t('drawer.foremanChat') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item v-if="application.user.isWitness"
-                   :disabled="!application.user"
-                   @click="witness_click"
+      <v-list-item
+        v-if="application.user && application.user.witnessRequests && application.user.witnessRequests.length || application.user && application.user.status!=application.user.constructor.Status.CONFIRMED"
+        @click="witness_click"
       >
         <v-list-item-action>
           <v-badge :value="isWitnessDirty"
@@ -93,14 +95,6 @@
           <v-list-item-title>{{ $t('drawer.help') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-<!--      <v-list-item v-if="application.user || application.user.id===1" @click="snow_click">
-        <v-list-item-action>
-          <v-icon>mdi-location-snow</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title> Снежинка</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>-->
     </v-list>
     <template v-slot:append>
       <v-divider/>
@@ -123,8 +117,7 @@ import {container} from "../bottle/bottle";
 import logger from "./mixin/logger";
 import Kopnik from "../models/Kopnik";
 import Application from "@/application/Application";
-import createSubordinates from "../utils/snow/createSubordinates";
-import snow from '../utils/snow'
+
 
 /**
  * @property {Application} application
@@ -166,7 +159,7 @@ export default {
         await this.application.setSection(Application.Section.Witness)
       })
     },
-    async subordinates_click() {
+    async ten_click() {
       if (await this.application.forwardUserToBeConfirmed()) {
         return
       }
@@ -184,9 +177,6 @@ export default {
     async logout_click() {
       await this.application.logout()
     },
-    async snow_click() {
-      await snow()
-    }
   },
   async created() {
     await this.application.resolveUser()
