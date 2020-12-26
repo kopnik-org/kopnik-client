@@ -12,9 +12,8 @@
     "test": "jest --runInBand",
     "test:eg": "npm test -- --testPathPattern 'src/api/api.Vk.spec.js' --testNamePattern 'sendVkMessage'",
     "test:inviteKopa": "npm test -- --testPathPattern 'src/models/Kopnik.api.confirmed.spec.js' --testNamePattern 'inviteKopa'",
-    "snow": "babel-node ./src/utils/snow",
     "release": "run(){ npm version $1 && git push --tags; }; run",
-    "docker:build": "docker build -f .docker/staging/nodejs/Dockerfile -t kopnikorg/kopnik-client-staging:latest .",
+    "docker:build": "docker build -f .docker/Dockerfile -t kopnikorg/kopnik-client-staging:latest .",
     "docker:push": "docker push kopnikorg/kopnik-client-staging:latest"
   },
   "dependencies": {
