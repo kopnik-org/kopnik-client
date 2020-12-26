@@ -20,7 +20,11 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: git clone https://github.com/kopnik-org/kopnik-node
       - run: cd kopnik-node
-      - run: docker-compose up -d app,db
+
+      # prepare .env file
+      - run: cp default.env .env
+
+      - run: docker-compose up -d app db
       - run: npm i
       - run: npm test
   build:
