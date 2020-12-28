@@ -23,7 +23,7 @@ jobs:
           cp default.env .env
           docker-compose up -d node db
           docker-compose exec node npm run typeorm:migration:run
-        - run: npm i
+      - run: npm i
       - run: npm test
   build:
     name: build
