@@ -27,7 +27,7 @@ jobs:
           sleep 10
 
           echo executing docker-compose exec node npm run typeorm:migration:run...
-          docker-compose exec node npm run typeorm:migration:run
+          docker-compose exec -T node npm run typeorm:migration:run
       - run: npm i
       - run: npm test
   build:
