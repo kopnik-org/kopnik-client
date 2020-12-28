@@ -20,13 +20,10 @@ jobs:
       - run: |
           git clone https://github.com/kopnik-org/kopnik-node
           cd kopnik-node
-
-          # prepare .env file
-          ls -la
           cp default.env .env
-
-          docker-compose up -d app db
-      - run: npm i
+          docker-compose up -d node db
+          docker-compose exec node npm run typeorm:migration:run
+        - run: npm i
       - run: npm test
   build:
     name: build
