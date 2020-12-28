@@ -23,10 +23,10 @@ jobs:
           cp default.env .env
           docker-compose up -d node db
 
-          echo sleep 10...
-          sleep 10
+#          echo sleep 10...
+#          sleep 10
 
-          echo executing docker-compose exec node npm run typeorm:migration:run...
+#          echo executing docker-compose exec node npm run typeorm:migration:run...
           docker-compose exec -T node npm run typeorm:migration:run
       - run: npm i
       - run: npm test
@@ -55,7 +55,7 @@ jobs:
           command: |
             cd ${{ secrets.SSH_PATH }}
             git pull
-            docker-compose down
+            docker-compose down --remove-orphans
             docker-compose pull --quiet
             docker-compose up -d
           host: staging.kopnik.org

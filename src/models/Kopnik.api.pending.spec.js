@@ -14,7 +14,7 @@ describe('models User get pending', () => {
         AbstractSync.clearCache()
         main = await Kopnik.create({
             status: Kopnik.Status.PENDING,
-        })
+        }, 'main')
         await main.login()
     })
 

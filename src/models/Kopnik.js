@@ -70,7 +70,7 @@ export default class Kopnik extends AbstractSync {
    * Create user in test DB
    * for test purposes only
    *
-   * @param {{id: number?, isLoaded:boolean?, status:number?, role: string?, foreman_id: number?, foremanRequest_id: number?, witness_id:number?}?} fields
+   * @param {{id: number?, isLoaded:boolean?, status:number?, role: string?, foreman_id: number?, foremanRequest_id: number?, witness_id:number?, isWitness: boolean?,}?} fields
    * @param {string|Date|number?} prefix
    *
    * @returns {Promise<Kopnik>}
