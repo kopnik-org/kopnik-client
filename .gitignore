@@ -22,3 +22,7 @@ yarn-error.log*
 *.sw?
 
 /temp.*
+
+
+#coverage files
+coverage/

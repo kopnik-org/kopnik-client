@@ -15,7 +15,7 @@
 
 
       <div id="vk_auth"></div>
-      <v-btn  v-if="!application.user"  color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте2</v-btn>
+      <v-btn  v-if="!application.user"  color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте</v-btn>
       <!--            <v-btn @click="vk_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
       <!--        <div id="vk_auth" ></div>-->
     </v-col>
@@ -74,9 +74,9 @@ export default {
     }, 30000)
   },
   async mounted(){
-    container.VK.Widgets.Auth("vk_auth", {"onAuth":function(data) {
+/*    container.VK.Widgets.Auth("vk_auth", {"onAuth":function(data) {
       alert('user '+data['uid']+' authorized')
-    }});
+    }});*/
   }
 }
 </script>
