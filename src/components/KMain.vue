@@ -163,9 +163,9 @@
           v-if="value.selected"
           class="flex-nowrap"
         >
-          <v-btn ref="talk" text :disabled="application.user===value.selected" class="flex" @click="talk_click">
+<!--          <v-btn ref="talk" text :disabled="application.user===value.selected" class="flex" @click="talk_click">
             {{ $t('details.toChat') }}
-          </v-btn>
+          </v-btn>-->
           <v-btn ref="toggleParticipant" text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
             {{ value.kopa.isParticipantAdded(value.selected) ? $t('details.notToKopa') : $t('details.toKopa') }}
           </v-btn>
@@ -281,7 +281,7 @@ const
    * Math.pow(MAX_RANK, K / 3) = MAX_MARKER_SIZE / MARKER_SIZE_18 * Math.pow(2, 18 - zoom)
    * MAX_RANK = Math.pow(MAX_MARKER_SIZE / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3 / K)
    */
-  getMaxKopnikRank = (zoom) => Math.min(300000000, Math.pow(MAX_MARKER_SIZE / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3 / K))
+  getMaxKopnikRank = (zoom) => Math.floor(Math.min(300000000, Math.pow(MAX_MARKER_SIZE / MARKER_SIZE_18 * Math.pow(2, 18 - zoom), 3 / K)))
 
 
 export default {
