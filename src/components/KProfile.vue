@@ -6,6 +6,8 @@
       <v-card elevation="12">
         <v-card-text>
           <v-form>
+            <v-alert :color="application.user.status==2?'info':'warning'" v-html="alert">
+            </v-alert>
             <kopnik-vue ref="request"
                         :value="request"
                         locale fio birthYear passport role location
@@ -68,7 +70,11 @@ export default {
     }
   },
   props: {},
-  computed: {},
+  computed: {
+    alert(){
+      return this.$t(`profile.alert[${this.application.user.status}]`, {witnessChatInviteLink: application.user.witnessChatInviteLink})
+    }
+  },
   watch: {},
   methods: {
     async submit_click() {
@@ -97,6 +103,10 @@ export default {
     // console.log(this.request.plain)
     if (!this.request.location || !this.request.location.lat) {
       this.request.location = {lat: 55.753215, lng: 37.622504}
+    }
+    if (user.status==Kopnik.Status.NEW){
+      this.request.birthYear=null
+      this.request.role=null
     }
   },
   async mounted() {

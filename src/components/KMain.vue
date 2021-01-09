@@ -154,8 +154,9 @@
           <k-avatar :value="value.selected" :size="80" class="ma-3 ml-0"
                     @dblclick="avatar_dblclick(value.selected)">
           </k-avatar>
-          <v-list-item-content>
-            <v-list-item-subtitle class="text-wrap">{{ value.selected.name }}</v-list-item-subtitle>
+          <v-list-item-content class="pl-5">
+            <div class="">{{ value.selected.name }} </div>
+            <v-list-item-subtitle class="">{{ selectedRole }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -163,10 +164,11 @@
           v-if="value.selected"
           class="flex-nowrap"
         >
-<!--          <v-btn ref="talk" text :disabled="application.user===value.selected" class="flex" @click="talk_click">
-            {{ $t('details.toChat') }}
-          </v-btn>-->
-          <v-btn ref="toggleParticipant" text :disabled="application.user===value.selected" class="flex" @click="toggle_click">
+          <!--          <v-btn ref="talk" text :disabled="application.user===value.selected" class="flex" @click="talk_click">
+                      {{ $t('details.toChat') }}
+                    </v-btn>-->
+          <v-btn ref="toggleParticipant" text :disabled="application.user===value.selected" class="flex"
+                 @click="toggle_click">
             {{ value.kopa.isParticipantAdded(value.selected) ? $t('details.notToKopa') : $t('details.toKopa') }}
           </v-btn>
           <!--         диалоги старшин-->
@@ -336,6 +338,9 @@ export default {
     }
   },
   computed: {
+    selectedRole() {
+      return this.$t('profile.roles[0].title')
+    },
     kopa() {
       return this.application.sections.main.kopa
     },
