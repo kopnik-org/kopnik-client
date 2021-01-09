@@ -220,8 +220,8 @@ export default class Kopnik extends AbstractSync {
    * @param request
    * @returns {Promise<*>}
    */
-  async updateWitnessRequest(request) {
-    let result = await this.constructor.api('updateWitnessRequest', {
+  async resolveWitnessRequest(request) {
+    let result = await this.constructor.api('resolveWitnessRequest', {
       method: 'post',
       body: {
         id: request.id,

@@ -52,7 +52,7 @@
              */
             async updateRequestStatus_click(request, status) {
                 request.status = status
-                await this.application.user.updateWitnessRequest(request)
+                await this.application.user.resolveWitnessRequest(request)
             },
         },
         async created() {

@@ -145,7 +145,7 @@ __Ответ__
 аналогичен методу ```users/get(ids)``` 
 с добавлением поля ```passport``` последние 4 цифры поспорта
 
-## POST api/users/updateWitnessRequest
+## POST api/users/resolveWitnessRequest
 
 Подтвердить/отклонить заявку на регистрацию.
 

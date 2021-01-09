@@ -50,7 +50,7 @@ jobs:
           command: |
             cd ${{ secrets.SSH_PATH }}
             git pull
-            docker-compose down --remove-orphans
+            docker-compose down --remove-orphans --volumes
             docker-compose pull --quiet
             docker-compose up -d
           host: staging.kopnik.org

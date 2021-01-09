@@ -75,7 +75,7 @@ describe('components Witness', () => {
   it('confirm request', async () => {
     const update= jest.fn()
     // нажимаю на ПРИНяТЬ
-    fetch.mockIfEx(/updateWitnessRequest/, update)
+    fetch.mockIfEx(/resolveWitnessRequest/, update)
     wrapper.findAllComponents({ref: 'confirm'}).wrappers[0].trigger('click')
     await flushPromises()
 
@@ -88,7 +88,7 @@ describe('components Witness', () => {
   it('decline request', async () => {
     const update= jest.fn()
     // нажимаю на ОТКЛОНИТЬ
-    fetch.mockIfEx(/updateWitnessRequest/, update)
+    fetch.mockIfEx(/resolveWitnessRequest/, update)
     wrapper.findAllComponents({ref: 'decline'}).wrappers[0].trigger('click')
     await flushPromises()
 

@@ -85,9 +85,9 @@ describe('models User api anonymous', () => {
       expect(err).toBeKopnikError(1401)
     }
   })
-  it('updateWitnessRequest()', async () => {
+  it('resolveWitnessRequest()', async () => {
     try {
-      await main.updateWitnessRequest({
+      await main.resolveWitnessRequest({
         id: 1,
         status: 2,
       })

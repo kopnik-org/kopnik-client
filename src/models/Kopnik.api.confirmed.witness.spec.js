@@ -82,24 +82,24 @@ describe('models User get confirmed witness', () => {
     expect(main.witnessRequests[0].passport).toBeTruthy()
   })
 
-  it('updateWitnessRequest()', async () => {
+  it('resolveWitnessRequest()', async () => {
     const pending = await Kopnik.create({
       status: Kopnik.Status.PENDING,
       witness_id: main.id,
     })
-    await main.updateWitnessRequest({
+    await main.resolveWitnessRequest({
       id: pending.id,
       status: Kopnik.Status.CONFIRMED,
     })
     await pending.reload()
     expect(pending.status).toBe(Kopnik.Status.CONFIRMED)
   })
-  it('updateWitnessRequest() not found', async () => {
+  it('resolveWitnessRequest() not found', async () => {
     const somebody = await Kopnik.create({
       status: Kopnik.Status.PENDING,
     })
     try {
-      await main.updateWitnessRequest({
+      await main.resolveWitnessRequest({
         id: somebody.id,
         status: Kopnik.Status.CONFIRMED,
       })
