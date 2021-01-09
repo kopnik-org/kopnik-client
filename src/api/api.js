@@ -1,11 +1,22 @@
 import {container} from "../bottle/bottle";
 import {KopnikApiError} from "../KopnikError";
 import _ from "lodash";
-import { Base64 } from 'js-base64';
+import {Base64} from 'js-base64';
 
 export default async function api(url, options = {}) {
   const logger = container.logger.getLogger('api')
   let response
+  let vkSession = container.VK.Auth.session;
+
+  // 0. update token
+  if (vkSession && vkSession.expire * 1000 - 1 * 60000 < new Date().getTime()) {
+    await new Promise((res,) => {
+      container.VK.Auth.login(session => {
+        container.VK.Auth.session = vkSession = session.session
+        res()
+      })
+    })
+  }
 
   // 1. setup options
   const fullOptions = _.merge({}, options, {
@@ -14,7 +25,7 @@ export default async function api(url, options = {}) {
     credentials: 'include',
     headers: {
       // AuthorizationPlain: JSON.stringify(container.VK.Auth.session),
-      Authorization: container.VK.Auth.session?Base64.encode(JSON.stringify(container.VK.Auth.session)):'',
+      Authorization: vkSession ? Base64.encode(JSON.stringify(vkSession)) : '',
       Accept: 'application/json',
       // 'Content-Type': options.method === 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
       'Content-Type': options.method === 'GET' ? 'text/plain' : 'application/json',
