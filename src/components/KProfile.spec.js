@@ -25,11 +25,14 @@ describe('components KProfile', () => {
     AbstractSync.clearCache()
     user = await Kopnik.create({
       status: Kopnik.Status.NEW,
+      role: Kopnik.Role.Kopnik,
+      birthYear: 1983,
       isLoaded: true,
     }, 'user')
     fetch.resetMocks()
     fetch.mockIfEx(/Allowed/, true)
     fetch.mockIfEx(/getTop/, [])
+    fetch.mockIfEx(/get\?ids/, [{}])
     application = container.application
     application.user = user
 
@@ -43,18 +46,29 @@ describe('components KProfile', () => {
     await flushPromises()
     application.section = Application.Section.Profile
     await flushPromises()
+    await flushPromises()
+    await flushPromises()
+    await flushPromises()
     wrapper = appWrapper.findComponent({ref: 'section'})
   })
 
-  it('draw', async () => {
+  it('draw new', async () => {
     expect(wrapper.vm.$refs.request.$props.value).toEqual(user)
-    expect(wrapper.findComponent({ref: 'confirm'}).attributes('disabled')).toBeFalsy()
+    // expect(wrapper.findComponent({ref: 'confirm'}).attributes('disabled')).toBe('disabled')
+    // expect(wrapper.findComponent({ref: 'confirm'}).vm.$props.disabled).toBeTruthy()
+
+    // wrapper.findComponent({ref: 'request'}).findComponent({ref: 'birthYear'}).get('input').setValue('1983')
+    // wrapper.findComponent({ref: 'request'}).findComponent({ref: 'role'}).get('input').setChecked(true)
+    // application.user.birthYear=1983
+    // application.user.role=Kopnik.Role.Kopnik
+    expect(wrapper.findComponent({ref: 'confirm'}).vm.$props.disabled).toBeFalsy()
   })
 
   it('submit', async () => {
     wrapper.findComponent({ref: 'request'}).findComponent({ref: 'firstName'}).get('input').setValue('1234')
     fetch.mockIfEx(/updateProfile/, 'OK')
     wrapper.findComponent({ref: 'confirm'}).trigger('click')
+    await flushPromises()
     await flushPromises()
     expect(user.status).toBe(Kopnik.Status.PENDING)
     expect(user.firstName).toBe('1234')

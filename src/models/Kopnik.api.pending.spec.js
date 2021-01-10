@@ -57,9 +57,9 @@ describe('models User get pending', () => {
             birthYear: 2000,
             locale: 'en',
         }
-        await main.updateProfile(state)
+      main.merge(state)
+      await main.updateProfile(state)
 
-        await main.login()
         await main.reload()
         expect(main.status).toBe(Kopnik.Status.PENDING)
         expect(main.plain).toMatchObject(state)

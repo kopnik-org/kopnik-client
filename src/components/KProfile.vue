@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="request"
+  <v-container v-if="application.user"
                fluid class="fill-height">
     <ValidationObserver ref="obs" v-slot="{ invalid, validated, passes, validate }"
                         tag="div" class="mx-auto" style="width: 100%; max-width:350px">
@@ -9,7 +9,7 @@
             <v-alert :color="application.user.status==2?'info':'warning'" v-html="alert">
             </v-alert>
             <kopnik-vue ref="request"
-                        :value="request"
+                        :value="application.user"
                         locale fio birthYear passport role location
                         @locale_change="locale_change"
             ></kopnik-vue>
@@ -27,8 +27,9 @@
               <slot></slot>
             </v-list>
             <v-btn ref="confirm"
-                   color="primary" block
-                   :disabled="invalid || !isMessagesFromGroupAllowed || !request.location.lat"
+                   :color="application.user.firstName"
+                   block
+                   :disabled="invalid || !isMessagesFromGroupAllowed"
                    @click="submit_click"
                    v-promise-btn
             >
@@ -62,7 +63,6 @@ export default {
   data() {
     return {
       application: container.application,
-      request: null,
       // в текущий момент
       isMessagesFromGroupAllowed: undefined,
       // при инициализации страницы
@@ -72,14 +72,14 @@ export default {
   props: {},
   computed: {
     alert(){
-      return this.$t(`profile.alert[${this.application.user.status}]`, {witnessChatInviteLink: application.user.witnessChatInviteLink})
+      return this.$t(`profile.alert[${this.application.user.status}]`, {witnessChatInviteLink: this.application.user.witnessChatInviteLink})
     }
   },
   watch: {},
   methods: {
     async submit_click() {
-      this.request.birthYear = parseInt(this.request.birthYear)
-      await this.application.user.updateProfile(this.request.plain)
+      this.application.user.birthYear = parseInt(this.application.user.birthYear)
+      await this.application.user.updateProfile()
       this.application.infos.push(this.$t('profile.submitMessage'))
       await this.application.setSection(container.application.constructor.Section.Main)
     },
@@ -96,18 +96,7 @@ export default {
     }
   },
   async created() {
-    let user = await this.application.resolveUser()
-
-    this.request = new Kopnik
-    this.request.merge(this.application.user.plain)
-    // console.log(this.request.plain)
-    if (!this.request.location || !this.request.location.lat) {
-      this.request.location = {lat: 55.753215, lng: 37.622504}
-    }
-    if (user.status==Kopnik.Status.NEW){
-      this.request.birthYear=null
-      this.request.role=null
-    }
+    await this.application.resolveUser()
   },
   async mounted() {
     this.wasMessagesFromGroupAllowed = this.isMessagesFromGroupAllowed = await this.application.user.isMessagesFromGroupAllowed()
@@ -122,9 +111,13 @@ export default {
       })
     }
   },
-  beforeDestroy() {
+  async beforeDestroy() {
     container.VK.Observer.unsubscribe("widgets.allowMessagesFromCommunity.allowed")
     container.VK.Observer.unsubscribe("widgets.allowMessagesFromCommunity.denied")
+
+    if (this.application.user){
+      await this.application.user.reload()
+    }
   },
 }
 </script>
