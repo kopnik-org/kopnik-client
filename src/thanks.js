@@ -12,8 +12,8 @@ let thanks = [
     },
     deals: [
       {
-        project: 'Перевод на словакский язык kopnik.org v1.0',
-        role: 'Переводчик',
+        project: 'kopnik.org v0.2',
+        role: 'Переводчик (словенский)',
         description: null,
         date: new Date(2020, 3, 13),
         link: 'https://github.com/kopnik-org/kopnik-client/blob/main/src/locales/sk.json',
@@ -136,6 +136,23 @@ let thanks = [
       },
     ]
   },
+  //Миша
+  {
+    who: {
+      // id: 3,
+      uid: null,
+      photo: '',
+      name: 'Михаил Арзин'
+    },
+    deals: [
+      {
+        project: 'kopnik.org v1.0',
+        role: 'DevOps/Тестер',
+        description: null,
+        date: today,
+      },
+    ]
+  },
   //Александр
   {
     who: {
@@ -160,19 +177,19 @@ let thanks = [
       },
       {
         project: 'kopnik.org v0.1',
-        role: 'Тестирование',
+        role: 'Тестер',
         description: null,
         date: new Date(2020, 2, 9),
       },
       {
         project: 'kopnik.org v0.2',
-        role: 'Тестирование',
+        role: 'Тестер',
         description: null,
         date: new Date(2020, 7, 18),
       },
       {
         project: 'kopnik.org v1.0',
-        role: 'Тестирование',
+        role: 'Тестер',
         description: null,
         date: today,
       },
@@ -190,42 +207,48 @@ let thanks = [
     deals: [
       {
         project: 'kopnik.org v0.1',
-        role: 'Тестирование',
+        role: 'Тестер',
         description: null,
         date: new Date(2020, 2, 9),
       },
       {
         project: 'kopnik.org v0.2',
-        role: 'Тестирование',
+        role: 'Тестер',
         description: null,
         date: new Date(2020, 7, 18),
       },
       {
         project: 'kopnik.org v1.0',
-        role: 'Тестирование',
+        role: 'Тестер',
         description: null,
         date: today,
       },
     ]
   },
-  //Миша
+  //Сергей Кабардин
   {
     who: {
       // id: 3,
       uid: null,
-      photo: '',
-      name: 'Михаил Арзин'
+      photo: 'https://sun9-40.userapi.com/impf/c855536/v855536302/6b9a6/chVZP2bnwTk.jpg?size=1024x768&quality=96&proxy=1&sign=3c5c6f50db8d85254ef8e114ac85cd91&type=album',
+      name: 'Сергей Кабардин'
     },
     deals: [
       {
-        project: 'kopnik.org v1.0',
-        role: 'DevOps',
+        project: 'kopnik.org v0.1',
+        role: 'Тестер',
         description: null,
-        date: today,
+        date: new Date(2020, 2, 9),
+      },
+      {
+        project: 'kopnik.org v0.2',
+        role: 'Тестер',
+        description: null,
+        date: new Date(2020, 7, 18),
       },
       {
         project: 'kopnik.org v1.0',
-        role: 'Тестирование',
+        role: 'Тестер',
         description: null,
         date: today,
       },
@@ -259,8 +282,8 @@ let thanks = [
     },
     deals: [
       {
-        project: 'Перевод kopnik.org v1.0 на польский',
-        role: 'Переводчик',
+        project: 'kopnik.org v1.0',
+        role: 'Переводчик (польский)',
         description: null,
         date: new Date(2020, 10, 13),
         link: 'https://github.com/kopnik-org/kopnik-client/blob/main/src/locales/pl.json',
@@ -324,19 +347,19 @@ let thanks = [
 
       {
         project: 'kopnik.org v0.1',
-        role: 'Тестирование',
+        role: 'Тестер',
         description: null,
         date: new Date(2020, 2, 9),
       },
       {
         project: 'kopnik.org v0.2',
-        role: 'Тестирование',
+        role: 'Тестер',
         description: null,
         date: new Date(2020, 7, 18),
       },
       {
         project: 'kopnik.org v1.0',
-        role: 'Тестирование',
+        role: 'Тестер',
         description: null,
         date: today,
       },
@@ -463,7 +486,7 @@ let thanks = [
     },
     deals: [
       {
-        project: 'Соглашение о персональных данных kopnik.org v1.0',
+        project: 'kopnik.org v1.0: Соглашение о персональных данных',
         role: 'Юрист',
         description: null,
         date: new Date(2021, 0, 15),
