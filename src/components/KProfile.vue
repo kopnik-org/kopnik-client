@@ -27,7 +27,7 @@
               <slot></slot>
             </v-list>
             <v-btn ref="confirm"
-                   :color="application.user.firstName"
+                   color="primary"
                    block
                    :disabled="invalid || !isMessagesFromGroupAllowed"
                    @click="submit_click"

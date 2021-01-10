@@ -12,11 +12,12 @@ let thanks = [
     },
     deals: [
       {
-      project: 'Перевод на словакский язык',
-      role: 'Переводчик',
-      description: null,
-      date: new Date(2020, 3, 13),
-    },
+        project: 'Перевод на словакский язык kopnik.org v1.0',
+        role: 'Переводчик',
+        description: null,
+        date: new Date(2020, 3, 13),
+        link: 'https://github.com/kopnik-org/kopnik-client/blob/main/src/locales/sk.json',
+      },
     ]
   },
   // Артем
@@ -32,7 +33,7 @@ let thanks = [
         project: 'kopnik.org v0.2',
         role: 'Бэкенд',
         description: null,
-        date: today,
+        date: new Date(2020, 7, 18),
       },
       {
         project: 'kopnik.org v0.1',
@@ -53,14 +54,14 @@ let thanks = [
     deals: [
       {
         project: 'Техническое задание на создание kopnik.org',
-        role: 'Заказчик/Архитектор/Техписатель',
+        role: 'Архитектор/Техписатель',
         description: null,
         date: new Date(2019, 4, 29),
         link: 'https://docs.google.com/document/d/1hxBS1Bvay-bpUtut_QfgZRlV1-qchaPibEGbRmsBlBU/edit?usp=drive_web&ouid=115823892625183690571',
       },
       {
         project: 'Расчет и обоснование стоимости создания kopnik.org',
-        role: 'Заказчик/Архитектор/Техписатель',
+        role: 'Архитектор/Техписатель',
         description: null,
         date: new Date(2019, 4, 29),
         link: 'https://docs.google.com/spreadsheets/d/1K7H0S2NnHs-R-y0WXpNS3YJPWFtIc6KQbPlybyWIiGk/edit#gid=0',
@@ -81,20 +82,26 @@ let thanks = [
       },
       {
         project: 'Макет сайта kopnik.org',
-        role: 'Автор',
+        role: 'Дизайнер',
         description: null,
         date: new Date(2019, 11, 15),
-        link: 'www.kopnik.org',
+        link: 'https://www.figma.com/proto/SnA7V5Ce39bVmINgpVgBTC/UI?kind=&node-id=17063%3A5383&scaling=scale-down',
       },
       {
         project: 'kopnik.org v0.1',
-        role: 'Web-фронтенд/Тимлид',
+        role: 'Тимлид/Фронтенд',
         description: null,
         date: new Date(2020, 2, 9),
       },
       {
         project: 'kopnik.org v0.2',
-        role: 'Web-фронтенд/Тимлид',
+        role: 'Тимлид/Фронтенд',
+        description: null,
+        date: new Date(2020, 7, 18),
+      },
+      {
+        project: 'kopnik.org v1.0',
+        role: 'Тимлид/Фронтенд/Бэкенд',
         description: null,
         date: today,
       },
@@ -110,20 +117,20 @@ let thanks = [
     },
     deals: [
       {
-        project: 'Сервера kopnik.org и dev.kopnik.org',
-        role: 'Хозяин',
-        description: null,
-        date: new Date(2019, 6, 30),
-      },
-      {
         project: 'kopnik.org v0.1',
-        role: 'Системное администрирование',
+        role: 'Системный администратор / Владелец серверов',
         description: null,
         date: new Date(2020, 2, 9)
       },
       {
         project: 'kopnik.org v0.2',
-        role: 'Системное администрирование',
+        role: 'Системный администратор / Владелец серверов',
+        description: null,
+        date: new Date(2020, 7, 18),
+      },
+      {
+        project: 'kopnik.org v1.0',
+        role: 'Системный администратор',
         description: null,
         date: today,
       },
@@ -151,6 +158,77 @@ let thanks = [
         date: new Date(2019, 9, 19),
         link: 'https://docs.google.com/document/d/1NzlfhHoDkT9FBR1aH41bZZ_eZQeUH7kTGTXABpvY3YE/edit#heading=h.z1pjdej0nvbv',
       },
+      {
+        project: 'kopnik.org v0.1',
+        role: 'Тестирование',
+        description: null,
+        date: new Date(2020, 2, 9),
+      },
+      {
+        project: 'kopnik.org v0.2',
+        role: 'Тестирование',
+        description: null,
+        date: new Date(2020, 7, 18),
+      },
+      {
+        project: 'kopnik.org v1.0',
+        role: 'Тестирование',
+        description: null,
+        date: today,
+      },
+
+    ]
+  },
+  //Рома
+  {
+    who: {
+      // id: 3,
+      uid: null,
+      photo: 'https://sun9-12.userapi.com/impf/c856136/v856136906/5fcc1/zs8W6nQzU2k.jpg?size=206x271&quality=96&proxy=1&sign=efdbfe471caef98c081924a7103c2afb&type=album',
+      name: 'Роман Шишканов'
+    },
+    deals: [
+      {
+        project: 'kopnik.org v0.1',
+        role: 'Тестирование',
+        description: null,
+        date: new Date(2020, 2, 9),
+      },
+      {
+        project: 'kopnik.org v0.2',
+        role: 'Тестирование',
+        description: null,
+        date: new Date(2020, 7, 18),
+      },
+      {
+        project: 'kopnik.org v1.0',
+        role: 'Тестирование',
+        description: null,
+        date: today,
+      },
+    ]
+  },
+  //Миша
+  {
+    who: {
+      // id: 3,
+      uid: null,
+      photo: '',
+      name: 'Михаил Арзин'
+    },
+    deals: [
+      {
+        project: 'kopnik.org v1.0',
+        role: 'DevOps',
+        description: null,
+        date: today,
+      },
+      {
+        project: 'kopnik.org v1.0',
+        role: 'Тестирование',
+        description: null,
+        date: today,
+      },
     ]
   },
   // Дмитрий Журбин
@@ -163,11 +241,29 @@ let thanks = [
     },
     deals: [
       {
-        project: 'Перевод ролика о сборе средств на создание kopnik.org',
+        project: 'Перевод ролика о сборе средств на создание kopnik.org на чешский',
         role: 'Переводчик/Голос/Монтажер',
         description: null,
         date: new Date(2019, 10, 0),
         link: 'https://www.youtube.com/watch?v=gsIbe9yMdOo',
+      },
+    ]
+  },
+  // Сергей Шиленок
+  {
+    who: {
+      id: null,
+      uid: null,
+      photo: '',
+      name: 'Сергей Шиленок',
+    },
+    deals: [
+      {
+        project: 'Перевод kopnik.org v1.0 на польский',
+        role: 'Переводчик',
+        description: null,
+        date: new Date(2020, 10, 13),
+        link: 'https://github.com/kopnik-org/kopnik-client/blob/main/src/locales/pl.json',
       },
     ]
   },
@@ -194,7 +290,7 @@ let thanks = [
       id: null,
       uid: null,
       photo: 'https://sun1-21.userapi.com/iapk22EQe5H-gyZdPrmmWz7n77nzOwuNG3AqOw/j0EX7sM_ZCE.jpg',
-      name: 'Нигматуллинн Евгений',
+      name: 'Евгений Нигматуллинн',
     },
     deals: [
       {
@@ -224,6 +320,25 @@ let thanks = [
         description: null,
         date: new Date(2020, 2, 24),
         link: 'kopnik.org',
+      },
+
+      {
+        project: 'kopnik.org v0.1',
+        role: 'Тестирование',
+        description: null,
+        date: new Date(2020, 2, 9),
+      },
+      {
+        project: 'kopnik.org v0.2',
+        role: 'Тестирование',
+        description: null,
+        date: new Date(2020, 7, 18),
+      },
+      {
+        project: 'kopnik.org v1.0',
+        role: 'Тестирование',
+        description: null,
+        date: today,
       },
     ]
   },
@@ -335,6 +450,24 @@ let thanks = [
         description: null,
         date: new Date(2019, 4, 23),
         link: 'https://www.youtube.com/channel/UCJRtg8s94PTFXEfZ6sEnlGw',
+      },
+    ]
+  },
+  // Дмитрий Лысаковский
+  {
+    who: {
+      id: null,
+      uid: null,
+      photo: '',
+      name: 'Дмитрий Лысаковский',
+    },
+    deals: [
+      {
+        project: 'Соглашение о персональных данных kopnik.org v1.0',
+        role: 'Юрист',
+        description: null,
+        date: new Date(2021, 0, 15),
+        link: 'kopnik.org/privacy',
       },
     ]
   },
