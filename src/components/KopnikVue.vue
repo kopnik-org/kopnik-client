@@ -73,7 +73,6 @@
         <ValidationProvider name="birthYear" rules="required|numeric|length:4|min_value:1900|max_value:2020"
                             v-slot="{ errors, valid }">
           <v-text-field
-            ref="birthYear"
             v-model="value.birthYear"
             :label="$t('profile.birthYear')"
             v-mask="['####']"
@@ -87,10 +86,7 @@
     <v-list-item v-if="role">
       <v-list-item-content>
         <ValidationProvider name="role" rules="required" v-slot="{ errors, valid }">
-          <v-radio-group
-            ref="role"
-            v-model="value.role"
-            :readonly="readonly">
+          <v-radio-group v-model="value.role" :readonly="readonly">
             <template v-slot:label>
               <div>{{ $t('profile.rolesTitle') }}</div>
             </template>

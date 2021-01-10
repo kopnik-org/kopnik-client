@@ -64,10 +64,9 @@ describe('models User confirmed', () => {
       birthYear: 2000,
       locale: 'en',
     }
-    main.merge(state)
-    await main.updateProfile()
+    await main.updateProfile(state)
 
-    // await main.login()
+    await main.login()
     await main.reload()
     expect(main.status).toBe(Kopnik.Status.PENDING)
     expect(main.plain).toMatchObject(state)

@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="application.user"
+  <v-container v-if="request"
                fluid class="fill-height">
     <ValidationObserver ref="obs" v-slot="{ invalid, validated, passes, validate }"
                         tag="div" class="mx-auto" style="width: 100%; max-width:350px">
@@ -9,7 +9,7 @@
             <v-alert :color="application.user.status==2?'info':'warning'" v-html="alert">
             </v-alert>
             <kopnik-vue ref="request"
-                        :value="application.user"
+                        :value="request"
                         locale fio birthYear passport role location
                         @locale_change="locale_change"
             ></kopnik-vue>
@@ -27,9 +27,8 @@
               <slot></slot>
             </v-list>
             <v-btn ref="confirm"
-                   color="primary"
-                   block
-                   :disabled="invalid || !isMessagesFromGroupAllowed"
+                   color="primary" block
+                   :disabled="invalid || !isMessagesFromGroupAllowed || !request.location.lat"
                    @click="submit_click"
                    v-promise-btn
             >
@@ -63,6 +62,7 @@ export default {
   data() {
     return {
       application: container.application,
+      request: null,
       // в текущий момент
       isMessagesFromGroupAllowed: undefined,
       // при инициализации страницы
@@ -78,8 +78,8 @@ export default {
   watch: {},
   methods: {
     async submit_click() {
-      this.application.user.birthYear = parseInt(this.application.user.birthYear)
-      await this.application.user.updateProfile()
+      this.request.birthYear = parseInt(this.request.birthYear)
+      await this.application.user.updateProfile(this.request.plain)
       this.application.infos.push(this.$t('profile.submitMessage'))
       await this.application.setSection(container.application.constructor.Section.Main)
     },
@@ -96,7 +96,10 @@ export default {
     }
   },
   async created() {
-    await this.application.resolveUser()
+    let user = await this.application.resolveUser()
+
+    this.request = new Kopnik
+    this.request.merge(this.application.user.plain)
   },
   async mounted() {
     this.wasMessagesFromGroupAllowed = this.isMessagesFromGroupAllowed = await this.application.user.isMessagesFromGroupAllowed()
@@ -111,13 +114,9 @@ export default {
       })
     }
   },
-  async beforeDestroy() {
+  beforeDestroy() {
     container.VK.Observer.unsubscribe("widgets.allowMessagesFromCommunity.allowed")
     container.VK.Observer.unsubscribe("widgets.allowMessagesFromCommunity.denied")
-
-    if (this.application.user){
-      await this.application.user.reload()
-    }
   },
 }
 </script>

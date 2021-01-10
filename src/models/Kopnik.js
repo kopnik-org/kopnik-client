@@ -198,17 +198,19 @@ export default class Kopnik extends AbstractSync {
    * @param profileJSON
    * @return {Promise<void>}
    */
-  async updateProfile() {
-    if (!this.passport) {
+  async updateProfile(profileJSON) {
+    if (!profileJSON.passport) {
       throw new KopnikError('Passport required')
     }
-    if (!this.location.lat || !this.location.lng) {
+    if (!profileJSON.location.lat || !profileJSON.location.lng) {
       throw new KopnikError('House location required')
     }
+    this.merge({locale: profileJSON.locale})
     await this.constructor.api("updateProfile", {
       method: 'POST',
-      body: this.plain
+      body: profileJSON
     })
+    this.merge(profileJSON)
     this.status = Kopnik.Status.PENDING
   }
 
