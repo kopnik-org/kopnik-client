@@ -583,7 +583,8 @@ export default {
   },
   async mounted() {
     await this.$nextTick()
-    if (this.$refs.map.$refs.map) {
+    // эта проверка нужна потому что в тестах компонент карты мокается
+    if (this.$refs.map && this.$refs.map.$refs.map) {
       this.lmap = this.$refs.map.$refs.map.mapObject
       await this.application.resolveUser()
     }
