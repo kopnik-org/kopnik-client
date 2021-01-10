@@ -9,14 +9,14 @@ export default async function api(url, options = {}) {
   let vkSession = container.VK.Auth.session;
 
   // 0. update token
-  if (vkSession && vkSession.expire * 1000 - 1 * 60000 < new Date().getTime()) {
+/*  if (vkSession && vkSession.expire * 1000 - 1 * 60000 < new Date().getTime()) {
     await new Promise((res,) => {
       container.VK.Auth.login(session => {
         container.VK.Auth.session = vkSession = session.session
         res()
       })
     })
-  }
+  }*/
 
   // 1. setup options
   const fullOptions = _.merge({}, options, {
@@ -25,7 +25,7 @@ export default async function api(url, options = {}) {
     credentials: 'include',
     headers: {
       // AuthorizationPlain: JSON.stringify(container.VK.Auth.session),
-      Authorization: vkSession ? Base64.encode(JSON.stringify(vkSession)) : '',
+      'T-Authorization': api['T-Authorization'] || '',
       Accept: 'application/json',
       // 'Content-Type': options.method === 'GET' ? 'text/plain' : 'application/x-www-form-urlencoded;charset=UTF-8',
       'Content-Type': options.method === 'GET' ? 'text/plain' : 'application/json',

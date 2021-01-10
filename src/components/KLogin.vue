@@ -60,11 +60,7 @@ export default {
       location.href = container.constants.messenger.loginUrl
     },
     login2_click() {
-      // docs: https://vk.com/dev/openapi?f=3.1.%20VK.Auth.login
-      container.VK.Auth.login(this.application.onAuthenticate.bind(this.application))
-    },
-    href_login_click() {
-      location.href = container.constants.messenger.loginUrl
+      location.href = container.constants.auth.url
     },
   },
   async created() {

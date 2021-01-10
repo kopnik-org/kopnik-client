@@ -271,41 +271,27 @@ export default class Application {
   }
 
   /**
-   * Колбэк для авторизации. Вызывается в двух случаях:
-   * 1. Когда пользователь уже зареген в ВК и приложении и авторизация происходит незаметно для него
-   * 2. Когад он не зареген в ВК или приложении и делает это на странице ВК
-   * @param {{mid: string, secret: string, sid: string, sig: string}} token
-   * @param {string} status
-   *
-   * docs: https://vk.com/dev/openapi?f=3.1.%20VK.Auth.login
-   */
-  async onAuthenticate(session) {
-    container.logger.debug('VK session', session.session, session.status)
-    if (session.status === 'connected') {
-      container.VK.Auth.session = session.session
-      const user = new Kopnik()
-      await user.reload()
-      // такой способ для того, чтобы замержить пользователя в кэш сущностей
-      this.user = Kopnik.merge(user.plain, true)
-    } else {
-      container.VK.Auth.session = null
-      this.user = null
-    }
-  }
-
-  /**
    * Инициализирует ползователя при запуске приложения
    *
    * @returns {Promise<void>}
    */
   @once
   async authenticate() {
-    await new Promise((res, ) => {
-      container.VK.Auth.getLoginStatus(async session=>{
-        await this.onAuthenticate(session)
-        res()
-      })
-    })
+    try {
+      const user = new Kopnik()
+      await user.reload()
+      this.user = Kopnik.merge(user.plain, true)
+      container.localeManager.currentLocale = user.locale
+      this.logger.info('user authenticated', this.user.plain)
+    } catch (err) {
+      if ((err instanceof KopnikApiError) && err.message.match(/auth/i)) {
+        // назначаем null вместо текущего undefined
+        this.user = null
+        this.logger.info('user not authenticated')
+      } else {
+        throw err
+      }
+    }
   }
 
   /**
@@ -320,12 +306,9 @@ export default class Application {
     await this.lockSection(() => {
       this.setSection(Application.Section.Main)
     })
-    container.VK.Auth.logout((session)=>{
-      this.logger.info('logout session', session)
-      this.sections.main.selected = null
-      this.user = null
-    })
-
+    await container.api('users/logout')
+    this.sections.main.selected = null
+    this.user = null
   }
 }
 

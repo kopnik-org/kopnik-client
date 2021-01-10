@@ -8,6 +8,9 @@
  */
 let constants = {
   "development": {
+    auth:{
+      url:'http://localhost:8081/auth/vkontakte'
+    },
     sw: {
       delay: 30000,
     },
@@ -25,6 +28,9 @@ let constants = {
     }
   },
   "test": {
+    auth:{
+      url:'http://localhost:8081/auth/vkontakte'
+    },
     sw: {
       delay: Number.MAX_SAFE_INTEGER,
     },
@@ -40,6 +46,9 @@ let constants = {
     }
   },
   "staging": {
+    auth:{
+      url:'/auth/vkontakte'
+    },
     sw: {
       delay: 20000,
     },

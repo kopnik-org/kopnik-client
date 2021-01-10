@@ -146,8 +146,7 @@ export default class Kopnik extends AbstractSync {
    * @returns {Promise<void>}
    */
   async login() {
-    const session= await api('test/login/' + this.mid)
-    container.VK.Auth.session= session
+    container.api['T-Authorization']= this.mid
   }
 
   /**
@@ -155,7 +154,7 @@ export default class Kopnik extends AbstractSync {
    * @returns {Promise<void>}
    */
   async logout() {
-    container.VK.Auth.session= undefined
+    delete container.api['T-Authorization']
   }
 
 
