@@ -25,13 +25,9 @@ jobs:
 
           docker-compose pull --quiet node db
           docker-compose up -d node db
-          sleep 10
-          docker ps -a
+          sleep 5
           docker logs kopnik-node_node_1 --tail 100
-          docker-compose exec node npm run typeorm:migration:run
-#          npm i
-#          npm run typeorm:migration:run
-#          docker-compose exec -T node npm run typeorm:migration:run
+          docker-compose exec -T node npm run typeorm:migration:run
       - run: npm i
       - run: npm test
   build:
