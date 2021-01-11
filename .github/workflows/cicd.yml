@@ -21,6 +21,8 @@ jobs:
           git clone https://github.com/kopnik-org/kopnik-node
           cd kopnik-node
           cp default.env .env
+          sed -i 's/COOKIE_SECRET=/COOKIE_SECRET=1234/g' .env
+
           docker-compose pull --quiet node db
           docker-compose up -d node db
           sleep 10
