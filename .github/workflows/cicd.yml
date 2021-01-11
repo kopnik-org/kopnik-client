@@ -24,10 +24,10 @@ jobs:
           docker-compose pull --quiet node db
           docker-compose up -d node db
           free
-          docker ps
+          docker ps -a
           sleep 10
           free
-          docker ps
+          docker ps -a
           docker-compose exec node npm run typeorm:migration:run
 #          npm i
 #          npm run typeorm:migration:run
