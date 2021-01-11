@@ -23,9 +23,11 @@ jobs:
           cp default.env .env
           docker-compose pull --quiet node db
           docker-compose up -d node db
-          sleep 10
-          docker ps
           free
+          docker ps
+          sleep 10
+          free
+          docker ps
           docker-compose exec node npm run typeorm:migration:run
 #          npm i
 #          npm run typeorm:migration:run
