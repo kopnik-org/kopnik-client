@@ -178,7 +178,7 @@ export default class Application {
       }
     };
 
-    if (err.code === 401) {
+    if (err.code === 1401) {
       await container.application.lockSection(async () => {
         await application.setSection(Application.Section.Main)
       })

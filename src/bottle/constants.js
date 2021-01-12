@@ -9,7 +9,7 @@
 let constants = {
   "development": {
     auth:{
-      url:'http://localhost:8081/auth/vkontakte'
+      url:'https://localhost:8081/auth/vkontakte'
     },
     sw: {
       delay: 30000,

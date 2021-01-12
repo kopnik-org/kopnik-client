@@ -15,7 +15,7 @@
 
 
       <div id="vk_auth"></div>
-      <v-btn  v-if="!application.user"  color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте</v-btn>
+      <v-btn  v-if="application.user===null"  color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте</v-btn>
       <!--            <v-btn @click="vk_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
       <!--        <div id="vk_auth" ></div>-->
     </v-col>
