@@ -125,7 +125,9 @@
             {{ $t('kopaDialog.title') }}
           </v-card-title>
           <v-card-text>
-            <v-textarea :label="$t('kopaDialog.subject.label')" v-model="kopa.subject"
+            <v-textarea
+              :rows="3"
+              :label="$t('kopaDialog.subject.label')" v-model="kopa.subject"
             ></v-textarea>
           </v-card-text>
           <v-card-actions>
