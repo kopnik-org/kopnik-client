@@ -1,0 +1,2080 @@
+ PASS  src/models/Kopnik.api.confirmed.spec.js (7.382 s)
+  ● Console
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611733877877,
+        email: '1612611733877877@kopnik.ru',
+        access_token: 'access_token1612611733877877'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 1 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'participant',
+        firstName: 'participant',
+        patronymic: 'participant',
+        nickname: 'participant',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/participant',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611733962962,
+        email: '1612611733962962@kopnik.ru',
+        access_token: 'access_token1612611733962962'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 2 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/inviteKopa { subject: 'test kopa', participants: [ 2 ] }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611734102102,
+        email: '1612611734102102@kopnik.ru',
+        access_token: 'access_token1612611734102102'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 3 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 3,
+            locale: 'ru',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: null,
+            foreman_id: null,
+            subordinates: [],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: null,
+            mid: 1612611734102102
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611734235235,
+        email: '1612611734235235@kopnik.ru',
+        access_token: 'access_token1612611734235235'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 4 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: '2:42:14 PM',
+        firstName: '2:42:14 PM',
+        patronymic: '2:42:14 PM',
+        nickname: '2:42:14 PM',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/2:42:14 PM',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611734291291,
+        email: '1612611734291291@kopnik.ru',
+        access_token: 'access_token1612611734291291'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 5 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611734425425,
+        email: '1612611734425425@kopnik.ru',
+        access_token: 'access_token1612611734425425'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 6 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/getWitnessRequests
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: [] }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611734592592,
+        email: '1612611734592592@kopnik.ru',
+        access_token: 'access_token1612611734592592'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 7 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/isMessagesFromGroupAllowed
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611734733733,
+        email: '1612611734733733@kopnik.ru',
+        access_token: 'access_token1612611734733733'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 8 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/updateLocale { locale: 'en' }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=8
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 8,
+            locale: 'en',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: null,
+            foreman_id: null,
+            subordinates: [],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: null,
+            mid: 1612611734733733
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611734927927,
+        email: '1612611734927927@kopnik.ru',
+        access_token: 'access_token1612611734927927'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 9 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'witness',
+        firstName: 'witness',
+        patronymic: 'witness',
+        nickname: 'witness',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/witness',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611734982982,
+        email: '1612611734982982@kopnik.ru',
+        access_token: 'access_token1612611734982982',
+        isWitness: true
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 10 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/updateProfile {
+        role: 4,
+        passport: '0001',
+        location: { lat: 1, lng: 1 },
+        firstName: '1',
+        lastName: '2',
+        patronymic: '3',
+        birthYear: 2000,
+        locale: 'en'
+      }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: { witness_id: 1 } }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=9
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 9,
+            locale: 'en',
+            firstName: '1',
+            lastName: '2',
+            patronymic: '3',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2000,
+            role: 4,
+            isWitness: false,
+            status: 1,
+            rank: 1,
+            passport: '0001',
+            witness_id: 1,
+            foremanRequest_id: null,
+            foreman_id: null,
+            subordinates: [],
+            witnessChatInviteLink: 'https://vk.com/inviteLink?id=[object Object]',
+            tenChatInviteLink: null,
+            mid: 1612611734927927
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611735195195,
+        email: '1612611735195195@kopnik.ru',
+        access_token: 'access_token1612611735195195'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 11 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'foreman',
+        firstName: 'foreman',
+        patronymic: 'foreman',
+        nickname: 'foreman',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/foreman',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611735261261,
+        email: '1612611735261261@kopnik.ru',
+        access_token: 'access_token1612611735261261'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 12 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/putForemanRequest { id: 12 }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=11
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 11,
+            locale: 'ru',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: 12,
+            foreman_id: null,
+            subordinates: [],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: null,
+            mid: 1612611735195195
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611735450450,
+        email: '1612611735450450@kopnik.ru',
+        access_token: 'access_token1612611735450450'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 13 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'foreman',
+        firstName: 'foreman',
+        patronymic: 'foreman',
+        nickname: 'foreman',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/foreman',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611735505505,
+        email: '1612611735505505@kopnik.ru',
+        access_token: 'access_token1612611735505505'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 14 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'foreman',
+        firstName: 'foreman',
+        patronymic: 'foreman',
+        nickname: 'foreman',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/foreman',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611735560560,
+        email: '1612611735560560@kopnik.ru',
+        access_token: 'access_token1612611735560560'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 15 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/putForemanRequest { id: 14 }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/resolveForemanRequest { id: 13, status: true }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/putForemanRequest { id: 15 }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=13
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 13,
+            locale: 'ru',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: 15,
+            foreman_id: null,
+            subordinates: [],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: null,
+            mid: 1612611735450450
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611735890890,
+        email: '1612611735890890@kopnik.ru',
+        access_token: 'access_token1612611735890890'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 16 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'foreman',
+        firstName: 'foreman',
+        patronymic: 'foreman',
+        nickname: 'foreman',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/foreman',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611735938938,
+        email: '1612611735938938@kopnik.ru',
+        access_token: 'access_token1612611735938938'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 17 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/putForemanRequest { id: 17 }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/putForemanRequest { id: null }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=16
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 16,
+            locale: 'ru',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: null,
+            foreman_id: null,
+            subordinates: [],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: null,
+            mid: 1612611735890890
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611736179179,
+        email: '1612611736179179@kopnik.ru',
+        access_token: 'access_token1612611736179179'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 18 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'female',
+        firstName: 'female',
+        patronymic: 'female',
+        nickname: 'female',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/female',
+        status: 2,
+        locale: 'ru',
+        role: 4,
+        rank: 1,
+        mid: 1612611736232232,
+        email: '1612611736232232@kopnik.ru',
+        access_token: 'access_token1612611736232232'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 19 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/putForemanRequest { id: 19 }
+
+      at api (src/api/api.js:41:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611736345345,
+        email: '1612611736345345@kopnik.ru',
+        access_token: 'access_token1612611736345345'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 20 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'requester',
+        firstName: 'requester',
+        patronymic: 'requester',
+        nickname: 'requester',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/requester',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611736400400,
+        email: '1612611736400400@kopnik.ru',
+        access_token: 'access_token1612611736400400',
+        foremanRequest_id: 20
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 21 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/getForemanRequests
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 21,
+            locale: 'ru',
+            firstName: 'requester',
+            lastName: 'requester',
+            patronymic: 'requester',
+            photo: 'photo/requester',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            foreman_id: null,
+            mid: 1612611736400400
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611736498498,
+        email: '1612611736498498@kopnik.ru',
+        access_token: 'access_token1612611736498498'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 22 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'requester',
+        firstName: 'requester',
+        patronymic: 'requester',
+        nickname: 'requester',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/requester',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611736548548,
+        email: '1612611736548548@kopnik.ru',
+        access_token: 'access_token1612611736548548',
+        foremanRequest_id: 22
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 23 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/resolveForemanRequest { id: 23, status: true }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/getForemanRequests
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: [] }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/getSubordinates?id=22
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 23,
+            locale: 'ru',
+            firstName: 'requester',
+            lastName: 'requester',
+            patronymic: 'requester',
+            photo: 'photo/requester',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            foreman_id: 22,
+            subordinates: [],
+            mid: 1612611736548548
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=22
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 22,
+            locale: 'ru',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 2,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: null,
+            foreman_id: null,
+            subordinates: [Array],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: 'https://vk.com/inviteLink?id=[object Object]',
+            mid: 1612611736498498
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=23
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 23,
+            locale: 'ru',
+            firstName: 'requester',
+            lastName: 'requester',
+            patronymic: 'requester',
+            photo: 'photo/requester',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: null,
+            foreman_id: 22,
+            subordinates: [],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: null,
+            mid: 1612611736548548
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=22
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 22,
+            locale: 'ru',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 2,
+            foreman_id: null,
+            subordinates: [Array],
+            tenChatInviteLink: 'https://vk.com/inviteLink?id=[object Object]',
+            mid: 1612611736498498
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737004004,
+        email: '1612611737004004@kopnik.ru',
+        access_token: 'access_token1612611737004004'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 24 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'foreman',
+        firstName: 'foreman',
+        patronymic: 'foreman',
+        nickname: 'foreman',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/foreman',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737053053,
+        email: '1612611737053053@kopnik.ru',
+        access_token: 'access_token1612611737053053',
+        foremanRequest_id: 24
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 25 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'somebody',
+        firstName: 'somebody',
+        patronymic: 'somebody',
+        nickname: 'somebody',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/somebody',
+        status: 1,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737116116,
+        email: '1612611737116116@kopnik.ru',
+        access_token: 'access_token1612611737116116',
+        foremanRequest_id: 25
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 26 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/resolveForemanRequest { id: 26, status: true }
+
+      at api (src/api/api.js:41:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737222222,
+        email: '1612611737222222@kopnik.ru',
+        access_token: 'access_token1612611737222222'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 27 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'requester',
+        firstName: 'requester',
+        patronymic: 'requester',
+        nickname: 'requester',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/requester',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737287287,
+        email: '1612611737287287@kopnik.ru',
+        access_token: 'access_token1612611737287287',
+        foremanRequest_id: 27
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 28 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/resolveForemanRequest { id: 28, status: false }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/getForemanRequests
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: [] }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=28
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 28,
+            locale: 'ru',
+            firstName: 'requester',
+            lastName: 'requester',
+            patronymic: 'requester',
+            photo: 'photo/requester',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: null,
+            foreman_id: null,
+            subordinates: [],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: null,
+            mid: 1612611737287287
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737507507,
+        email: '1612611737507507@kopnik.ru',
+        access_token: 'access_token1612611737507507'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 29 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'foreman',
+        firstName: 'foreman',
+        patronymic: 'foreman',
+        nickname: 'foreman',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/foreman',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737556556,
+        email: '1612611737556556@kopnik.ru',
+        access_token: 'access_token1612611737556556',
+        foremanRequest_id: 29
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 30 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'somebody',
+        firstName: 'somebody',
+        patronymic: 'somebody',
+        nickname: 'somebody',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/somebody',
+        status: 1,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737614614,
+        email: '1612611737614614@kopnik.ru',
+        access_token: 'access_token1612611737614614',
+        foremanRequest_id: 30
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 31 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/resolveForemanRequest { id: 31, status: false }
+
+      at api (src/api/api.js:41:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737713713,
+        email: '1612611737713713@kopnik.ru',
+        access_token: 'access_token1612611737713713'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 32 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'subordinate',
+        firstName: 'subordinate',
+        patronymic: 'subordinate',
+        nickname: 'subordinate',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/subordinate',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737765765,
+        email: '1612611737765765@kopnik.ru',
+        access_token: 'access_token1612611737765765',
+        foreman_id: 32
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 33 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=33
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 33,
+            locale: 'ru',
+            firstName: 'subordinate',
+            lastName: 'subordinate',
+            patronymic: 'subordinate',
+            photo: 'photo/subordinate',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            foreman_id: 32,
+            subordinates: [],
+            mid: 1612611737765765
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737875875,
+        email: '1612611737875875@kopnik.ru',
+        access_token: 'access_token1612611737875875'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 34 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'subordinate',
+        firstName: 'subordinate',
+        patronymic: 'subordinate',
+        nickname: 'subordinate',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/subordinate',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611737924924,
+        email: '1612611737924924@kopnik.ru',
+        access_token: 'access_token1612611737924924',
+        foreman_id: 34
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 35 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/getSubordinates?id=34
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 35,
+            locale: 'ru',
+            firstName: 'subordinate',
+            lastName: 'subordinate',
+            patronymic: 'subordinate',
+            photo: 'photo/subordinate',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            foreman_id: 34,
+            subordinates: [],
+            mid: 1612611737924924
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611738059059,
+        email: '1612611738059059@kopnik.ru',
+        access_token: 'access_token1612611738059059'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 36 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'subordinate',
+        firstName: 'subordinate',
+        patronymic: 'subordinate',
+        nickname: 'subordinate',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/subordinate',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611738123123,
+        email: '1612611738123123@kopnik.ru',
+        access_token: 'access_token1612611738123123',
+        foreman_id: 36
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 37 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=36
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 36,
+            locale: 'ru',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 2,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: null,
+            foreman_id: null,
+            subordinates: [Array],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: 'https://tenChat',
+            mid: 1612611738059059
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/users/resetForeman { id: 37 }
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/getSubordinates?id=36
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: [] }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=36
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 36,
+            locale: 'ru',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: null,
+            foreman_id: null,
+            subordinates: [],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: 'https://tenChat',
+            mid: 1612611738059059
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=37
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      {
+        response: [
+          {
+            id: 37,
+            locale: 'ru',
+            firstName: 'subordinate',
+            lastName: 'subordinate',
+            patronymic: 'subordinate',
+            photo: 'photo/subordinate',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            foreman_id: null,
+            subordinates: [],
+            mid: 1612611738123123
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611738467467,
+        email: '1612611738467467@kopnik.ru',
+        access_token: 'access_token1612611738467467'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 38 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'foreman',
+        firstName: 'foreman',
+        patronymic: 'foreman',
+        nickname: 'foreman',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/foreman',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611738512512,
+        email: '1612611738512512@kopnik.ru',
+        access_token: 'access_token1612611738512512'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 39 }
+
+      at Object.api (src/api/api.js:85:12)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'somebody',
+        firstName: 'somebody',
+        patronymic: 'somebody',
+        nickname: 'somebody',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/somebody',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611738566566,
+        email: '1612611738566566@kopnik.ru',
+        access_token: 'access_token1612611738566566',
+        foreman_id: 39
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 40 }
+
+      at Object.api (src/api/api.js:85:12)
+          at runMicrotasks (<anonymous>)
+
+    console.info
+      POST http://localhost:8082/api/users/resetForeman { id: 40 }
+
+      at api (src/api/api.js:41:12)
+          at runMicrotasks (<anonymous>)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611738676676,
+        email: '1612611738676676@kopnik.ru',
+        access_token: 'access_token1612611738676676'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 41 }
+
+      at Object.api (src/api/api.js:85:12)
+          at runMicrotasks (<anonymous>)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'subordinate',
+        firstName: 'subordinate',
+        patronymic: 'subordinate',
+        nickname: 'subordinate',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/subordinate',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611738725725,
+        email: '1612611738725725@kopnik.ru',
+        access_token: 'access_token1612611738725725',
+        foreman_id: 41
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 42 }
+
+      at Object.api (src/api/api.js:85:12)
+          at runMicrotasks (<anonymous>)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=41
+
+      at api (src/api/api.js:41:12)
+          at runMicrotasks (<anonymous>)
+
+    console.log
+      {
+        response: [
+          {
+            id: 41,
+            locale: 'ru',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 2,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: null,
+            foreman_id: null,
+            subordinates: [Array],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: 'https://tenChat',
+            mid: 1612611738676676
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+          at runMicrotasks (<anonymous>)
+
+    console.info
+      POST http://localhost:8082/api/users/resetForeman
+
+      at api (src/api/api.js:41:12)
+          at runMicrotasks (<anonymous>)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+          at runMicrotasks (<anonymous>)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=42
+
+      at api (src/api/api.js:41:12)
+          at runMicrotasks (<anonymous>)
+
+    console.log
+      {
+        response: [
+          {
+            id: 42,
+            locale: 'ru',
+            firstName: 'subordinate',
+            lastName: 'subordinate',
+            patronymic: 'subordinate',
+            photo: 'photo/subordinate',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: null,
+            foreman_id: null,
+            subordinates: [],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: null,
+            mid: 1612611738725725
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+          at runMicrotasks (<anonymous>)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=41
+
+      at api (src/api/api.js:41:12)
+          at runMicrotasks (<anonymous>)
+
+    console.log
+      {
+        response: [
+          {
+            id: 41,
+            locale: 'ru',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            foreman_id: null,
+            subordinates: [],
+            mid: 1612611738676676
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+          at runMicrotasks (<anonymous>)
+
+    console.info
+      GET http://localhost:8082/api/users/getSubordinates?id=41
+
+      at api (src/api/api.js:41:12)
+          at runMicrotasks (<anonymous>)
+
+    console.log
+      { response: [] }
+
+      at api (src/api/api.js:85:12)
+          at runMicrotasks (<anonymous>)
+
+    console.info
+      POST http://localhost:8082/api/test/createUser {
+        lastName: 'main',
+        firstName: 'main',
+        patronymic: 'main',
+        nickname: 'main',
+        birthYear: 2020,
+        passport: '0123',
+        location: { lat: 30, lng: 50 },
+        photo: 'photo/main',
+        status: 2,
+        locale: 'ru',
+        role: 1,
+        rank: 1,
+        mid: 1612611739318318,
+        email: '1612611739318318@kopnik.ru',
+        access_token: 'access_token1612611739318318'
+      }
+
+      at Object.api (src/api/api.js:41:12)
+
+    console.log
+      { response: 43 }
+
+      at Object.api (src/api/api.js:85:12)
+          at runMicrotasks (<anonymous>)
+
+    console.info
+      POST http://localhost:8082/api/users/resetForeman
+
+      at api (src/api/api.js:41:12)
+
+    console.log
+      { response: true }
+
+      at api (src/api/api.js:85:12)
+          at runMicrotasks (<anonymous>)
+
+    console.info
+      GET http://localhost:8082/api/users/get?ids=43
+
+      at api (src/api/api.js:41:12)
+          at runMicrotasks (<anonymous>)
+
+    console.log
+      {
+        response: [
+          {
+            id: 43,
+            locale: 'ru',
+            firstName: 'main',
+            lastName: 'main',
+            patronymic: 'main',
+            photo: 'photo/main',
+            location: [Object],
+            birthYear: 2020,
+            role: 1,
+            isWitness: false,
+            status: 2,
+            rank: 1,
+            passport: '0123',
+            witness_id: null,
+            foremanRequest_id: null,
+            foreman_id: null,
+            subordinates: [],
+            witnessChatInviteLink: null,
+            tenChatInviteLink: null,
+            mid: 1612611739318318
+          }
+        ]
+      }
+
+      at api (src/api/api.js:85:12)
+          at runMicrotasks (<anonymous>)
