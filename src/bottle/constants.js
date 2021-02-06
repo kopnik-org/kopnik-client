@@ -45,7 +45,7 @@ let constants = {
       cookie: true
     }
   },
-  "staging": {
+  "production": {
     auth:{
       url:'/auth/vkontakte'
     },
@@ -56,7 +56,7 @@ let constants = {
       svetoslav_id: 573258821
     },
     api: {
-      path: "https://staging.kopnik.org/api"
+      path: "/api"
     },
     di: {
       fetch: true,

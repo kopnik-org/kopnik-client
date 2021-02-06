@@ -14,8 +14,8 @@
     "test:eg": "npm test -- --testPathPattern 'src/api/api.Vk.spec.js' --testNamePattern 'sendVkMessage'",
     "test:inviteKopa": "npm test -- --testPathPattern 'src/models/Kopnik.api.confirmed.spec.js' --testNamePattern 'inviteKopa'",
     "release": "run(){ npm version $1 && git push --tags; }; run",
-    "docker:build": "docker build -f .docker/Dockerfile -t kopnikorg/kopnik-client-staging:latest .",
-    "docker:push": "docker push kopnikorg/kopnik-client-staging:latest"
+    "docker:build": "docker build --pull --no-cache -t kopnikorg/kopnik-client:latest ./.docker",
+    "docker:push": "docker push kopnikorg/kopnik-client:latest"
   },
   "dependencies": {
     "async-lock": "^1.2.4",

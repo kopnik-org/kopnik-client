@@ -36,10 +36,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 15.5.0
+          registry-url: https://registry.npmjs.org
 
-      - run: docker build --no-cache -t kopnikorg/kopnik-client:latest ./.docker
+      - run: npm run docker:build
       - run: docker login -u alexey2baranov -p ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker push kopnikorg/kopnik-client:latest
+      - run: npm run docker:push
 
   deploy:
     name: deploy

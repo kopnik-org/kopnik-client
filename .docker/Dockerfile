@@ -6,7 +6,7 @@ WORKDIR /app
 RUN npm install
 
 # RUN ./node_modules/.bin/vue-cli-service build
-RUN ./node_modules/.bin/vue-cli-service build --mode staging
+RUN ./node_modules/.bin/vue-cli-service build
 
 # удаляем папку с зависимостями
 RUN rm -R ./node_modules
