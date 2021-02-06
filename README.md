@@ -42,7 +42,7 @@ make release
 
 ## Развернуть на сервере
 
-https://hub.docker.com/repository/docker/kopnikorg/kopnik-client-staging
+https://hub.docker.com/repository/docker/kopnikorg/kopnik-client
 
 ```
 # Склонировать репозиторий в любую папку 
