@@ -60,6 +60,6 @@ jobs:
             docker-compose down --remove-orphans --volumes
             docker-compose pull --quiet
             docker-compose up -d
-          host: staging.kopnik.org
+          host: kopnik.org
           username: someuser
           password: ${{ secrets.SSH_PASSWORD }}
