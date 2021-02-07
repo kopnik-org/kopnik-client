@@ -8,26 +8,26 @@ on:
       - feature*
 
 jobs:
-  test:
-    name: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 15.5.0
-          registry-url: https://registry.npmjs.org
-      - run: |
-          git clone https://github.com/kopnik-org/kopnik-node
-          cd kopnik-node
-          cp default.env .env
-          sed -i 's/COOKIE_SECRET=/COOKIE_SECRET=1234/g' .env
-
-          docker-compose pull --quiet node db
-          docker-compose up -d node db
-          docker-compose exec -T node npm run typeorm:migration:run
-      - run: npm i
-      - run: npm test
+#  test:
+#    name: test
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: 15.5.0
+#          registry-url: https://registry.npmjs.org
+#      - run: |
+#          git clone https://github.com/kopnik-org/kopnik-node
+#          cd kopnik-node
+#          cp default.env .env
+#          sed -i 's/COOKIE_SECRET=/COOKIE_SECRET=1234/g' .env
+#
+#          docker-compose pull --quiet node db
+#          docker-compose up -d node db
+#          docker-compose exec -T node npm run typeorm:migration:run
+#      - run: npm i
+#      - run: npm test
   build:
     name: build
     if: github.ref == 'refs/heads/main'
