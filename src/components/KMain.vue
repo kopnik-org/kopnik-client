@@ -341,7 +341,7 @@ export default {
   },
   computed: {
     selectedRole() {
-      return this.$t('profile.roles[0].title')
+      return this.$t(`profile.roles[${this.application.sections.main.selected.role-1}].title`)
     },
     kopa() {
       return this.application.sections.main.kopa
