@@ -75,6 +75,7 @@ describe('models User get confirmed witness', () => {
       status: Kopnik.Status.NEW,
     })
 
+    Kopnik.clearCache()
     await main.reloadWitnessRequests()
     expect(main.witnessRequests).toBeInstanceOf(Array)
     expect(main.witnessRequests).toHaveLength(1)
