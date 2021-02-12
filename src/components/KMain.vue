@@ -166,10 +166,7 @@
           v-if="value.selected"
           class="flex-nowrap"
         >
-          <!--          <v-btn ref="talk" text :disabled="application.user===value.selected" class="flex" @click="talk_click">
-                      {{ $t('details.toChat') }}
-                    </v-btn>-->
-          <v-btn ref="toggleParticipant" text :disabled="application.user===value.selected" class="flex"
+          <v-btn ref="toggleParticipant" text :disabled="application.user===value.selected || !isSelectedKopnik || !isUserKopnik" class="flex"
                  @click="toggle_click">
             {{ value.kopa.isParticipantAdded(value.selected) ? $t('details.notToKopa') : $t('details.toKopa') }}
           </v-btn>
@@ -181,7 +178,7 @@
           >
             <!--         кнопка-активатор-->
             <template v-slot:activator="{ on, attrs }">
-              <v-btn ref="foremanAsk" text :disabled="application.user===value.selected" class="flex"
+              <v-btn ref="foremanAsk" text :disabled="application.user===value.selected || !isSelectedKopnik || !isUserKopnik" class="flex"
                      v-bind="attrs"
                      v-on="on"
                      v-promise-btn
@@ -340,6 +337,12 @@ export default {
     }
   },
   computed: {
+    isUserKopnik(){
+      return this.application.user.role==Kopnik.Role.Kopnik || this.application.user.role==Kopnik.Role.DanilovKopnik
+    },
+    isSelectedKopnik(){
+      return this.application.sections.main.selected.role==Kopnik.Role.Kopnik || this.application.sections.main.selected.role==Kopnik.Role.DanilovKopnik
+    },
     selectedRole() {
       return this.$t(`profile.roles[${this.application.sections.main.selected.role-1}].title`)
     },
