@@ -56,7 +56,7 @@ jobs:
         with:
           command: |
             cd ~/kopnik-docker
-            docker-compose pull --quiet-pull client
+            docker-compose pull --quiet client
             docker-compose up --build -d client
           host: kopnik.org
           username: someuser
