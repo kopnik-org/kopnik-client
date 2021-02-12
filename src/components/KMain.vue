@@ -178,7 +178,7 @@
           >
             <!--         кнопка-активатор-->
             <template v-slot:activator="{ on, attrs }">
-              <v-btn ref="foremanAsk" text :disabled="application.user===value.selected || !isSelectedKopnik || !isUserKopnik" class="flex"
+              <v-btn ref="foremanAsk" text :disabled="application.user===value.selected || !isSelectedKopnik || !(isUserKopnik || isUserFutureKopnik)" class="flex"
                      v-bind="attrs"
                      v-on="on"
                      v-promise-btn
@@ -337,6 +337,9 @@ export default {
     }
   },
   computed: {
+    isUserFutureKopnik(){
+      return this.application.user.role==Kopnik.Role.FutureKopnik
+    },
     isUserKopnik(){
       return this.application.user.role==Kopnik.Role.Kopnik || this.application.user.role==Kopnik.Role.DanilovKopnik
     },
