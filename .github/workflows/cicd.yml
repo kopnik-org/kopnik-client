@@ -58,7 +58,6 @@ jobs:
             cd ~/kopnik-docker
             docker-compose pull --quiet client
             docker-compose down --volume
-#            docker-compose up --build -d --renew-anon-volumes client
             docker-compose up --build -d client nginx
           host: kopnik.org
           username: someuser
