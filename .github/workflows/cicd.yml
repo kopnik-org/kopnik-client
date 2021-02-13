@@ -58,7 +58,7 @@ jobs:
             cd ~/kopnik-docker
             docker-compose pull --quiet client
             docker-compose down --volume
-            docker-compose up --build -d client nginx
+            docker-compose up --build -d
           host: kopnik.org
           username: someuser
           password: ${{ secrets.SSH_PASSWORD }}
