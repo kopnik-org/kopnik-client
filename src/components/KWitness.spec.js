@@ -94,7 +94,7 @@ describe('components Witness', () => {
     await flushPromises()
 
     // проверяю что открылся диалог
-    expect(wrapper.vm.$refs.confirmDialog[0].$data.isActive).toBeTruthy()
+    expect(wrapper.vm.$refs.confirmDialog.$data.isActive).toBeTruthy()
     expect(appWrapper.html()).toContain(messages.ru.witness.confirm)
 
     // нажимаю подтвердить
@@ -116,7 +116,7 @@ describe('components Witness', () => {
     await flushPromises()
 
     // проверяю что открылся диалог
-    expect(wrapper.vm.$refs.declineDialog[0].$data.isActive).toBeTruthy()
+    expect(wrapper.vm.$refs.declineDialog.$data.isActive).toBeTruthy()
     expect(appWrapper.html()).toContain(messages.ru.witness.decline)
 
     // нажимаю подтвердить

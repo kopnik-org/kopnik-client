@@ -53,7 +53,7 @@
   "witness": {
     "confirm": "Confirm",
     "decline": "Decline",
-    "openWitnessChat": "Open chat"
+    "openWitnessChat": "Chat"
   },
   "login": {
     "login": "Login with VK"

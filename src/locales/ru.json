@@ -64,7 +64,7 @@
   "witness": {
     "confirm": "Заверить",
     "decline": "Отклонить",
-    "openWitnessChat": "Открыть чат"
+    "openWitnessChat": "Чат"
   },
   "login": {
     "login": "Войте через ВКонтакте"
