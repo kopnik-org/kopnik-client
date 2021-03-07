@@ -63,7 +63,8 @@
   },
   "witness": {
     "confirm": "Заверить",
-    "decline": "Отклонить"
+    "decline": "Отклонить",
+    "openWitnessChat": "Открыть чат"
   },
   "login": {
     "login": "Войте через ВКонтакте"

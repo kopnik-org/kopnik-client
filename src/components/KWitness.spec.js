@@ -34,6 +34,7 @@ describe('components Witness', () => {
         status: Kopnik.Status.CONFIRMED,
         isLoaded: true,
         witness_id: user.id,
+        witnessChatInviteLink: '1234',
       },
       'subordinate'
     )
@@ -67,34 +68,65 @@ describe('components Witness', () => {
     expect(user.witnessRequests[0]).toBe(request)
   })
 
-  it('draw', async () => {
-    expect(wrapper.findAllComponents({ref: 'witnessRequest'}).wrappers).toHaveLength(1)
-    expect(wrapper.findAllComponents({ref: 'witnessRequest'}).wrappers[0].vm.$props.value).toBe(request)
+  describe('draw', () => {
+    it('without witness chat', async () => {
+      request.witnessChatInviteLink = null
+      await flushPromises()
+      expect(wrapper.findAllComponents({ref: 'witnessRequest'}).wrappers).toHaveLength(1)
+      expect(wrapper.findAllComponents({ref: 'witnessRequest'}).wrappers[0].vm.$props.value).toBe(request)
+      expect(wrapper.vm.$refs.confirmAsk).toHaveLength(0) // все же confirmAsk массив, потому что при первой отрисовке он был не пустой
+      expect(wrapper.vm.$refs.openWitnessChat).toHaveLength(0)
+    })
+    it('with witness chat', async () => {
+      await flushPromises()
+      expect(wrapper.findAllComponents({ref: 'witnessRequest'}).wrappers).toHaveLength(1)
+      expect(wrapper.findAllComponents({ref: 'witnessRequest'}).wrappers[0].vm.$props.value).toBe(request)
+      expect(wrapper.vm.$refs.confirmAsk).toHaveLength(1)
+      expect(wrapper.vm.$refs.openWitnessChat).toHaveLength(1)
+    })
   })
 
+
   it('confirm request', async () => {
-    const update= jest.fn()
+    const resolveWitnessRequest = jest.fn()
     // нажимаю на ПРИНяТЬ
-    fetch.mockIfEx(/resolveWitnessRequest/, update)
-    wrapper.findAllComponents({ref: 'confirm'}).wrappers[0].trigger('click')
+    wrapper.findAllComponents({ref: 'confirmAsk'}).wrappers[0].trigger('click')
+    await flushPromises()
+
+    // проверяю что открылся диалог
+    expect(wrapper.vm.$refs.confirmDialog[0].$data.isActive).toBeTruthy()
+    expect(appWrapper.html()).toContain(messages.ru.witness.confirm)
+
+    // нажимаю подтвердить
+    fetch.mockIfEx(/resolveWitnessRequest/, resolveWitnessRequest)
+    wrapper.findComponent({ref: 'confirmYes'}).trigger('click')
     await flushPromises()
 
     // проверяю что заявка обработалась, сообщение отобразилось и диалог скрылся
     expect(user.witnessRequests).toHaveLength(0)
-    expect(JSON.parse(update.mock.calls[0][0].body)).toHaveProperty('status',2)
+    expect(JSON.parse(resolveWitnessRequest.mock.calls[0][0].body)).toHaveProperty('status', 2)
     // expect(appWrapper.html()).toContain(messages.ru.subordinates.confirmForemanRequestInfo)
   })
 
   it('decline request', async () => {
-    const update= jest.fn()
+    const resolveWitnessRequest = jest.fn()
     // нажимаю на ОТКЛОНИТЬ
-    fetch.mockIfEx(/resolveWitnessRequest/, update)
-    wrapper.findAllComponents({ref: 'decline'}).wrappers[0].trigger('click')
+    fetch.mockIfEx(/resolveWitnessRequest/, resolveWitnessRequest)
+    wrapper.findAllComponents({ref: 'declineAsk'}).wrappers[0].trigger('click')
+    await flushPromises()
+
+    // проверяю что открылся диалог
+    expect(wrapper.vm.$refs.declineDialog[0].$data.isActive).toBeTruthy()
+    expect(appWrapper.html()).toContain(messages.ru.witness.decline)
+
+    // нажимаю подтвердить
+    fetch.mockIfEx(/resolveWitnessRequest/, resolveWitnessRequest)
+    wrapper.findComponent({ref: 'declineYes'}).trigger('click')
     await flushPromises()
 
     // проверяю что заявка обработалась, сообщение отобразилось и диалог скрылся
     expect(user.witnessRequests).toHaveLength(0)
-    expect(JSON.parse(update.mock.calls[0][0].body)).toHaveProperty('status',3)
+    expect(JSON.parse(resolveWitnessRequest.mock.calls[0][0].body)).toHaveProperty('status', 3)
     // expect(appWrapper.html()).toContain(messages.ru.subordinates.confirmForemanRequestInfo)
   })
 })

@@ -52,7 +52,8 @@
   },
   "witness": {
     "confirm": "Confirm",
-    "decline": "Decline"
+    "decline": "Decline",
+    "openWitnessChat": "Open chat"
   },
   "login": {
     "login": "Login with VK"
