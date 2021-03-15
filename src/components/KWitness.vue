@@ -121,6 +121,7 @@ export default {
     async updateRequestStatus_click(status) {
       this.currentHalfUser.status = status
       await this.application.user.resolveWitnessRequest(this.currentHalfUser)
+      this.confirmDialog=this.declineDialog= false
     },
     onOpenWitnessChatClick(halfUser) {
       open(halfUser.witnessChatInviteLink,)

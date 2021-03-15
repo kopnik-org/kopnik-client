@@ -102,6 +102,9 @@ describe('components Witness', () => {
     wrapper.findComponent({ref: 'confirmYes'}).trigger('click')
     await flushPromises()
 
+    // проверяю что закрылся диалог
+    expect(wrapper.vm.$refs.confirmDialog.$data.isActive).toBeFalsy()
+
     // проверяю что заявка обработалась, сообщение отобразилось и диалог скрылся
     expect(user.witnessRequests).toHaveLength(0)
     expect(JSON.parse(resolveWitnessRequest.mock.calls[0][0].body)).toHaveProperty('status', 2)
@@ -123,6 +126,9 @@ describe('components Witness', () => {
     fetch.mockIfEx(/resolveWitnessRequest/, resolveWitnessRequest)
     wrapper.findComponent({ref: 'declineYes'}).trigger('click')
     await flushPromises()
+
+    // проверяю что закрылся диалог
+    expect(wrapper.vm.$refs.declineDialog.$data.isActive).toBeFalsy()
 
     // проверяю что заявка обработалась, сообщение отобразилось и диалог скрылся
     expect(user.witnessRequests).toHaveLength(0)
