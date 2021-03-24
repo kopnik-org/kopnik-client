@@ -29,14 +29,62 @@
             <div v-if="env==='development'">
               {{ changeset }}
             </div>
-            <v-btn ref="confirm"
-                   color="primary" block
-                   :disabled="invalid || !isMessagesFromGroupAllowed || !request.location.lat || changeset.length===0"
-                   @click="submit_click"
-                   v-promise-btn
+
+
+<!--            Диалог подтверждения-->
+            <v-dialog ref="submitDialog"
+
+                      v-model="submitDialog"
+                      :max-width="450"
             >
-              {{ $t('profile.submit') }}
-            </v-btn>
+              <!--         кнопка-активатор-->
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn ref="confirm"
+                       color="primary" block
+                       :disabled="invalid || !isMessagesFromGroupAllowed || !request.location.lat || changeset.length===0"
+                       v-bind="attrs"
+                       v-on="on"
+                >
+                  {{ $t('profile.submit') }}
+                </v-btn>
+<!--            example
+
+                <v-btn ref="foremanAsk" text :disabled="application.user===value.selected || !isSelectedKopnik || !(isUserKopnik || isUserFutureKopnik)" class="flex"
+                       v-bind="attrs"
+                       v-on="on"
+                       v-promise-btn
+                >
+                  {{
+                    application.user.foreman === value.selected ? $t('details.resetForeman') : application.user.foremanRequest === value.selected ? $t('details.cancelForemanRequest') : $t('details.toForeman')
+                  }}
+                </v-btn>-->
+
+              </template>
+              <v-card>
+                <v-card-title>
+                  <v-avatar :size="128" class="mr-7"><img src="img/avatar.png"></v-avatar>
+                  {{ $t('profile.submitDialog.title') }}
+                </v-card-title>
+                <v-card-text>
+                  {{ $t('profile.submitDialog.text') }}
+                  <ul>
+                    <li v-for="eachField of changesetTranslated">
+                      {{ eachField }}
+                    </li>
+                  </ul>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn ref="submitYes" text color="primary" @click="onSubmitYes" class="flex-grow-1"
+                         v-promise-btn
+                  >
+                    {{ $t('dialog.yes') }}
+                  </v-btn>
+                  <v-btn ref="submitNo" text color="secondary" @click="submitDialog=false" class="flex-grow-1">
+                    {{ $t('dialog.no') }}
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </v-form>
         </v-card-text>
       </v-card>
@@ -64,6 +112,7 @@ export default {
 
   data() {
     return {
+      submitDialog: false,
       env: container.env,
       application: container.application,
       request: null,
@@ -79,7 +128,12 @@ export default {
      * набор изменений относительно текущего пользователя
      */
     changeset() {
-      const result = ['firstName', 'lastName', 'patronymic', 'birthYear', 'role', 'passport', 'location'].filter(eachField => this.application.user[eachField] != this.request[eachField])
+      // need stringify to location comparison
+      const result = ['firstName', 'lastName', 'patronymic', 'birthYear', 'role', 'passport', 'location'].filter(eachField => JSON.stringify(this.application.user[eachField]) !== JSON.stringify(this.request[eachField]))
+      return result
+    },
+    changesetTranslated() {
+      const result = this.changeset.map(eachField => container.application.getMessage(`profile.${eachField}`))
       return result
     },
     alert() {
@@ -88,7 +142,7 @@ export default {
   },
   watch: {},
   methods: {
-    async submit_click() {
+    async onSubmitYes() {
       this.request.birthYear = parseInt(this.request.birthYear)
       await this.application.user.updateProfile(this.request.plain, this.changeset)
       this.application.infos.push(this.$t('profile.submitMessage'))

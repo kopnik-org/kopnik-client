@@ -206,7 +206,8 @@ export default class Kopnik extends AbstractSync {
       throw new KopnikError('House location required')
     }
     this.merge({locale: profileJSON.locale})
-    await this.constructor.api("updateProfile", {
+
+    let promise= this.constructor.api("updateProfile", {
       method: 'POST',
       body: {
         ...profileJSON,
@@ -214,6 +215,10 @@ export default class Kopnik extends AbstractSync {
         changesetTranslated: changeset.map(eachField => container.application.getMessage(`profile.${eachField}`))
       }
     })
+
+
+    await promise
+
     this.merge(profileJSON)
     this.status = Kopnik.Status.PENDING
   }
