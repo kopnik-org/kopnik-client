@@ -10,6 +10,7 @@ import KopnikVue from "./KopnikVue";
 import waitForExpect from "wait-for-expect";
 import KApp from "@/components/KApp/KApp";
 import messages from "@/locales";
+import fetchMock from "jest-fetch-mock";
 
 // real fetch
 container.constants.di.fetch = true
@@ -43,19 +44,29 @@ describe('components KProfile', () => {
     await flushPromises()
     application.section = Application.Section.Profile
     await flushPromises()
+
     wrapper = appWrapper.findComponent({ref: 'section'})
+
+    // меняем одно поле
+    // await flushPromises()
+    // wrapper.vm.$data.request.firstName = 'changed'
+    // await flushPromises()
+    fetchMock.mockClear()
   })
 
   it('draw', async () => {
-    expect(wrapper.vm.$refs.request.$props.value).toEqual(user)
-    expect(wrapper.findComponent({ref: 'confirm'}).attributes('disabled')).toBeFalsy()
+    expect(wrapper.vm.$refs.request.$props.value.plain).toEqual({...user.plain, })
+    // expect(wrapper.findComponent({ref: 'confirm'}).attributes('disabled')).toBeFalsy()
   })
 
   it('submit', async () => {
     wrapper.findComponent({ref: 'request'}).findComponent({ref: 'firstName'}).get('input').setValue('1234')
+    await flushPromises()
     fetch.mockIfEx(/updateProfile/, 'OK')
     wrapper.findComponent({ref: 'confirm'}).trigger('click')
     await flushPromises()
+    // const a = fetchMock.mock.calls[0][1]
+    // const a = fetchMock.mock
     expect(user.status).toBe(Kopnik.Status.PENDING)
     expect(user.firstName).toBe('1234')
     expect(application.section).toBe(Application.Section.Main)
@@ -75,7 +86,8 @@ describe('components KProfile', () => {
     */
     await kopnikWrapper.vm.locale_change(en)
     await flushPromises()
-    // KProfile работает с копией Пользователя и в компонент KopnikVue передает тоже копию
+    // KProfile работает с копией Пользователя (чё???) и
+    // в компонент KopnikVue передает тоже копию
     // Реальный Копник получит обновление локали только после того, как изменится локаль на сервере
     expect(container.application.user.locale).toBe(en)
     expect(container.localeManager.currentLocale).toBe(en)

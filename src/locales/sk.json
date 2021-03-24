@@ -16,7 +16,7 @@
       "allow": "Stlačte tlačidlo nižšie, aby si sa zapojil do komunikácie na stránke",
       "allowed": "Komunikácia aktivovaná!"
     },
-    "rolesTitle": "Moja úloha v kopnej občine (stlač, aby si videl kritéria)",
+    "role": "Moja úloha v kopnej občine (stlač, aby si videl kritéria)",
     "roles": [
       {
         "title": "Authentic Kopa man",

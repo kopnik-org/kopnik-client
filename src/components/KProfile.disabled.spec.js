@@ -34,13 +34,28 @@ describe('components KProfile disabled', () => {
     application.user = user
   })
 
+  it('disabled by empty changeset', async () => {
+    appWrapper = mount(KApp, {
+      ...vuePlugins,
+    })
+    wrapper = appWrapper.findComponent({ref: 'section'})
+
+    await waitForExpect(() => {
+      expect(wrapper.findComponent({ref: 'confirm'}).attributes('disabled')).toBe('disabled')
+    })
+  })
+
   it('disabled by fio', async () => {
-    user.firstName = ''
+    user.patronymic = ''
     // wrapper.findComponent({ref:'request'}).findComponent({ref:'firstName'}).get('input').setValue('')
     appWrapper = mount(KApp, {
       ...vuePlugins,
     })
     wrapper = appWrapper.findComponent({ref: 'section'})
+
+    // меняем одно поле
+    await flushPromises()
+    wrapper.vm.$data.request.firstName='changed'
 
     await waitForExpect(() => {
       expect(wrapper.findComponent({ref: 'confirm'}).attributes('disabled')).toBe('disabled')
@@ -54,6 +69,10 @@ describe('components KProfile disabled', () => {
       ...vuePlugins,
     })
     wrapper = appWrapper.findComponent({ref: 'section'})
+
+    // меняем одно поле
+    await flushPromises()
+    wrapper.vm.$data.request.firstName='changed'
 
     await waitForExpect(() => {
       expect(wrapper.findComponent({ref: 'confirm'}).attributes('disabled')).toBe('disabled')

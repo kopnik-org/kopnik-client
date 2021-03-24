@@ -18,7 +18,7 @@
       "allow": "Kliknij przycisk poniżej, aby włączyć komunikację w systemie",
       "allowed": "Komunikacja jest włączona!"
     },
-    "rolesTitle": "Moja rola w społeczeństwie kopnym (Kliknij aby zobaczyć kryteria)",
+    "role": "Moja rola w społeczeństwie kopnym (Kliknij aby zobaczyć kryteria)",
     "roles": [
       {
         "title": "Rdzenny Kopny męż",

@@ -26,9 +26,12 @@
               </v-list-item>
               <slot></slot>
             </v-list>
+            <div v-if="env==='development'">
+              {{ changeset }}
+            </div>
             <v-btn ref="confirm"
                    color="primary" block
-                   :disabled="invalid || !isMessagesFromGroupAllowed || !request.location.lat"
+                   :disabled="invalid || !isMessagesFromGroupAllowed || !request.location.lat || changeset.length===0"
                    @click="submit_click"
                    v-promise-btn
             >
@@ -61,6 +64,7 @@ export default {
 
   data() {
     return {
+      env: container.env,
       application: container.application,
       request: null,
       // в текущий момент
@@ -71,7 +75,14 @@ export default {
   },
   props: {},
   computed: {
-    alert(){
+    /**
+     * набор изменений относительно текущего пользователя
+     */
+    changeset() {
+      const result = ['firstName', 'lastName', 'patronymic', 'birthYear', 'role', 'passport', 'location'].filter(eachField => this.application.user[eachField] != this.request[eachField])
+      return result
+    },
+    alert() {
       return this.$t(`profile.alert[${this.application.user.status}]`, {witnessChatInviteLink: this.application.user.witnessChatInviteLink})
     }
   },
@@ -79,7 +90,7 @@ export default {
   methods: {
     async submit_click() {
       this.request.birthYear = parseInt(this.request.birthYear)
-      await this.application.user.updateProfile(this.request.plain)
+      await this.application.user.updateProfile(this.request.plain, this.changeset)
       this.application.infos.push(this.$t('profile.submitMessage'))
       await this.application.setSection(container.application.constructor.Section.Main)
     },
@@ -105,7 +116,10 @@ export default {
     this.wasMessagesFromGroupAllowed = this.isMessagesFromGroupAllowed = await this.application.user.isMessagesFromGroupAllowed()
     // doc: https://vk.com/dev/widget_subscribe
     if (!this.isMessagesFromGroupAllowed) {
-      container.VK.Widgets.Subscribe("vk_allow_messages_from_community", {mode: 1, soft:  1,}, container.constants.messenger.svetoslav_id);
+      container.VK.Widgets.Subscribe("vk_allow_messages_from_community", {
+        mode: 1,
+        soft: 1,
+      }, container.constants.messenger.svetoslav_id);
       container.VK.Observer.subscribe("widgets.subscribed", (userId) => {
         this.isMessagesFromGroupAllowed = true
       })

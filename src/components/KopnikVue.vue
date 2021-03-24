@@ -88,7 +88,7 @@
         <ValidationProvider name="role" rules="required" v-slot="{ errors, valid }">
           <v-radio-group v-model="value.role" :readonly="readonly">
             <template v-slot:label>
-              <div>{{ $t('profile.rolesTitle') }}</div>
+              <div>{{ $t('profile.role') }}</div>
             </template>
             <template v-for="(eachRole, eachRoleIndex) of $t('profile.roles')">
               <v-radio :value="eachRoleIndex+1" :label="eachRole.title" color="success"></v-radio>

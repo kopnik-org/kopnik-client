@@ -110,7 +110,9 @@ __Параметры__
     "nickname": "sdakljh23",
     "location": {"lat": 14.12, "lng": 124.12390},
     "locale": "ru",
-    "role": 1
+    "role": 1,
+    "changeset": [ "firstName", "lastName", "patronymic", "birthYear", "role", "passport", "location" ],
+    "changesetTranslated": [ "Имя", "Фамилия", "Отчество", "Год рождения", "Роль", "Последние 4 цифры паспорта", "Место постоянного проживания (не прописки), с точностью до дома" ]
 }
 ```
 __Ошибки__

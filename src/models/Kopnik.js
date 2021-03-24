@@ -123,7 +123,7 @@ export default class Kopnik extends AbstractSync {
   }
 
   get name() {
-    return [this.firstName, this.patronymic, this.lastName, ].filter(each => each).join(' ')
+    return [this.firstName, this.patronymic, this.lastName,].filter(each => each).join(' ')
   }
 
   get rankName() {
@@ -146,7 +146,7 @@ export default class Kopnik extends AbstractSync {
    * @returns {Promise<void>}
    */
   async login() {
-    container.api['T-Authorization']= this.mid
+    container.api['T-Authorization'] = this.mid
   }
 
   /**
@@ -195,9 +195,10 @@ export default class Kopnik extends AbstractSync {
    * Подать заявку на заверение себя
    *
    * @param profileJSON
+   * @param {string[]} changeset
    * @return {Promise<void>}
    */
-  async updateProfile(profileJSON) {
+  async updateProfile(profileJSON, changeset) {
     if (!profileJSON.passport) {
       throw new KopnikError('Passport required')
     }
@@ -207,7 +208,11 @@ export default class Kopnik extends AbstractSync {
     this.merge({locale: profileJSON.locale})
     await this.constructor.api("updateProfile", {
       method: 'POST',
-      body: profileJSON
+      body: {
+        ...profileJSON,
+        changeset,
+        changesetTranslated: changeset.map(eachField => container.application.getMessage(`profile.${eachField}`))
+      }
     })
     this.merge(profileJSON)
     this.status = Kopnik.Status.PENDING
@@ -456,11 +461,11 @@ export default class Kopnik extends AbstractSync {
    * @param {Kopa} kopa
    */
   async inviteKopa(kopa) {
-    const result = await this.constructor.api(`inviteKopa`,{
+    const result = await this.constructor.api(`inviteKopa`, {
       method: 'POST',
       body: {
         subject: kopa.subject,
-        participants: kopa.participants.map(eachParticipant=>eachParticipant.id),
+        participants: kopa.participants.map(eachParticipant => eachParticipant.id),
       }
     })
 
