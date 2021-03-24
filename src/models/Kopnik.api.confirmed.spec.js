@@ -64,7 +64,7 @@ describe('models User confirmed', () => {
       birthYear: 2000,
       locale: 'en',
     }
-    await main.updateProfile(state)
+    await main.updateProfile(state, [])
 
     await main.login()
     await main.reload()

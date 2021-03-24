@@ -57,7 +57,7 @@ describe('models User get pending', () => {
             birthYear: 2000,
             locale: 'en',
         }
-        await main.updateProfile(state)
+        await main.updateProfile(state, [])
 
         await main.login()
         await main.reload()

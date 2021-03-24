@@ -79,7 +79,7 @@ describe('models User api anonymous', () => {
           lat: 1,
           lng: 1
         },
-      })
+      }, [])
       throw new Error("should not be hire")
     } catch (err) {
       expect(err).toBeKopnikError(1401)
