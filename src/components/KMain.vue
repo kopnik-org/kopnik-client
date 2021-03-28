@@ -489,6 +489,9 @@ export default {
   },
   methods: {
     async onToggleWitnesses() {
+      if (await this.application.forwardUserToBeConfirmed()) {
+        return
+      }
       await this.value.toggleWitnesses()
     },
     kopaDialogOK_click: async function () {
