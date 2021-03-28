@@ -37,11 +37,22 @@ export default class Main {
     this.info = null
     /** @type {Kopnik[]} старшие 20 копников на карте  */
     this.top20 = []
+    /** @type {Kopnik[]} заверители на карте  */
+    this.witnesses = []
     this.squadAnalyzer = new SquadAnalyzer
     // копа, которая созывается
     this.kopa = new Kopa
     this._loadTop20AbortController = new AbortController()
     this.restoreMapState()
+  }
+
+  async toggleWitnesses() {
+    if (this.witnesses.length) {
+      this.witnesses.splice(0)
+    } else {
+      this.witnesses = (await Kopnik.api('getWitnessesInsideSquare?x1=-180&y1=-90&x2=180&y2=90'))
+        .map(eachWitnessJSON => Kopnik.merge(eachWitnessJSON, true))
+    }
   }
 
   storeMapState() {
@@ -103,7 +114,7 @@ export default class Main {
    * Только последний вызов fetch внутри этой функции вернет ответ.
    * @returns {Promise<void>}
    */
-  async loadTop20(maxRank  = 300000000) {
+  async loadTop20(maxRank = 300000000) {
     // временная заглушка до поры пока Артем не сделает getTopInsideSquare публичным с ограничением
     if (!container.application.user) {
       return []

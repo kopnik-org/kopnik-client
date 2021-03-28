@@ -22,6 +22,7 @@ export default class Kopnik extends AbstractSync {
   @scalar location = undefined
 
   @scalar isWitness = undefined
+  @scalar witnessRadius = undefined
   /**
    *
    * @type {String}

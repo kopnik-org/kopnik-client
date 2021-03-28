@@ -19,8 +19,20 @@
 
             style="z-index: 0"
     >
+
       <!--            скрыть копные связи-->
       <l-control position="topright">
+        <!--            показать площади заверений-->
+        <v-btn ref="toggleWitnesses"
+               fab small
+               title="Показать зоны заверения"
+               @click="onToggleWitnesses"
+               style="order: -1000000000"
+               v-promise-btn
+        >
+          <v-icon>mdi-account-circle</v-icon>
+        </v-btn>
+
         <div v-if="value.squadAnalyzer.isAnalyzing() && value.squadAnalyzer.analyzed.length>1"
              class="d-flex flex-column align-center">
           <v-btn fab small
@@ -38,6 +50,11 @@
                               </v-avatar>-->
         </div>
       </l-control>
+      <l-circle ref="witnesses"  v-for="eachWitness of value.witnesses" :key="'witnessCircle'+eachWitness.id"
+        :lat-lng="eachWitness.location"
+        :radius="eachWitness.witnessRadius*1000"
+        fillColor="#3388ff"
+      />
 
       <!--            копные связи-->
       <!--      v-if до тех пор пока не заработает style:hidden на стрелке-->
@@ -157,7 +174,7 @@
                     @dblclick="avatar_dblclick(value.selected)">
           </k-avatar>
           <v-list-item-content class="pl-5">
-            <div class="">{{ value.selected.name }} </div>
+            <div class="">{{ value.selected.name }}</div>
             <v-list-item-subtitle class="">{{ selectedRole }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -166,7 +183,8 @@
           v-if="value.selected"
           class="flex-nowrap"
         >
-          <v-btn ref="toggleParticipant" text :disabled="application.user===value.selected || !isSelectedKopnik || !isUserKopnik" class="flex"
+          <v-btn ref="toggleParticipant" text
+                 :disabled="application.user===value.selected || !isSelectedKopnik || !isUserKopnik" class="flex"
                  @click="toggle_click">
             {{ value.kopa.isParticipantAdded(value.selected) ? $t('details.notToKopa') : $t('details.toKopa') }}
           </v-btn>
@@ -178,7 +196,9 @@
           >
             <!--         кнопка-активатор-->
             <template v-slot:activator="{ on, attrs }">
-              <v-btn ref="foremanAsk" text :disabled="application.user===value.selected || !isSelectedKopnik || !(isUserKopnik || isUserFutureKopnik)" class="flex"
+              <v-btn ref="foremanAsk" text
+                     :disabled="application.user===value.selected || !isSelectedKopnik || !(isUserKopnik || isUserFutureKopnik)"
+                     class="flex"
                      v-bind="attrs"
                      v-on="on"
                      v-promise-btn
@@ -337,17 +357,17 @@ export default {
     }
   },
   computed: {
-    isUserFutureKopnik(){
-      return this.application.user.role==Kopnik.Role.FutureKopnik
+    isUserFutureKopnik() {
+      return this.application.user.role == Kopnik.Role.FutureKopnik
     },
-    isUserKopnik(){
-      return this.application.user.role==Kopnik.Role.Kopnik || this.application.user.role==Kopnik.Role.DanilovKopnik
+    isUserKopnik() {
+      return this.application.user.role == Kopnik.Role.Kopnik || this.application.user.role == Kopnik.Role.DanilovKopnik
     },
-    isSelectedKopnik(){
-      return this.application.sections.main.selected.role==Kopnik.Role.Kopnik || this.application.sections.main.selected.role==Kopnik.Role.DanilovKopnik
+    isSelectedKopnik() {
+      return this.application.sections.main.selected.role == Kopnik.Role.Kopnik || this.application.sections.main.selected.role == Kopnik.Role.DanilovKopnik
     },
     selectedRole() {
-      return this.$t(`profile.roles[${this.application.sections.main.selected.role-1}].title`)
+      return this.$t(`profile.roles[${this.application.sections.main.selected.role - 1}].title`)
     },
     kopa() {
       return this.application.sections.main.kopa
@@ -468,6 +488,9 @@ export default {
     },
   },
   methods: {
+    async onToggleWitnesses() {
+      await this.value.toggleWitnesses()
+    },
     kopaDialogOK_click: async function () {
       await this.application.user.inviteKopa(this.application.sections.main.kopa)
       this.application.sections.main.kopa = new Kopa()

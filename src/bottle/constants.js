@@ -9,7 +9,7 @@
 let constants = {
   "development": {
     auth:{
-      url:'https://localhost:8081/auth/vkontakte'
+      url:'http://localhost:8081/auth/vkontakte'
     },
     sw: {
       delay: 30000,
@@ -18,7 +18,7 @@ let constants = {
       svetoslav_id: 573258821
     },
     api: {
-      path: "https://localhost:8081/api"
+      path: "http://localhost:8081/api"
       // с мобилки
       // path: "http://192.168.43.84:8081/api"
     },

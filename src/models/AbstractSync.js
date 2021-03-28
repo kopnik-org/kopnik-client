@@ -9,6 +9,7 @@ import _ from "lodash"
 import * as models from "."
 import once from "../decorators/once";
 import {container} from "../bottle/bottle";
+import {Kopnik} from ".";
 
 /**
  * Общий принцип работы следующий
@@ -168,9 +169,30 @@ export default class AbstractSync {
   }
 
   /**
+   * Загрузить сущности по урлу
+   *
+   * @param {string} what url эндпоинта для загрузки сущностей
+   * @return {Promise<AbstractSync[]> | Promise<AbstractSync>} сущности с проставленными isLoaded
+   */
+  static async reload(what) {
+    /** @type {object[] | object} */
+    const resultJSON = await this.api(what)
+
+    // привожу один элемент в массив для универсальной обработки
+    const result =  [].concat(resultJSON).map(eachResultJSON => {
+      const eachResult= new this
+      eachResult.merge(eachResultJSON)
+      eachResult.isLoaded=true
+      return eachResult
+    })
+
+    return Array.isArray(resultJSON)?result:result[0]
+  }
+
+  /**
    * Получить модель
    *
-   * @param id
+   * @param {number } id
    * @return {Promise.<*>}
    */
   static async get(id) {
@@ -184,7 +206,7 @@ export default class AbstractSync {
   /**
    * Мержит плоский объект или модель в кэш моделей
    *
-   * @param {Object | AbstractAsync} what
+   * @param {Object } what
    * @param {Boolean?} isLoaded установить флаг isLoaded после мержа
    * @returns {*}
    */
