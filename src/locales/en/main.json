@@ -1,146 +1,145 @@
 {
-  "languageName": "English",
+  "languageName": "Русский",
+  "application": {
+    "youHaveToRegister": "Чтобы открыть все возможности kopnik.org, тебе необходимо стать полноправным участником. Для этого заполни все поля данной формы и нажми кнопку \"ОБНОВИТЬ\".",
+    "youHaveToWitnessYourData": "Чтобы открыть все возможности системы, тебе необходимо заверить свои личные данные. Для этого перейди в чат для заверения личных данных."
+  },
   "profile": {
-    "language": "Language",
-    "firstName": "Name",
-    "lastName": "Last name",
-    "patronymic": "Patronymic",
-    "birthYear": "Birthyear",
-    "passport": "Last four number of passport",
-    "nickname": "Nickname",
-    "submit": "Update",
-    "submitMessage": "Your request for kopnik.org membership has been sent to your witness. Now go to VKontakte and read how to communicate with your witness and confirm the accuracy of sended data. Good luck!",
-    "messagesFromGroup": {
-      "allow": "By clicking the button below to turn on the nationwide system",
-      "allowed": "Turned on!"
+    "alert": [
+      "Внимание! Чтобы открыть все возможности kopnik.org, тебе необходимо стать полноправным участником. Для этого заполни все поля данной формы и нажми кнопку \"ОБНОВИТЬ\". Если кнопка не активна, проверь еще раз внимательно, что заполнены все поля.",
+      "Внимание! Твои личные данные отправлены на сервер. Чтобы открыть все возможности системы, тебе необходимо заверить их. Для этого перейди в <a target='_blank' href='{witnessChatInviteLink}'> чат для заверения личных данных</a>.",
+      "Порядок. Твои личные данные заверены и тебе доступны все возможности системы. Если в результате жизненных перемен личные данные устареют, внеси в них поправки и отправь на повторное заверение, нажав внизу кнопку \"ОБНОВИТЬ\".",
+      "Внимание! Твои личные данные отклонены заверителем. Чтобы стать полноправным участником системы, тебе необходимо внеси в них поправки и отправь на повторное заверение, нажав внизу кнопку \"ОБНОВИТЬ\"."
+    ],
+    "language": "Язык",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "patronymic": "Отчество",
+    "birthYear": "Год рождения",
+    "passport": "Последние 4 цифры паспорта",
+    "nickname": "Прозвище",
+    "submitDialog": {
+      "title": "Обновить личные данные?",
+      "text": "После обновления личных данных я познакомлю тебя с твоим персональным Заверителем, у которого ты сможешь заверить их подлинность. Перечень обновляемых личных данных, потребующих заверения: "
     },
-    "role": "My role in the Kopa's community (press to see criteria)",
+    "submit": "Обновить",
+    "submitMessage": "Ты почти зарегистрировался. Дождись сообщения от нашего бота ВКонтакте и следуй его инструкциям. Удачи!",
+    "messagesFromGroup": {
+      "allow": "ВНИМАНИЕ! Подпишись на бота-помощника, чтобы он мог приглашать тебя на копы (подписка обязательна для работоспособности приложения)",
+      "allowed": "Общение включено!"
+    },
+    "role": "Моя роль в копном обществеs",
     "roles": [
       {
-        "title": "Kopnik",
+        "title": "Копный муж",
         "criteria": [
-          "Have a family",
-          "There is a Son who has a family",
-          "There is a Son from the Son",
-          "There is housing (house / apartment / rented apartment)",
-          "There is a farm (own business / work)"
+          "Есть семья",
+          "Есть Сын, у которого есть семья",
+          "Есть Сын от Сына",
+          "Есть жилье (дом / квартира / съемная квартира)",
+          "Есть хозяйство (свое дело / работа)"
         ]
       },
       {
-        "title": "Kopnik (simplified requirements proposed by S. Danilov",
+        "title": "Копный муж (смягченные требования, предложенные С.Даниловым)",
         "criteria": [
-          "Have a family",
-          "Have a Son or Daughter",
-          "There are 30 years",
-          "There is housing (house / apartment / rented apartment",
-          "There is a farm (own business / work)"
+          "Есть семья",
+          "Есть Сын или Дочь",
+          "Есть 30 лет",
+          "Есть жилье (дом / квартира / съемная квартира)",
+          "Есть хозяйство (свое дело / работа)"
         ]
       },
       {
-        "title": "I strive to become a Kopnik",
+        "title": "Стремлюсь стать копным мужем",
         "criteria": [
-          "The man"
+          "Мужчина / юноша "
         ]
       },
       {
-        "title": "I am a woman"
+        "title": "Я женщина"
       },
       {
-        "title": "I am not a Slav (representative of another people)"
+        "title": "Я не славянин (представитель другого народа)"
       }
     ],
-    "location": "Place of permanent residence, accurate to home",
-    "alert": [
-      "Attention! To open all the possibilities of kopnik.org, you need to become a full member. To do this, fill in all the fields of this form and click the \"UPDATE\" button. If the button is not active, double check carefully that all fields are filled in.",
-      "Attention! Your personal data has been sent to the server. To open all the possibilities of the system, you need to assure them. To do this, go to the <a target='_blank' href=' {witnessChatInviteLink }'> chat to verify personal data </a>.",
-      "Order. Your personal data is certified and you have access to all the system's capabilities. If, as a result of life changes, personal data becomes outdated, amend them and send them for re-certification by clicking the \"UPDATE\" button below.",
-      "Attention! Your personal data has been rejected by the witness. To become a full member of the system, you need to amend them and send them for re-certification by clicking the \"UPDATE\" button below."
-    ],
-    "submitDialog": {
-      "title": "Update personal details?",
-      "text": "After updating your personal data, I will introduce you to your personal Witness, from whom you can certify their authenticity. The list of updated personal data requiring certification:"
-    }
+    "location": "Место постоянного проживания (не прописки), с точностью до дома"
   },
   "witness": {
-    "confirm": "Confirm",
-    "decline": "Decline",
-    "openWitnessChat": "Chat"
+    "confirm": "Заверить",
+    "decline": "Отклонить",
+    "openWitnessChat": "Чат"
   },
   "login": {
-    "login": "Login with VK"
+    "login": "Войте через ВКонтакте"
   },
   "drawer": {
-    "profile": "Profile",
-    "main": "Map",
-    "ten": "My ten",
-    "tenChat": "Ten's chat",
-    "foremanChat": "Foreman's chat",
-    "witness": "Entrance requests",
-    "thanks": "Thanks",
-    "help": "Help",
-    "logout": "Logout"
-  },
-  "errors": {
-    "underConstruction": "This functional is under construction by now. Will be available soon in v0.3.0"
-  },
-  "details": {
-    "toChat": "Talk",
-    "toKopa": "To Kopa",
-    "notToKopa": "Don't invite",
-    "toForeman": "To foreman",
-    "toForemanInfo": "The request was sended. Wait for the foreman's answer.",
-    "toForemanQuestion": "Choose a foreman?",
-    "resetForeman": "Not a foreman",
-    "resetForemanQuestion": "Not a foreman anymore?",
-    "resetForemanInfo": "This copnik is no longer a foreman for you",
-    "cancelForemanRequest": "Cancel the application",
-    "cancelForemanRequestQuestion": "Cancel the application ?",
-    "cancelForemanRequestInfo": "Application canceled"
-  },
-  "subordinates": {
-    "confirmForemanRequest": "Get in",
-    "confirmForemanRequestInfo": "Confirmed",
-    "declineForemanRequest": "Decline",
-    "declineForemanRequestInfo": "Declined",
-    "removeFromSubordinates": "Exclude from ten",
-    "removeFromSubordinatesInfo": "Excluded from the top ten",
-    "removeFromSubordinatesQuestion": "Exclude from the top ten?"
-  },
-  "application": {
-    "goToProfile": "Welcome, Brother. You are at kopnik.org. To begin, go through the registration, after which all the features of the system will become available.",
-    "youHaveToRegister": "To open all the possibilities of kopnik.org, you need to become a full member. To do this, fill in all the fields of this form and click the \"UPDATE\" button.",
-    "youHaveToWitnessYourData": "To open all the possibilities of the system, you need to certify your personal data. To do this, go to the chat to verify your personal data."
+    "profile": "Личные данные",
+    "main": "Карта",
+    "ten": "Моя десятка",
+    "tenChat": "Чат десятки",
+    "foremanChat": "Чат старшины",
+    "witness": "Заявки на вступление",
+    "thanks": "Благодарность",
+    "help": "Подсказка",
+    "logout": "Выход"
   },
   "quotes": [
     {
-      "value": "We are called to create our own and in our own way, Russian in Russian.",
+      "value": "Мы призваны творить свое и по своему, русское по-русски.",
       "owner": {
-        "position": "Russian philosopher",
-        "name": "Ivan Alexandrovich Ilyin"
+        "position": "Русский философ",
+        "name": "Иван Александрович Ильин"
       }
     },
     {
-      "value": "A people who have forgotten their culture, history, traditions <...> are doomed to extinction.",
+      "value": "Народ, забывший свою культуру, историю, традиции <...> - обречён на вымирание.",
       "owner": {
-        "position": "Russian writer",
-        "name": "Lev Nikolaevich Tolstoy"
+        "position": "Русский писатель",
+        "name": "Лев Николаевич Толстой"
       }
     }
   ],
-  "kopaDialog": {
-    "title": "Summon husbands to hunt?",
-    "subject": {
-      "label": "Topic of discussion",
-      "hint": "Fill in the topic of the upcoming cop here"
-    },
-    "afterInfo": "Copa called."
+  "errors": {
+    "underConstruction": "Этот функционал будет доступен вскоре в версии v0.3.0"
   },
-  "dialog": {
-    "yes": "Yes",
-    "no": "No"
+  "details": {
+    "toChat": "Беседовать",
+    "toKopa": "На Копу",
+    "notToKopa": "Не звать",
+    "toForeman": "Выбрать",
+    "toForemanQuestion": "Выбрать старшиной ?",
+    "toForemanInfo": "Заявка отправлена. Ожидай ответа старшины.",
+    "resetForeman": "Не старшина",
+    "resetForemanQuestion": "Больше не старшина ?",
+    "resetForemanInfo": "Этот копник для тебя больше не старшина",
+    "cancelForemanRequest": "Отменить заявку",
+    "cancelForemanRequestQuestion": "Отменить заявку ?",
+    "cancelForemanRequestInfo": "Заявка отменена"
+  },
+  "kopaDialog": {
+    "title": "Созвать мужей на копу ?",
+    "subject": {
+      "label": "Тема обсуждения",
+      "hint": "Заполни здесь тему предстоящей копы"
+    },
+    "afterInfo": "Копа созвана."
+  },
+  "subordinates": {
+    "confirmForemanRequest": "Принять в десятку",
+    "confirmForemanRequestInfo": "Принят в десятку",
+    "declineForemanRequest": "Отказать",
+    "declineForemanRequestInfo": "Сообщение об отказе отправлено",
+    "removeFromSubordinates": "Исключить из десятки",
+    "removeFromSubordinatesInfo": "Исключен из десятки",
+    "removeFromSubordinatesQuestion": "Исключить из десятки ?"
   },
   "definitions": {
-    "foreman": "The foreman of the ten in Kopa Law a kopnik, whom the ten entrusted to represent the interests of their families at the kopas, where representatives of different tens meet. The Kopa Law says \"What the elders have decided, the younger will stand on that.\"",
-    "subordinate": "The subordinate in the ten is a kopnik who, having elected a foreman, entrusted him to represent the interests of his family at the kopas, where representatives of different tens meet. The Kopa Law says \"What the elders have decided, the younger will stand on that.\""
+    "foreman": "Старшина десятки в Копном праве - это копник, которому десятка доверила представлять интересы своих семей на копах, на которых встречаются представители разных десяток. Закон Копного права гласит \"Что старшие решили, - на том младшие стоять будут.\"",
+    "subordinate": "Подчиненный в десятке - это копник, который, избрав старшину, доверил ему представлять интересы своей семьи на копах, на которых встречаются представители разных десяток. Закон Копного права гласит \"Что старшие решили, - на том младшие стоять будут.\""
+  },
+  "dialog": {
+    "yes": "Да",
+    "no": "Нет"
   }
 }
