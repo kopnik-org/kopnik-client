@@ -1,126 +1,145 @@
 {
-  "languageName": "Polski",
+  "languageName": "Русский",
   "application": {
-    "youHaveToRegister": "Musisz stać się pełnoprawnym członkiem kopnik.org, aby otworzyć wszystkie możliwości systemu. Aby to zrobić, wypełnij ten formularz i kliknij przycisk \"WYSŁAĆ\".",
-    "youHaveToWitnessYourData": "Musisz zapewnić swoje dane, aby otworzyć wszystkie możliwości systemu. Aby to zrobić, przejdź do Vkontakte i postępuj zgodnie z instrukcjami naszego bota"
+    "youHaveToRegister": "Чтобы открыть все возможности kopnik.org, тебе необходимо стать полноправным участником. Для этого заполни все поля данной формы и нажми кнопку \"ОБНОВИТЬ\".",
+    "youHaveToWitnessYourData": "Чтобы открыть все возможности системы, тебе необходимо заверить свои личные данные. Для этого перейди в чат для заверения личных данных."
   },
   "profile": {
-    "language": "Język",
-    "firstName": "Imię",
-    "lastName": "Nazwisko",
-    "patronymic": "Imię ojca",
-    "birthYear": "Rok urodzenia",
-    "passport": "Ostatnie 4 cyfry paszportu",
-    "nickname": "Przydomek",
-    "submit": "Wysłać",
-    "submitMessage": "Prawie się zarejestrowałeś. Poczekaj na wiadomość od naszego bota Vkontakte i postępuj zgodnie z jego instrukcjami. Powodzenia!",
-    "messagesFromGroup": {
-      "allow": "Kliknij przycisk poniżej, aby włączyć komunikację w systemie",
-      "allowed": "Komunikacja jest włączona!"
+    "alert": [
+      "Внимание! Чтобы открыть все возможности kopnik.org, тебе необходимо стать полноправным участником. Для этого заполни все поля данной формы и нажми кнопку \"ОБНОВИТЬ\". Если кнопка не активна, проверь еще раз внимательно, что заполнены все поля.",
+      "Внимание! Твои личные данные отправлены на сервер. Чтобы открыть все возможности системы, тебе необходимо заверить их. Для этого перейди в <a target='_blank' href='{witnessChatInviteLink}'> чат для заверения личных данных</a>.",
+      "Порядок. Твои личные данные заверены и тебе доступны все возможности системы. Если в результате жизненных перемен личные данные устареют, внеси в них поправки и отправь на повторное заверение, нажав внизу кнопку \"ОБНОВИТЬ\".",
+      "Внимание! Твои личные данные отклонены заверителем. Чтобы стать полноправным участником системы, тебе необходимо внеси в них поправки и отправь на повторное заверение, нажав внизу кнопку \"ОБНОВИТЬ\"."
+    ],
+    "language": "Язык",
+    "firstName": "Имя",
+    "lastName": "Фамилия",
+    "patronymic": "Отчество",
+    "birthYear": "Год рождения",
+    "passport": "Последние 4 цифры паспорта",
+    "nickname": "Прозвище",
+    "submitDialog": {
+      "title": "Обновить личные данные?",
+      "text": "После обновления личных данных я познакомлю тебя с твоим персональным Заверителем, у которого ты сможешь заверить их подлинность. Перечень обновляемых личных данных, потребующих заверения: "
     },
-    "role": "Moja rola w społeczeństwie kopnym (Kliknij aby zobaczyć kryteria)",
+    "submit": "Обновить",
+    "submitMessage": "Ты почти зарегистрировался. Дождись сообщения от нашего бота ВКонтакте и следуй его инструкциям. Удачи!",
+    "messagesFromGroup": {
+      "allow": "ВНИМАНИЕ! Подпишись на бота-помощника, чтобы он мог приглашать тебя на копы (подписка обязательна для работоспособности приложения)",
+      "allowed": "Общение включено!"
+    },
+    "role": "Моя роль в копном обществеs",
     "roles": [
       {
-        "title": "Rdzenny Kopny męż",
+        "title": "Копный муж",
         "criteria": [
-          "Ma rodzinę",
-          "Ma Syna, który ma rodzinę",
-          "Ma Syna od Syna",
-          "Ma mieszkanie (dom / mieszkanie / mieszkanie do wynajęcia)",
-          "Ma gospodarstwo (własny biznes / praca)"
+          "Есть семья",
+          "Есть Сын, у которого есть семья",
+          "Есть Сын от Сына",
+          "Есть жилье (дом / квартира / съемная квартира)",
+          "Есть хозяйство (свое дело / работа)"
         ]
       },
       {
-        "title": "Mąż kopny (złagodzone wymagania zaproponowane przez S. Daniłowa)",
+        "title": "Копный муж (смягченные требования, предложенные С.Даниловым)",
         "criteria": [
-          "Ma rodzinę",
-          "Ma syna lub córkę",
-          "Ma 30 lat",
-          "Ma mieszkanie (dom / mieszkanie / mieszkanie do wynajęcia)",
-          "Ma gospodarstwo (własny biznes / praca)"
+          "Есть семья",
+          "Есть Сын или Дочь",
+          "Есть 30 лет",
+          "Есть жилье (дом / квартира / съемная квартира)",
+          "Есть хозяйство (свое дело / работа)"
         ]
       },
       {
-        "title": "Pragnę zostać kopnym mężem",
+        "title": "Стремлюсь стать копным мужем",
         "criteria": [
-          "Młodzieniec / mężczyzna"
+          "Мужчина / юноша "
         ]
       },
       {
-        "title": "Jestem kobietą"
+        "title": "Я женщина"
       },
       {
-        "title": "Obcy / wyrzutek"
+        "title": "Я не славянин (представитель другого народа)"
       }
     ],
-    "location": "Miejsce stałego pobytu (bez zameldowania), z dokładnością do domu"
+    "location": "Место постоянного проживания (не прописки), с точностью до дома"
   },
   "witness": {
-    "confirm": "Poświadczyć",
-    "decline": "Odrzucić"
+    "confirm": "Заверить",
+    "decline": "Отклонить",
+    "openWitnessChat": "Чат"
   },
   "login": {
-    "login": "Zaloguj się przez Vkontakte"
+    "login": "Войте через ВКонтакте"
   },
   "drawer": {
-    "profile": "Personalia",
-    "main": "Mapa",
-    "ten": "Moje dziesiątki",
-    "tenChat": "Czat dziesiątki",
-    "foremanChat": "Czat przywódcę",
-    "witness": "Wnioski o przystąpienie",
-    "thanks": "Wdzięczność",
-    "help": "Podpowiedź",
-    "logout": "Wyjście"
+    "profile": "Личные данные",
+    "main": "Карта",
+    "ten": "Моя десятка",
+    "tenChat": "Чат десятки",
+    "foremanChat": "Чат старшины",
+    "witness": "Заявки на вступление",
+    "thanks": "Благодарность",
+    "help": "Подсказка",
+    "logout": "Выход"
   },
   "quotes": [
     {
-      "value": "Jesteśmy powołani do tworzenia swoje i na swój sposób, rosyjskie po rosyjsku.",
+      "value": "Мы призваны творить свое и по своему, русское по-русски.",
       "owner": {
-        "position": "Rosyjski filozof",
-        "name": "Iwan Aleksandrowicz Iljin"
+        "position": "Русский философ",
+        "name": "Иван Александрович Ильин"
       }
     },
     {
-      "value": "Naród, którzy zapomniałem o swojej kulturze, historii, tradycji <...> - skazany na wyginięcie.",
+      "value": "Народ, забывший свою культуру, историю, традиции <...> - обречён на вымирание.",
       "owner": {
-        "position": "Rosyjski pisarz",
-        "name": "Lew Nikołajewicz Tołstoj"
+        "position": "Русский писатель",
+        "name": "Лев Николаевич Толстой"
       }
     }
   ],
   "errors": {
-    "underConstruction": "Ta funkcjonalność będzie dostępna wkrótce w wersji v0.3.0"
+    "underConstruction": "Этот функционал будет доступен вскоре в версии v0.3.0"
   },
   "details": {
-    "toChat": "Rozmawiać",
-    "toKopa": "Na Kopu",
-    "notToKopa": "Nie wołać",
-    "toForeman": "Wybrać",
-    "toForemanQuestion": "Wybrać przywódcą?",
-    "toForemanInfo": "Wniosek został wysłany. Poczekaj na odpowiedź przywódcy.",
-    "resetForeman": "Nie przywódca",
-    "resetForemanQuestion": "Już nie przywódca ?",
-    "resetForemanInfo": "Ten człowiek nie jest już dla ciebie przywódca",
-    "cancelForemanRequest": "Anuluj wniosek",
-    "cancelForemanRequestQuestion": "Anuluj wniosek ?",
-    "cancelForemanRequestInfo": "Wniosek odwołany"
+    "toChat": "Беседовать",
+    "toKopa": "На Копу",
+    "notToKopa": "Не звать",
+    "toForeman": "Выбрать",
+    "toForemanQuestion": "Выбрать старшиной ?",
+    "toForemanInfo": "Заявка отправлена. Ожидай ответа старшины.",
+    "resetForeman": "Не старшина",
+    "resetForemanQuestion": "Больше не старшина ?",
+    "resetForemanInfo": "Этот копник для тебя больше не старшина",
+    "cancelForemanRequest": "Отменить заявку",
+    "cancelForemanRequestQuestion": "Отменить заявку ?",
+    "cancelForemanRequestInfo": "Заявка отменена"
+  },
+  "kopaDialog": {
+    "title": "Созвать мужей на копу ?",
+    "subject": {
+      "label": "Тема обсуждения",
+      "hint": "Заполни здесь тему предстоящей копы"
+    },
+    "afterInfo": "Копа созвана."
   },
   "subordinates": {
-    "confirmForemanRequest": "Przyjąć do dziesiątkę",
-    "confirmForemanRequestInfo": "Przyjęty do dziesiątce",
-    "declineForemanRequest": "Odrzucić",
-    "declineForemanRequestInfo": "Wiadomość o odrzuceniu wysłana",
-    "removeFromSubordinates": "Wykluczyć z dziesiątki",
-    "removeFromSubordinatesInfo": "Wykluczony z dziesiątki",
-    "removeFromSubordinatesQuestion": "Wykluczyć z dziesiątki ?"
+    "confirmForemanRequest": "Принять в десятку",
+    "confirmForemanRequestInfo": "Принят в десятку",
+    "declineForemanRequest": "Отказать",
+    "declineForemanRequestInfo": "Сообщение об отказе отправлено",
+    "removeFromSubordinates": "Исключить из десятки",
+    "removeFromSubordinatesInfo": "Исключен из десятки",
+    "removeFromSubordinatesQuestion": "Исключить из десятки ?"
   },
   "definitions": {
-    "foreman": "Przywódca dziesiątki w Kopnym ustawie to kopnik, któremu dziesiątka zaufała reprezentowanie interesów swoich rodzin na kopach, na których spotykają się przedstawiciele różnych dziesiątek. Ustawa Kopy mówi \" co starsi zdecydowali-na tym młodsi będą stać.\"",
-    "subordinate": "Podwładnym w dziesiątce jest kopnik, który po wyborze przywódcy powierzył mu reprezentowanie interesów swojej rodziny na kopach, na których spotykają się przedstawiciele różnych dziesiątek. Ustawa Kopy mówi \" co starsi zdecydowali-na tym młodsi będą stać.\""
+    "foreman": "Старшина десятки в Копном праве - это копник, которому десятка доверила представлять интересы своих семей на копах, на которых встречаются представители разных десяток. Закон Копного права гласит \"Что старшие решили, - на том младшие стоять будут.\"",
+    "subordinate": "Подчиненный в десятке - это копник, который, избрав старшину, доверил ему представлять интересы своей семьи на копах, на которых встречаются представители разных десяток. Закон Копного права гласит \"Что старшие решили, - на том младшие стоять будут.\""
   },
   "dialog": {
-    "yes": "Tak",
-    "no": "Nie"
+    "yes": "Да",
+    "no": "Нет"
   }
 }
