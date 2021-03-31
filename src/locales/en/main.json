@@ -136,7 +136,8 @@
     "afterInfo": "Copa called."
   },
   "definitions": {
-    "foreman": "The foreman of the dozen in Kopnoy Pravo is a copnik, whom the dozen entrusted to represent the interests of their families at the cops, where representatives of different dozens meet. The Law of the Hop's Right says \"What the elders have decided, the younger will stand on that.\""
+    "foreman": "The foreman of the dozen in Kopnoy Pravo is a copnik, whom the dozen entrusted to represent the interests of their families at the cops, where representatives of different dozens meet. The Law of the Hop's Right says \"What the elders have decided, the younger will stand on that.\"",
+    "subordinate": "The subordinate in the ten is a kopnik who, having elected a foreman, entrusted him to represent the interests of his family at the kopas, where representatives of different tens meet. The Kopa Law says \"What the elders have decided, the younger will stand on that.\""
   },
   "dialog": {
     "yes": "Yes",
