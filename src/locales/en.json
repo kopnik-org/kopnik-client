@@ -1,0 +1,88 @@
+{
+  "languageName": "English",
+  "application": {
+    "goToProfile": "Welcome, Brother. You are at kopnik.org. To begin, go through the registration, after which all the features of the system will become available."
+  },
+  "profile": {
+    "language": "Language",
+    "birthYear": "Birthyear",
+    "firstName": "Name",
+    "passport": "Last four number of passport",
+    "patronymic": "Patronymic",
+    "nickname": "Nickname",
+    "lastName": "Last name",
+    "submit": "Send request",
+    "submitMessage": "Your request for kopnik.org membership has been sent to your witness. Now go to VKontakte and read how to communicate with your witness and confirm the accuracy of sended data. Good luck!",
+    "messagesFromGroup": {
+      "allow": "By clicking the button below to turn on the nationwide system",
+      "allowed": "Turned on!"
+    },
+    "role": "My role in the Kopa's community (press to see criteria)",
+    "roles": [{
+        "title": "Kopnik",
+        "criteria": [
+          "Have a family",
+          "There is a Son who has a family",
+          "There is a Son from the Son",
+          "There is housing (house / apartment / rented apartment)",
+          "There is a farm (own business / work)"
+        ]
+      },
+      {
+        "title": "Kopnik (simplified requirements proposed by S. Danilov",
+        "criteria": [
+          "Have a family",
+          "Have a Son or Daughter",
+          "There are 30 years",
+          "There is housing (house / apartment / rented apartment",
+          "There is a farm (own business / work)"
+        ]
+      },
+      {
+        "title": "I strive to become a Kopnik",
+        "criteria": [
+          "The man"
+        ]
+      },
+      {
+        "title": "I am a woman"
+      }
+    ],
+    "location": "Place of permanent residence, accurate to home"
+  },
+  "witness": {
+    "confirm": "Confirm",
+    "decline": "Decline",
+    "openWitnessChat": "Chat"
+  },
+  "login": {
+    "login": "Login with VK"
+  },
+  "drawer": {
+    "profile": "Profile",
+    "main": "Map",
+    "ten": "My ten",
+    "tenChat": "Ten's chat",
+    "foremanChat": "Foreman's chat",
+    "witness": "Entrance requests",
+    "thanks": "Thanks",
+    "help": "Help",
+    "logout": "Logout"
+  },
+  "errors": {
+    "underConstruction": "This functional is under construction by now. Will be available soon in v0.3.0"
+  },
+  "details": {
+    "toChat": "Talk",
+    "toKopa": "To Kopa",
+    "notToKopa": "Don't invite",
+    "toForeman": "To foreman",
+    "toForemanInfo": "The request was sended. Wait for the foreman's answer."
+  },
+  "subordinates": {
+    "confirmForemanRequest": "Get in",
+    "confirmForemanRequestInfo": "Confirmed",
+    "declineForemanRequest": "Decline",
+    "declineForemanRequestInfo": "Declined"
+  }
+}
