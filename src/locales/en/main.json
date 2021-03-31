@@ -8,7 +8,7 @@
     "birthYear": "Birthyear",
     "passport": "Last four number of passport",
     "nickname": "Nickname",
-    "submit": "Send request",
+    "submit": "Update",
     "submitMessage": "Your request for kopnik.org membership has been sent to your witness. Now go to VKontakte and read how to communicate with your witness and confirm the accuracy of sended data. Good luck!",
     "messagesFromGroup": {
       "allow": "By clicking the button below to turn on the nationwide system",
@@ -138,5 +138,9 @@
   "dialog": {
     "yes": "Yes",
     "no": "No"
+  },
+  "definitions": {
+    "foreman": "The foreman of the ten in Kopa Law a kopnik, whom the ten entrusted to represent the interests of their families at the kopas, where representatives of different tens meet. The Kopa Law says \"What the elders have decided, the younger will stand on that.\"",
+    "subordinate": "The subordinate in the ten is a kopnik who, having elected a foreman, entrusted him to represent the interests of his family at the kopas, where representatives of different tens meet. The Kopa Law says \"What the elders have decided, the younger will stand on that.\""
   }
 }
