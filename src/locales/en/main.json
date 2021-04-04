@@ -1,24 +1,22 @@
 {
   "languageName": "English",
-  "application": {
-    "goToProfile": "Welcome, Brother. You are at kopnik.org. To begin, go through the registration, after which all the features of the system will become available."
-  },
   "profile": {
     "language": "Language",
-    "birthYear": "Birthyear",
     "firstName": "Name",
-    "passport": "Last four number of passport",
-    "patronymic": "Patronymic",
-    "nickname": "Nickname",
     "lastName": "Last name",
-    "submit": "Send request",
+    "patronymic": "Patronymic",
+    "birthYear": "Birthyear",
+    "passport": "Last four number of passport",
+    "nickname": "Nickname",
+    "submit": "Update",
     "submitMessage": "Your request for kopnik.org membership has been sent to your witness. Now go to VKontakte and read how to communicate with your witness and confirm the accuracy of sended data. Good luck!",
     "messagesFromGroup": {
       "allow": "By clicking the button below to turn on the nationwide system",
       "allowed": "Turned on!"
     },
     "role": "My role in the Kopa's community (press to see criteria)",
-    "roles": [{
+    "roles": [
+      {
         "title": "Kopnik",
         "criteria": [
           "Have a family",
@@ -46,9 +44,22 @@
       },
       {
         "title": "I am a woman"
+      },
+      {
+        "title": "I am not a Slav (representative of another people)"
       }
     ],
-    "location": "Place of permanent residence, accurate to home"
+    "location": "Place of permanent residence, accurate to home",
+    "alert": [
+      "Attention! To open all the possibilities of kopnik.org, you need to become a full member. To do this, fill in all the fields of this form and click the \"UPDATE\" button. If the button is not active, double check carefully that all fields are filled in.",
+      "Attention! Your personal data has been sent to the server. To open all the possibilities of the system, you need to assure them. To do this, go to the <a target='_blank' href=' {witnessChatInviteLink }'> chat to verify personal data </a>.",
+      "Order. Your personal data is certified and you have access to all the system's capabilities. If, as a result of life changes, personal data becomes outdated, amend them and send them for re-certification by clicking the \"UPDATE\" button below.",
+      "Attention! Your personal data has been rejected by the witness. To become a full member of the system, you need to amend them and send them for re-certification by clicking the \"UPDATE\" button below."
+    ],
+    "submitDialog": {
+      "title": "Update personal details?",
+      "text": "After updating your personal data, I will introduce you to your personal Witness, from whom you can certify their authenticity. The list of updated personal data requiring certification:"
+    }
   },
   "witness": {
     "confirm": "Confirm",
@@ -77,12 +88,59 @@
     "toKopa": "To Kopa",
     "notToKopa": "Don't invite",
     "toForeman": "To foreman",
-    "toForemanInfo": "The request was sended. Wait for the foreman's answer."
+    "toForemanInfo": "The request was sended. Wait for the foreman's answer.",
+    "toForemanQuestion": "Choose a foreman?",
+    "resetForeman": "Not a foreman",
+    "resetForemanQuestion": "Not a foreman anymore?",
+    "resetForemanInfo": "This copnik is no longer a foreman for you",
+    "cancelForemanRequest": "Cancel the application",
+    "cancelForemanRequestQuestion": "Cancel the application ?",
+    "cancelForemanRequestInfo": "Application canceled"
   },
   "subordinates": {
     "confirmForemanRequest": "Get in",
     "confirmForemanRequestInfo": "Confirmed",
     "declineForemanRequest": "Decline",
-    "declineForemanRequestInfo": "Declined"
+    "declineForemanRequestInfo": "Declined",
+    "removeFromSubordinates": "Exclude from ten",
+    "removeFromSubordinatesInfo": "Excluded from the top ten",
+    "removeFromSubordinatesQuestion": "Exclude from the top ten?"
+  },
+  "application": {
+    "goToProfile": "Welcome, Brother. You are at kopnik.org. To begin, go through the registration, after which all the features of the system will become available.",
+    "youHaveToRegister": "To open all the possibilities of kopnik.org, you need to become a full member. To do this, fill in all the fields of this form and click the \"UPDATE\" button.",
+    "youHaveToWitnessYourData": "To open all the possibilities of the system, you need to certify your personal data. To do this, go to the chat to verify your personal data."
+  },
+  "quotes": [
+    {
+      "value": "We are called to create our own and in our own way, Russian in Russian.",
+      "owner": {
+        "position": "Russian philosopher",
+        "name": "Ivan Alexandrovich Ilyin"
+      }
+    },
+    {
+      "value": "A people who have forgotten their culture, history, traditions <...> are doomed to extinction.",
+      "owner": {
+        "position": "Russian writer",
+        "name": "Lev Nikolaevich Tolstoy"
+      }
+    }
+  ],
+  "kopaDialog": {
+    "title": "Summon husbands to hunt?",
+    "subject": {
+      "label": "Topic of discussion",
+      "hint": "Fill in the topic of the upcoming cop here"
+    },
+    "afterInfo": "Copa called."
+  },
+  "dialog": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "definitions": {
+    "foreman": "The foreman of the ten in Kopa Law a kopnik, whom the ten entrusted to represent the interests of their families at the kopas, where representatives of different tens meet. The Kopa Law says \"What the elders have decided, the younger will stand on that.\"",
+    "subordinate": "The subordinate in the ten is a kopnik who, having elected a foreman, entrusted him to represent the interests of his family at the kopas, where representatives of different tens meet. The Kopa Law says \"What the elders have decided, the younger will stand on that.\""
   }
 }

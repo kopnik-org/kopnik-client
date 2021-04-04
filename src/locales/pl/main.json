@@ -53,11 +53,22 @@
         "title": "Obcy / wyrzutek"
       }
     ],
-    "location": "Miejsce stałego pobytu (bez zameldowania), z dokładnością do domu"
+    "location": "Miejsce stałego pobytu (bez zameldowania), z dokładnością do domu",
+    "alert": [
+      "Uwaga! Aby otworzyć wszystkie możliwości kopnik.org, musisz zostać pełnoprawnym członkiem. Aby to zrobić, wypełnij wszystkie pola tego formularza i kliknij przycisk „AKTUALIZUJ”. Jeśli przycisk nie jest aktywny, dokładnie sprawdź dokładnie, czy wszystkie pola są wypełnione.",
+      "Uwaga! Twoje dane osobowe zostały przesłane na serwer. Aby otworzyć wszystkie możliwości systemu, trzeba je zapewnić. Aby to zrobić, przejdź do czatu <a target='_blank' href=' {witnessChatInviteLink }'> w celu zweryfikowania danych osobowych </a>.",
+      "Zamówienie. Twoje dane osobowe są certyfikowane i masz dostęp do wszystkich funkcji systemu. Jeżeli w wyniku zmian życiowych dane osobowe staną się nieaktualne, należy je poprawić i przesłać do ponownej certyfikacji, klikając przycisk „AKTUALIZUJ” znajdujący się poniżej.",
+      "Uwaga! Twoje dane osobowe zostały odrzucone przez świadka. Aby zostać pełnoprawnym członkiem systemu, należy je zmienić i przesłać do ponownej certyfikacji, klikając przycisk „AKTUALIZUJ” poniżej."
+    ],
+    "submitDialog": {
+      "title": "Zaktualizować dane osobowe?",
+      "text": "Po zaktualizowaniu Twoich danych osobowych przedstawię Cię Twojemu osobistemu Świadkowi, od którego możesz potwierdzić ich autentyczność. Lista zaktualizowanych danych osobowych wymagających certyfikacji:"
+    }
   },
   "witness": {
     "confirm": "Poświadczyć",
-    "decline": "Odrzucić"
+    "decline": "Odrzucić",
+    "openWitnessChat": "Pokój rozmów"
   },
   "login": {
     "login": "Zaloguj się przez Vkontakte"
@@ -122,5 +133,13 @@
   "dialog": {
     "yes": "Tak",
     "no": "Nie"
+  },
+  "kopaDialog": {
+    "title": "Wezwać mężów na polowanie?",
+    "subject": {
+      "label": "Temat dyskusji",
+      "hint": "Tutaj wpisz temat nadchodzącego policjanta"
+    },
+    "afterInfo": "Dzwonił Copa."
   }
 }

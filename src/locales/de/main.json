@@ -1,4 +1,145 @@
 {
+  "languageName": "German",
+  "application": {
+    "youHaveToRegister": "Um alle Möglichkeiten von kopnik.org zu eröffnen, müssen Sie Vollmitglied werden. Füllen Sie dazu alle Felder dieses Formulars aus und klicken Sie auf die Schaltfläche \"UPDATE\".",
+    "youHaveToWitnessYourData": "Um alle Möglichkeiten des Systems zu nutzen, müssen Sie Ihre persönlichen Daten zertifizieren. Gehen Sie dazu zum Chat, um Ihre persönlichen Daten zu überprüfen."
+  },
   "profile": {
+    "alert": [
+      "Beachtung! Um alle Möglichkeiten von kopnik.org zu eröffnen, müssen Sie Vollmitglied werden. Füllen Sie dazu alle Felder dieses Formulars aus und klicken Sie auf die Schaltfläche \"UPDATE\". Wenn die Schaltfläche nicht aktiv ist, überprüfen Sie sorgfältig, ob alle Felder ausgefüllt sind.",
+      "Beachtung! Ihre persönlichen Daten wurden an den Server gesendet. Um alle Möglichkeiten des Systems zu öffnen, müssen Sie sie sicherstellen. Gehen Sie dazu zum <a target='_blank' href=' {witnessChatInviteLink }'> Chat, um die persönlichen Daten zu überprüfen </a>.",
+      "Auftrag. Ihre persönlichen Daten sind zertifiziert und Sie haben Zugriff auf alle Funktionen des Systems. Wenn aufgrund von Änderungen im Leben personenbezogene Daten veraltet sind, ändern Sie sie und senden Sie sie zur erneuten Zertifizierung, indem Sie unten auf die Schaltfläche \"UPDATE\" klicken.",
+      "Beachtung! Ihre persönlichen Daten wurden vom Zeugen abgelehnt. Um ein vollwertiges Mitglied des Systems zu werden, müssen Sie sie ändern und zur erneuten Zertifizierung senden, indem Sie unten auf die Schaltfläche \"UPDATE\" klicken."
+    ],
+    "language": "Sprache",
+    "firstName": "Name",
+    "lastName": "Nachname",
+    "patronymic": "zweiter Vorname",
+    "birthYear": "Geburtsjahr",
+    "passport": "Letzte 4 Ziffern des Passes",
+    "nickname": "Spitzname",
+    "submitDialog": {
+      "title": "Persönliche Daten aktualisieren?",
+      "text": "Nach der Aktualisierung Ihrer persönlichen Daten werde ich Sie Ihrem persönlichen Zeugen vorstellen, von dem Sie dessen Echtheit bestätigen können. Die Liste der aktualisierten personenbezogenen Daten, für die eine Zertifizierung erforderlich ist:"
+    },
+    "submit": "Aktualisierung",
+    "submitMessage": "Sie sind fast registriert. Warten Sie auf eine Nachricht von unserem VKontakte-Bot und folgen Sie dessen Anweisungen. Viel Glück!",
+    "messagesFromGroup": {
+      "allow": "BEACHTUNG! Abonnieren Sie den Assistenten-Bot, damit er Sie zur Polizei einladen kann (ein Abonnement ist erforderlich, damit die Anwendung funktioniert).",
+      "allowed": "Kommunikation ist inbegriffen!"
+    },
+    "role": "Meine Rolle im Schock der Gesellschaft",
+    "roles": [
+      {
+        "title": "Hopfen Ehemann",
+        "criteria": [
+          "Eine Familie haben",
+          "Es gibt einen Sohn, der eine Familie hat",
+          "Es gibt einen Sohn von einem Sohn",
+          "Es gibt Wohnraum (Haus / Wohnung / Mietwohnung)",
+          "Es gibt einen Bauernhof (eigenes Geschäft / Arbeit)"
+        ]
+      },
+      {
+        "title": "Schaufel Ehemann (entspannte Anforderungen von S. Danilov vorgeschlagen)",
+        "criteria": [
+          "Eine Familie haben",
+          "Habe einen Sohn oder eine Tochter",
+          "Habe 30 Jahre",
+          "Es gibt Wohnraum (Haus / Wohnung / Mietwohnung)",
+          "Es gibt einen Bauernhof (eigenes Geschäft / Arbeit)"
+        ]
+      },
+      {
+        "title": "Ich bemühe mich, ein Schaufel-Ehemann zu werden",
+        "criteria": [
+          "Mann / Junge"
+        ]
+      },
+      {
+        "title": "Ich bin eine Frau"
+      },
+      {
+        "title": "Ich bin kein Slaw (Vertreter eines anderen Volkes)"
+      }
+    ],
+    "location": "Ort des ständigen Wohnsitzes (keine Registrierung), genau zu Hause"
+  },
+  "witness": {
+    "confirm": "Versichern",
+    "decline": "Ablehnen",
+    "openWitnessChat": "Chatraum"
+  },
+  "login": {
+    "login": "Melden Sie sich über VKontakte an"
+  },
+  "drawer": {
+    "profile": "Persönliche Daten",
+    "main": "Karte",
+    "ten": "Meine zehn",
+    "tenChat": "Chat Zehner",
+    "foremanChat": "Chefgespräch",
+    "witness": "Anträge auf Mitgliedschaft",
+    "thanks": "Vielen Dank",
+    "help": "prompt",
+    "logout": "Ausgabe"
+  },
+  "quotes": [
+    {
+      "value": "Wir sind aufgerufen, unser eigenes und auf unsere eigene Weise Russisch auf Russisch zu erschaffen.",
+      "owner": {
+        "position": "Russischer Philosoph",
+        "name": "Iwan Alexandrowitsch Iljin"
+      }
+    },
+    {
+      "value": "Ein Volk, das seine Kultur, Geschichte, Traditionen <...> vergessen hat, ist zum Aussterben verurteilt.",
+      "owner": {
+        "position": "Russischer Schriftsteller",
+        "name": "Lev Nikolaevich Tolstoy"
+      }
+    }
+  ],
+  "errors": {
+    "underConstruction": "Diese Funktionalität wird in Kürze in Version 0.3.0 verfügbar sein"
+  },
+  "details": {
+    "toChat": "Plaudern",
+    "toKopa": "Auf dem Polizisten",
+    "notToKopa": "Ruf nicht an",
+    "toForeman": "Wählen",
+    "toForemanQuestion": "Vorarbeiter wählen?",
+    "toForemanInfo": "Die Bewerbung wurde gesendet. Warten Sie auf eine Antwort des Vorarbeiters.",
+    "resetForeman": "Kein Vorarbeiter",
+    "resetForemanQuestion": "Kein Vorarbeiter mehr?",
+    "resetForemanInfo": "Dieser Copnik ist kein Vorarbeiter mehr für Sie",
+    "cancelForemanRequest": "Brechen Sie die Anwendung ab",
+    "cancelForemanRequestQuestion": "Antrag stornieren?",
+    "cancelForemanRequestInfo": "Bewerbung storniert"
+  },
+  "kopaDialog": {
+    "title": "Ehemänner zur Jagd rufen?",
+    "subject": {
+      "label": "Diskussionsthema",
+      "hint": "Füllen Sie hier das Thema des kommenden Polizisten aus"
+    },
+    "afterInfo": "Copa hat angerufen."
+  },
+  "subordinates": {
+    "confirmForemanRequest": "Nehmen Sie die Top Ten auf",
+    "confirmForemanRequestInfo": "Angenommen in den Top Ten",
+    "declineForemanRequest": "Verweigern",
+    "declineForemanRequestInfo": "Ablehnungsnachricht gesendet",
+    "removeFromSubordinates": "Von zehn ausschließen",
+    "removeFromSubordinatesInfo": "Aus den Top Ten ausgeschlossen",
+    "removeFromSubordinatesQuestion": "Von den Top Ten ausschließen?"
+  },
+  "definitions": {
+    "foreman": "Der Vorarbeiter des Dutzend in Kopnoy Pravo ist ein Copnik, dem das Dutzend anvertraut wurde, die Interessen seiner Familien bei den Polizisten zu vertreten, wo sich Vertreter verschiedener Dutzend treffen. Das Gesetz des Grabungsgesetzes sagt: \"Was die Ältesten entschieden haben, wird der Jüngere darauf stehen.\"",
+    "subordinate": "Der Untergebene in den Top Ten ist ein Copnik, der ihn nach der Wahl eines Vorarbeiters beauftragt hat, die Interessen seiner Familie bei der Polizei zu vertreten, wo sich Vertreter verschiedener Zehner treffen. Das Gesetz des Grabungsgesetzes sagt: \"Was die Ältesten entschieden haben, wird der Jüngere darauf stehen.\""
+  },
+  "dialog": {
+    "yes": "Ja",
+    "no": "Nein"
   }
 }
