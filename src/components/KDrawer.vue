@@ -64,7 +64,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item
-        v-if="application.user && application.user.witnessRequests && application.user.witnessRequests.length || application.user && application.user.status!=application.user.constructor.Status.CONFIRMED"
+        v-if="application.user && application.user.isWitness  || application.user && application.user.status!=application.user.constructor.Status.CONFIRMED"
         @click="witness_click"
       >
         <v-list-item-action>

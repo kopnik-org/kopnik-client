@@ -43,15 +43,13 @@
     </v-list-item>
     <v-list-item v-if="fio">
       <v-list-item-content>
-        <ValidationProvider name="patronymic" rules="required" v-slot="{ errors, valid }">
+<!--        <ValidationProvider name="patronymic" rules="required" v-slot="{ errors, valid }">-->
           <v-text-field
             v-model="value.patronymic"
             :label="$t('profile.patronymic')"
-            :error-messages="errors"
-            :success="valid"
             :readonly="readonly"
           ></v-text-field>
-        </ValidationProvider>
+<!--        </ValidationProvider>-->
       </v-list-item-content>
     </v-list-item>
     <v-list-item v-if="fio">
