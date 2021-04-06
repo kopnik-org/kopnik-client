@@ -6,7 +6,7 @@ import {Base64} from 'js-base64';
 export default async function api(url, options = {}) {
   const logger = container.logger.getLogger('api')
   let response
-  let vkSession = container.VK.Auth.session;
+  // let vkSession = container.VK.Auth.session;
 
   // 0. update token
 /*  if (vkSession && vkSession.expire * 1000 - 1 * 60000 < new Date().getTime()) {
