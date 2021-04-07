@@ -31,6 +31,9 @@
 <div id="appContainer"></div>
 <!-- built files will be auto injected -->
 <script type="text/javascript">
+  if (!VK){
+    alert('VK is not available. Maybe it is blocked by your employer or Internet operator')
+  }
   VK.init({
     apiId: 7210289
   })
