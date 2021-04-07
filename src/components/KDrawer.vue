@@ -98,6 +98,14 @@
     </v-list>
     <template v-slot:append>
       <v-divider/>
+      <v-list-item>
+        <v-list-item-action>
+          <v-icon>mdi-alpha-r</v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>{{ PACKAGE_VERSION }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-list-item logout link @click="logout_click">
         <v-list-item-action>
           <v-icon>mdi-location-exit</v-icon>
@@ -129,6 +137,7 @@ export default {
   },
   data() {
     return {
+      PACKAGE_VERSION: process.env.PACKAGE_VERSION,
       application: container.application,
       KopnikStatus: Kopnik.Status,
     }
