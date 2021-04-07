@@ -31,7 +31,7 @@
             </div>
 
 
-<!--            Диалог подтверждения-->
+            <!--            Диалог подтверждения-->
             <v-dialog ref="submitDialog"
 
                       v-model="submitDialog"
@@ -47,17 +47,17 @@
                 >
                   {{ $t('profile.submit') }}
                 </v-btn>
-<!--            example
+                <!--            example
 
-                <v-btn ref="foremanAsk" text :disabled="application.user===value.selected || !isSelectedKopnik || !(isUserKopnik || isUserFutureKopnik)" class="flex"
-                       v-bind="attrs"
-                       v-on="on"
-                       v-promise-btn
-                >
-                  {{
-                    application.user.foreman === value.selected ? $t('details.resetForeman') : application.user.foremanRequest === value.selected ? $t('details.cancelForemanRequest') : $t('details.toForeman')
-                  }}
-                </v-btn>-->
+                                <v-btn ref="foremanAsk" text :disabled="application.user===value.selected || !isSelectedKopnik || !(isUserKopnik || isUserFutureKopnik)" class="flex"
+                                       v-bind="attrs"
+                                       v-on="on"
+                                       v-promise-btn
+                                >
+                                  {{
+                                    application.user.foreman === value.selected ? $t('details.resetForeman') : application.user.foremanRequest === value.selected ? $t('details.cancelForemanRequest') : $t('details.toForeman')
+                                  }}
+                                </v-btn>-->
 
               </template>
               <v-card>
@@ -128,8 +128,16 @@ export default {
      * набор изменений относительно текущего пользователя
      */
     changeset() {
-      // need stringify to location comparison
-      const result = ['firstName', 'lastName', 'patronymic', 'birthYear', 'role', 'passport', 'location'].filter(eachField => JSON.stringify(this.application.user[eachField]) !== JSON.stringify(this.request[eachField]))
+      // использую знак == из-за года рождения
+      const result = ['firstName', 'lastName', 'patronymic', 'birthYear', 'role', 'passport',].filter(eachField => this.application.user[eachField] != this.request[eachField])
+
+      // location
+      if (this.application.user.location.lat !== this.request.location.lat || this.application.user.location.lng !== this.request.location.lng) {
+        // доп проверка на один косяк карты на мобильном. Почему-то изменяется значение lat (незначительно) при открытии виртуальной клавиатуры внизу экрана
+        if (this.application.user.location.lng !== this.request.location.lng || Math.abs(this.application.user.location.lat - this.request.location.lat) > 0.0001) {
+          result.push('location')
+        }
+      }
       return result
     },
     changesetTranslated() {
