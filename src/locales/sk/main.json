@@ -1,8 +1,7 @@
 {
   "languageName": "Slovenský",
   "application": {
-    "youHaveToRegister": "Na začiatok je potrebné sa registrovať, potom ti budú sprístupnené všetky možnosti systému",
-    "youHaveToWitnessYourData": "Ak chcete otvoriť všetky možnosti systému, musíte potvrdiť svoje osobné údaje. Ak to chcete urobiť, prejdite do chatu a overte svoje osobné údaje."
+    "youHaveToRegister": "Na začiatok je potrebné sa registrovať, potom ti budú sprístupnené všetky možnosti systému"
   },
   "profile": {
     "language": "jazyk",
@@ -52,23 +51,11 @@
         "title": "cudzinec/prisťahovalec"
       }
     ],
-    "location": "Miesto trvalého pobytu ( nie prechodneho), s presnosťou na číslo domu",
-    "alert": [
-      "Pozor! Ak chcete otvoriť všetky možnosti stránky kopnik.org, musíte sa stať riadnym členom. Za týmto účelom vyplňte všetky polia tohto formulára a kliknite na tlačidlo „AKTUALIZOVAŤ“. Ak tlačidlo nie je aktívne, dôkladne skontrolujte, či sú vyplnené všetky polia.",
-      "Pozor! Vaše osobné údaje boli odoslané na server. Ak chcete otvoriť všetky možnosti systému, musíte ich zabezpečiť. Ak to chcete urobiť, prejdite do <a target='_blank' href=' {witnessChatInviteLink }'> četu na overenie osobných údajov </a>.",
-      "Objednať. Vaše osobné údaje sú certifikované a máte prístup ku všetkým funkciám systému. Ak v dôsledku životných zmien dôjde k zastaraniu osobných údajov, upravte ich a pošlite ich na opätovnú certifikáciu kliknutím na tlačidlo „AKTUALIZOVAŤ“ nižšie.",
-      "Pozor! Svedok odmietol vaše osobné údaje. Ak sa chcete stať riadnym členom systému, musíte ich zmeniť a odoslať na opätovnú certifikáciu kliknutím na tlačidlo „AKTUALIZOVAŤ“ nižšie."
-    ],
-    "patronymic": "stredné meno",
-    "submitDialog": {
-      "title": "Aktualizovať osobné údaje?",
-      "text": "Po aktualizácii vašich osobných údajov vás oboznámim s vašim osobným svedkom, od ktorého môžete potvrdiť ich pravosť. Zoznam aktualizovaných osobných údajov vyžadujúcich certifikáciu:"
-    }
+    "location": "Miesto trvalého pobytu ( nie prechodneho), s presnosťou na číslo domu"
   },
   "witness": {
     "confirm": "potvrdiť",
-    "decline": "zamietnuť",
-    "openWitnessChat": "Chatovacia miestnosť"
+    "decline": "zamietnuť"
   },
   "login": {
     "login": "Prihlásiť sa pomocou VKontakte"
@@ -81,8 +68,7 @@
     "witness": "Prihlášky na vstup",
     "thanks": "poďakovanie",
     "help": "nápoveda",
-    "logout": "odhlásenie",
-    "profile": "Osobné údaje"
+    "logout": "odhlásenie"
   },
   "errors": {
     "underConstruction": "Táto funkcionalita bude dostupná už čoskoro vo verzii v0.3.0"
@@ -92,54 +78,6 @@
     "toKopa": "kopa",
     "notToKopa": "nepozvať",
     "toForeman": "staršina",
-    "resetForeman": "nestaršina",
-    "toForemanQuestion": "Vyberte si majstra?",
-    "toForemanInfo": "Žiadosť bola odoslaná. Počkajte si na odpoveď od majstra.",
-    "resetForemanQuestion": "Už nie ste majster?",
-    "resetForemanInfo": "Tento policajt už pre vás nie je majstrom",
-    "cancelForemanRequest": "Zrušte prihlášku",
-    "cancelForemanRequestQuestion": "Zrušiť prihlášku?",
-    "cancelForemanRequestInfo": "Prihláška zrušená"
-  },
-  "quotes": [
-    {
-      "value": "Sme povolaní vytvárať si vlastné a svojím spôsobom ruské v ruskom jazyku.",
-      "owner": {
-        "position": "Ruský filozof",
-        "name": "Ivan Alexandrovič Iľjin"
-      }
-    },
-    {
-      "value": "Ľudia, ktorí zabudli na svoju kultúru, históriu, tradície <...>, sú odsúdení na zánik.",
-      "owner": {
-        "position": "Ruský spisovateľ",
-        "name": "Lev Nikolajevič Tolstoj"
-      }
-    }
-  ],
-  "kopaDialog": {
-    "title": "Privolať manželov na lov?",
-    "subject": {
-      "label": "Téma diskusie",
-      "hint": "Tu vyplňte tému pripravovaného policajta"
-    },
-    "afterInfo": "Zavolal Copa."
-  },
-  "subordinates": {
-    "confirmForemanRequest": "Vezmite si do prvej desiatky",
-    "confirmForemanRequestInfo": "Prijaté v prvej desiatke",
-    "declineForemanRequest": "Poprieť",
-    "declineForemanRequestInfo": "Správa o odmietnutí bola odoslaná",
-    "removeFromSubordinates": "Vylúčte z desiatich",
-    "removeFromSubordinatesInfo": "Vylúčené z prvej desiatky",
-    "removeFromSubordinatesQuestion": "Vylúčiť z prvej desiatky?"
-  },
-  "definitions": {
-    "foreman": "Predák tucta v Kopnoji Pravo je copnik, ktorého tucet poveril zastupovaním záujmov svojich rodín u policajtov, kde sa stretávajú zástupcovia rôznych desiatok. Zákon zákona o kopaní hovorí: „Čo sa starší rozhodli, mladší na tom bude stáť.“",
-    "subordinate": "Podriadeným v prvej desiatke je copnik, ktorý po zvolení predáka poveril zastupovaním záujmov svojej rodiny u policajtov, kde sa stretávajú zástupcovia rôznych desiatok. Zákon zákona o kopaní hovorí: „Čo sa starší rozhodli, mladší na tom bude stáť.“"
-  },
-  "dialog": {
-    "yes": "Áno",
-    "no": "Nie"
+    "resetForeman": "nestaršina"
   }
 }
