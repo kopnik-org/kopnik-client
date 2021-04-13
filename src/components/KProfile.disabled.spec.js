@@ -45,8 +45,8 @@ describe('components KProfile disabled', () => {
     })
   })
 
-  it('disabled by fio', async () => {
-    user.patronymic = ''
+  it('disabled by empty required', async () => {
+    user.lastName = ''
     // wrapper.findComponent({ref:'request'}).findComponent({ref:'firstName'}).get('input').setValue('')
     appWrapper = mount(KApp, {
       ...vuePlugins,

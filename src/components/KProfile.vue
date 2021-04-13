@@ -101,6 +101,7 @@ import {bottle, container} from "../bottle/bottle";
 import logger from "./mixin/logger";
 import KopnikVue from "./KopnikVue";
 import api from "../api";
+import parse from "@/models/utils/parse";
 
 export default {
   mixins: [logger],
@@ -152,7 +153,7 @@ export default {
   methods: {
     async onSubmitYes() {
       this.request.birthYear = parseInt(this.request.birthYear)
-      await this.application.user.updateProfile(this.request.plain, this.changeset)
+      await this.application.user.updateProfile(this.request, this.changeset)
       this.application.infos.push(this.$t('profile.submitMessage'))
       await this.application.setSection(container.application.constructor.Section.Main)
     },
@@ -172,7 +173,8 @@ export default {
     let user = await this.application.resolveUser()
 
     this.request = new Kopnik
-    this.request.merge(this.application.user.plain)
+    this.request.merge(parse(Kopnik, this.application.user.plain))
+    const tmp= this.request
   },
   async mounted() {
     this.wasMessagesFromGroupAllowed = this.isMessagesFromGroupAllowed = await this.application.user.isMessagesFromGroupAllowed()

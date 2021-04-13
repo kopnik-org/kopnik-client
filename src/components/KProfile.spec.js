@@ -66,7 +66,7 @@ describe('components KProfile', () => {
 
   it('draw', async () => {
     expect(wrapper.vm.$refs.request.$props.value.plain).toEqual({...user.plain,})
-    // expect(wrapper.findComponent({ref: 'confirm'}).attributes('disabled')).toBeFalsy()
+    await flushPromises()
   })
 
   it('submit', async () => {

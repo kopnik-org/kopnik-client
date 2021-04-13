@@ -4,6 +4,7 @@ import {KopnikApiError} from "../KopnikError";
 import {AbstractSync, Kopa, Kopnik} from "./index";
 import {collection, object, scalar} from "../decorators/sync";
 import reset from "../../tests/utils/reset";
+import parse from "@/models/utils/parse";
 
 // real fetch
 container.constants.di.fetch = true
@@ -50,7 +51,9 @@ describe('models User confirmed', () => {
     const witness = await Kopnik.create({
       isWitness: true,
     }, 'witness')
-    const state = {
+    const request =new Kopnik()
+    request.merge(parse(Kopnik, main.plain))
+    const delta={
       role: Kopnik.Role.Female,
       passport: '0001',
       location: {
@@ -61,14 +64,15 @@ describe('models User confirmed', () => {
       lastName: '2',
       patronymic: '3',
       birthYear: 2000,
-      locale: 'en',
+      locale: container.localeManager.currentLocale,
+      isLoaded: true,
     }
-    await main.updateProfile(state, [])
+    request.merge(delta)
+    await main.updateProfile(request, [])
 
-    await main.login()
     await main.reload()
     expect(main.status).toBe(Kopnik.Status.PENDING)
-    expect(main.plain).toMatchObject(state)
+    expect(main).toMatchObject(delta)
   })
 
   describe('tree', () => {

@@ -6,6 +6,7 @@ import SquadAnalyzer from "../SquadAnalyzer";
 // import fetchIntercept from 'fetch-intercept'
 import {container} from "../bottle/bottle";
 import {LatLng, LatLngBounds} from 'leaflet'
+import parse from "@/models/utils/parse";
 
 export default class Main {
   constructor() {
@@ -127,7 +128,8 @@ export default class Main {
       let top20AsJson = await container.api(`users/getTopInsideSquare?x1=${bounds.getWest()}&y1=${bounds.getSouth()}&x2=${bounds.getEast()}&y2=${bounds.getNorth()}&count=10&maxRank=${maxRank}`, {
         signal: this._loadTop20AbortController.signal
       })
-      this.top20 = top20AsJson.map(eachTopAsJson => Kopnik.merge(eachTopAsJson, true))
+
+      this.top20 = top20AsJson.map(eachTopPlain => Kopnik.merge(parse(Kopnik, eachTopPlain)))
     } catch (err) {
       if (err.name === 'AbortError') {
         return

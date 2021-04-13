@@ -74,7 +74,7 @@ export default class AbstractSync {
       result[eachScalarName] = this[eachScalarName]
     }
     for (let eachObjectName of this.constructor.objects) {
-      result[eachObjectName + "_id"] = (this[eachObjectName] instanceof AbstractSync) ? this[eachObjectName].id : this[eachObjectName]
+      result[eachObjectName] = (this[eachObjectName] instanceof AbstractSync) ? this[eachObjectName].id : this[eachObjectName]
     }
     for (let eachCollectionName of this.constructor.collections) {
       result[eachCollectionName] = (this[eachCollectionName] instanceof Array) ? this[eachCollectionName].map(eachItem => {
@@ -273,6 +273,10 @@ export default class AbstractSync {
         })
       }
     }
+    if (set.isLoaded === true) {
+      this.isLoaded = true
+    }
+    return this
   }
 
   toString() {

@@ -280,7 +280,7 @@ export default class Application {
     try {
       const user = new Kopnik()
       await user.reload()
-      this.user = Kopnik.merge(user.plain, true)
+      this.user = Kopnik.merge(user)
       container.localeManager.currentLocale = user.locale
       this.logger.info('user authenticated', this.user.plain)
     } catch (err) {

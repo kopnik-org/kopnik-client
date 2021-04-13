@@ -215,23 +215,23 @@ export default class Kopnik extends AbstractSync {
   /**
    * Подать заявку на заверение себя
    *
-   * @param profileJSON
+   * @param {Kopnik} request
    * @param {string[]} changeset
    * @return {Promise<void>}
    */
-  async updateProfile(profileJSON, changeset) {
-    if (!profileJSON.passport) {
+  async updateProfile(request, changeset) {
+    if (!request.passport) {
       throw new KopnikError('Passport required')
     }
-    if (!profileJSON.location.lat || !profileJSON.location.lng) {
+    if (!request.location.lat || !request.location.lng) {
       throw new KopnikError('House location required')
     }
-    this.merge({locale: profileJSON.locale})
+    this.locale=  request.locale
 
     let promise = this.constructor.api("updateProfile", {
       method: 'POST',
       body: {
-        ...profileJSON,
+        ...request.plain,
         changeset,
         changesetTranslated: changeset.map(eachField => container.application.getMessage(`profile.${eachField}`))
       }
@@ -240,7 +240,7 @@ export default class Kopnik extends AbstractSync {
 
     await promise
 
-    this.merge(profileJSON)
+    this.merge(request)
     this.status = Kopnik.Status.PENDING
   }
 
@@ -322,7 +322,7 @@ export default class Kopnik extends AbstractSync {
    */
   async getForemanRequests() {
     let resultAsJson = await this.constructor.api('getForemanRequests')
-    const result = resultAsJson.map(eachResultAsJson => Kopnik.merge(eachResultAsJson, true))
+    const result = resultAsJson.map(eachResultAsJson => Kopnik.merge(parse(Kopnik, eachResultAsJson)))
     return result
   }
 
@@ -389,7 +389,7 @@ export default class Kopnik extends AbstractSync {
    */
   async getSubordinates() {
     let subordinatesAsJson = await this.constructor.api('getSubordinates?id=' + this.id)
-    const result = subordinatesAsJson.map(eachSubordinateAsJson => Kopnik.merge(eachSubordinateAsJson, true))
+    const result = subordinatesAsJson.map(eachSubordinateAsJson => Kopnik.merge(parse(Kopnik, eachSubordinateAsJson)))
     return result
   }
 

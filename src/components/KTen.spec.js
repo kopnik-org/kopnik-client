@@ -26,26 +26,22 @@ describe('components KTen', () => {
     AbstractSync.clearCache()
 
     foreman = await Kopnik.create({
-        status: Kopnik.Status.CONFIRMED,
         isLoaded: true,
       },
       'foreman'
     )
     user = await Kopnik.create({
-        status: Kopnik.Status.CONFIRMED,
         isLoaded: true,
-        foreman_id: foreman.id,
+        foreman: foreman,
       },
       'user'
     )
     subordinate = await Kopnik.create({
-        status: Kopnik.Status.CONFIRMED,
         isLoaded: true,
       },
       'subordinate'
     )
     requester = await Kopnik.create({
-        status: Kopnik.Status.CONFIRMED,
         isLoaded: true,
       },
       'requester'

@@ -4,6 +4,7 @@ import {KopnikApiError} from "../KopnikError";
 import {AbstractSync, Kopnik} from "./index";
 import {collection, object, scalar} from "../decorators/sync";
 import reset from "../../tests/utils/reset";
+import parse from "@/models/utils/parse";
 
 // real fetch
 container.constants.di.fetch = true
@@ -41,29 +42,31 @@ describe('models User get new', () => {
         expect(main.locale).toEqual({languageName: "English", name: "en"})
     })
     it('updateProfile()', async () => {
-        const witness= await Kopnik.create({
-            isWitness: true,
-        }, 'witness')
-        const state= {
-            role: Kopnik.Role.Female,
-            passport: '0001',
-            location: {
-                lat: 1,
-                lng: 1
-            },
-            firstName: '1',
-            lastName: '2',
-            patronymic: '3',
-            birthYear: 2000,
-            locale: 'en',
-        }
-        await main.updateProfile(state, [])
+      const witness = await Kopnik.create({
+        isWitness: true,
+      }, 'witness')
+      const request =new Kopnik()
+      request.merge(parse(Kopnik, main.plain))
+      const delta={
+        role: Kopnik.Role.Female,
+        passport: '0001',
+        location: {
+          lat: 1,
+          lng: 1
+        },
+        firstName: '1',
+        lastName: '2',
+        patronymic: '3',
+        birthYear: 2000,
+        locale: container.localeManager.currentLocale,
+        isLoaded: true,
+      }
+      request.merge(delta)
+      await main.updateProfile(request, [])
 
-        await main.login()
-        await main.reload()
-        expect(main.status).toBe(Kopnik.Status.PENDING)
-        // expect(main.witnessChatInviteLink).toBeTruthy()
-        expect(main.plain).toMatchObject(state)
+      await main.reload()
+      expect(main.status).toBe(Kopnik.Status.PENDING)
+      expect(main).toMatchObject(delta)
     })
     describe('tree', () => {
         describe('putForemanRequest()', () => {

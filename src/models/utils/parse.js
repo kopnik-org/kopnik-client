@@ -1,6 +1,7 @@
 import Locale from "@/locales/Locale";
 import {container} from "@/bottle/bottle";
 import * as models from "@/models";
+import {Kopnik} from "@/models";
 
 /**
  * Парсит плоские данные в СУЩНОСТЬ
@@ -29,7 +30,7 @@ export default function parse(constructor, plain) {
       } else if (typeof plain[eachRelationName] === 'object') {
         result[eachRelationName] = parse(models.Kopnik, plain[eachRelationName])
       } else if (typeof plain[eachRelationName] === 'number') {
-        result[eachRelationName] = parse(models.Kopnik, {id: plain[eachRelationName]})
+        result[eachRelationName] = parse(models.Kopnik, {id: plain[eachRelationName], isLoaded: false})
       } else if (plain[eachRelationName] === undefined) {
       } else {
         throw new Error('Wrong format for relation ' + eachRelationName)
@@ -43,7 +44,7 @@ export default function parse(constructor, plain) {
           if (typeof eachRelationItem === 'object') {
             return parse(models.Kopnik, eachRelationItem)
           } else if (typeof eachRelationItem === 'number') {
-            return parse(models.Kopnik, {id: eachRelationItem})
+            return parse(models.Kopnik, {id: eachRelationItem, isLoaded: false})
           }
         })
       } else if (plain[eachRelationName] === undefined) {

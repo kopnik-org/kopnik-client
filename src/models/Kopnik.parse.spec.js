@@ -7,7 +7,7 @@ describe('models Kopnik parse', () => {
   it('locale', async () => {
     const parsed = parse(Kopnik,{locale: 'ru'})
     expect(parsed.locale).toBeInstanceOf(Locale)
-    expect(parsed.locale.name).toBeInstanceOf('ru')
+    expect(parsed.locale.name).toBe('ru')
   })
 
   describe('scalar', () => {
@@ -35,7 +35,6 @@ describe('models Kopnik parse', () => {
       expect(parsed.foreman).toBeInstanceOf(Kopnik)
       expect(parsed.foreman.id).toBe(777)
       expect(parsed.foreman.isLoaded).toBeTruthy()
-      expect(parsed.foreman).toBe(Kopnik.getReference(777))
     })
     it('object isLoaded=false', async () => {
       const parsed = parse(Kopnik,{
