@@ -15,7 +15,6 @@ describe('models User get confirmed witness', () => {
   beforeEach(async () => {
     AbstractSync.clearCache()
     main = await Kopnik.create({
-      status: Kopnik.Status.CONFIRMED,
       isWitness: true,
     }, 'witness')
     await main.login()
@@ -25,27 +24,24 @@ describe('models User get confirmed witness', () => {
    * main - это старшина в данном тесте
    * user - это текущий пользователь
    */
-  it('getEx', async () => {
+  it.only('getEx', async () => {
     const user = await Kopnik.create({
-      status: Kopnik.Status.CONFIRMED,
-      foreman_id: main.id,
+      foreman: main,
       isWitness: true,
     }, 'user')
 
     const subordinate = await Kopnik.create({
-      status: Kopnik.Status.CONFIRMED,
-      foreman_id: user.id,
+      foreman: user,
     }, 'subordinate')
 
     const requester = await Kopnik.create({
-      status: Kopnik.Status.CONFIRMED,
-      foremanRequest_id: user.id,
+      foremanRequest: user,
     }, 'requester')
 
-    const witnesser = await Kopnik.create({
+    const halfUser = await Kopnik.create({
       status: Kopnik.Status.PENDING,
-      witness_id: user.id,
-    }, 'witnesser')
+      witness: user,
+    }, 'halfUser')
 
     await user.login()
     await user.reloadWitnessRequests()
@@ -53,23 +49,23 @@ describe('models User get confirmed witness', () => {
     expect(user.foreman).toBe(main)
     expect(user.subordinates[0]).toBe(subordinate)
     expect(user.foremanRequests[0]).toBe(requester)
-    expect(user.witnessRequests[0]).toBe(witnesser)
+    expect(user.witnessRequests[0]).toBe(halfUser)
   })
 
   it('reloadWitnessRequests()', async () => {
     const pending = await Kopnik.create({
       status: Kopnik.Status.PENDING,
-      witness_id: main.id,
+      witness: main,
     }, 'pending')
 
     // those 3 should not be returned
     await Kopnik.create({
       status: Kopnik.Status.CONFIRMED,
-      witness_id: main.id,
+      witness: main,
     })
     await Kopnik.create({
       status: Kopnik.Status.DECLINED,
-      witness_id: main.id,
+      witness: main,
     })
     await Kopnik.create({
       status: Kopnik.Status.NEW,
@@ -86,7 +82,7 @@ describe('models User get confirmed witness', () => {
   it('resolveWitnessRequest()', async () => {
     const pending = await Kopnik.create({
       status: Kopnik.Status.PENDING,
-      witness_id: main.id,
+      witness: main,
     })
     await main.resolveWitnessRequest({
       id: pending.id,

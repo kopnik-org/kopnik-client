@@ -10,6 +10,7 @@ import * as models from "."
 import once from "../decorators/once";
 import {container} from "../bottle/bottle";
 import {Kopnik} from ".";
+import parse from "@/models/utils/parse";
 
 /**
  * Общий принцип работы следующий
@@ -179,14 +180,14 @@ export default class AbstractSync {
     const resultJSON = await this.api(what)
 
     // привожу один элемент в массив для универсальной обработки
-    const result =  [].concat(resultJSON).map(eachResultJSON => {
-      const eachResult= new this
-      eachResult.merge(eachResultJSON)
-      eachResult.isLoaded=true
+    const result = [].concat(resultJSON).map(eachResultJSON => {
+      const eachResult = new this
+      eachResult.merge(parse(this, eachResultJSON))
+      eachResult.isLoaded = true
       return eachResult
     })
 
-    return Array.isArray(resultJSON)?result:result[0]
+    return Array.isArray(resultJSON) ? result : result[0]
   }
 
   /**
@@ -204,19 +205,15 @@ export default class AbstractSync {
   }
 
   /**
-   * Мержит плоский объект или модель в кэш моделей
+   * Мержит филдсет в кэш моделей
    *
-   * @param {Object } what
-   * @param {Boolean?} isLoaded установить флаг isLoaded после мержа
-   * @returns {*}
+   * @param {Partial<AbstractSync>} what
+   * @returns {AbstractSync}
    */
-  static merge(what, isLoaded) {
+  static merge(what) {
     let result
     result = this.getReference(what.id)
     result.merge(what)
-    if (isLoaded !== undefined) {
-      result.isLoaded = isLoaded
-    }
 
     return result
   }
@@ -235,7 +232,7 @@ export default class AbstractSync {
   @once
   async reload() {
     let json = await this.constructor.api(`get?ids=${this.id === undefined ? '' : this.id}`)
-    this.merge(json[0])
+    this.merge(parse(this.constructor, json[0]))
     this.isLoaded = true
     return this;
   }
@@ -254,28 +251,26 @@ export default class AbstractSync {
   }
 
   /**
-
+   *
+   * @param {Partial<AbstractSync>} set
+   * @return {AbstractSync}
    */
-  merge(plain) {
-    if (plain.isLoaded !== undefined) {
-      this.isLoaded = plain.isLoaded
-    }
-    for (let eachScalarName of this.constructor.scalars.concat("id")) {
-      if (plain.hasOwnProperty(eachScalarName)) {
-        this[eachScalarName] = plain[eachScalarName]
+  merge(set) {
+    for (let eachFieldName of ["id", ...this.constructor.scalars]) {
+      if (set[eachFieldName] !== undefined) {
+        this[eachFieldName] = set[eachFieldName]
       }
     }
-    for (let eachObjectName of this.constructor.objects) {
-      if (plain.hasOwnProperty(eachObjectName + "_id")) {
-        this[eachObjectName] = plain[eachObjectName + "_id"] ? models.Kopnik.getReference(plain[eachObjectName + "_id"]) : plain[eachObjectName + "_id"]
+    for (let eachFieldName of [...this.constructor.objects]) {
+      if (set[eachFieldName] !== undefined) {
+        this[eachFieldName] = set[eachFieldName] === null ? null : models.Kopnik.getReference(set[eachFieldName].id).merge(set[eachFieldName])
       }
     }
-    for (let eachCollectionName of this.constructor.collections) {
-      if (plain.hasOwnProperty(eachCollectionName)) {
-        this[eachCollectionName] = plain[eachCollectionName] instanceof Array ?
-          plain[eachCollectionName]
-            .map(eachKopnik => typeof eachKopnik === 'object' ? models.Kopnik.merge(eachKopnik, true) : models.Kopnik.getReference(eachKopnik))
-          : plain[eachCollectionName]
+    for (let eachFieldName of [...this.constructor.collections]) {
+      if (set[eachFieldName] !== undefined) {
+        this[eachFieldName] = set[eachFieldName].map(eachCollectionItem => {
+          return models.Kopnik.getReference(eachCollectionItem.id).merge(eachCollectionItem)
+        })
       }
     }
   }

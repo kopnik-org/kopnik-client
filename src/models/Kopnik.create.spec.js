@@ -8,30 +8,29 @@ import reset from "../../tests/utils/reset";
 // real fetch
 container.constants.di.fetch = true
 
-describe('models User', () => {
-    it('create()', async () => {
-        const user= await Kopnik.create()
-        expect(user.id).toBeTruthy()
-        expect(user).toBe(Kopnik.getReference(user.id))
-        await user.login()
-        await user.reload()
-        expect(user.status).toBe(Kopnik.Status.CONFIRMED)
+describe('models User create', () => {
+  it('scalar', async () => {
+    const user = await Kopnik.create({
+      isWitness: true,
     })
+    expect(user.id).toBeTruthy()
+    expect(user).toBe(Kopnik.getReference(user.id))
+    await user.login()
+    await user.reload()
+    expect(user.isWitness).toBeTruthy()
+    expect(user.status).toBe(Kopnik.Status.CONFIRMED)
+  })
 
-    it('create with witness_id', async () => {
-        const witness= await Kopnik.create({
-            isWitness: true,
-        }, 'witness')
-        const pending= await Kopnik.create({
-            witness_id: witness.id
-        })
+  it('relation', async () => {
+    const witness = await Kopnik.create({
+      isWitness: true,
+    }, 'witness')
+    const pending = await Kopnik.create({
+      witness: witness
+    }, 'pending')
 
-        await witness.login()
-        await witness.reload()
-        expect(witness.isWitness).toBeTruthy()
-
-        await pending.login()
-        await pending.reload()
-        expect(pending.witness).toBe(witness)
-    })
+    await pending.login()
+    await pending.reload()
+    expect(pending.witness).toBe(witness)
+  })
 })

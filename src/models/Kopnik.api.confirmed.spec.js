@@ -13,7 +13,6 @@ describe('models User confirmed', () => {
   beforeEach(async () => {
     AbstractSync.clearCache()
     main = await Kopnik.create({
-      status: Kopnik.Status.CONFIRMED,
     }, 'main')
     await main.login()
   })
@@ -85,17 +84,15 @@ describe('models User confirmed', () => {
         expect(foreman.foremanRequests[0]).toBe(main)
       })
       it('success when in other ten, then reset foreman', async () => {
-        const foreman1 = await Kopnik.create({}, 'foreman')
-        const foreman2 = await Kopnik.create({}, 'foreman')
+        const foreman1 = await Kopnik.create({}, 'foreman1')
+        const foreman2 = await Kopnik.create({}, 'foreman2')
 
         // подал заявку 1
         await main.putForemanRequest(foreman1)
-        await main.logout()
 
         // одобряем заявку 1
         await foreman1.login()
         await foreman1.confirmForemanRequest(main)
-        await foreman1.logout()
 
         // подаем заявку 2
         await main.login()
@@ -130,7 +127,7 @@ describe('models User confirmed', () => {
     })
     it('getForemanRequests()', async () => {
       const requester = await Kopnik.create({
-        foremanRequest_id: main.id,
+        foremanRequest: main,
       }, 'requester')
       await main.reloadForemanRequests()
       expect(main.foremanRequests).toBeInstanceOf(Array)
@@ -140,7 +137,7 @@ describe('models User confirmed', () => {
     describe('confirmForemanRequest()', () => {
       it('success', async () => {
         const requester = await Kopnik.create({
-          foremanRequest_id: main.id,
+          foremanRequest: main,
         }, 'requester')
         await main.confirmForemanRequest(requester)
         expect(main.rank).toBe(2)
@@ -168,11 +165,11 @@ describe('models User confirmed', () => {
       })
       it('not found', async () => {
         const foreman = await Kopnik.create({
-          foremanRequest_id: main.id,
+          foremanRequest: main,
         }, 'foreman')
         const somebody = await Kopnik.create({
           status: Kopnik.Status.PENDING,
-          foremanRequest_id: foreman.id,
+          foremanRequest: foreman,
         }, 'somebody')
 
         try {
@@ -187,7 +184,7 @@ describe('models User confirmed', () => {
       it('success', async () => {
         const requester = await Kopnik.create({
           status: Kopnik.Status.CONFIRMED,
-          foremanRequest_id: main.id,
+          foremanRequest: main,
         }, 'requester')
         await main.declineForemanRequest(requester)
 
@@ -203,11 +200,11 @@ describe('models User confirmed', () => {
       })
       it('not found', async () => {
         const foreman = await Kopnik.create({
-          foremanRequest_id: main.id,
+          foremanRequest: main,
         }, 'foreman')
         const somebody = await Kopnik.create({
           status: Kopnik.Status.PENDING,
-          foremanRequest_id: foreman.id,
+          foremanRequest: foreman,
         }, 'somebody')
 
         try {
@@ -220,17 +217,17 @@ describe('models User confirmed', () => {
     })
     it('getForeman()', async () => {
       const subordinate = await Kopnik.create({
-        foreman_id: main.id,
+        foreman: main,
       }, 'subordinate')
       await subordinate.reload()
       expect(subordinate.foreman).toBe(main)
     })
     it.skip('getAllForemans()', async () => {
       const subordinate = await Kopnik.create({
-        foreman_id: main.id,
+        foreman: main,
       }, 'subordinate')
       const subsub = await Kopnik.create({
-        foreman_id: subordinate.id,
+        foreman: subordinate,
       }, 'subsub')
       const foremans = await subsub.getAllForemans()
       expect(foremans[o]).toBe(subordinate)
@@ -238,7 +235,7 @@ describe('models User confirmed', () => {
     })
     it('loadedSubordinates()', async () => {
       const subordinate = await Kopnik.create({
-        foreman_id: main.id,
+        foreman: main,
       }, 'subordinate')
 
       const subordinated = await main.loadedSubordinates()
@@ -249,7 +246,7 @@ describe('models User confirmed', () => {
     describe('removeFromSubordinates()', () => {
       it('success', async () => {
         const subordinate = await Kopnik.create({
-          foreman_id: main.id,
+          foreman: main,
         }, 'subordinate')
         await main.reload()
         await main.removeFromSubordinates(subordinate)

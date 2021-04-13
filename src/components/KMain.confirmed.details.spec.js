@@ -23,13 +23,11 @@ describe('components KMain confirmed details', () => {
     bottle.resetProviders(['application', 'cookieService'])
     AbstractSync.clearCache()
     user = await Kopnik.create({
-        status: Kopnik.Status.CONFIRMED,
         isLoaded: true,
       },
       'user'
     )
     other = await Kopnik.create({
-        status: Kopnik.Status.CONFIRMED,
         isLoaded: true,
       },
       'other'

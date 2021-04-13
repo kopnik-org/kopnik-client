@@ -5,47 +5,62 @@ import Locale from "../locales/Locale";
 import {container} from "../bottle/bottle";
 import api from "../api";
 import once from '../decorators/once'
+import parse from "@/models/utils/parse";
 
 
 let TEST_ID = -1
 
 export default class Kopnik extends AbstractSync {
+  /** @type {String} */
   @scalar lastName = undefined
+  /** @type {String} */
   @scalar firstName = undefined
+  /** @type {String} */
   @scalar patronymic = undefined
+  /** @type {String} */
   @scalar nickname = undefined
+  /** @type {number} */
   @scalar rank = undefined
 
+  /** @type {number} */
   @scalar birthYear = undefined
   //строка, т.к. может начинаться на "0"
+  /** @type {String} */
   @scalar passport = undefined
+  /** @type {{lat:number, lng:number}} */
   @scalar location = undefined
 
+  /**  @type {boolean} */
   @scalar isWitness = undefined
+
+  /**  @type {number} */
   @scalar witnessRadius = undefined
-  /**
-   *
-   * @type {String}
-   */
+  /** @type {String} */
   @scalar photo = undefined
+  /** @type {number} */
   @scalar status = undefined
   /** @type {Locale} */
   @scalar locale = container.localeManager.currentLocale
+  /** @type {number} */
   @scalar role
-  @scalar tenChatInviteLink
   /* @type {string} */
   @scalar mid
+  /** @type {String} */
   @scalar witnessChatInviteLink
+  /** @type {String} */
   @scalar tenChatInviteLink
-  @scalar foremanRequestChatInviteLink
-
+  /** @type {Kopnik} */
   @object foreman = undefined
+  /** @type {Kopnik} */
   @object foremanRequest = undefined
+  /** @type {Kopnik} */
   @object witness = undefined
-
-  @collection /** @type {Kopnik[]} */ subordinates
-  @collection /** @type {Kopnik[]} */ foremanRequests
-  @collection /** @type {Kopnik[]} */ witnessRequests
+  /** @type {Kopnik[]} */
+  @collection subordinates
+  /** @type {Kopnik[]} */
+  @collection foremanRequests
+  /** @type {Kopnik[]} */
+  @collection witnessRequests
 
   static get Status() {
     return {
@@ -68,22 +83,24 @@ export default class Kopnik extends AbstractSync {
 
 
   /**
-   * Create user in test DB
+   * Create user in test DB from fieldset
+   * Если isLoaded === false, то создаю в БД и присваиваю номер, иначе если id===undefined, то присваиваю следующий по порядку отрицательный номер
    * for test purposes only
    *
-   * @param {{id: number?, isLoaded:boolean?, status:number?, role: string?, foreman_id: number?, foremanRequest_id: number?, witness_id:number?, isWitness: boolean?,}?} fields
-   * @param {string|Date|number?} prefix
+   * @param {Partial<Kopnik>?} fieldset
+   * @param {string?} prefix
    *
    * @returns {Promise<Kopnik>}
    */
-  static async create(fields, prefix) {
+  static async create(fieldset, prefix) {
     const now = new Date()
 
     if (prefix === undefined) {
       prefix = now.toLocaleTimeString()
     }
     const uniqAsNumber = now.getTime() * 1000 + now.getMilliseconds()
-    const realFields = Object.assign({
+
+    const fields = Object.assign({
       lastName: prefix,
       firstName: prefix,
       patronymic: prefix,
@@ -96,23 +113,25 @@ export default class Kopnik extends AbstractSync {
       },
       photo: 'photo/' + prefix,
       status: Kopnik.Status.CONFIRMED,
-      locale: container.localeManager.currentLocale.name,
+      locale: container.localeManager.currentLocale,
       role: Kopnik.Role.Kopnik,
       rank: 1,
       mid: uniqAsNumber,
-      email: uniqAsNumber + '@kopnik.ru',
-      access_token: 'access_token' + uniqAsNumber,
-    }, fields)
+    }, fieldset)
 
-    if (!fields || !fields.isLoaded) {
-      realFields.id = await container.api('test/createUser', {
+    // создаю промежуточную переменную, чтобы получить plain() от fieldset
+    const plainer = new Kopnik()
+    plainer.merge(fields)
+
+    if (!fieldset || !fieldset.isLoaded) {
+      fields.id = await container.api('test/createUser', {
         method: 'POST',
-        body: realFields,
+        body: plainer.plain,
       })
-    } else if (!realFields.id) {
-      realFields.id = TEST_ID--
+    } else if (!fields.id) {
+      fields.id = TEST_ID--
     }
-    const result = Kopnik.merge(realFields, true)
+    const result = Kopnik.merge(fields)
     return result
   }
 
@@ -167,11 +186,12 @@ export default class Kopnik extends AbstractSync {
     return super.getReference(id)
   }
 
-  merge(what) {
-    super.merge(what)
-    if (what.locale !== undefined) {
-      this.locale = (what.locale instanceof Locale) ? what.locale : container.localeManager.getLocaleByShortName(what.locale)
-    }
+  /**
+   * @param {Partial<Kopnik>} set
+   * @return {Kopnik}
+   */
+  merge(set) {
+    return super.merge(set)
   }
 
   get plain() {
@@ -208,7 +228,7 @@ export default class Kopnik extends AbstractSync {
     }
     this.merge({locale: profileJSON.locale})
 
-    let promise= this.constructor.api("updateProfile", {
+    let promise = this.constructor.api("updateProfile", {
       method: 'POST',
       body: {
         ...profileJSON,
@@ -436,7 +456,7 @@ export default class Kopnik extends AbstractSync {
     actual.witnessRequests = actual.witnessRequests instanceof Array ? actual.witnessRequests : undefined
 
     // старшина исключил из десятки
-    if (this.foreman && !actual.foreman_id) {
+    if (this.foreman && !actual.foreman) {
       // удяляю себя из подчиненных старшины
       if (this.foreman.subordinates && this.foreman.subordinates.includes(this)) {
         this.foreman.subordinates.splice(this.foreman.subordinates.indexOf(this), 1)
@@ -457,7 +477,7 @@ export default class Kopnik extends AbstractSync {
       // удаляем себя из его старшин
       .forEach(eachLeft => eachLeft.foremanRequest === this ? eachLeft.foremanRequest = null : null);
 
-    this.merge(actual)
+    this.merge(parse(Kopnik, actual))
     this.isLoaded = true
 
     return this;
