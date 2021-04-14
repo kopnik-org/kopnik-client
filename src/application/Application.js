@@ -62,7 +62,7 @@ export default class Application {
 
   checkUpdate(version) {
     const [major, minor, patch] = version.split('.').map(eachPart=>Number.parseInt(eachPart))
-      this.needUpdate= major>2
+      this.needUpdate= major>3
   }
 
   get version() {

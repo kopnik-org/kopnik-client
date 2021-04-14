@@ -74,7 +74,7 @@ describe('models User api anonymous', () => {
       await main.updateProfile({
         id: 2,
         status: 2,
-        passport: '1234',
+        // passport: '1234',
         location: {
           lat: 1,
           lng: 1

@@ -55,7 +55,7 @@ describe('models User confirmed', () => {
     request.merge(parse(Kopnik, main.plain))
     const delta={
       role: Kopnik.Role.Female,
-      passport: '0001',
+      // passport: '0001',
       location: {
         lat: 1,
         lng: 1
@@ -63,7 +63,7 @@ describe('models User confirmed', () => {
       firstName: '1',
       lastName: '2',
       patronymic: '3',
-      birthYear: 2000,
+      // birthYear: 2000,
       locale: container.localeManager.currentLocale,
       isLoaded: true,
     }

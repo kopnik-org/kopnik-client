@@ -23,16 +23,16 @@ describe('models User get common', () => {
         main.firstName= 'xxx'
         await main.reload()
         expect(main.firstName).toBe(firstName)
-        expect(main.passport).toBe('0123')
+        // expect(main.passport).toBe('0123')
         expect(main.location).toHaveProperty('lat')
         expect(main.location).toHaveProperty('lng')
     })
-    it('somebody passport', async () => {
+/*    it('somebody passport', async () => {
         const somebody= await Kopnik.create({
             status: Kopnik.Status.NEW,
         })
         AbstractSync.clearCache()
         const kopnik=  await Kopnik.get(somebody.id)
         expect(kopnik.passport).toBeFalsy()
-    })
+    })*/
 })

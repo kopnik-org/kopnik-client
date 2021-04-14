@@ -66,7 +66,7 @@
         </ValidationProvider>
       </v-list-item-content>
     </v-list-item>
-    <v-list-item v-if="birthYear">
+<!--    <v-list-item v-if="birthYear">
       <v-list-item-content>
         <ValidationProvider name="birthYear" rules="required|numeric|length:4|min_value:1900|max_value:2020"
                             v-slot="{ errors, valid }">
@@ -80,7 +80,7 @@
           ></v-text-field>
         </ValidationProvider>
       </v-list-item-content>
-    </v-list-item>
+    </v-list-item>-->
     <v-list-item v-if="role">
       <v-list-item-content>
         <ValidationProvider name="role" rules="required" v-slot="{ errors, valid }">
@@ -101,7 +101,7 @@
         </ValidationProvider>
       </v-list-item-content>
     </v-list-item>
-    <v-list-item v-if="passport">
+<!--    <v-list-item v-if="passport">
       <v-list-item-content>
         <ValidationProvider name="passport" rules="required|numeric|length:4"
                             v-slot="{ errors, valid }">
@@ -115,7 +115,7 @@
           ></v-text-field>
         </ValidationProvider>
       </v-list-item-content>
-    </v-list-item>
+    </v-list-item>-->
     <v-list-item v-if="location">
       <v-list-item-content>
         <v-list-item-title class="mb-3" style="white-space: inherit !important;">{{ $t('profile.location') }}
@@ -184,14 +184,14 @@ export default {
       type: Boolean,
       default: false,
     },
-    birthYear: {
+/*    birthYear: {
       type: Boolean,
       default: false
-    },
-    passport: {
+    },*/
+/*    passport: {
       type: Boolean,
       default: false
-    },
+    },*/
     to: {
       type: [String, Object]
     },

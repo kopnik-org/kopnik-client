@@ -22,11 +22,11 @@ export default class Kopnik extends AbstractSync {
   /** @type {number} */
   @scalar rank = undefined
 
-  /** @type {number} */
-  @scalar birthYear = undefined
+  /* * @type {number} */
+  // @scalar birthYear = undefined
   //строка, т.к. может начинаться на "0"
-  /** @type {String} */
-  @scalar passport = undefined
+  /* * @type {String} */
+  // @scalar passport = undefined
   /** @type {{lat:number, lng:number}} */
   @scalar location = undefined
 
@@ -105,8 +105,8 @@ export default class Kopnik extends AbstractSync {
       firstName: prefix,
       patronymic: prefix,
       nickname: prefix,
-      birthYear: 2020,
-      passport: "0123",
+      // birthYear: 2020,
+      // passport: "0123",
       location: {
         lat: 30,
         lng: 50,
@@ -214,9 +214,9 @@ export default class Kopnik extends AbstractSync {
    * @return {Promise<void>}
    */
   async updateProfile(request, changeset) {
-    if (!request.passport) {
+ /*   if (!request.passport) {
       throw new KopnikError('Passport required')
-    }
+    }*/
     if (!request.location.lat || !request.location.lng) {
       throw new KopnikError('House location required')
     }

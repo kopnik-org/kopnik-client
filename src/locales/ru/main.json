@@ -15,8 +15,6 @@
     "firstName": "Имя",
     "lastName": "Фамилия",
     "patronymic": "Отчество",
-    "birthYear": "Год рождения",
-    "passport": "Последние 4 цифры паспорта",
     "nickname": "Прозвище",
     "submitDialog": {
       "title": "Обновить личные данные?",

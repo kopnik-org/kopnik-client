@@ -3,7 +3,7 @@
     <v-card v-for="(eachHalfUser, index) in application.user.witnessRequests" :key="eachHalfUser.id"
             elevation="12" class="mb-10" width="100%" max-width="350px">
       <kopnik-view ref="witnessRequest"
-                   :value="eachHalfUser" locale fio birth-year passport role location readonly></kopnik-view>
+                   :value="eachHalfUser" locale fiorole location readonly></kopnik-view>
       <v-card-actions v-if="eachHalfUser.witnessChatInviteLink">
         <v-btn ref="confirmAsk"
                color="success" class="flex-grow-1"

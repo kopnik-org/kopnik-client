@@ -152,7 +152,7 @@
           <v-divider></v-divider>
           <kopnik-view ref="foremanRequest"
                        :value="eachRequest"
-                       location birthYear role
+                       location role
                        readonly
           >
           </kopnik-view>

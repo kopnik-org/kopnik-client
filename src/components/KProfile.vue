@@ -10,7 +10,7 @@
             </v-alert>
             <kopnik-vue ref="request"
                         :value="request"
-                        locale fio birthYear passport role location
+                        locale fio role location
                         @locale_change="locale_change"
             ></kopnik-vue>
             <v-list v-if="wasMessagesFromGroupAllowed===false">
@@ -47,18 +47,6 @@
                 >
                   {{ $t('profile.submit') }}
                 </v-btn>
-                <!--            example
-
-                                <v-btn ref="foremanAsk" text :disabled="application.user===value.selected || !isSelectedKopnik || !(isUserKopnik || isUserFutureKopnik)" class="flex"
-                                       v-bind="attrs"
-                                       v-on="on"
-                                       v-promise-btn
-                                >
-                                  {{
-                                    application.user.foreman === value.selected ? $t('details.resetForeman') : application.user.foremanRequest === value.selected ? $t('details.cancelForemanRequest') : $t('details.toForeman')
-                                  }}
-                                </v-btn>-->
-
               </template>
               <v-card>
                 <v-card-title>
@@ -130,7 +118,7 @@ export default {
      */
     changeset() {
       // использую знак == из-за года рождения
-      const result = ['firstName', 'lastName', 'patronymic', 'birthYear', 'role', 'passport',].filter(eachField => this.application.user[eachField] != this.request[eachField])
+      const result = ['firstName', 'lastName', 'patronymic', /*'birthYear'*/, 'role',/* 'passport'*/,].filter(eachField => this.application.user[eachField] != this.request[eachField])
 
       // location
       if (this.application.user.location.lat !== this.request.location.lat || this.application.user.location.lng !== this.request.location.lng) {
@@ -152,7 +140,7 @@ export default {
   watch: {},
   methods: {
     async onSubmitYes() {
-      this.request.birthYear = parseInt(this.request.birthYear)
+      // this.request.birthYear = parseInt(this.request.birthYear)
       await this.application.user.updateProfile(this.request, this.changeset)
       this.application.infos.push(this.$t('profile.submitMessage'))
       await this.application.setSection(container.application.constructor.Section.Main)
