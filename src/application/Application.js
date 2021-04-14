@@ -8,11 +8,13 @@ import once from "../decorators/once";
 import {container} from "../bottle/bottle";
 import Main from "./Main";
 import api from "@/api";
+import {apiEvent} from "@/api/api";
+import ApiEventEnum from "@/api/ApiEventEnum";
 
 export default class Application {
   constructor(logger) {
     this.logger = logger.getLogger('Application')
-    this.logger.info('version', this.ver)
+    this.logger.info('version', this.version)
     /**
      * Кэш моделей
      * @type {Array}
@@ -52,10 +54,15 @@ export default class Application {
     this.sections = {
       main: new Main(this)
     }
+
+    apiEvent.addEventListener(ApiEventEnum.Response, (event) => this.)
   }
 
-  get ver() {
-    return `v${process.env.PACKAGE_VERSION} on ${process.env.VUE_APP_MODE || container.env}`
+  get version() {
+    return {
+      version: process.env.PACKAGE_VERSION,
+      env: process.env.VUE_APP_MODE || container.env
+    }
   }
 
   /**
