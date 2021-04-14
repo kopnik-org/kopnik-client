@@ -57,12 +57,15 @@ export default class Application {
       main: new Main(this)
     }
 
-    apiEvent.addEventListener(ApiEventEnum.Response, (event) => this.checkUpdate(event.detail.version))
+    apiEvent.addEventListener(ApiEventEnum.Fetch, (event) => this.checkUpdate(event.detail.version))
   }
 
   checkUpdate(version) {
-    const [major, minor, patch] = version.split('.').map(eachPart=>Number.parseInt(eachPart))
+    // бывают ошибки сети, что и версии то не прилетит
+    if (version){
+      const [major, minor, patch] = version.split('.').map(eachPart=>Number.parseInt(eachPart))
       this.needUpdate= major>3
+    }
   }
 
   get version() {

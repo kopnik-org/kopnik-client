@@ -81,10 +81,10 @@ export default async function api(url, options = {}) {
     }
     apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Response, {detail: {...body}}))
   } catch (dontUseIt) {
-    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Error, {detail: {error, detail: 1234}}))
+    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Error, {detail: {...body, error, }}))
     throw error
   } finally {
-    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Fetch, {detail: {error, ...body}}))
+    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Fetch, {detail: { ...body, error,}}))
   }
   // return result
   return body.response
