@@ -2,12 +2,11 @@ import get from "keypather/get"
 import has from "keypather/has"
 
 import AsyncLock from 'async-lock'
-import {AbstractSync, Kopnik, Kopa} from "../models";
-import {KopnikApiError, KopnikError} from "../KopnikError";
+import { Kopnik, } from "../models";
+import {KopnikApiError, KopnikError} from "@/KopnikError";
 import once from "../decorators/once";
-import {container} from "../bottle/bottle";
+import {container} from "@/bottle/bottle";
 import Main from "./Main";
-import api from "@/api";
 import {apiEvent} from "@/api/api";
 import ApiEventEnum from "@/api/ApiEventEnum";
 
@@ -15,6 +14,9 @@ export default class Application {
   constructor(logger) {
     this.logger = logger.getLogger('Application')
     this.logger.info('version', this.version)
+
+    /** @type {boolean} */
+    this.needUpdate= undefined
     /**
      * Кэш моделей
      * @type {Array}
@@ -55,7 +57,12 @@ export default class Application {
       main: new Main(this)
     }
 
-    apiEvent.addEventListener(ApiEventEnum.Response, (event) => this.)
+    apiEvent.addEventListener(ApiEventEnum.Response, (event) => this.checkUpdate(event.detail.version))
+  }
+
+  checkUpdate(version) {
+    const [major, minor, patch] = version.split('.').map(eachPart=>Number.parseInt(eachPart))
+      this.needUpdate= major>2
   }
 
   get version() {

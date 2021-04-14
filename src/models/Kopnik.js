@@ -135,13 +135,6 @@ export default class Kopnik extends AbstractSync {
     return result
   }
 
-  constructor() {
-    super();
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-      this.role = 1
-    }
-  }
-
   get name() {
     return [this.firstName, this.patronymic, this.lastName,].filter(each => each).join(' ')
   }
@@ -268,7 +261,7 @@ export default class Kopnik extends AbstractSync {
   @once
   async reloadWitnessRequests() {
     let result = await this.constructor.api('getWitnessRequests')
-    this.witnessRequests = result.map(eachKopnikAsJson => Kopnik.merge(eachKopnikAsJson, true))
+    this.witnessRequests = result.map(eachKopnikAsJson => Kopnik.merge(parse(Kopnik, eachKopnikAsJson)))
   }
 
   /**

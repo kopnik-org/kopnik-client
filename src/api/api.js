@@ -40,16 +40,16 @@ export default async function api(url, options = {}) {
     try {
       logger.info(...[fullOptions.method, fullUrl, options.body, fullOptions.headers.Cookie].filter(item => item))
       // logger.info(fullOptions.method, fullUrl, options.body, fullOptions.headers.Cookie)
-      apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.BeforeFetch, {url: fullUrl, options: fullOptions}))
+      apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.BeforeFetch, {detail: {url: fullUrl, options: fullOptions}}))
       response = await fetch(fullUrl, fullOptions)
     } catch (err) {
       // abort getTopInsideSquare for example
       if (err.name == 'AbortError') {
         err.url = fullUrl
-        throw error= err
+        throw error = err
         // miss network
       } else {
-        throw error= new KopnikApiError(err.message, err.code, fullUrl)
+        throw error = new KopnikApiError(err.message, err.code, fullUrl)
       }
     }
     // 4. set cookie
@@ -70,23 +70,21 @@ export default async function api(url, options = {}) {
     try {
       body = JSON.parse(bodyText)
     } catch (err) {
-      throw error= new KopnikApiError(`API: ${response.statusText}: ${bodyText}`, 1000 + response.status, fullUrl)
+      throw error = new KopnikApiError(`API: ${response.statusText}: ${bodyText}`, 1000 + response.status, fullUrl)
     }
 
     // 8. check error from server
     if (body.error) {
-      throw error= new KopnikApiError(`API: ${body.error.error_msg}`, body.error.error_code, fullUrl, body.error.error_stack,)
+      throw error = new KopnikApiError(`API: ${body.error.error_msg}`, body.error.error_code, fullUrl, body.error.error_stack,)
     } else {
       logger.debug(...[body, response.headers.get('set-cookie')].filter(item => item))
     }
-    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Response, {...body}))
-  }
-  catch(dontUseIt){
-    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Error, {error}))
+    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Response, {detail: {...body}}))
+  } catch (dontUseIt) {
+    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Error, {detail: {error, detail: 1234}}))
     throw error
-  }
-  finally{
-    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Fetch, {error, ...body}))
+  } finally {
+    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Fetch, {detail: {error, ...body}}))
   }
   // return result
   return body.response
