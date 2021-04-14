@@ -103,7 +103,7 @@
           <v-icon>mdi-alpha-r</v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title>{{ application.version.version }} on {{ application.version.env }}</v-list-item-title>
+          <v-list-item-title>{{ application.version.version }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-list-item logout link @click="logout_click">
