@@ -188,10 +188,11 @@ export default class Kopnik extends AbstractSync {
 
   /**
    * @param {Partial<Kopnik>} set
+   * @param {AbstractSync[]} done обработанные объекты
    * @return {Kopnik}
    */
-  merge(set) {
-    return super.merge(set)
+  merge(set, done=[]) {
+    return super.merge(set, done)
   }
 
   get plain() {

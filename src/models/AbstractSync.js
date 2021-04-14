@@ -9,25 +9,8 @@ import _ from "lodash"
 import * as models from "."
 import once from "../decorators/once";
 import {container} from "../bottle/bottle";
-import {Kopnik} from ".";
 import parse from "@/models/utils/parse";
 
-/**
- * Общий принцип работы следующий
- * #find(id) возвращает объект у которого ассоциации в виде ссылок (не loaded() -нутые объекты)
- * перед тем как такой объект использовать необходимо выполенить его .load()
- *
- * #find(1)
- * .then (kopnik=>{
- *      echo kopnik.iInviteSomebody.id;
- *      kopnik.iInviteSomebody.loaded()
- *      .then(()=>{
- *          echo kopnik.iInviteSomebody.status
- *      })
- * })
- *
- * Для того чтобы сделать объект синхронизированным нужно вызвать .refreshCycle(3000)
- */
 
 export default class AbstractSync {
   static cache = new Map()
@@ -253,23 +236,38 @@ export default class AbstractSync {
   /**
    *
    * @param {Partial<AbstractSync>} set
+   * @param {AbstractSync[]} done обработанные объекты
    * @return {AbstractSync}
    */
-  merge(set) {
+  merge(set, done = []) {
+    // если мерж этого сета уже проводился
+    if (done.includes(set)){
+      return this
+    }
+    // добавляем в начале, потому что до завершения может быть циклически вызван повторый мерж
+    done.push(set)
     for (let eachFieldName of ["id", ...this.constructor.scalars]) {
       if (set[eachFieldName] !== undefined) {
         this[eachFieldName] = set[eachFieldName]
       }
     }
+
+    // relations
     for (let eachFieldName of [...this.constructor.objects]) {
       if (set[eachFieldName] !== undefined) {
-        this[eachFieldName] = set[eachFieldName] === null ? null : models.Kopnik.getReference(set[eachFieldName].id).merge(set[eachFieldName])
+        if (set[eachFieldName] === null) {
+          this[eachFieldName] = null
+        } else {
+          this[eachFieldName] = models.Kopnik.getReference(set[eachFieldName].id).merge(set[eachFieldName], done)
+        }
       }
     }
+
+    // relation collections
     for (let eachFieldName of [...this.constructor.collections]) {
       if (set[eachFieldName] !== undefined) {
         this[eachFieldName] = set[eachFieldName].map(eachCollectionItem => {
-          return models.Kopnik.getReference(eachCollectionItem.id).merge(eachCollectionItem)
+            return models.Kopnik.getReference(eachCollectionItem.id).merge(set[eachFieldName], done)
         })
       }
     }
