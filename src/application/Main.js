@@ -52,7 +52,7 @@ export default class Main {
       this.witnesses.splice(0)
     } else {
       this.witnesses = (await Kopnik.api('getWitnessesInsideSquare?x1=-180&y1=-90&x2=180&y2=90'))
-        .map(eachWitnessJSON => Kopnik.merge(eachWitnessJSON, true))
+        .map(eachWitnessJSON => Kopnik.merge(parse(Kopnik, eachWitnessJSON)))
     }
   }
 
@@ -139,6 +139,9 @@ export default class Main {
     }
   }
 
+  /**
+   * используется здесь и во вью при изменении масштаба 
+   */
   abortLoadTop20() {
     this._loadTop20AbortController.abort()
   }
