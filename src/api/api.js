@@ -17,7 +17,7 @@ export default async function api(url, options = {}) {
   const logger = container.logger.getLogger('api')
   let response,
     body,
-    error
+    tmp
 
   try {
     // 1. setup options
@@ -43,13 +43,17 @@ export default async function api(url, options = {}) {
       apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.BeforeFetch, {detail: {url: fullUrl, options: fullOptions}}))
       response = await fetch(fullUrl, fullOptions)
     } catch (err) {
-      // abort getTopInsideSquare for example
-      if (err.name == 'AbortError') {
-        err.url = fullUrl
-        throw error = err
+      // abort getTopInsideSquare for example // иногда err === undefined !!! это началось недавно. непонятно по какой причине
+      /*if (!err){
+        err= new Error('Hand made Abort error')
+        err.name= 'AbortError'
+        throw error= err
+      }
+      else */if (err.name === 'AbortError'){
+        throw tmp = err
         // miss network
       } else {
-        throw error = new KopnikApiError(err.message, err.code, fullUrl)
+        throw new KopnikApiError(err.message, err.code, fullUrl)
       }
     }
     // 4. set cookie
@@ -70,22 +74,22 @@ export default async function api(url, options = {}) {
     try {
       body = JSON.parse(bodyText)
     } catch (err) {
-      throw error = new KopnikApiError(`API: ${response.statusText}: ${bodyText}`, 1000 + response.status, fullUrl)
+      throw new KopnikApiError(`API: ${response.statusText}: ${bodyText}`, 1000 + response.status, fullUrl)
     }
 
     // 8. check error from server
     if (body.error) {
-      throw error = new KopnikApiError(`API: ${body.error.error_msg}`, body.error.error_code, fullUrl, body.error.error_stack,)
+      throw new KopnikApiError(`API: ${body.error.error_msg}`, body.error.error_code, fullUrl, body.error.error_stack,)
     } else {
       logger.debug(...[body, response.headers.get('set-cookie')].filter(item => item))
     }
     apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Response, {detail: {...body}}))
-  } catch (dontUseIt) {
-    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Error, {detail: {...body, error, }}))
-    throw error
+  } catch (err) {
+    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Error, {detail: {...body, error:err, }}))
+    tmp= err
+    throw err
   } finally {
-    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Fetch, {detail: { ...body, error,}}))
+    apiEvent.dispatchEvent(new CustomEvent(ApiEventEnum.Fetch, {detail: { ...body, error: tmp,}}))
   }
-  // return result
   return body.response
 }
