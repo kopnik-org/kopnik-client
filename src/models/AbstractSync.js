@@ -267,7 +267,7 @@ export default class AbstractSync {
     for (let eachFieldName of [...this.constructor.collections]) {
       if (set[eachFieldName] !== undefined) {
         this[eachFieldName] = set[eachFieldName].map(eachCollectionItem => {
-            return models.Kopnik.getReference(eachCollectionItem.id).merge(set[eachFieldName], done)
+            return models.Kopnik.getReference(eachCollectionItem.id).merge(eachCollectionItem, done)
         })
       }
     }
