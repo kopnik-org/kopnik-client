@@ -11,24 +11,10 @@ import CookieService from "./CookieService"
 import MK from "../mk/mk";
 import LocaleManager from "../locales/LocaleManager";
 import messages from "@/locales";
-import VKClient from "@/vk-client/VKClient";
 
 Bottle.config.strict = true
 const bottle = new Bottle()
 
-bottle.factory('vkClient', function () {
-  const result= new VKClient({
-    clientId: process.env.VUE_APP_VK_CLIENT_ID,
-    accessTokenUri: 'https://oauth.vk.com/access_token',
-    authorizationUri: 'https://oauth.vk.com/authorize',
-    redirectUri: location.href,
-    scopes: ['notify', 'friends', /*'messages'*/, 'offline'], //https://vk.com/dev/permissions
-    // query:{
-    //   revoke: 1,
-    // }
-  })
-  return result
-})
 bottle.factory('logger', function loggerFactory() {
   //все плагины ломают стектрейс консоли. то есть невозможно увидеть из какого файла и какой строки был вызван лог!
   // LoglevelPluginPrefix.reg(loglevel)
@@ -56,12 +42,18 @@ bottle.service('localeManager', function localeManager() {
 bottle.service('cookieService', CookieService, 'constants')
 bottle.factory('api', function apiFactory(container) {
   // if (!container.constants.di.fetch) {
-    // return mapi
+  // return mapi
   // }
   return api
 })
 bottle.factory('VK', function vkFactory(container) {
-  return process.env.NODE_ENV === 'test' ? MK : global.VK
+  if (process.env.NODE_ENV === 'test') {
+    return MK
+  } else if (global.VK) {
+    return global.VK
+  } else {
+    throw new Error("VK is not available. The employer or internet service provider may have restricted access to the site.")
+  }
 })
 bottle.factory('constants', function constantsFactory() {
   if (!process.env.NODE_ENV) {

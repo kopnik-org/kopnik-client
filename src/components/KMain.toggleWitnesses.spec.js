@@ -18,6 +18,7 @@ describe('components KMain toggleWitnesses', () => {
     witness = await Kopnik.create({
         isWitness: true,
         isLoaded: true,
+        witnessRadius: 100,
       },
       'witness'
     )
@@ -28,8 +29,6 @@ describe('components KMain toggleWitnesses', () => {
     fetch.mockIfEx(/ids=$/, [witness.plain])
     fetch.mockIfEx(/getTopInsideSquare/, [])
     fetch.mockIfEx(/getWitnessesInsideSquare/, [witness.plain])
-    // a??? чтобы авторизоваться
-    container.VK.Auth.session = true
 
     await application.authenticate()
     wrapper = mount(MainVue, {
