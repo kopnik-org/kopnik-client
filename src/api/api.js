@@ -53,7 +53,7 @@ export default async function api(url, options = {}) {
         throw tmp = err
         // miss network
       } else {
-        throw new KopnikApiError(err.message, err.code, fullUrl)
+        throw new KopnikApiError(`API: ${err.message}`, 3001, fullUrl)
       }
     }
     // 4. set cookie

@@ -17,10 +17,16 @@
         {{ $t('alert.close') }}
       </v-btn>
     </v-snackbar>
-    <v-snackbar v-model="application.needUpdate" :timeout="-1" multi-line top color="warning">
+    <v-snackbar ref="needUpdate" v-model="application.needUpdate" :timeout="-1" multi-line top color="warning">
       {{ $t('alert.needUpdate') }}
       <v-btn text xcolor="error" @click="onUpdateClick">
         {{ $t('alert.update') }}
+      </v-btn>
+    </v-snackbar>
+    <v-snackbar ref="failedToFetch" v-model="application.failedToFetch" :timeout="-1" multi-line bottom right color="warning">
+      {{ $t('alert.failedToFetch') }}
+      <v-btn text xcolor="error" @click="onUpdateNetworkStatusClick" v-promise-btn>
+        {{ $t('alert.updateNetworkStatus') }}
       </v-btn>
     </v-snackbar>
   </div>
@@ -29,19 +35,19 @@
 <script>
 import Vue from 'vue'
 
-import KLogin from './KLogin'
-import KMain from './KMain'
-import KThanks from './KThanks'
-import KProfile from "./KProfile";
-import KWitness from "./KWitness";
-import {container} from "../bottle/bottle";
-import KDrawer from "./KDrawer";
-import logger from './mixin/logger'
-import Application from "../application/Application";
-import {Kopnik} from '../models'
+import KLogin from '../KLogin'
+import KMain from '../KMain'
+import KThanks from '../KThanks'
+import KProfile from "../KProfile";
+import KWitness from "../KWitness";
+import {container} from "../../bottle/bottle";
+import KDrawer from "../KDrawer";
+import logger from '../mixin/logger'
+import Application from "../../application/Application";
+import {Kopnik} from '../../models'
 import flushPromises from "flush-promises";
-import KTen from './KTen'
-import touchDetector from "./mixin/touch-detecter";
+import KTen from '../KTen'
+import touchDetector from "../mixin/touch-detecter";
 
 export default {
   mixins: [logger],
@@ -78,6 +84,9 @@ export default {
   methods: {
     onUpdateClick() {
       location.href = location.href
+    },
+    async onUpdateNetworkStatusClick() {
+      await Kopnik.api('get?ids=')
     }
   },
   watch: {

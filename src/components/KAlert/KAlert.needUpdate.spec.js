@@ -2,16 +2,17 @@ import flushPromises from "flush-promises";
 import {mount} from '@vue/test-utils'
 
 import vuePlugins, {routerFactory} from "../../../tests/test-setup";
-import AppVue from "./KApp";
+import AppVue from "../KApp/KApp";
 import {bottle, container} from "@/bottle/bottle";
 import main from "@/locales/ru/main.json";
 import fetchMock from "jest-fetch-mock";
 import {Kopnik} from "@/models";
+import KAlert from "@/components/KAlert/KAlert";
 
 // real fetch
 container.constants.di.fetch = true
 
-describe('components KApp needUpdate', () => {
+describe('components KAlert needUpdate', () => {
   let wrapper,
     application
 
@@ -33,10 +34,18 @@ describe('components KApp needUpdate', () => {
       }
     })
 
-    wrapper = mount(AppVue, {
+    wrapper = mount(KAlert, {
       ...vuePlugins,
     })
+    try{
+      await application.resolveUser()
+    }
+    catch (err){
+
+    }
     await flushPromises()
+
+    expect(wrapper.findComponent({ref:'needUpdate'}).vm.$props.value).toBeTruthy()
     expect(wrapper.text()).toContain(main.alert.needUpdate)
 
   })

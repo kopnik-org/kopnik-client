@@ -2,7 +2,7 @@ import get from "keypather/get"
 import has from "keypather/has"
 
 import AsyncLock from 'async-lock'
-import { Kopnik, } from "../models";
+import {Kopnik,} from "../models";
 import {KopnikApiError, KopnikError} from "@/KopnikError";
 import once from "../decorators/once";
 import {container} from "@/bottle/bottle";
@@ -16,7 +16,11 @@ export default class Application {
     this.logger.info('version', this.version)
 
     /** @type {boolean} */
-    this.needUpdate= undefined
+    this.needUpdate = undefined
+
+    /** @type {boolean} */
+    this.failedToFetch = false
+
     /**
      * Кэш моделей
      * @type {Array}
@@ -58,13 +62,31 @@ export default class Application {
     }
 
     apiEvent.addEventListener(ApiEventEnum.Fetch, (event) => this.checkUpdate(event.detail.version))
+    apiEvent.addEventListener(ApiEventEnum.Fetch, (event) => this.checkNetwork(event.detail.error))
   }
 
+  /**
+   * Обновилось АПИ на сервере до обратно несовместимой версии (мажорная версия скакнула)
+   * @param {string} version
+   */
   checkUpdate(version) {
     // бывают ошибки сети, что и версии то не прилетит
-    if (version){
-      const [major, minor, patch] = version.split('.').map(eachPart=>Number.parseInt(eachPart))
-      this.needUpdate= major>3
+    if (version) {
+      const [major, minor, patch] = version.split('.').map(eachPart => Number.parseInt(eachPart))
+      this.needUpdate = major > 3
+    }
+  }
+
+  /**
+   * Отключили Вай-Фай
+   * @param {KopnikApiError} error
+   */
+  checkNetwork(error) {
+    if (error && error.code === 3001) {
+      this.failedToFetch = true
+      error.preventDefault = true
+    } else {
+      this.failedToFetch = false
     }
   }
 
@@ -195,7 +217,9 @@ export default class Application {
       }
     };
 
-    if (err.code === 1401) {
+    if (err.preventDefault) {
+
+    } else if (err.code === 1401) {
       await container.application.lockSection(async () => {
         await application.setSection(Application.Section.Main)
       })

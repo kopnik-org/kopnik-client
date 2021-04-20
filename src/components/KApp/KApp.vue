@@ -44,7 +44,7 @@ import {Kopnik} from '../../models'
 import flushPromises from "flush-promises";
 import KTen from '../KTen'
 import touchDetector from "../mixin/touch-detecter";
-import KAlert from "../KAlert";
+import KAlert from "../KAlert/KAlert";
 import {localize} from "vee-validate";
 
 export default {

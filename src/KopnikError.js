@@ -10,6 +10,7 @@ export class KopnikError extends Error {
     super(message)
     this.code = code
     this.base = base
+    this.preventDefault= false
   }
 }
 
