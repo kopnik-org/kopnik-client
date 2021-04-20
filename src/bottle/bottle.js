@@ -71,13 +71,12 @@ if (!Application) {
 bottle.service('application', Application, 'logger')
 
 /**
- * @callback fetch
+ * @callback fetchq
  * @param {string} url
  * @param {Object?} options
  */
 /**
  * @type {Object}
- * @property {VKClient} vkClient
  * @property {loglevel} logger
  * @property {Application} application
  * @property {Location} Location
