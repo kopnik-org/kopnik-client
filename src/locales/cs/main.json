@@ -1,0 +1,150 @@
+{
+  "languageName": "Český",
+  "application": {
+    "youHaveToRegister": "Aby se ti otevřely všechny možnosti stránky kopnik.org, musíš se stát oprávněným členem. K tomu vyplň všechna pole tohoto formuláře a stiskni tlačítko „POTVRDIT“.",
+    "youHaveToWitnessYourData": "Aby se ti otevřely všechny možnosti systému, musíš potvrdit své osobní údaje. K tomu přejdi do místnosti ověření osobních údajů."
+  },
+  "profile": {
+    "alert": [
+      "Pozor! Pokud chceš otevřít všechny možnosti stránky kopnik.org, musíš se stát oprávněným členem. K tomu vyplň všechna pole tohoto formuláře a stiskni níže tlačítko „POTVRDIT“. Pokud tlačítko není aktivní, zkontroluj pozorně ještě jednou, že zda jsou vyplněna všechna pole.",
+      "Pozor! Tvé osobní údaje byly odeslány na server. Pokud chceš otevřít všechny možnosti systému, musíš je potvrdit. K tomu přejdi do <a target='_blank' href=' {witnessChatInviteLink }'> místnosti pro ověření osobních údajů </a>.\n \n",
+      "V pořádku. Tvé osobní údaje jsou ověřeny a jsou ti dostupné všechny možnosti systému. Pokud v důsledku životních změn dojde k zastarání osobních údajů, proveď jejich změny a pošli je na opětovné ověření stisknutím tlačítka níže „POTVRDIT“.\n \n",
+      "Pozor! Tvé osobní údaje byly ověřovatelem zamítnuty. Pokud se chceš stát oprávněným členem systému, musíš v nich provést změny a pošli na opětovné ověření stisknutím tlačítka níže „POTVRDIT“. "
+    ],
+    "language": "Jazyk",
+    "firstName": "Jméno",
+    "lastName": "Příjmení",
+    "patronymic": "Prostřední jméno\n(nepovinné)\n",
+    "nickname": "Přezdívka",
+    "submitDialog": {
+      "title": "Potvrdit osobní údaje?",
+      "text": "Po potvrzení osobních údajů tě seznámím s tvým osobním ověřovatelem, u kterého můžeš potvrdit jejich pravost. Seznam obnovených osobních údajů vyžadujících ověření:"
+    },
+    "submit": "Potvrdit",
+    "submitMessage": "Už jsi téměř zaregistrován. Počkej si na automatickou zprávu v VKontakte a postupuj podle jejích pokynů. Hodně štěstí!",
+    "messagesFromGroup": {
+      "allow": "POZOR! Přihlas se k odběru automatického pomocníka, aby tě mohl zvát na kopy (odběr je povinný pro správné fungování aplikace).",
+      "allowed": "Spojení aktivované "
+    },
+    "role": "Moje úloha v kopné občině",
+    "roles": [
+      {
+        "title": "Kopný muž",
+        "criteria": [
+          "Má rodinu",
+          "Má syna, který má rodinu",
+          "Má vnuka",
+          "Má bydlení (dům / byt / podnájem)",
+          "Má hospodářství (vlastní podnikání / je zaměstnán)"
+        ]
+      },
+      {
+        "title": "Kopný muž (zmírněny nároky, navrženy S. Danilova) ",
+        "criteria": [
+          "Má rodinu",
+          "Má syna nebo dceru",
+          "Je mu 30 a více let",
+          "Má bydlení (dům / byt / podnájem)",
+          "Má hospodářství (vlastní podnikání / je zaměstnán)"
+        ]
+      },
+      {
+        "title": "Snažím se stát kopným mužem",
+        "criteria": [
+          "Mládenec / mladiství"
+        ]
+      },
+      {
+        "title": "Jsem žena"
+      },
+      {
+        "title": "Nejsem Slovan (představitel jiného národa)"
+      }
+    ],
+    "location": "Místo trvalého pobytu s přesností na číslo domu"
+  },
+  "witness": {
+    "confirm": "Potvrdit ",
+    "decline": "Zamítnout",
+    "openWitnessChat": "Místnost"
+  },
+  "login": {
+    "login": "Přihlásit se pomocí VKontaktě (VK)"
+  },
+  "drawer": {
+    "profile": "Osobní údaje",
+    "main": "Mapa",
+    "ten": "Má desítka",
+    "tenChat": "Místnost desítky",
+    "foremanChat": "Místnost staršiny",
+    "witness": "Přihlášky ke vstupu",
+    "thanks": "Poděkování",
+    "help": "Nápověda",
+    "logout": "Odhlášení"
+  },
+  "quotes": [
+    {
+      "value": "Jsme povoláni tvořit vlastní věci a naším způsobem, Slované po slovansky. ",
+      "owner": {
+        "position": "Ruský filozof",
+        "name": "Ivan Alexandrovič Iľjin"
+      }
+    },
+    {
+      "value": "Národ, zapomínaje na svou kulturu, dějiny, tradice <...>, je odsouzen na vymření.",
+      "owner": {
+        "position": "Ruský spisovatel",
+        "name": "Lev Nikolajevič Tolstoj"
+      }
+    }
+  ],
+  "errors": {
+    "underConstruction": "Tato možnost bude dostupná již brzy ve verzi v0.3.0 "
+  },
+  "details": {
+    "toChat": "Besedovat",
+    "toKopa": "Na kopu",
+    "notToKopa": "Nepozvat",
+    "toForeman": "Vybrat",
+    "toForemanQuestion": "Vybrat jako staršinu?",
+    "toForemanInfo": "Žádost odeslána. Očekávej odpověď od staršiny.",
+    "resetForeman": "Odvolat staršinu",
+    "resetForemanQuestion": "Jsi si jistý, že chceš odvolat staršinu?",
+    "resetForemanInfo": "Tento kopník již není nadále tvůj staršina",
+    "cancelForemanRequest": "Zrušit žádost ",
+    "cancelForemanRequestQuestion": "Zrušit žádost?",
+    "cancelForemanRequestInfo": "Žádost zrušena"
+  },
+  "kopaDialog": {
+    "title": "Svolat muže na kopu?",
+    "subject": {
+      "label": "Téma besedy",
+      "hint": "Zde vyplň téma nadcházející kopy."
+    },
+    "afterInfo": "Kopa svolána."
+  },
+  "subordinates": {
+    "confirmForemanRequest": "Přijmout do desítky",
+    "confirmForemanRequestInfo": "Přijat do desítky",
+    "declineForemanRequest": "Zamítnut",
+    "declineForemanRequestInfo": "Zpráva o zamítnutí byla odeslána",
+    "removeFromSubordinates": "Vyloučit z desítky",
+    "removeFromSubordinatesInfo": "Vyloučen z desítky",
+    "removeFromSubordinatesQuestion": "Vyloučit z desítky?"
+  },
+  "definitions": {
+    "foreman": "Staršina desítky v kopném právu je kopníkem, kterému desítka svěřila zastupování zájmů svých rodin na kopách, na kterých se setkávají zástupci různých desítek. Zákon kopného práva říká: „Na čem se starší dohodli, na tom budou mladší stát“.\n \n",
+    "subordinate": "Podřízeným v desítce je kopník, který vybráním staršiny ho zároveň pověřil zastupováním zájmů své rodiny na kopách, kde se setkávají zástupci různých desítek. Zákon kopného práva říká: „Na čem se starší dohodli, na tom budou mladší stát“.\n \n"
+  },
+  "dialog": {
+    "yes": "Ano",
+    "no": "Ne"
+  },
+  "alert": {
+    "close": "Zavřít",
+    "update": "Potvrdit",
+    "needUpdate": "Je dostupná nová verze aplikace.",
+    "failedToFetch": "Není spojení",
+    "updateNetworkStatus": "Znovu se připojit "
+  }
+}
