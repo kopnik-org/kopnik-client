@@ -79,7 +79,8 @@
     "witness": "Prihlášky na vstup",
     "thanks": "Poďakovanie",
     "help": "Nápoveda",
-    "logout": "Odhlásenie"
+    "logout": "Odhlásenie",
+    "profile": "Osobné údaje"
   },
   "errors": {
     "underConstruction": "Táto možnosť bude dostupná už čoskoro vo verzii v0.3.0"
@@ -100,10 +101,18 @@
   },
   "quotes": [
     {
-      "value": "Sme povolaní tvoriť vlastné veci a naším spôsobom, slovanské po slovansky."
+      "value": "Sme povolaní tvoriť vlastné veci a naším spôsobom, slovanské po slovansky.",
+      "owner": {
+        "position": "Ruský filozof",
+        "name": "Ivan Alexandrovič Iľjin"
+      }
     },
     {
-      "value": "Národ, zabúdajúci na svoju kultúru, dejiny, tradície <...>, je odsúdený na vymretie. "
+      "value": "Národ, zabúdajúci na svoju kultúru, dejiny, tradície <...>, je odsúdený na vymretie. ",
+      "owner": {
+        "position": "Ruský spisovateľ",
+        "name": "Lev Nikolajevič Tolstoj"
+      }
     }
   ],
   "kopaDialog": {
@@ -133,5 +142,9 @@
     "needUpdate": "Je dostupná nová verzia aplikácie.",
     "failedToFetch": "Nie je spojenie",
     "updateNetworkStatus": "Znovu sa pripojiť"
+  },
+  "dialog": {
+    "yes": "Áno",
+    "no": "Nie"
   }
 }
