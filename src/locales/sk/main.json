@@ -1,25 +1,24 @@
 {
   "languageName": "Slovenský",
   "application": {
-    "youHaveToRegister": "Na začiatok je potrebné sa registrovať, potom ti budú sprístupnené všetky možnosti systému"
+    "youHaveToRegister": "Aby sa ti otvorili všetky možnosti stránky kopnik.org,  musiš sa stať oprávneným členom. Kvôli tomu vyplň všetky polia tohto formulára a stlač tlačidlo \"POTVRDIŤ\".",
+    "youHaveToWitnessYourData": "Aby sa ti otvorili všetky možnosti systému, musíš potvrdiť svoje osobné údaje. Kvôli tomu prejdi do miestnosti overenia osobných údajov. "
   },
   "profile": {
-    "language": "jazyk",
-    "firstName": "meno",
-    "lastName": "priezvisko",
-    "birthYear": "Rok narodenia",
-    "passport": "Posledné 4 čísla Občiansky preukaz",
-    "nickname": "prezývka",
-    "submit": "potvrdiť",
-    "submitMessage": "Ты почти зарегистрировался. Tvoja  žiadosť o registráciu do systému kopnik.org bola odoslaná tvojmu overovateľovi a čaká na schválenie. Teraz prejdi na VKontakte  a prečítaj si v súkromnej správe, ako sa spojiť so svojím overovateľom, aby si potvrdil vyplnené  údaje. Veľa úspechov!",
+    "language": "Jazyk",
+    "firstName": "Meno",
+    "lastName": "Priezvisko",
+    "nickname": "Prezývka",
+    "submit": "Potvrdiť",
+    "submitMessage": "Už si takmer zaregistrovaný. Počkaj si na automatickú správu v VKontakte  a postupuj podľa jej pokynov. Veľa štastia!",
     "messagesFromGroup": {
-      "allow": "Stlačte tlačidlo nižšie, aby si sa zapojil do komunikácie na stránke",
-      "allowed": "Komunikácia aktivovaná!"
+      "allow": "POZOR! Prihlás sa na odber automatickeho pomocníka, aby ťa mohol pozývať na kopy ( odber je povinný pre správne fungovanie aplikácie )",
+      "allowed": "Spojenie aktivované!"
     },
-    "role": "Moja úloha v kopnej občine (stlač, aby si videl kritéria)",
+    "role": "Moja úloha v kopnej občine ",
     "roles": [
       {
-        "title": "Authentic Kopa man",
+        "title": "Kopný muž",
         "criteria": [
           "Má rodinu",
           "Má syna, ktorý má rodinu",
@@ -32,8 +31,8 @@
         "title": "Kopný muž (zmiernené nároky, navrhnuté S. Danilovom)",
         "criteria": [
           "Má rodinu",
-          "Mám syna alebo dcéru",
-          "Mám 30 rokov",
+          "Má syna alebo dcéru",
+          "Má 30 a viac rokov",
           "Má bývanie (dom/ byt/ podnájom)",
           "Má hospodárstvo (svoje podnikanie/ prácu)"
         ]
@@ -41,43 +40,98 @@
       {
         "title": "Snažím sa stať kopným mužom",
         "criteria": [
-          "mládenec / muž"
+          "Mládenec / junák"
         ]
       },
       {
         "title": "Som žena"
       },
       {
-        "title": "cudzinec/prisťahovalec"
+        "title": "Ja nie som Slovan ( predstaviteľ iného národa )"
       }
     ],
-    "location": "Miesto trvalého pobytu ( nie prechodneho), s presnosťou na číslo domu"
+    "location": "Miesto trvalého pobytu s presnosťou na číslo domu",
+    "alert": [
+      "Pozor! Ak chceš otvoriť všetky možnosti stránky kopnik.org, musíš sa stať oprávneným členom. Kvôli tomu vyplň všetky polia tohto formulára a stlač nižšie tlačidlo „POTVRDIŤ“. Ak tlačidlo nie je aktívne, skontroluj pozorne ešte raz, že či sú vyplnené všetky polia.",
+      "Pozor! Tvoje osobné údaje boli odoslané na server. Ak chceš otvoriť všetky možnosti systému, musíš ich potvrdiť. Kvôli tomu prejdi do <a target='_blank' href=' {witnessChatInviteLink }'> miestnosti na overenie osobných údajov </a>.",
+      "V poriadku. Tvoje osobné údaje sú overené a sú ti dostupné všetky možnosti systému.  Ak v dôsledku životných zmien dôjde k zastaraniu osobných údajov, vykonaj ich zmeny a pošli ich na opätovné overenie stlačením tlačidla nižšie „POTVRDIŤ“.",
+      "Pozor! Tvoje osobné údaje boli overovateľom zamietnuté. Ak sa chceš stať oprávneným členom systému, musíš v nich vykonať zmeny a pošli na opätovné overenie stlačením tlačidla nižšie „POTVRDIŤ“."
+    ],
+    "patronymic": "Stredné meno\n( nepovinné )",
+    "submitDialog": {
+      "title": "Potvrdiť osobné údaje?",
+      "text": "Po potvrdení osobných údajov ťa zoznámim s tvojim osobným overovateľom, u ktorého môžeš potvrdiť ich pravosť. Zoznam obnovených osobných údajov vyžadujúcich overenie:"
+    }
   },
   "witness": {
-    "confirm": "potvrdiť",
-    "decline": "zamietnuť"
+    "confirm": "Potvrdiť",
+    "decline": "Zamietnuť",
+    "openWitnessChat": "Miestnosť"
   },
   "login": {
-    "login": "Prihlásiť sa pomocou VKontakte"
+    "login": "Prihlásiť sa pomocou VKontakte ( VK )"
   },
   "drawer": {
-    "main": "mapa",
+    "main": "Mapa",
     "ten": "Moja desiatka",
-    "tenChat": "Чат десятки",
-    "foremanChat": "Чат старшины",
+    "tenChat": "Miestnosť desiatky",
+    "foremanChat": "Miestnosť staršiny",
     "witness": "Prihlášky na vstup",
-    "thanks": "poďakovanie",
-    "help": "nápoveda",
-    "logout": "odhlásenie"
+    "thanks": "Poďakovanie",
+    "help": "Nápoveda",
+    "logout": "Odhlásenie"
   },
   "errors": {
-    "underConstruction": "Táto funkcionalita bude dostupná už čoskoro vo verzii v0.3.0"
+    "underConstruction": "Táto možnosť bude dostupná už čoskoro vo verzii v0.3.0"
   },
   "details": {
-    "toChat": "rozhovor",
-    "toKopa": "kopa",
-    "notToKopa": "nepozvať",
-    "toForeman": "staršina",
-    "resetForeman": "nestaršina"
+    "toChat": "Besedovať",
+    "toKopa": "Na kopu",
+    "notToKopa": "Nepozvať",
+    "toForeman": "Vybrať",
+    "resetForeman": "Odvolať staršinu",
+    "toForemanQuestion": "Vybrať za staršinu?",
+    "toForemanInfo": "Žiadosť odoslaná. Očakávaj odpoveď od staršinu.",
+    "resetForemanQuestion": "Si si istý, že chceš odvolať staršinu?",
+    "resetForemanInfo": "Tento kopník už pre teba nie je viac staršinom",
+    "cancelForemanRequest": "Zrušiť žiadosť.",
+    "cancelForemanRequestQuestion": "Zrušiť žiadosť?",
+    "cancelForemanRequestInfo": "Žiadosť zrušená"
+  },
+  "quotes": [
+    {
+      "value": "Sme povolaní tvoriť vlastné veci a naším spôsobom, slovanské po slovansky."
+    },
+    {
+      "value": "Národ, zabúdajúci na svoju kultúru, dejiny, tradície <...>, je odsúdený na vymretie. "
+    }
+  ],
+  "kopaDialog": {
+    "title": "Zvolať mužov na kopu?",
+    "subject": {
+      "label": "Téma besedy",
+      "hint": "Tu vyplň tému nadchádzajúcej kopy."
+    },
+    "afterInfo": "Kopa zvolaná."
+  },
+  "subordinates": {
+    "confirmForemanRequest": "Prijať do desiatky",
+    "confirmForemanRequestInfo": "Prijatý do desiatky",
+    "declineForemanRequest": "Zamietnuť",
+    "declineForemanRequestInfo": "Správa o zamietnutí bola odoslaná",
+    "removeFromSubordinates": "Vylúčiť z desiatky",
+    "removeFromSubordinatesInfo": "Vylúčený z desiatky",
+    "removeFromSubordinatesQuestion": "Vylúčiť z desiatky?"
+  },
+  "definitions": {
+    "foreman": "Staršina desiatky v Kopnom práve je kopníkom, ktorému desiatka zverila  zastupovanie záujmov svojich rodín na kopách, na ktorých sa stretávajú zástupcovia rôznych desiatok. Zákon Kopného práva hovorí: „Na čom sa starší dohodli, na tom budú mladší stáť.“",
+    "subordinate": "Podriadeným v desiatke je kopník, ktorý  vybraním staršinu ho zároveň poveril zastupovaním záujmov svojej rodiny na kopách, kde sa stretávajú zástupcovia rôznych desiatok. Zákon Kopného práva hovorí: „Na čom sa starší dohodli, na tom budú mladší stáť.“"
+  },
+  "alert": {
+    "close": "Zavrieť",
+    "update": "Potvrdiť",
+    "needUpdate": "Je dostupná nová verzia aplikácie.",
+    "failedToFetch": "Nie je spojenie",
+    "updateNetworkStatus": "Znovu sa pripojiť"
   }
 }
