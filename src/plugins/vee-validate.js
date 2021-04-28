@@ -32,6 +32,7 @@ import ru from 'vee-validate/dist/locale/ru.json';
 import sk from 'vee-validate/dist/locale/sk.json';
 import pl from 'vee-validate/dist/locale/pl.json';
 import de from 'vee-validate/dist/locale/de.json';
+import cs from 'vee-validate/dist/locale/cs.json';
 import messages from "@/locales";
 
 // Install ru and others messages.
@@ -41,6 +42,7 @@ localize({
     sk,
     pl,
     de,
+    cs,
 })
 
 // названия полей берутся из vue-i18n секция "profile"

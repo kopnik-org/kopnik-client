@@ -3,6 +3,7 @@ import en from './en/main.json'
 import sk from './sk/main.json'
 import pl from './pl/main.json'
 import de from './de/main.json'
+import cs from './cs/main.json'
 
 const messages = {
   ru,
@@ -10,6 +11,7 @@ const messages = {
   sk,
   pl,
   de,
+  cs,
 }
 
 export default messages
