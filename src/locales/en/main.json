@@ -67,7 +67,9 @@
     "openWitnessChat": "Chat"
   },
   "login": {
-    "login": "Login with VK"
+    "login": "Login with VK",
+    "KopaLaw": "Kopa Law",
+    "insideEachPhone": "on the phone of every Slave"
   },
   "drawer": {
     "profile": "Profile",

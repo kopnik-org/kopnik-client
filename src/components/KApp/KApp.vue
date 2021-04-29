@@ -73,9 +73,9 @@ export default {
     }
   },
   watch: {
-    'application.user.locale': async function (current, old) {
+    'application.localeManager._currentLocale': async function (current, old) {
       if (current) {
-        this.followUserLocale()
+        await this.followLocale()
       }
     },
     /**
@@ -96,23 +96,21 @@ export default {
     },
   },
   methods: {
-    async followUserLocale() {
-      const locale = this.application.user.locale
-      // задаем текущую локаль приложению
-      container.localeManager.currentLocale = locale
+    async followLocale() {
+      const locale = this.application.localeManager.currentLocale
       // vue-i18n меняем сообщения в разметке страниц
       this.$options.i18n.locale = locale.name
       // vuetify меняем сообщения в разметке vuetify
       this.$vuetify.lang.current = locale.name
       // vee-valiedate меняем сообщения об ошибках валидации
       localize(locale.name)
-
     },
   },
   created() {
 
   },
   mounted() {
+    this.followLocale()
     this.$nextTick(() => {
       // this.map=
       // this.$refs.map.mapObject.setView([51.505, -0.09], 13)

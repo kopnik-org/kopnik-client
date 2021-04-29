@@ -66,10 +66,13 @@
   "witness": {
     "confirm": "Potvrdiť",
     "decline": "Zamietnuť",
-    "openWitnessChat": "Miestnosť"
+    "openWitnessChat": "Miestnosť",
+    "emptyList": "Žiadne žiadosti"
   },
   "login": {
-    "login": "Prihlásiť sa pomocou VKontakte ( VK )"
+    "login": "Prihlásiť sa pomocou VKontakte (VK)",
+    "KopaLaw": "Kopné Právo",
+    "insideEachPhone": "v telefóne každého Slovana"
   },
   "drawer": {
     "main": "Mapa",

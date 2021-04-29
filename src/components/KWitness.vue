@@ -75,7 +75,7 @@
     </v-dialog>
 
     <div v-if="application.user.witnessRequests && !application.user.witnessRequests.length"
-         class="overline font-weight-bold my-auto" style="font-size: 1.625rem !important; color: #BDBD">Заявок нет
+         class="overline font-weight-bold my-auto" style="font-size: 1.625rem !important; color: #BDBD">{{ $t('witness.emptyList') }}
     </div>
   </v-container>
 </template>

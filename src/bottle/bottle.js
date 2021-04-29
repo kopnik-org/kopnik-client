@@ -36,7 +36,7 @@ bottle.factory('env', function env() {
 })
 bottle.service('localeManager', function localeManager() {
   const localeManager = new LocaleManager()
-  localeManager.currentLocale = 'ru'//container.env === 'development' ? 'en' : 'ru'
+  // localeManager.currentLocale = 'ru'//container.env === 'development' ? 'en' : 'ru'
   return localeManager
 })
 bottle.service('cookieService', CookieService, 'constants')

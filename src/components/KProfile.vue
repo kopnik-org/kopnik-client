@@ -155,6 +155,7 @@ export default {
     async locale_change(event) {
       // задаем локаль текущему пользователю
       await this.application.user.setLocale(event)
+      this.application.localeManager.currentLocale= event
     }
   },
   async created() {

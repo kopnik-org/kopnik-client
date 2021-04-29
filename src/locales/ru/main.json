@@ -66,10 +66,13 @@
   "witness": {
     "confirm": "Заверить",
     "decline": "Отклонить",
-    "openWitnessChat": "Чат"
+    "openWitnessChat": "Чат",
+    "emptyList": "Заявок нет"
   },
   "login": {
-    "login": "Войте через ВКонтакте"
+    "login": "Войти через ВКонтакте",
+    "KopaLaw": "Копное Право",
+    "insideEachPhone": "в телефоне каждого славянина"
   },
   "drawer": {
     "profile": "Личные данные",

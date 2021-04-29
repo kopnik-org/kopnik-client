@@ -18,10 +18,14 @@
     "docker:push": "docker push kopnikorg/kopnik-client:latest"
   },
   "dependencies": {
+    "@panter/vue-i18next": "^0.15.2",
     "async-lock": "^1.2.4",
     "bottlejs": "^1.7.2",
     "client-oauth2": "^4.3.3",
     "core-js": "^3.6.5",
+    "i18next": "^20.2.2",
+    "i18next-browser-languagedetector": "^6.1.0",
+    "i18next-http-backend": "^1.2.2",
     "js-base64": "^3.6.0",
     "keypather": "^3.1.0",
     "leaflet": "^1.6.0",
@@ -33,6 +37,8 @@
     "vee-validate": "^3.3.7",
     "vue": "^2.6.11",
     "vue-i18n": "^8.19.0",
+    "vue-i18next": "^0.9.4",
+    "vue-params": "^0.9.4",
     "vue-promise-btn": "^2.1.0",
     "vue-router": "^3.4.9",
     "vue-the-mask": "^0.11.1",

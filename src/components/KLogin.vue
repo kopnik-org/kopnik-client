@@ -1,33 +1,31 @@
 <template>
   <v-row login class="fill-height pa-0 flex-column flex-nowrap align-center"
          style="position: fixed; top:0; left:0; right: 0; z-index: 100">
-    <v-col>
+    <v-col id="top">
 
     </v-col>
     <v-avatar size="170">
       <v-img src="img/logo_circle.png"></v-img>
     </v-avatar>
     <div class="pa-1 tagline text-center">
-      <span>КОПНОЕ ПРАВО</span>
-      <div style="font-size: smaller">в телефоне каждого славянина</div>
+      <span>{{ $t('login.KopaLaw') }}</span>
+      <div style="font-size: smaller">{{ $t('login.insideEachPhone') }}</div>
     </div>
-    <v-col class="d-flex align-end" style="width: inherit">
+    <v-col id="bottom" class="d-flex flex-column align-center" style="width: inherit; justify-content: space-between">
+      <div id="flags">
+        <img v-for="eachLocale in locales"
+             :key="eachLocale.locale"
+             :src="eachLocale.img"
+             :title="eachLocale.title"
+             @click="onFlagClick(eachLocale.locale)"
+        />
+      </div>
 
-
-      <div id="vk_auth"></div>
-      <v-btn  v-if="application.user===null"  color="primary" @click="login2_click" class="mb-12">Войти через ВКонтакте</v-btn>
-      <!--            <v-btn @click="vk_login_click" class="mt-4">Войти через ВКонтакте</v-btn>-->
-      <!--        <div id="vk_auth" ></div>-->
+      <!--      <div id="vk_auth"></div>-->
+      <v-btn v-if="application.user===null" color="primary" @click="login2_click" class="mb-12">
+        {{ $t('login.login') }}
+      </v-btn>
     </v-col>
-    <!--        <div class="text-center mt-2 ml-5 mr-5" style="font-size: smaller; -min-height: 100px; -max-width: 250px;">
-     &lt;!&ndash;           <div class="" style="">{{ $t(`quotes[${quoteIndex}].value`) }}</div>
-                <div class="font-weight-light mt-1" style="font-size: smaller">
-                    <div>{{ $t(`quotes[${quoteIndex}].owner.name`) }}</div>
-                    <div>{{ $t(`quotes[${quoteIndex}].owner.position`) }}</div>
-                </div>&ndash;&gt;
-
-            </div>-->
-
   </v-row>
 </template>
 <script>
@@ -44,18 +42,53 @@ export default {
   data() {
     return {
       application: container.application,
-      quoteIndex: 0
+      quoteIndex: 0,
+      locales: [
+        {
+          locale: 'ru',
+          title: 'Русский',
+          img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/shop/products/flag_rf_enl.jpg?itok=ULSeepRk'
+        },
+        {
+          locale: 'sk',
+          title: 'Slovenský',
+          img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_slovakija_enl.jpg?itok=_XTuiL2L'
+        },
+        {
+          locale: 'pl',
+          title: 'Polski',
+          img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_polsha_enl.jpg?itok=FqbWDb5P'
+        },
+        {
+          locale: 'cs',
+          title: 'Český',
+          img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_chehija_enl.jpg?itok=sGu3fL8K'
+        },
+        {
+          locale: 'de',
+          title: 'German',
+          img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_germanija_enl.jpg?itok=ajc0p1k8'
+        },
+        {
+          locale: 'en',
+          title: 'English',
+          img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_usa_enl.jpg?itok=7v3_HW-U'
+        },
+      ]
     }
   },
   props: {},
   computed: {},
   watch: {
-    'application.user': function(cur){
-      if (cur===null){
+    'application.user': function (cur) {
+      if (cur === null) {
       }
     }
   },
   methods: {
+    onFlagClick(localeString) {
+      container.application.localeManager.currentLocale = localeString
+    },
     login_click() {
       location.href = container.constants.messenger.loginUrl
     },
@@ -69,10 +102,10 @@ export default {
       this.quoteIndex = _.random(i18n.messages.ru.length)
     }, 30000)
   },
-  async mounted(){
-/*    container.VK.Widgets.Auth("vk_auth", {"onAuth":function(data) {
-      alert('user '+data['uid']+' authorized')
-    }});*/
+  async mounted() {
+    /*    container.VK.Widgets.Auth("vk_auth", {"onAuth":function(data) {
+          alert('user '+data['uid']+' authorized')
+        }});*/
   }
 }
 </script>
@@ -81,5 +114,10 @@ export default {
   border-radius: 4px;
   line-height: 1;
   background-color: white;
+}
+
+#flags img {
+  width: 50px;
+  margin: 0 1px;
 }
 </style>

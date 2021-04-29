@@ -69,15 +69,7 @@ describe('components Witness', () => {
   })
 
   describe('draw', () => {
-    it('without witness chat', async () => {
-      request.witnessChatInviteLink = null
-      await flushPromises()
-      expect(wrapper.findAllComponents({ref: 'witnessRequest'}).wrappers).toHaveLength(1)
-      expect(wrapper.findAllComponents({ref: 'witnessRequest'}).wrappers[0].vm.$props.value).toBe(request)
-      expect(wrapper.vm.$refs.confirmAsk).toHaveLength(0) // все же confirmAsk массив, потому что при первой отрисовке он был не пустой
-      expect(wrapper.vm.$refs.openWitnessChat).toHaveLength(0)
-    })
-    it('with witness chat', async () => {
+    it('done', async () => {
       await flushPromises()
       expect(wrapper.findAllComponents({ref: 'witnessRequest'}).wrappers).toHaveLength(1)
       expect(wrapper.findAllComponents({ref: 'witnessRequest'}).wrappers[0].vm.$props.value).toBe(request)

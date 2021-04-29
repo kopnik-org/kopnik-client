@@ -63,6 +63,9 @@ export default class Application {
 
     apiEvent.addEventListener(ApiEventEnum.Fetch, (event) => this.checkUpdate(event.detail.version))
     apiEvent.addEventListener(ApiEventEnum.Fetch, (event) => this.checkNetwork(event.detail.error))
+
+    this.localeManager = container.localeManager
+    this.localeManager.detectLocale()
   }
 
   /**
@@ -322,7 +325,15 @@ export default class Application {
       const user = new Kopnik()
       await user.reload()
       this.user = Kopnik.merge(user)
-      container.localeManager.currentLocale = user.locale
+
+      // если пользователь новый, то выставляю локаль, которую он выбрал на флагах
+      if (user.status === Kopnik.Status.NEW) {
+        user.locale = container.localeManager.currentLocale
+      }
+      // иначе которая сохранена в БД
+      else {
+        container.localeManager.currentLocale = user.locale
+      }
       this.logger.info('user authenticated', this.user.plain)
     } catch (err) {
       if ((err instanceof KopnikApiError) && err.message.match(/auth/i)) {

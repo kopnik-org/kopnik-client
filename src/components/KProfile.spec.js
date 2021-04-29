@@ -110,7 +110,7 @@ describe('components KProfile', () => {
 
   it('locale', async () => {
     const kopnikWrapper = wrapper.findComponent(KopnikVue)
-    const en = container.localeManager.getLocaleByShortName('en')
+    const sk = container.localeManager.getLocaleByShortName('sk')
 
 
     fetch.mockIfEx(/updateLocale/, 'OK')
@@ -119,12 +119,14 @@ describe('components KProfile', () => {
     kopnikWrapper.findComponent({ref:'locale'}).get('input[type=hidden]').setValue('English')
     kopnikWrapper.findComponent({ref:'locale'}).get('input[type=hidden]').setValue({value:'en', text: 'English'})
     */
-    await kopnikWrapper.vm.locale_change(en)
+    await kopnikWrapper.vm.locale_change(sk)
     await flushPromises()
     // KProfile работает с копией Пользователя (чё???) и
     // в компонент KopnikVue передает тоже копию
     // Реальный Копник получит обновление локали только после того, как изменится локаль на сервере
-    expect(container.application.user.locale).toBe(en)
-    expect(container.localeManager.currentLocale).toBe(en)
+    expect(container.application.user.locale).toBe(sk)
+    expect(container.localeManager.currentLocale).toBe(sk)
+
+    await flushPromises()
   })
 })
