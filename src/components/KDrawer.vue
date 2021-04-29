@@ -87,7 +87,7 @@
           <v-list-item-title>{{ $t('drawer.thanks') }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link @click="onHelpClick">
         <v-list-item-action>
           <v-icon>mdi-help-circle</v-icon>
         </v-list-item-action>
@@ -159,7 +159,9 @@ export default {
     },
   },
   methods: {
-
+    onHelpClick(){
+      window.open(`https://github.com/kopnik-org/kopnik-wiki/tree/main/${this.application.user.locale.name}`)
+    },
     async witness_click() {
       if (await this.application.forwardUserToBeConfirmed()) {
         return
