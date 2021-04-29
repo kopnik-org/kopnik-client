@@ -4,7 +4,7 @@
             elevation="12" class="mb-10" width="100%" max-width="350px">
       <kopnik-view ref="witnessRequest"
                    :value="eachHalfUser" locale fio role location readonly></kopnik-view>
-      <v-card-actions v-if="eachHalfUser.witnessChatInviteLink">
+      <v-card-actions>
         <v-btn ref="confirmAsk"
                color="success" class="flex-grow-1"
                @click="onConfirmAskClick(eachHalfUser)"
@@ -104,13 +104,13 @@ export default {
   computed: {},
   watch: {},
   methods: {
-    onConfirmAskClick(halfUser){
-      this.currentHalfUser= halfUser
-      this.confirmDialog=true
+    onConfirmAskClick(halfUser) {
+      this.currentHalfUser = halfUser
+      this.confirmDialog = true
     },
-    onDeclineAskClick(halfUser){
-      this.currentHalfUser= halfUser
-      this.declineDialog=true
+    onDeclineAskClick(halfUser) {
+      this.currentHalfUser = halfUser
+      this.declineDialog = true
     },
 
     /**
@@ -121,7 +121,7 @@ export default {
     async updateRequestStatus_click(status) {
       this.currentHalfUser.status = status
       await this.application.user.resolveWitnessRequest(this.currentHalfUser)
-      this.confirmDialog=this.declineDialog= false
+      this.confirmDialog = this.declineDialog = false
     },
     onOpenWitnessChatClick(halfUser) {
       open(halfUser.witnessChatInviteLink,)
