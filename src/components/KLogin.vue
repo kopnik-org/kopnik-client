@@ -12,7 +12,8 @@
       <div style="font-size: smaller">{{ $t('login.insideEachPhone') }}</div>
     </div>
     <v-col id="bottom" class="d-flex flex-column align-center" style="width: inherit; justify-content: space-between">
-      <div id="flags">
+      <div v-if="application.user===null"
+           id="flags">
         <img v-for="eachLocale in locales"
              :key="eachLocale.locale"
              :src="eachLocale.img"
@@ -20,11 +21,14 @@
              @click="onFlagClick(eachLocale.locale)"
         />
       </div>
-
-      <!--      <div id="vk_auth"></div>-->
-      <v-btn v-if="application.user===null" color="primary" @click="login2_click" class="mb-12">
+<!--      <div style="flex-grow: 1000"></div>-->
+      <v-btn v-if="application.user===null" color="primary" @click="login2_click">
         {{ $t('login.login') }}
       </v-btn>
+      <div class="mt-0 mb-8 " style="color: #555; font-size: .95em">
+        <a target="_blank" :href="`https://github.com/kopnik-org/kopnik-wiki/blob/main/${application.localeManager.currentLocale.name}/readme.md`"> {{ $t('login.aboutUs') }} </a> |
+        <a target="_blank" :href="`https://github.com/kopnik-org/kopnik-wiki/blob/main/${application.localeManager.currentLocale.name}/contacts.md`"> {{ $t('login.contacts') }} </a>
+      </div>
     </v-col>
   </v-row>
 </template>
@@ -43,6 +47,7 @@ export default {
     return {
       application: container.application,
       quoteIndex: 0,
+      // https://www.megaflag.ru/information/spravochnaya-informaciya/flagi-stran
       locales: [
         {
           locale: 'ru',
@@ -54,25 +59,25 @@ export default {
           title: 'Slovenský',
           img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_slovakija_enl.jpg?itok=_XTuiL2L'
         },
-        {
+/*        {
           locale: 'pl',
           title: 'Polski',
           img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_polsha_enl.jpg?itok=FqbWDb5P'
-        },
+        },*/
         {
           locale: 'cs',
           title: 'Český',
           img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_chehija_enl.jpg?itok=sGu3fL8K'
         },
-        {
+/*        {
           locale: 'de',
           title: 'German',
           img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_germanija_enl.jpg?itok=ajc0p1k8'
-        },
+        },*/
         {
           locale: 'en',
           title: 'English',
-          img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_usa_enl.jpg?itok=7v3_HW-U'
+          img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/shop/products/flag_velikobritanija_new.jpg?itok=WpoIClkv'
         },
       ]
     }

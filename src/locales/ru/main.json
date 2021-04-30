@@ -72,7 +72,9 @@
   "login": {
     "login": "Войти через ВКонтакте",
     "KopaLaw": "Копное Право",
-    "insideEachPhone": "в телефоне каждого славянина"
+    "insideEachPhone": "в телефоне каждого славянина",
+    "aboutUs": "О нас",
+    "contacts": "Контакты"
   },
   "drawer": {
     "profile": "Личные данные",
