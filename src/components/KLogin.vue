@@ -1,9 +1,11 @@
 <template>
-  <v-row login class="fill-height pa-0 flex-column flex-nowrap align-center"
+  <v-row login class="fill-height pa-0 flex-column flex-nowrap align-center  no-gutters"
          style="position: fixed; top:0; left:0; right: 0; z-index: 100">
+<!--    top-->
     <v-col id="top">
 
     </v-col>
+<!--    middle-->
     <v-avatar size="170">
       <v-img src="img/logo_circle.png"></v-img>
     </v-avatar>
@@ -11,9 +13,17 @@
       <span>{{ $t('login.KopaLaw') }}</span>
       <div style="font-size: smaller">{{ $t('login.insideEachPhone') }}</div>
     </div>
-    <v-col id="bottom" class="d-flex flex-column align-center" style="width: inherit; justify-content: space-between">
+<!--    bottom-->
+    <v-col id="bottom" class="d-flex flex-column align-center space-between" >
+
       <div v-if="application.user===null"
-           id="flags">
+           class="my-3 " style="color: #555; font-size: .95em">
+        <a target="_blank" :href="`https://github.com/kopnik-org/kopnik-wiki/blob/main/${application.localeManager.currentLocale.name}/readme.md`"> {{ $t('login.aboutUs') }} </a> |
+        <a target="_blank" :href="`https://github.com/kopnik-org/kopnik-wiki/blob/main/${application.localeManager.currentLocale.name}/contacts.md`"> {{ $t('login.contacts') }} </a>
+      </div>
+
+      <div v-if="application.user===null"
+           id="flags" class="mb-3 " >
         <img v-for="eachLocale in locales"
              :key="eachLocale.locale"
              :src="eachLocale.img"
@@ -21,14 +31,13 @@
              @click="onFlagClick(eachLocale.locale)"
         />
       </div>
-<!--      <div style="flex-grow: 1000"></div>-->
-      <v-btn v-if="application.user===null" color="primary" @click="login2_click">
+      <div style="flex-grow: 1000"></div>
+      <v-btn v-if="application.user===null"
+             class="mb-12 "
+             color="primary"
+             @click="login2_click">
         {{ $t('login.login') }}
       </v-btn>
-      <div class="mt-0 mb-8 " style="color: #555; font-size: .95em">
-        <a target="_blank" :href="`https://github.com/kopnik-org/kopnik-wiki/blob/main/${application.localeManager.currentLocale.name}/readme.md`"> {{ $t('login.aboutUs') }} </a> |
-        <a target="_blank" :href="`https://github.com/kopnik-org/kopnik-wiki/blob/main/${application.localeManager.currentLocale.name}/contacts.md`"> {{ $t('login.contacts') }} </a>
-      </div>
     </v-col>
   </v-row>
 </template>
@@ -74,11 +83,11 @@ export default {
           title: 'German',
           img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_germanija_enl.jpg?itok=ajc0p1k8'
         },*/
-        {
+/*        {
           locale: 'en',
           title: 'English',
           img: 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/shop/products/flag_velikobritanija_new.jpg?itok=WpoIClkv'
-        },
+        },*/
       ]
     }
   },
