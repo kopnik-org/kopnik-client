@@ -85,9 +85,8 @@
         >
         </vue2-ant-path>
       </template>
+
       <!--            копники-->
-
-
       <l-marker v-for="(eachMarker) of markers" :key="'marker'+eachMarker.value.id"
                 :lat-lng="eachMarker.value.location"
                 :zIndexOffset="eachMarker.zIndex"
@@ -392,7 +391,8 @@ export default {
     markers() {
       const result = this.loadedKopniks
         .map(eachVisibleKopnik => {
-          const size = Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE_18 * Math.pow(eachVisibleKopnik.rank, 1 / 3 * K) / Math.pow(2, 18 - this.value.map.zoom)))
+          // const size = Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE_18 * Math.pow(eachVisibleKopnik.rank, 1 / 3 * K) / Math.pow(2, 18 - this.value.map.zoom)))
+          const size = MIN_MARKER_SIZE * eachVisibleKopnik.rank
           const isVisible = size < MAX_MARKER_SIZE
           return {
             value: eachVisibleKopnik,
