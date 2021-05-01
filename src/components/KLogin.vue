@@ -17,7 +17,7 @@
     <v-col id="bottom" class="d-flex flex-column align-center space-between" >
 
       <div v-if="application.user===null"
-           class="my-3 " style="color: #555; font-size: .95em">
+           class="pa-1 ma-3 tagline " style="color: #555; font-size: .9em">
         <a target="_blank" :href="`https://github.com/kopnik-org/kopnik-wiki/blob/main/${application.localeManager.currentLocale.name}/readme.md`"> {{ $t('login.aboutUs') }} </a> |
         <a target="_blank" :href="`https://github.com/kopnik-org/kopnik-wiki/blob/main/${application.localeManager.currentLocale.name}/contacts.md`"> {{ $t('login.contacts') }} </a>
       </div>
