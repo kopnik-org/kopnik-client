@@ -155,7 +155,7 @@ export default {
     async locale_change(event) {
       // задаем локаль текущему пользователю
       await this.application.user.setLocale(event)
-      this.application.localeManager.currentLocale= event
+      this.application.localeManager.currentLocale = event
     }
   },
   async created() {
@@ -163,7 +163,13 @@ export default {
 
     this.request = new Kopnik
     this.request.merge(parse(Kopnik, this.application.user.plain))
-    const tmp= this.request
+    if (!this.request.location.lat) {
+      this.request.location = {
+        lat: 54.763,
+        lng: 32.106,
+      }
+    }
+    const tmp = this.request
   },
   async mounted() {
     this.wasMessagesFromGroupAllowed = this.isMessagesFromGroupAllowed = await this.application.user.isMessagesFromGroupAllowed()
