@@ -85,7 +85,7 @@ export default class Application {
    * @param {KopnikApiError} error
    */
   checkNetwork(error) {
-    if (error && error.code === 3001) {
+    if (error && (error.code === 3001 || error.code===502)) {
       this.failedToFetch = true
       error.preventDefault = true
     } else {
