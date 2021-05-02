@@ -35,6 +35,13 @@ module.exports = {
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
       'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
     },
+    proxy: {
+      '^/(api|auth)': {
+        target: 'http://localhost:8081',
+        // ws: true,
+        changeOrigin: true
+      },
+    },
   },
-  chainWebpack: config => config.optimization.minimize(false)
+  chainWebpack: config => config.optimization.minimize(false),
 }
