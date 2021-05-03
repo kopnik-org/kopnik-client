@@ -10,6 +10,7 @@
       "Pozor! Tvé osobní údaje byly odeslány na server. Pokud chceš otevřít všechny možnosti systému, musíš je potvrdit. K tomu přejdi do <a target='_blank' href=' {witnessChatInviteLink }'> místnosti pro ověření osobních údajů </a>.\n \n",
       "V pořádku. Tvé osobní údaje jsou ověřeny a jsou ti dostupné všechny možnosti systému. Pokud v důsledku životních změn dojde k zastarání osobních údajů, proveď jejich změny a pošli je na opětovné ověření stisknutím tlačítka níže „POTVRDIT“.\n \n",
       "Pozor! Tvé osobní údaje byly ověřovatelem zamítnuty. Pokud se chceš stát oprávněným členem systému, musíš v nich provést změny a pošli na opětovné ověření stisknutím tlačítka níže „POTVRDIT“. "
+
     ],
     "language": "Jazyk",
     "firstName": "Jméno",
@@ -72,7 +73,9 @@
   "login": {
     "login": "Přihlásit se pomocí VKontaktě (VK)",
     "KopaLaw": "Kopné Právo\n",
-    "insideEachPhone": "v telefonu každého Slovana\n"
+    "insideEachPhone": "v telefonu každého Slovana",
+    "aboutUs": "O nás",
+    "contacts": "Kontakty"
   },
   "drawer": {
     "profile": "Osobní údaje",
@@ -136,8 +139,8 @@
     "removeFromSubordinatesQuestion": "Vyloučit z desítky?"
   },
   "definitions": {
-    "foreman": "Staršina desítky v kopném právu je kopníkem, kterému desítka svěřila zastupování zájmů svých rodin na kopách, na kterých se setkávají zástupci různých desítek. Zákon kopného práva říká: „Na čem se starší dohodli, na tom budou mladší stát“.\n \n",
-    "subordinate": "Podřízeným v desítce je kopník, který vybráním staršiny ho zároveň pověřil zastupováním zájmů své rodiny na kopách, kde se setkávají zástupci různých desítek. Zákon kopného práva říká: „Na čem se starší dohodli, na tom budou mladší stát“.\n \n"
+    "foreman": "Staršina desítky v kopném právu je kopníkem, kterému desítka svěřila zastupování zájmů svých rodin na kopách, na kterých se setkávají zástupci různých desítek. Zákon kopného práva říká: „Na čem se starší dohodli, na tom budou mladší stát“.",
+    "subordinate": "Podřízeným v desítce je kopník, který vybráním staršiny ho zároveň pověřil zastupováním zájmů své rodiny na kopách, kde se setkávají zástupci různých desítek. Zákon kopného práva říká: „Na čem se starší dohodli, na tom budou mladší stát“."
   },
   "dialog": {
     "yes": "Ano",

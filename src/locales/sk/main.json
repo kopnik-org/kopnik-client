@@ -72,7 +72,9 @@
   "login": {
     "login": "Prihlásiť sa pomocou VKontakte (VK)",
     "KopaLaw": "Kopné Právo",
-    "insideEachPhone": "v telefóne každého Slovana"
+    "insideEachPhone": "v telefóne každého Slovana",
+    "aboutUs": "O nás",
+    "contacts": "Kontakty"
   },
   "drawer": {
     "main": "Mapa",
