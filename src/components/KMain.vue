@@ -173,8 +173,10 @@
                     @dblclick="avatar_dblclick(value.selected)">
           </k-avatar>
           <v-list-item-content class="pl-5">
-            <div class="">{{ value.selected.name }}</div>
-            <v-list-item-subtitle class="">{{ selectedRole }}</v-list-item-subtitle>
+            <div v-if="value.selected.status==value.selected.constructor.Status.CONFIRMED">{{ value.selected.name }}</div>
+            <div v-else>{{ $t('profile.firstName') }} {{ $t('profile.patronymic') }} {{ $t('profile.lastName') }}</div>
+            <v-list-item-subtitle v-if="value.selected.status==value.selected.constructor.Status.CONFIRMED">{{  selectedRole }}</v-list-item-subtitle>
+            <v-list-item-subtitle v-else>{{ $t('profile.roles[0].title') }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -400,7 +402,7 @@ export default {
             // size: MIN_MARKER_SIZE,
             // icon: L.divIcon({
             icon: L.icon({
-              iconUrl: eachVisibleKopnik.photo,
+              iconUrl: eachVisibleKopnik.photo || '/img/logo_circle.png',
               iconSize: [size, size],
               iconAnchor: [size / 2, size / 2],
               className: 'map_avatar' + (this.application.user === eachVisibleKopnik ? ' map_avatar-user' : '') + (this.value.selected === eachVisibleKopnik ? ' map_avatar-selected' : '') + (isVisible ? '' : ' map_avatar-oversized'),

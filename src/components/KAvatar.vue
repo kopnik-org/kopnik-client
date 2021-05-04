@@ -3,7 +3,7 @@
              color="orange">
         <v-avatar :size="size"
                   @click.native="avatar_click" @dblclick.native="avatar_dblclick">
-            <img :src="value.photo" style="object-fit: cover; "/>
+            <img :src="value.photo || '/img/logo_circle.png'" style="object-fit: cover; "/>
         </v-avatar>
     </v-badge>
 </template>
