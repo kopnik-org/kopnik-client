@@ -12,11 +12,162 @@ let thanks = [
     },
     deals: [
       {
-        project: 'kopnik.org v0.2',
-        role: 'Переводчик (словенский)',
+        project: 'Перевод на словакский язык kopnik.org v0.2',
+        role: 'Переводчик',
         description: null,
         date: new Date(2020, 3, 13),
-        link: 'https://github.com/kopnik-org/kopnik-client/blob/main/src/locales/sk.json',
+        link: 'https://github.com/kopnik-org/kopnik-client/blob/main/src/locales/sk/main.json',
+      },
+      {
+        project: 'Facebook страница kopnik.org на словакском',
+        role: 'Основатель и редактор страницы',
+        description: null,
+        date: new Date(2021, 3, 30),
+        link: 'https://www.facebook.com/Kopnikorg-Slovensko-101296908796560',
+      },
+      {
+        project: 'Перевод на словакский kopnik.org',
+        role: 'Переводчик',
+        description: null,
+        date: new Date(2021, 4, 1),
+        link: 'https://github.com/kopnik-org/kopnik-client/blob/main/src/locales/sk/main.json',
+      },
+      {
+        project: 'Перевод на словакский kopnik-wiki',
+        role: 'Переводчик',
+        description: null,
+        date: new Date(2021, 4, 3),
+        link: 'https://github.com/kopnik-org/kopnik-wiki/blob/main/sk/readme.md',
+      },
+      {
+        project: 'Перевод на чешский kopnik.org',
+        role: 'Переводчик',
+        description: null,
+        date: new Date(2021, 4, 4),
+        link: 'https://github.com/kopnik-org/kopnik-client/blob/main/src/locales/cs/main.json',
+      },
+    ]
+  },
+  // Rudolf
+  {
+    who: {
+      // id: 1,
+      uid: null,
+      photo: 'https://sun9-76.userapi.com/impf/c858036/v858036381/b0ccb/jo6u0xO9J08.jpg?size=720x1080&quality=96&sign=45eb994c6dba2adaee761ae01a6b968d&type=album',
+      name: 'Rudolf Svoboda (Čechy)',
+    },
+    deals: [
+      {
+        project: 'Facebook страница kopnik.org на чешском',
+        role: 'Основатель и редактор страницы',
+        description: null,
+        date: new Date(2021, 3, 30),
+        link: 'https://www.facebook.com/Kopnikorg-%C4%8Cechy-Morava-a-Slezko-109367031307453',
+      },
+      {
+        project: 'Перевод на чешский kopnik.org',
+        role: 'Переводчик',
+        description: null,
+        date: new Date(2021, 4, 1),
+        link: 'https://github.com/kopnik-org/kopnik-client/blob/main/src/locales/cs/main.json',
+      },
+      {
+        project: 'Перевод на чешский kopnik-wiki',
+        role: 'Переводчик',
+        description: null,
+        date: new Date(2021, 4, 3),
+        link: 'https://github.com/kopnik-org/kopnik-wiki/blob/main/cs/readme.md',
+      },
+      {
+        project: 'Заверение новых участников',
+        role: 'Заверитель по Чехии',
+        description: null,
+        date: new Date(2021, 4, 3),
+      },
+    ]
+  },
+  // Сергей Гордеев
+  {
+    who: {
+      // id: 1,
+      uid: null,
+      photo: 'https://sun6-20.userapi.com/s/v1/ig2/8182HUWA99Puh39Th7DDLrt0ge6ZiwNFRtkU2x-N9y_QuAE_O05mc4EqGLrsyiuM5ZuCJh9AM7cNcUIza9ajLX9s.jpg?size=200x0&quality=96&crop=497,218,1013,1224&ava=1',
+      name: 'Сергей Гордеев (Нижний Новгород, Россия)',
+    },
+    deals: [
+      {
+        project: 'Заверение новых участников',
+        role: 'Заверитель по СЗФО',
+        description: null,
+        date: new Date(2021, 4, 3),
+      },
+    ]
+  },
+  // Олег Почечуев
+  {
+    who: {
+      // id: 1,
+      uid: null,
+      photo: 'https://sun6-22.userapi.com/s/v1/if1/cCXBMpBJtlGaz7N5DUPfRf0ajvrEZG-dX8pZfYtohp5RXzEXWos09n_7NfVV5eR9fOUApek-.jpg?size=200x0&quality=96&crop=0,0,200,390&ava=1',
+      name: 'Олег Почечуев (Уварово, Россия)',
+    },
+    deals: [
+      {
+        project: 'Заверение новых участников',
+        role: 'Заверитель по Черноземью',
+        description: null,
+        date: new Date(2021, 4, 3),
+      },
+    ]
+  },
+  // Денис Сердюк
+  {
+    who: {
+      // id: 1,
+      uid: null,
+      photo: 'https://sun9-76.userapi.com/impg/vjJ-GyH8h7ZtQRU97G6GOK9VF4vM-TGCGQmFhw/KmxyMsc3xjo.jpg?size=2160x2160&quality=96&sign=de64f0aa11193bf25b5be89241f3b31e&type=album',
+      name: 'Денис Сердюк (Deggendorf, Германия)',
+    },
+    deals: [
+      {
+        project: 'Заверение новых участников',
+        role: 'Заверитель по Германии',
+        description: null,
+        date: new Date(2021, 4, 3),
+      },
+    ]
+  },
+  // Martin Kysela
+  {
+    who: {
+      // id: 1,
+      uid: null,
+      photo: 'https://sun6-22.userapi.com/s/v1/ig2/y5Wbi4glna3EKtaiKU6WWhjveL24lg5YwcJ2ZfUu0jv1H7Dlh9JXzkx5k6bpm3voLMr6vIJQ7qzFPzYNHfbcyG6L.jpg?size=200x0&quality=96&crop=0,0,1620,2160&ava=1',
+      name: 'Martin Kysela (Trnava, Словакия)',
+    },
+    deals: [
+      {
+        project: 'Заверение новых участников',
+        role: 'Заверитель по Словакии',
+        description: null,
+        date: new Date(2021, 4, 3),
+      },
+    ]
+  },
+  // Андрей Соколов
+  {
+    who: {
+      // id: 1,
+      uid: null,
+      photo: 'https://sun6-22.userapi.com/s/v1/if1/1O2fmduBAAHfwCQcbLkdrcjP2cAFpqzug4TCIzOZd6US3KkpwPxOBFfSrOi0HF3Sv69vRA.jpg?size=200x0&quality=96&crop=0,0,653,738&ava=1',
+      name: 'Андрей Соколов (Томск, Россия)',
+    },
+    deals: [
+      {
+        project: 'Заверение новых участников',
+        role: 'Заверитель по Западной Сибири',
+        description: null,
+        date: new Date(2021, 4, 3),
       },
     ]
   },
@@ -49,9 +200,15 @@ let thanks = [
       // id: 2,
       uid: null,
       photo: 'https://i.imgur.com/lwWzCDl.jpg',
-      name: 'Баранов Алексей',
+      name: 'Алексей Баранов (Москва, Россия)',
     },
     deals: [
+      {
+        project: 'Заверение новых участников',
+        role: 'Заверитель по планете',
+        description: null,
+        date: new Date(2021, 4, 3),
+      },
       {
         project: 'Техническое задание на создание kopnik.org',
         role: 'Архитектор/Техписатель',
@@ -101,7 +258,7 @@ let thanks = [
       },
       {
         project: 'kopnik.org v1.0',
-        role: 'Тимлид/Фронтенд/Бэкенд',
+        role: 'Разработчик',
         description: null,
         date: today,
       },
@@ -142,12 +299,12 @@ let thanks = [
       // id: 3,
       uid: null,
       photo: '',
-      name: 'Михаил Арзин'
+      name: 'Михаил Арзин (Москва, Россия)'
     },
     deals: [
       {
         project: 'kopnik.org v1.0',
-        role: 'DevOps/Тестер',
+        role: 'DevOps',
         description: null,
         date: today,
       },
@@ -159,9 +316,15 @@ let thanks = [
       // id: 3,
       uid: null,
       photo: 'https://sun1-91.userapi.com/c857628/v857628007/644b7/1dFOLyFpK_8.jpg',
-      name: 'Титов Александр'
+      name: 'Титов Александр (Камское Устье, Россия)'
     },
     deals: [
+      {
+        project: 'Заверение новых участников',
+        role: 'Заверитель по ЦФО',
+        description: null,
+        date: today,
+      },
       {
         project: 'Территориальные чаты kopnik.org',
         role: 'Автор идеи/Старший куратор',
@@ -191,7 +354,7 @@ let thanks = [
         project: 'kopnik.org v1.0',
         role: 'Тестер',
         description: null,
-        date: today,
+        date: new Date(2021, 1, 18),
       },
 
     ]
@@ -221,7 +384,7 @@ let thanks = [
         project: 'kopnik.org v1.0',
         role: 'Тестер',
         description: null,
-        date: today,
+        date: new Date(2021, 1, 18),
       },
     ]
   },
@@ -250,7 +413,7 @@ let thanks = [
         project: 'kopnik.org v1.0',
         role: 'Тестер',
         description: null,
-        date: today,
+        date: new Date(2021, 1, 18),
       },
     ]
   },
@@ -296,12 +459,12 @@ let thanks = [
       id: null,
       uid: null,
       photo: 'https://sun9-28.userapi.com/c854320/v854320192/18cc9c/gL4FCPeVspo.jpg',
-      name: 'Монухин Владимир',
+      name: 'Монухин Владимир (Динская, Россия)',
     },
     deals: [
       {
-        project: 'Перевод ролика о сборе средств на создание kopnik.org',
-        role: 'Переводчик/Голос/Монтажер',
+        project: 'Рекламная компания kopnik.org в ВК',
+        role: 'Организатор/Донатер',
         description: null,
         date: new Date(2020, 10, 5),
       },
@@ -361,7 +524,7 @@ let thanks = [
         project: 'kopnik.org v1.0',
         role: 'Тестер',
         description: null,
-        date: today,
+        date: new Date(2021, 1, 18),
       },
     ]
   },
