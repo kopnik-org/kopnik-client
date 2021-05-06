@@ -394,7 +394,7 @@ export default {
       const result = this.loadedKopniks
         .map(eachVisibleKopnik => {
           // const size = Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE_18 * Math.pow(eachVisibleKopnik.rank, 1 / 3 * K) / Math.pow(2, 18 - this.value.map.zoom)))
-          const size = MIN_MARKER_SIZE *  Math.pow(eachVisibleKopnik.rank, 2/3) // Math.sqrt(), Math.cbrt()
+          const size = MIN_MARKER_SIZE *  Math.pow(eachVisibleKopnik.rank, 1/3) // Math.sqrt(), Math.cbrt()
           const isVisible = size < MAX_MARKER_SIZE
           return {
             value: eachVisibleKopnik,
