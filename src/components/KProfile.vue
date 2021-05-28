@@ -6,7 +6,7 @@
       <v-card elevation="12">
         <v-card-text>
           <v-form>
-            <v-alert :color="application.user.status==2?'info':'warning'" v-html="alert">
+            <v-alert v-if="isMessagesFromGroupAllowed!==undefined" ref="alert" :color="alertColor" v-html="alertHtml">
             </v-alert>
             <kopnik-vue ref="request"
                         :value="request"
@@ -133,8 +133,22 @@ export default {
       const result = this.changeset.map(eachField => container.application.getMessage(`profile.${eachField}`))
       return result
     },
-    alert() {
-      return this.$t(`profile.alert[${this.application.user.status}]`, {witnessChatInviteLink: this.application.user.witnessChatInviteLink})
+    alertColor() {
+      return this.application.user.status === Kopnik.Status.CONFIRMED && this.isMessagesFromGroupAllowed? 'info' : 'warning'
+    },
+    alertHtml() {
+      if (this.isMessagesFromGroupAllowed === undefined) {
+        return undefined
+      } else if (this.isMessagesFromGroupAllowed) {
+        // ждет когда Свв примет заявку в друзья
+        if (this.application.user.status === Kopnik.Status.PENDING && !this.application.user.witnessChatInviteLink) {
+          return this.$t(`profile.alert[5]`, {witnessChatInviteLink: this.application.user.witnessChatInviteLink})
+        } else {
+          return this.$t(`profile.alert[${this.application.user.status}]`, {witnessChatInviteLink: this.application.user.witnessChatInviteLink})
+        }
+      } else {
+        return this.$t(`profile.alert[4]`)
+      }
     }
   },
   watch: {},
