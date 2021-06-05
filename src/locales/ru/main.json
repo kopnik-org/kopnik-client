@@ -112,6 +112,7 @@
   "details": {
     "toChat": "Беседовать",
     "toKopa": "На Копу",
+    "openInMessenger": "Открыть в ВК",
     "notToKopa": "Не звать",
     "toForeman": "Выбрать",
     "toForemanQuestion": "Выбрать старшиной ?",
@@ -130,6 +131,14 @@
       "hint": "Заполни здесь тему предстоящей копы"
     },
     "afterInfo": "Копа созвана."
+  },
+  "talkDialog": {
+    "title": "Пригласить на беседу ?",
+    "subject": {
+      "label": "Тема беседы",
+      "hint": "Заполни здесь тему предстоящей беседы"
+    },
+    "afterInfo": "Приглашение отправлено."
   },
   "subordinates": {
     "confirmForemanRequest": "Принять в десятку",

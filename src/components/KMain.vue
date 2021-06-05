@@ -173,7 +173,7 @@
                     @dblclick="avatar_dblclick(value.selected)">
           </k-avatar>
           <v-list-item-content class="pl-5">
-            <div v-if="value.selected.status==value.selected.constructor.Status.CONFIRMED">{{ value.selected.name }}</div>
+            <div v-if="value.selected.status==value.selected.constructor.Status.CONFIRMED">{{ value.selected.name }} <v-icon small :title="$t('details.openInMessenger')" @click="onOpenInMessengerClick">mdi-open-in-new</v-icon><a id="main_details_openInMessenger" target="_blank" :href="`https://vk.com/${value.selected.domain}`"></a></div>
             <div v-else>{{ $t('profile.firstName') }} {{ $t('profile.patronymic') }} {{ $t('profile.lastName') }}</div>
             <v-list-item-subtitle v-if="value.selected.status==value.selected.constructor.Status.CONFIRMED">{{  selectedRole }}</v-list-item-subtitle>
             <v-list-item-subtitle v-else>{{ $t('profile.roles[0].title') }}</v-list-item-subtitle>
@@ -490,6 +490,10 @@ export default {
     },
   },
   methods: {
+    onOpenInMessengerClick(){
+      document.getElementById('main_details_openInMessenger').click()
+      // open(`https://vk.com/${this.value.selected.domain}`)
+    },
     async onToggleWitnesses() {
       if (await this.application.forwardUserToBeConfirmed()) {
         return

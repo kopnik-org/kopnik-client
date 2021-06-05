@@ -18,6 +18,8 @@ export default class Kopnik extends AbstractSync {
   /** @type {String} */
   @scalar patronymic = undefined
   /** @type {String} */
+  @scalar domain = undefined
+  /** @type {number} */
   @scalar nickname = undefined
   /** @type {number} */
   @scalar rank = undefined
