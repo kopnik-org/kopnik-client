@@ -173,7 +173,7 @@
                     @dblclick="avatar_dblclick(value.selected)">
           </k-avatar>
           <v-list-item-content class="pl-5">
-            <div v-if="value.selected.status==value.selected.constructor.Status.CONFIRMED">{{ value.selected.name }} <v-icon small :title="$t('details.openInMessenger')" @click="onOpenInMessengerClick">mdi-open-in-new</v-icon><a id="main_details_openInMessenger" target="_blank" :href="`https://vk.com/${value.selected.domain}`"></a></div>
+            <div v-if="value.selected.status==value.selected.constructor.Status.CONFIRMED">{{ value.selected.firstName }} {{ value.selected.patronymic }} <span style="white-space: nowrap">{{ value.selected.lastName }} <v-icon small :title="$t('details.openInMessenger')" @click="onOpenInMessengerClick">mdi-open-in-new</v-icon><a id="main_details_openInMessenger" target="_blank" :href="`https://vk.com/${value.selected.domain}`"></a></span></div>
             <div v-else>{{ $t('profile.firstName') }} {{ $t('profile.patronymic') }} {{ $t('profile.lastName') }}</div>
             <v-list-item-subtitle v-if="value.selected.status==value.selected.constructor.Status.CONFIRMED">{{  selectedRole }}</v-list-item-subtitle>
             <v-list-item-subtitle v-else>{{ $t('profile.roles[0].title') }}</v-list-item-subtitle>
@@ -394,7 +394,7 @@ export default {
       const result = this.loadedKopniks
         .map(eachVisibleKopnik => {
           // const size = Math.max(MIN_MARKER_SIZE, Math.round(MARKER_SIZE_18 * Math.pow(eachVisibleKopnik.rank, 1 / 3 * K) / Math.pow(2, 18 - this.value.map.zoom)))
-          const size = MIN_MARKER_SIZE *  Math.pow(eachVisibleKopnik.rank, 1/2) // Math.sqrt(), Math.cbrt()
+          const size = Math.round(MIN_MARKER_SIZE *  Math.pow(eachVisibleKopnik.rank, 1/2)) // Math.sqrt(), Math.cbrt()
           const isVisible = size < MAX_MARKER_SIZE
           return {
             value: eachVisibleKopnik,
