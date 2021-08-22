@@ -34,20 +34,10 @@
 
 <script>
 import Vue from 'vue'
-
-import KLogin from '../KLogin'
-import KMain from '../KMain'
-import KThanks from '../KThanks'
-import KProfile from "../KProfile";
-import KWitness from "../KWitness";
 import {container} from "../../bottle/bottle";
-import KDrawer from "../KDrawer";
 import logger from '../mixin/logger'
-import Application from "../../application/Application";
 import {Kopnik} from '../../models'
-import flushPromises from "flush-promises";
-import KTen from '../KTen'
-import touchDetector from "../mixin/touch-detecter";
+
 
 export default {
   mixins: [logger],

@@ -31,8 +31,8 @@ const routes = [
         name: Application.Section.Thanks,
     },
     {
-        path: '/' + Application.Section.Login.toLowerCase(),
-        name: Application.Section.Login,
+        path: '/' + Application.Section.About.toLowerCase(),
+        name: Application.Section.About,
     },
     {
         path: '/',

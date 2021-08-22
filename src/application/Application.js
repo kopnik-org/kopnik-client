@@ -277,7 +277,7 @@ export default class Application {
         if (await this.resolveUser()) {
           result = section
         } else {
-          result = Application.Section.Login
+          result = Application.Section.About
         }
         break
       // авторизованные и подтвержденные
@@ -291,13 +291,13 @@ export default class Application {
             result = Application.Section.Main
           }
         } else{
-          result = Application.Section.Login
+          result = Application.Section.About
         }
         break
       // любые
       case Application.Section.Help:
       case Application.Section.Thanks:
-      case Application.Section.Login:
+      case Application.Section.About:
         result = section
         break
       default:
@@ -373,7 +373,7 @@ export default class Application {
   @once
   async logout() {
     await this.lockSection(() => {
-      this.section= Application.Section.Login
+      this.section= Application.Section.About
     })
     await container.api('users/logout')
     this.sections.main.selected = null
@@ -391,5 +391,5 @@ Application.Section = {
   Thanks: 'Thanks',
   Ten: 'Ten',
   Help: 'Help',
-  Login: 'Login',
+  About: 'About',
 }

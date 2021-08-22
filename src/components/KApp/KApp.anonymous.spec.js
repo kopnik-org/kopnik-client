@@ -38,7 +38,7 @@ describe('components KApp anonymous', () => {
       await waitForExpect(() => {
         expect(application.user).toBeNull()
         expect(wrapper.text()).toContain('Войти')
-        expect(application.section).toBe(Application.Section.Login)
+        expect(application.section).toBe(Application.Section.About)
       })
     })
     it('/profile', async () => {
@@ -48,8 +48,8 @@ describe('components KApp anonymous', () => {
       } catch (err) {
         expect(err.type).toBe(NavigationFailureType.redirected)
       }
-      expect(application.section).toBe(Application.Section.Login)
-      expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Login)
+      expect(application.section).toBe(Application.Section.About)
+      expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.About)
       await flushPromises()
       expect(wrapper.text()).toContain('Войти')
     })
@@ -60,8 +60,8 @@ describe('components KApp anonymous', () => {
       } catch (err) {
         expect(err.type).toBe(NavigationFailureType.redirected)
       }
-      expect(application.section).toBe(Application.Section.Login)
-      expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Login)
+      expect(application.section).toBe(Application.Section.About)
+      expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.About)
       await flushPromises()
       expect(wrapper.text()).toContain('Войти')
     })

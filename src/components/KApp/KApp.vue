@@ -63,7 +63,7 @@
 
 <script>
 import _ from 'lodash'
-import KLogin from '../KLogin'
+import KAbout from '../KAbout'
 import KMain from '../KMain'
 import KThanks from '../KThanks'
 import KProfile from "../KProfile";
@@ -83,7 +83,7 @@ export default {
   mixins: [touchDetector, logger],
   components: {
     KDrawer,
-    KLogin,
+    KAbout,
     KProfile,
     KMain,
     KThanks,

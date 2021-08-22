@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="fill-height k-login flex-column align-center">
+  <v-container fluid class="fill-height k-about flex-column align-center">
 
     <!--    блок высотой 75% экрана для размещения внутри него первой карты-->
     <div
@@ -40,6 +40,7 @@
     <!--    кнопка стрелка вниз для перехода ко второй странице-->
     <v-btn
       fab
+      small
       :elevation="4"
       style="margin-bottom: 96px;"
       @click="onArrowDownClick">
@@ -68,7 +69,7 @@
       <v-card-actions v-if="eachFeature.image">
         <v-img :src=eachFeature.image></v-img>
       </v-card-actions>
-      <v-card-actions v-if="eachFeature.action">
+<!--      <v-card-actions v-if="eachFeature.action">
         <v-btn
           text
           color="primary"
@@ -79,7 +80,7 @@
             mdi-chevron-right
           </v-icon>
         </v-btn>
-      </v-card-actions>
+      </v-card-actions>-->
     </v-card>
 
 
@@ -124,13 +125,13 @@ export default {
           icon: 'img/logo_circle.png',
           title: 'Находи соседей, готовых объединяться по копному',
           text: 'Каждый участник сети – реальный человек, который подтвердил свое место проживания, имя и роль (положение) в копном обществе.',
-          image: 'https://doc-04-8k-docs.googleusercontent.com/docs/securesc/ed9iqqtek9fgkk3upo1rb0bonm0u80ac/vcnm5nkjophldbej7rs4m2ub440ljvgc/1629642225000/11144089072991499103/11144089072991499103/1SMv-ZQ8CU6GLJlYPPPKKYiT3LWyLbmq8?e=download&authuser=0',
+          image: 'img/about/find-1.gif',
         },
         {
           icon: 'img/logo_circle.png',
           title: 'Находи славянские общины в своем городе, в которые можно вступить прямо сейчас',
           text: 'Копные общины состоят из десяток с избираем по копному старшиной.  Все десятки соединены на карте связями от общинника к старшине. Чем больше маркер старшины на карте, тем больше возглавляемая им община.',
-          image: 'https://sun9-17.userapi.com/impg/knNbld9F_7u_dSML8czkMNSui10IHgp5022vtw/uzuRId2Vrz8.jpg?size=640x360&quality=96&sign=74ab8d569c2b15e7c388431b54cb70bc&type=album'
+          image: 'img/about/find-obshina.gif'
         },
         {
           icon: 'img/logo_circle.png',
@@ -157,9 +158,9 @@ export default {
           title: 'Используй силу общины',
           text: 'Используй силу копной общины, чтобы навести порядок во всем: в подъезде, во дворе, в городе, в стране и в мире. Живи богато и счастливо вместе с общиной. Ни один самый выдающийся человек не в состоянии преодолеть сложные препятствия. Только складывая наши усилия в общине и направляя их в одну сторону, можно добиться результата.',
           image: 'https://sun9-65.userapi.com/impg/EE430Hf1owr-9hPmjSr0WiUAw10miyveHtTfcA/-wAKyGOCpTY.jpg?size=2560x1007&quality=96&sign=aa3559405645a714881c5a9ed5b7c192&type=album',
-          action:{
-            title:'Подробнее',
-            url:'https://www.youtube.com/playlist?list=PL8t968Ip0ARl6vGqlB_jGi-srH6wx3t3H',
+          action: {
+            title: 'Подробнее',
+            url: 'https://www.youtube.com/playlist?list=PL8t968Ip0ARl6vGqlB_jGi-srH6wx3t3H',
           }
         },
         {
@@ -167,7 +168,7 @@ export default {
           title: 'Строй международные общины',
           text: 'Не останавливайся на границах своего города или страны. Копник работает по всему миру и переведен на все славянские языки. Благодаря современным интернет-технологиям и тому, что Копное Право наша универсальная технология построения общин, нет ничего проще, чем собрать страновые копные славянские общины в одну глобальную копную славянскую общину.',
           image: 'img/about/global-obshina.png',
-          action:{
+          action: {
             title: 'Подробнее',
             url: 'https://www.youtube.com/watch?v=_DovDGitYxg&t=11s',
           }
@@ -192,11 +193,11 @@ export default {
   methods: {
     onFlagClick(localeString) {
       container.application.localeManager.currentLocale = localeString
-    }    ,
+    },
     login_click() {
       location.href = container.constants.messenger.loginUrl
-    }    ,
-    onActionClick(url){
+    },
+    onActionClick(url) {
       window.open(url)
     },
     login2_click() {
@@ -206,15 +207,13 @@ export default {
     onArrowDownClick() {
 
     }
-
   },
   async created() {
     // this.request = await this.$root.$options.app.user.loaded()
     setInterval(() => {
       this.quoteIndex = _.random(i18n.messages.ru.length)
     }, 30000)
-  }
-  ,
+  },
   async mounted() {
     /*    container.VK.Widgets.Auth("vk_auth", {"onAuth":function(data) {
           alert('user '+data['uid']+' authorized')
@@ -224,7 +223,7 @@ export default {
 </script>
 
 <style lang="scss">
-.k-login {
+.k-about {
   .v-card {
     border: none !important;
   }
