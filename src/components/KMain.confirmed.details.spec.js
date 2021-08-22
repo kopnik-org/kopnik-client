@@ -9,6 +9,7 @@ import messages from "@/locales";
 import waitForExpect from "wait-for-expect";
 import KApp from "@/components/KApp/KApp";
 import Vue from "vue"
+import Application from "@/application/Application";
 
 
 describe('components KMain confirmed details', () => {
@@ -34,6 +35,7 @@ describe('components KMain confirmed details', () => {
     )
     application = container.application
     application.user = user
+    application.section= Application.Section.Main
     main = application.sections.main
 
     fetch.resetMocks()
@@ -48,6 +50,9 @@ describe('components KMain confirmed details', () => {
     appWrapper = mount(KApp, {
       ...vuePlugins,
       attachTo: div,
+      stubs: {
+        KDrawer: {template: '<div></div>'}
+      }
     })
 
     await flushPromises()

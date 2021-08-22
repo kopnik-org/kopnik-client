@@ -42,7 +42,7 @@ describe('components Drawer', () => {
         // тест
         wrapper.find('[logout]').trigger('click')
         await waitForExpect(()=>{
-            expect(application.section).toBe(application.constructor.Section.Main)
+            expect(application.section).toBe(application.constructor.Section.Login)
             expect(application.user).toBeNull()
         })
     })

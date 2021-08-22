@@ -17,6 +17,7 @@ describe('Application anonymous', () => {
     // сбросить application, потому что в конце каждого теста user уже установлен
     bottle.resetProviders(['application',])
     application = container.application
+    application.section = Application.Section.Main
   })
 
   it('forwardUserToBeConfirmed()', async () => {
@@ -36,11 +37,11 @@ describe('Application anonymous', () => {
   describe('setSection', () => {
     it('profile', async () => {
       await application.setSection(Application.Section.Profile)
-      expect(application.section).toBe(Application.Section.Main)
+      expect(application.section).toBe(Application.Section.Login)
     })
     it('Witness', async () => {
       await application.setSection(Application.Section.Witness)
-      expect(application.section).toBe(Application.Section.Main)
+      expect(application.section).toBe(Application.Section.Login)
     })
     it('thanks', async () => {
       await application.setSection(Application.Section.Thanks)

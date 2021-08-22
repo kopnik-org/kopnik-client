@@ -29,6 +29,7 @@ describe('Application confirmed', () => {
         // сбросить application, потому что в конце каждого теста user уже установлен
         bottle.resetProviders(['application',])
         application = container.application
+    application.section = Application.Section.Main
     })
 
     it('forwardUserToBeConfirmed()', async () => {

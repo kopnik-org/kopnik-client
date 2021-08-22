@@ -29,7 +29,7 @@ describe('components KApp anonymous', () => {
   it('render', async () => {
     await waitForExpect(() => {
       expect(application.user).toBeNull()
-      expect(wrapper.text()).toContain('Войти через ВКонтакте')
+      expect(wrapper.text()).toContain('Войти')
     })
   })
 
@@ -37,8 +37,8 @@ describe('components KApp anonymous', () => {
     it('/', async () => {
       await waitForExpect(() => {
         expect(application.user).toBeNull()
-        expect(wrapper.text()).toContain('Войти через ВКонтакте')
-        expect(application.section).toBe(Application.Section.Main)
+        expect(wrapper.text()).toContain('Войти')
+        expect(application.section).toBe(Application.Section.Login)
       })
     })
     it('/profile', async () => {
@@ -48,10 +48,10 @@ describe('components KApp anonymous', () => {
       } catch (err) {
         expect(err.type).toBe(NavigationFailureType.redirected)
       }
-      expect(application.section).toBe(Application.Section.Main)
-      expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Main)
+      expect(application.section).toBe(Application.Section.Login)
+      expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Login)
       await flushPromises()
-      expect(wrapper.text()).toContain('Войти через ВКонтакте')
+      expect(wrapper.text()).toContain('Войти')
     })
     it('/witness', async () => {
       try {
@@ -60,10 +60,10 @@ describe('components KApp anonymous', () => {
       } catch (err) {
         expect(err.type).toBe(NavigationFailureType.redirected)
       }
-      expect(application.section).toBe(Application.Section.Main)
-      expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Main)
+      expect(application.section).toBe(Application.Section.Login)
+      expect(wrapper.vm.$router.currentRoute.name).toBe(Application.Section.Login)
       await flushPromises()
-      expect(wrapper.text()).toContain('Войти через ВКонтакте')
+      expect(wrapper.text()).toContain('Войти')
     })
   })
 })

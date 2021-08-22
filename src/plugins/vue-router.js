@@ -31,6 +31,10 @@ const routes = [
         name: Application.Section.Thanks,
     },
     {
+        path: '/' + Application.Section.Login.toLowerCase(),
+        name: Application.Section.Login,
+    },
+    {
         path: '/',
         name: Application.Section.Main,
     },
@@ -54,7 +58,7 @@ function routerFactory() {
         if (application.section === to.name) {
             next()
         }
-        // сюда проходим только при открытии приложения в браузерею с непусктой роутом в адресной стороке
+        // сюда проходим только при открытии приложения в браузере с непустой роутом в адресной строке
         else {
             await application.lockSection(async () => {
                 await application.setSection(to.name)
@@ -62,14 +66,8 @@ function routerFactory() {
                 if (application.section === to.name) {
                     next()
                 }
-/*                // откуда уходим, туда и приходим
-                else if (application.section===from.name) {
-                    next(false)
-                }*/
                 // переход на другой роут
                 else {
-                    // console.log('next', application.section)
-                    // next({name: Application.Section.Help})
                     next({name: application.section})
                 }
             })

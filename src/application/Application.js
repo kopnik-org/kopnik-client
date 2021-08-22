@@ -34,10 +34,11 @@ export default class Application {
     /**
      * Идентификатор раздела
      * Равен названиею соответствующего компонента
+     * Зависит от роута, который будет в браузере при старте
      *
      * @type {string} Map | Profile | Thanks
      */
-    this.section = Application.Section.Main
+    this.section = undefined
     this.sectionLocker = new AsyncLock
 
     /**
@@ -270,17 +271,33 @@ export default class Application {
       return section
     }
     switch (section) {
+      // авторизованные
       case Application.Section.Profile:
-      case Application.Section.Witness:
-      case Application.Section.Ten:
-        if (await this.resolveUser() && (this.user.status === Kopnik.Status.CONFIRMED || section === Application.Section.Profile)) {
+      case Application.Section.Main:
+        if (await this.resolveUser()) {
           result = section
         } else {
-          result = await this.setSection(Application.Section.Main)
+          result = Application.Section.Login
         }
         break
-      case Application.Section.Main:
+      // авторизованные и подтвержденные
+      case Application.Section.Ten:
+      case Application.Section.Witness:
+        if (await this.resolveUser()){
+          if (this.user.status===Kopnik.Status.CONFIRMED) {
+            result = section
+          }
+          else{
+            result = Application.Section.Main
+          }
+        } else{
+          result = Application.Section.Login
+        }
+        break
+      // любые
+      case Application.Section.Help:
       case Application.Section.Thanks:
+      case Application.Section.Login:
         result = section
         break
       default:
@@ -356,7 +373,7 @@ export default class Application {
   @once
   async logout() {
     await this.lockSection(() => {
-      this.setSection(Application.Section.Main)
+      this.section= Application.Section.Login
     })
     await container.api('users/logout')
     this.sections.main.selected = null
@@ -374,4 +391,5 @@ Application.Section = {
   Thanks: 'Thanks',
   Ten: 'Ten',
   Help: 'Help',
+  Login: 'Login',
 }

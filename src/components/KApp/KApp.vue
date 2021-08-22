@@ -1,9 +1,9 @@
 <template>
   <v-app id="inspire" :class="{'k-touch-device':isTouchDevice}">
     <k-alert/>
-    <v-app-bar v-if="application.user && mode!='presentation'" app>
+    <v-app-bar app>
       <v-badge
-        :value="application.user.status===application.user.constructor.Status.NEW || !!application.user.foremanRequests && application.user.foremanRequests.length || !!application.user.witnessRequests && application.user.witnessRequests.length"
+        :value="application.user && (application.user.status===application.user.constructor.Status.NEW || !!application.user.foremanRequests && application.user.foremanRequests.length || !!application.user.witnessRequests && application.user.witnessRequests.length)"
         color="red"
         dot
         offset-x="15"
@@ -11,20 +11,52 @@
       >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
       </v-badge>
-      <v-icon @click.stop="drawer = !drawer"/>
       <v-toolbar-title> {{ sectionName }}</v-toolbar-title>
-<!--      <v-spacer/>-->
-<!--      <v-img src="img/logo_circle.png" max-width="40" contain></v-img>-->
+
+      <v-spacer></v-spacer>
+
+      <!--      языки-->
+      <v-menu
+        offset-y open-on-hover
+        bottom
+        left
+        close-delay="200"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-avatar tile size="32">
+              <v-img :src="getFlagImage(application.localeManager.currentLocale)"></v-img>
+            </v-avatar>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <!--          v-model="application.localeManager.currentLocale"-->
+          <v-list-item-group v-model="application.localeManager.currentLocale">
+            <v-list-item v-for="eachLocale in application.localeManager.locales"
+                         :value="eachLocale"
+                         :key="eachLocale.locale"
+            >
+              <v-list-item-avatar tile>
+                <v-img :src="getFlagImage(eachLocale)"/>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title>{{ eachLocale.languageName }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+
+        </v-list>
+      </v-menu>
     </v-app-bar>
     <k-drawer v-if="application.user" v-model="drawer" style="z-index: 700;"></k-drawer>
     <v-main>
-      <k-login v-if="!application.user && application.section!=='Thanks'"></k-login>
-      <!--            <keep-alive :exclude="[Main]">-->
-      <!--                <transition :name="contentTransitionName">-->
-      <component ref="section" class="k-content" v-bind:is="'k-'+application.section"
+      <component v-if="application.section" ref="section" class="k-content" v-bind:is="'k-'+application.section"
                  :value="application.user"></component>
-      <!--                </transition>-->
-      <!--            </keep-alive>-->
     </v-main>
   </v-app>
 </template>
@@ -64,9 +96,9 @@ export default {
   },
   data() {
     return {
-      mode:'regular',
+      mode: 'regular',
       // mode:'presentation',
-      application:  container.application,
+      application: container.application,
       center: [47.413220, -1.219482],
       zoom: 14,
       drawer: false,
@@ -90,12 +122,27 @@ export default {
     },
   },
   computed: {
-
     sectionName() {
-      return this.$t(`drawer.${_.camelCase(this.application.section)}`)
+      return this.application.section ? this.$t(`drawer.${_.camelCase(this.application.section)}`) : null
     },
   },
   methods: {
+    getFlagImage(locale) {
+      switch (locale.name) {
+        case 'ru':
+          return 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/shop/products/flag_rf_enl.jpg?itok=ULSeepRk'
+        case 'sk':
+          return 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_slovakija_enl.jpg?itok=_XTuiL2L'
+        case 'pl':
+          return 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_polsha_enl.jpg?itok=FqbWDb5P'
+        case 'cs':
+          return 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_chehija_enl.jpg?itok=sGu3fL8K'
+        case 'de':
+          return 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/directory_names/flag_germanija_enl.jpg?itok=ajc0p1k8'
+        case 'en':
+          return 'https://www.megaflag.ru/sites/default/files/styles/h_100/public/images/shop/products/flag_velikobritanija_new.jpg?itok=WpoIClkv'
+      }
+    },
     async followLocale() {
       const locale = this.application.localeManager.currentLocale
       // vue-i18n меняем сообщения в разметке страниц
