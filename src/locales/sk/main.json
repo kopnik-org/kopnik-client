@@ -151,5 +151,39 @@
   "dialog": {
     "yes": "Áno",
     "no": "Nie"
+  },
+  "about": {
+    "articles": [
+      {
+        "title":"První síť kopného práva",
+        "description": "Slovanské občiny v každém městě díky kopnému právu a internetovým technologiím"
+      },
+      {
+        "title":"Hledání sousedů, kteří jsou připraveni zapojit se v kopě",
+        "description": "Každý člen sítě je skutečný člověk, který potvrdil své bydliště, jméno a roli (postavení) v kopném společenství"
+      },
+      {
+        "title":"Najděte ve svém městě slovanské občiny, ke kterým se můžete ihned připojit",
+        "description": "Kopné občiny se skládají z desítek, z nichž každá má zvoleného staršinu. Všechny desítky jsou na mapě propojeny odkazy od člena společenství ke staršinovi. Čím větší je značka staršiny na mapě, tím větší občinu spravuje."
+      },
+      {
+        "title":"Život podle kopného práva",
+        "description": "Kopný muž, muž usilující o roli kopného muže, starý člověk i žena. Vyberte si svou roli podle pohlaví, věku a zkušeností. Rozdělení pravomocí podle rolí ve společnosti zaručuje nejúčinnější spolupráci a řízení občiny.",
+        "image": "img/about/roles-cs.png"
+      },
+      {
+        "title":"Jednoduché svolání kopy",
+        "description": "Svolání kopy je díky technologii internetu snazší než kdy dříve. Kopy se scházejí a probíhají výhradně naživo nebo online. Kopný řád je velmi účinný a zaručuje dosažení jednomyslných rozhodnutí. Jednomyslné rozhodnutí je zárukou společného pokroku.",
+        "image": "img/about/invite-kopa-cs.png"
+      },
+      {
+        "title":"Využívání síly občiny",
+        "description": "Využijte sílu kopné občiny a vneste do všeho pořádek: ve vchodu, na dvoře, ve městě, ve státě i ve světě. Žijte bohatě a šťastně spolu s občinou. Ani ten nejschopnější člověk není schopen překonat všechny obtížné překážky sám. Výsldku můžeme dosáhnout jedině tím, že spojíme své úsilí v jednotě a nasměrujeme je jedním směrem."
+      },
+      {
+        "title":"Vytváření mezinárodních občin",
+        "description": "Nezastavujte se na hranicích svého města nebo země. Kopnik funguje po celém světě a byl přeložen do všech slovanských jazyků. Díky moderním internetovým technologiím a skutečnosti, že kopné právo je naší univerzální technologií pro budování společenství, není nic snazšího než shromáždit kopná slovanská společenství do jedné světové kopné slovanské občiny."
+      }
+    ]
   }
 }

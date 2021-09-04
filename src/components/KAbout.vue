@@ -20,10 +20,10 @@
           style="word-break: normal"
         >
           kopnik.org<br>
-          Первая сеть Копного Права
+          {{ $t('about.articles[0].title') }}
         </v-card-title>
         <v-card-text class="text-center">
-          Славянские общины в каждом городе благодаря Копному Праву и интернет-технологиям
+          {{ $t('about.articles[0].description') }}
         </v-card-text>
         <v-card-actions>
           <v-btn v-if="application.user===null"
@@ -67,20 +67,8 @@
         {{ eachFeature.text }}
       </v-card-text>
       <v-card-actions v-if="eachFeature.image">
-        <v-img :src=eachFeature.image></v-img>
+        <v-img :src=eachFeature.image :max-height="400"></v-img>
       </v-card-actions>
-<!--      <v-card-actions v-if="eachFeature.action">
-        <v-btn
-          text
-          color="primary"
-          class="mx-auto"
-          @click="onActionClick(eachFeature.action.url)">
-          {{ eachFeature.action.title }}
-          <v-icon>
-            mdi-chevron-right
-          </v-icon>
-        </v-btn>
-      </v-card-actions>-->
     </v-card>
 
 
@@ -120,24 +108,29 @@ export default {
     return {
       application: container.application,
       quoteIndex: 0,
-      features: [
+    }
+  },
+  props: {},
+  computed: {
+    features() {
+      return [
         {
           icon: 'img/logo_circle.png',
-          title: 'Находи соседей, готовых объединяться по копному',
-          text: 'Каждый участник сети – реальный человек, который подтвердил свое место проживания, имя и роль (положение) в копном обществе.',
+          title: this.$t('about.articles[1].title'),
+          text: this.$t('about.articles[1].description'),
           image: 'img/about/find-1.gif',
         },
         {
           icon: 'img/logo_circle.png',
-          title: 'Находи славянские общины в своем городе, в которые можно вступить прямо сейчас',
-          text: 'Копные общины состоят из десяток с избираем по копному старшиной.  Все десятки соединены на карте связями от общинника к старшине. Чем больше маркер старшины на карте, тем больше возглавляемая им община.',
+          title: this.$t('about.articles[2].title'),
+          text: this.$t('about.articles[2].description'),
           image: 'img/about/find-obshina.gif'
         },
         {
           icon: 'img/logo_circle.png',
-          title: 'Живи по-копному',
-          text: 'Копный муж, Стремящийся в копные мужья, Старец, а также Женщина. Выбери свою роль согласно полу, возрасту и прожитому опыту. Разделение полномочий по ролям в Копном обществе гарантирует наиболее эффективное взаимодействие и управление общиной.',
-          image: 'img/about/roles.png',
+          title: this.$t('about.articles[3].title'),
+          text: this.$t('about.articles[3].description'),
+          image: this.$t('about.articles[3].image'),
           action: {
             title: 'Подробнее',
             url: 'https://www.youtube.com/watch?v=4EI33xMk0XA&list=PL8t968Ip0ARl1hHWBmjmOmV8AHR_0pz4H',
@@ -145,9 +138,9 @@ export default {
         },
         {
           icon: 'img/logo_circle.png',
-          title: 'Собирай копы как раз-два-три',
-          text: 'Собрать копу стало просто как никогда благодаря интернет-технологиям. Копы собираются и проводится строго по копному вживую или онлайн. Копный порядок очень эффективен и гарантирует достижение единогласных решений. А единогласное решение - залог совместного движения вперед.',
-          image: 'img/about/invite-kopa.png',
+          title: this.$t('about.articles[4].title'),
+          text: this.$t('about.articles[4].description'),
+          image: this.$t('about.articles[4].image'),
           action: {
             title: 'Подробнее',
             url: 'https://www.youtube.com/watch?v=gITir5b6LKA&list=PL8t968Ip0ARkKVp0rVqkK3DJ5VDi9nrZe&index=9&t=1s',
@@ -155,8 +148,8 @@ export default {
         },
         {
           icon: 'img/logo_circle.png',
-          title: 'Используй силу общины',
-          text: 'Используй силу копной общины, чтобы навести порядок во всем: в подъезде, во дворе, в городе, в стране и в мире. Живи богато и счастливо вместе с общиной. Ни один самый выдающийся человек не в состоянии преодолеть сложные препятствия. Только складывая наши усилия в общине и направляя их в одну сторону, можно добиться результата.',
+          title: this.$t('about.articles[5].title'),
+          text: this.$t('about.articles[5].description'),
           image: 'https://sun9-65.userapi.com/impg/EE430Hf1owr-9hPmjSr0WiUAw10miyveHtTfcA/-wAKyGOCpTY.jpg?size=2560x1007&quality=96&sign=aa3559405645a714881c5a9ed5b7c192&type=album',
           action: {
             title: 'Подробнее',
@@ -165,22 +158,17 @@ export default {
         },
         {
           icon: 'img/logo_circle.png',
-          title: 'Строй международные общины',
-          text: 'Не останавливайся на границах своего города или страны. Копник работает по всему миру и переведен на все славянские языки. Благодаря современным интернет-технологиям и тому, что Копное Право наша универсальная технология построения общин, нет ничего проще, чем собрать страновые копные славянские общины в одну глобальную копную славянскую общину.',
+          title: this.$t('about.articles[6].title'),
+          text: this.$t('about.articles[6].description'),
           image: 'img/about/global-obshina.png',
           action: {
             title: 'Подробнее',
             url: 'https://www.youtube.com/watch?v=_DovDGitYxg&t=11s',
           }
         },
-      ],
-      // https://www.megaflag.ru/information/spravochnaya-informaciya/flagi-stran
+      ]
     }
   },
-  props: {}
-  ,
-  computed: {}
-  ,
   watch: {
     'application.user':
 
