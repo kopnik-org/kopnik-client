@@ -16,7 +16,7 @@
       <v-spacer></v-spacer>
 
       <!--      языки-->
-      <v-menu v-if="!application.user"
+      <v-menu v-if="application.user===null"
         offset-y open-on-hover
         bottom
         left
