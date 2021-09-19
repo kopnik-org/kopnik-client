@@ -36,7 +36,7 @@
 
         <v-list>
           <!--          v-model="application.localeManager.currentLocale"-->
-          <v-list-item-group v-model="application.localeManager.currentLocale">
+          <v-list-item-group value="application.localeManager.currentLocale" @change="onLocaleChange($event)">
             <v-list-item v-for="eachLocale in application.localeManager.locales"
                          :value="eachLocale"
                          :key="eachLocale.locale"
@@ -127,6 +127,12 @@ export default {
     },
   },
   methods: {
+    onLocaleChange(event){
+      // особенность вьютифайных листов в том, что если второй раз выбрать тот же язык, то event почему-то будет undefined
+      if (event) {
+        application.localeManager.currentLocale = event
+      }
+    },
     getFlagImage(locale) {
       switch (locale.name) {
         case 'ru':
