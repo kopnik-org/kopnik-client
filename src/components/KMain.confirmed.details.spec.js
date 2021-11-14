@@ -10,6 +10,7 @@ import waitForExpect from "wait-for-expect";
 import KApp from "@/components/KApp/KApp";
 import Vue from "vue"
 import Application from "@/application/Application";
+import  "@/register-error-handlers";
 
 
 describe('components KMain confirmed details', () => {
@@ -44,6 +45,7 @@ describe('components KMain confirmed details', () => {
 
     const div = document.createElement('div')
     if (document.body) {
+      document.body.innerHTML = "";
       document.body.appendChild(div)
     }
 
@@ -60,6 +62,73 @@ describe('components KMain confirmed details', () => {
   })
   afterEach(()=>{
     appWrapper.destroy()
+  })
+
+  /**
+   * this test should be first to work (TODO: investigate it)
+   */
+  it('too ranked foreman', async () => {
+    other.rank= 100
+    main.selected = other
+    await flushPromises()
+
+    // await waitForExpect(async () => { s
+    // нажимаю на кнопку "на копу", которая помещает копника в список участников
+    await wrapper.findComponent({ref: 'toggleParticipant'}).trigger('click')
+    await flushPromises()
+    // нажимаю на кнопку "Созвать всех"
+    await wrapper.findComponent({ref: 'kopaAsk'}).trigger('click')
+    await flushPromises()
+
+    //теперь ввожу тему и проверяю что кнопка стала активна
+    main.kopa.subject='1234'
+    await flushPromises()
+
+    // нажимаю подтвердить
+    wrapper.findComponent({ref: 'kopaDialogOK'}).trigger('click')
+    await flushPromises()
+    await Vue.nextTick()
+
+    // проверяю что заявка обработалась, сообщение отобразилось и диалог скрылся
+    expect(appWrapper.html()).toContain(appWrapper.vm.$t('kopaDialog.tooRankedForemanError', {foremanName: other.name}))
+    expect(wrapper.vm.$refs.kopaDialog).not.toBeUndefined()
+  })
+
+  it('invite kopa', async () => {
+    user.foreman= other
+    other.rank=100
+    main.selected = other
+    await flushPromises()
+
+    // await waitForExpect(async () => { s
+    // нажимаю на кнопку "на копу", которая помещает копника в список участников
+    await wrapper.findComponent({ref: 'toggleParticipant'}).trigger('click')
+    await flushPromises()
+    // нажимаю на кнопку "Созвать всех"
+    await wrapper.findComponent({ref: 'kopaAsk'}).trigger('click')
+    await flushPromises()
+
+    // проверяю что открылся диалог копы
+    expect(wrapper.vm.$refs.kopaDialog.$data.isActive).toBeTruthy()
+    expect(appWrapper.html()).toContain(messages.ru.kopaDialog.title)
+
+    // проверяю что без темы не активна кнопка
+    expect(wrapper.findComponent({ref: 'kopaDialogOK'}).vm.$props.disabled).toBeTruthy()
+
+    //теперь ввожу тему и проверяю что кнопка стала активна
+    main.kopa.subject='1234'
+    await flushPromises()
+    expect(wrapper.findComponent({ref: 'kopaDialogOK'}).vm.$props.disabled).toBeFalsy()
+
+    // нажимаю подтвердить
+    fetch.mockIfEx(/inviteKopa/, 'OK')
+    wrapper.findComponent({ref: 'kopaDialogOK'}).trigger('click')
+    await flushPromises()
+    await Vue.nextTick()
+
+    // проверяю что заявка обработалась, сообщение отобразилось и диалог скрылся
+    expect(wrapper.vm.$refs.kopaDialog).toBeUndefined()
+    expect(appWrapper.html()).toContain(messages.ru.kopaDialog.afterInfo)
   })
 
   it('show on select', async () => {
@@ -148,42 +217,5 @@ describe('components KMain confirmed details', () => {
     expect(wrapper.vm.$refs.foremanDialog.$data.isActive).toBeFalsy()
   })
 
-  it('invite kopa', async () => {
-    main.selected = other
-    await flushPromises()
-
-    // await waitForExpect(async () => { s
-    // нажимаю на кнопку "на копу", которая помещает копника в список участников
-    await wrapper.findComponent({ref: 'toggleParticipant'}).trigger('click')
-    await flushPromises()
-    // нажимаю на кнопку "Созвать всех"
-    await wrapper.findComponent({ref: 'kopaAsk'}).trigger('click')
-    await flushPromises()
-
-    // проверяю что открылся диалог копы
-    expect(wrapper.vm.$refs.kopaDialog.$data.isActive).toBeTruthy()
-    expect(appWrapper.html()).toContain(messages.ru.kopaDialog.title)
-
-    // проверяю что без темы не активна кнопка
-    expect(wrapper.findComponent({ref: 'kopaDialogOK'}).vm.$props.disabled).toBeTruthy()
-
-    //теперь ввожу тему и проверяю что кнопка стала активна
-    main.kopa.subject='1234'
-    await flushPromises()
-    expect(wrapper.findComponent({ref: 'kopaDialogOK'}).vm.$props.disabled).toBeFalsy()
-
-    // нажимаю подтвердить
-    fetch.mockIfEx(/inviteKopa/, 'OK')
-    wrapper.findComponent({ref: 'kopaDialogOK'}).trigger('click')
-    await flushPromises()
-    await Vue.nextTick()
-
-    // проверяю что заявка обработалась, сообщение отобразилось и диалог скрылся
-    expect(wrapper.vm.$refs.kopaDialog).toBeUndefined()
-
-    expect(appWrapper.html()).toContain(messages.ru.kopaDialog.afterInfo)
-
-    expect(wrapper.vm.$refs.foremanDialog.$data.isActive).toBeFalsy()
-  })
 })
 

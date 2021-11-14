@@ -2,7 +2,7 @@ import {sync, collection, scalar, object} from '../decorators/sync'
 import AbstractSync from "./AbstractSync";
 import {KopnikError} from '../KopnikError'
 import Locale from "../locales/Locale";
-import {container} from "../bottle/bottle";
+import {bottle, container} from "../bottle/bottle";
 import api from "../api";
 import once from '../decorators/once'
 import parse from "@/models/utils/parse";
@@ -186,7 +186,7 @@ export default class Kopnik extends AbstractSync {
    * @param {AbstractSync[]} done обработанные объекты
    * @return {Kopnik}
    */
-  merge(set, done=[]) {
+  merge(set, done = []) {
     return super.merge(set, done)
   }
 
@@ -216,13 +216,13 @@ export default class Kopnik extends AbstractSync {
    * @return {Promise<void>}
    */
   async updateProfile(request, changeset) {
- /*   if (!request.passport) {
-      throw new KopnikError('Passport required')
-    }*/
+    /*   if (!request.passport) {
+         throw new KopnikError('Passport required')
+       }*/
     if (!request.location.lat || !request.location.lng) {
       throw new KopnikError('House location required')
     }
-    this.locale=  request.locale
+    this.locale = request.locale
 
     let promise = this.constructor.api("updateProfile", {
       method: 'POST',
@@ -483,6 +483,18 @@ export default class Kopnik extends AbstractSync {
    * @param {Kopa} kopa
    */
   async inviteKopa(kopa) {
+
+    kopa.participants.forEach(eachParticipant => {
+      if (eachParticipant.rank > this.rank * 10 && eachParticipant!==this.foreman){
+        // container.application.onerror(
+          throw new KopnikError(
+            container.application.getMessage('kopaDialog.tooRankedForemanError').replace(/{foremanName}/, eachParticipant.name),
+            500,
+          )
+        // )
+      }
+    })
+
     const result = await this.constructor.api(`inviteKopa`, {
       method: 'POST',
       body: {
