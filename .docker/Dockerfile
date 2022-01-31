@@ -1,4 +1,6 @@
 FROM node:latest
+ARG NODE_OPTIONS=--openssl-legacy-provider
+
 
 RUN git clone https://github.com/kopnik-org/kopnik-client app
 WORKDIR /app
