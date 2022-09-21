@@ -47,7 +47,7 @@
     "vue2-leaflet-geosearch": "^1.0.6",
     "vue2-leaflet-locatecontrol": "^1.0.1",
     "vue2-leaflet-polylinedecorator": "^2.0.1",
-    "vuetify": "^2.5.8"
+    "vuetify": "^2.6.10"
   },
   "devDependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",
